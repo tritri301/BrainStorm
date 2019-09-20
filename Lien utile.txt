@@ -1,0 +1,4 @@
+https://git-scm.com/downloads
+https://maven.apache.org/download.cgi
+https://www.jooq.org/doc/3.12/manual/getting-started/tutorials/jooq-in-7-steps/jooq-in-7-steps-step1/
+https://www.oracle.com/technetwork/java/javase/downloads/jdk12-downloads-5295953.html
