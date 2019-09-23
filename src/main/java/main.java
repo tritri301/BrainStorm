@@ -5,8 +5,8 @@ public class main
 {
     public static void main(String[] args)
     {
-        //bonsoir
-        try{
+        try
+        {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con= DriverManager.getConnection(
                     "jdbc:mysql://10.20.40.40:3306/EquipeTristan_BD","BrainStorm","info420");
