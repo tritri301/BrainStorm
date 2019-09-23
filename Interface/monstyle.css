@@ -1,0 +1,71 @@
+body{
+	background-image:url("background.jpg");
+}
+textarea {
+    max-width: 470px;
+}
+#conteneur {
+	width: 75%;
+	border: 2px solid #000000;
+	margin-top: 5%;
+}
+
+#sectionBlancMiniTest {
+	background-color: #FFFFFF;
+	color: #000000;
+}
+
+#logo {
+	text-align: left; 
+	font-size: 3em;
+	font-family: Stencil Std, fantasy;
+}
+
+#titre {
+	text-align: center; 
+	font-size: 3em;
+}
+
+#usager {
+	text-align: right; 
+}
+
+a.lienCoolPlay {
+	color: #000000;
+	text-decoration: none;
+}
+
+a.lienSousMenu {
+	color: #FFFFFF;
+	text-decoration: none;
+	font-family: Arial;
+}	
+
+#sectionSousMenu {
+	background-color: #FFFFFF;
+	color: #FFFFFF;
+	text-align: center; 
+}
+
+#sectionVerte {
+	background-color:#38761d;
+	color: #FFFFFF;
+	text-align: center; 
+}
+
+#sectionNoirDeux {
+	background-color: #000000;
+	color: #FFFFFF;
+	text-align: center; 
+}
+
+#sectionBlanc {
+	background-color: #FFFFFF;
+	color: #000000;
+}
+
+#conteneurFormulaire {
+	background-color: #FFFFFF;
+	color: #000000;
+	.justify-content-md-center
+}
