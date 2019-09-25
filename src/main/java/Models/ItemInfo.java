@@ -8,7 +8,6 @@ public class ItemInfo
     private int poids;
     private int Volume;
 
-
     public int getIdItemInfo() {
         return idItemInfo;
     }
