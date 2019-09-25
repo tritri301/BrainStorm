@@ -1,7 +1,7 @@
 package Repositories;
 
 import Repositories.Interfaces.UserRepositoryInterface;
-import models.User;
+import Models.User;
 
 public class UserRepository implements UserRepositoryInterface {
     @Override

@@ -1,47 +1,17 @@
 package Factory;
 
+import Models.Item;
+
 public class ItemFactory {
-    int idItem;
-    int idIteminfo;
-    int idContainer;
-    String description;
 
-    public ItemFactory(int idItem, int idIteminfo, int idContainer, String description) {
-        this.idItem = idItem;
-        this.idIteminfo = idIteminfo;
-        this.idContainer = idContainer;
-        this.description = description;
-    }
+    private Item create (int idItem, int idItemInfo, int idContainer, String description) {
+        Item ret = new Item();
 
-    public void setIdItem(int idItem) {
-        this.idItem = idItem;
-    }
+        ret.setIdItem(idItem);
+        ret.setIdItemInfo(idItemInfo);
+        ret.setIdContainer(idContainer);
+        ret.setDescription(description);
 
-    public void setIdIteminfo(int idIteminfo) {
-        this.idIteminfo = idIteminfo;
-    }
-
-    public void setIdContainer(int idContainer) {
-        this.idContainer = idContainer;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public int getIdItem() {
-        return idItem;
-    }
-
-    public int getIdIteminfo() {
-        return idIteminfo;
-    }
-
-    public int getIdContainer() {
-        return idContainer;
-    }
-
-    public String getDescription() {
-        return description;
+        return ret;
     }
 }

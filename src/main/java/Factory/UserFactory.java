@@ -3,7 +3,7 @@ package Factory;
 import Models.User;
 
 public class UserFactory {
-    public User create(short id,String nom,String password,String dateCreation,short acces){
+    private User create(short id,String nom,String password,String dateCreation,short acces){
         User ret = new User();
 
         ret.setIdUser(id);
