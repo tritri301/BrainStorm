@@ -3,6 +3,9 @@ package Services;
 import Services.Interfaces.UserServiceInterface;
 import Models.User;
 
+/**
+ * The type User service.
+ */
 public class UserService implements UserServiceInterface {
 
 

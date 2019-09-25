@@ -1,8 +1,12 @@
 package Services;
 
+import Repositories.ContainerRepository;
 import Services.Interfaces.ContainerServiceInterface;
 import Models.Container;
 
+/**
+ * The type Container service.
+ */
 public class ContainerService implements ContainerServiceInterface {
     @Override
     public Container FindById(int id) {

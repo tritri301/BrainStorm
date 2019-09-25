@@ -3,6 +3,9 @@ package Services;
 import Services.Interfaces.ItemInfoServiceInterface;
 import Models.ItemInfo;
 
+/**
+ * The type Item info service.
+ */
 public class ItemInfoService implements ItemInfoServiceInterface {
     @Override
     public ItemInfo FindById(int id) {
