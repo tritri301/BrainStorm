@@ -5,7 +5,6 @@ import java.sql.*;
 import Factory.ItemFactory;
 import Repositories.Interfaces.ItemRepositoryInterface;
 import Models.Item;
-import sun.security.jca.GetInstance;
 
 public class ItemRepository implements ItemRepositoryInterface {
     private Statement stmt;
@@ -42,7 +41,7 @@ public class ItemRepository implements ItemRepositoryInterface {
     public Item Create(Item itemToAdd) {
         return null;
     }
-    public ItemRepository GetInstance()
+    public static ItemRepository GetInstance()
     {
         return instance;
     }
