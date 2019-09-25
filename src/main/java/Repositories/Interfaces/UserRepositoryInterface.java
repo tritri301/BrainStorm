@@ -1,6 +1,6 @@
 package Repositories.Interfaces;
 
-import models.User;
+import Models.User;
 
 public interface UserRepositoryInterface {
     User FindById(int id);

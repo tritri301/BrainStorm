@@ -1,7 +1,7 @@
 package Repositories;
 
 import Repositories.Interfaces.ItemRepositoryInterface;
-import models.Item;
+import Models.Item;
 
 public class ItemRepository implements ItemRepositoryInterface {
     @Override

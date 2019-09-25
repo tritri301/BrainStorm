@@ -1,6 +1,6 @@
 package Repositories.Interfaces;
 
-import models.Item;
+import Models.Item;
 
 public interface ItemRepositoryInterface {
     Item FindById(int id);

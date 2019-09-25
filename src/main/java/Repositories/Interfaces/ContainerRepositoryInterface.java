@@ -1,6 +1,6 @@
 package Repositories.Interfaces;
 
-import models.Container;
+import Models.Container;
 
 public interface ContainerRepositoryInterface {
     Container FindById(int id);
