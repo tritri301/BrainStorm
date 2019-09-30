@@ -8,6 +8,8 @@ import Models.User;
  */
 public class UserService implements UserServiceInterface {
 
+    private static final UserService instance = new UserService();
+    private UserRepository userRepository = UserRepository.GetInstance();
 
     @Override
     public User FindById(int id) {
@@ -32,5 +34,10 @@ public class UserService implements UserServiceInterface {
     @Override
     public User Delete(int id) {
         return null;
+    }
+
+    public static UserService GetInstance()
+    {
+        return instance;
     }
 }

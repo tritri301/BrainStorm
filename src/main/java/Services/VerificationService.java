@@ -6,6 +6,9 @@ import Services.Interfaces.VerificationServiceInterface;
  * The type Verification service.
  */
 public class VerificationService implements VerificationServiceInterface {
+
+    private static final VerificationService instance = new VerificationService();
+
     @Override
     public boolean verifierId(int id) {
         return false;
@@ -34,5 +37,10 @@ public class VerificationService implements VerificationServiceInterface {
     @Override
     public boolean verifierDescription(String description) {
         return false;
+    }
+
+    public static VerificationService GetInstance()
+    {
+        return instance;
     }
 }
