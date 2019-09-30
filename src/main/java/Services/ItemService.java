@@ -9,6 +9,7 @@ import Models.Item;
  */
 public class ItemService implements ItemServiceInterface {
 
+    private static final ItemService instance = new ItemService();
     private ItemRepository itemRepository = ItemRepository.GetInstance();
 
     @Override
@@ -42,5 +43,10 @@ public class ItemService implements ItemServiceInterface {
     @Override
     public Item Delete(int id) {
         return null;
+    }
+
+    public static ItemService GetInstance()
+    {
+        return instance;
     }
 }
