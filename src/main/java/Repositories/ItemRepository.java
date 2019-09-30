@@ -16,33 +16,29 @@ public class ItemRepository implements ItemRepositoryInterface {
     @Override
     public Item FindById(int id) throws Exception{
         ResultSet rs = stmt.executeQuery("select * from item where IdItem = " + id);
-        itemFactory.Create(rs.getInt("IdItem"), );
+        return itemFactory.Create(rs.getInt(0), rs.getInt(1), rs.getInt(2), rs.getString(3));
     }
 
     @Override
-    public Item[] FindAll() {
+    public Item[] FindAll() throws Exception {
         return new Item[0];
     }
-    public Item FindByName() {
 
-    }
-    public Item[] FindByKeyword(){
-
-    }
     @Override
-    public void Update(Item newItem) {
+    public void Update(int id) throws Exception {
 
     }
 
     @Override
-    public void Delete(int id) {
+    public void Delete(int id) throws Exception {
 
     }
 
     @Override
-    public Item Create(Item itemToAdd) {
+    public Item Create(Item itemToAdd) throws Exception {
         return null;
     }
+
     public static ItemRepository GetInstance() {
         return instance;
     }
