@@ -16,7 +16,7 @@ public class test extends Application{
     public void start (Stage stage) throws Exception{
         WebView myWebView = new WebView();
         WebEngine engine = myWebView.getEngine();
-        engine.load("file:///C:/Users/BOUJ175787/Documents/IntelliJ/BrainStorm/Interface/index.html");
+        engine.load("file:///C:/Users/cout840400/IdeaProjects/BrainStorm_Inventaire/Interface/index.html");
         Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         double width = screenSize.getWidth()-10;
         double height = screenSize.getHeight()-100;

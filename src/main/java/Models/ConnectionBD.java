@@ -8,15 +8,14 @@ public class ConnectionBD
 {
     private static final ConnectionBD instance = new ConnectionBD();
     private Exception ConnectionFailed = null;
-    private Statement stmt;
+    private Connection con;
 
     public ConnectionBD() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection(
-                    "jdbc:mysql://10.20.40.40:3306/EquipeTristan_BD", "BrainStorm", "info420");
+            con = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/bd_louis?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", "root", "info420");
 
-            this.stmt = con.createStatement();
         } catch(Exception e){
             this.ConnectionFailed = e;
         }
@@ -27,8 +26,8 @@ public class ConnectionBD
     }
 
 
-    public Statement GetStatement(){
-        return this.stmt;
+    public Connection GetConnection(){
+        return this.con;
     }
     public static ConnectionBD GetInstance() {
     return instance;
