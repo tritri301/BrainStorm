@@ -60,7 +60,7 @@ public class ItemService implements ItemServiceInterface {
         if (connectionBD == null)
         {
             try {
-               // item = this.itemRepository.FindByName(id);
+               item = this.itemRepository.FindByName(name);
             } catch (Exception e) {
                 e.printStackTrace();
             }
