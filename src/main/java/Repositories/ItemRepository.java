@@ -2,21 +2,17 @@ package Repositories;
 
 import java.sql.*;
 
-import Factory.ItemFactory;
+import Models.ConnectionBD;
 import Repositories.Interfaces.ItemRepositoryInterface;
 import Models.Item;
 
 public class ItemRepository implements ItemRepositoryInterface {
-    private Statement stmt;
     private static final ItemRepository instance = new ItemRepository();
+    private ConnectionBD BD = ConnectionBD.GetInstance();
+    private Statement stmt = BD.GetStatement();
 
-
-    public void SetConnection(Connection con) throws Exception {
-        stmt = con.createStatement();
-    }
     @Override
     public Item FindById(int id) throws Exception{
-
         ResultSet rs = stmt.executeQuery("select * from item where IdItem = " + id);
         rs.getInt("IdItem");
         return new Item();
