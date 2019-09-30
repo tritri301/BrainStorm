@@ -6,6 +6,9 @@ import Models.User;
  * The type User factory.
  */
 public class UserFactory {
+
+    private static final UserFactory instance =new UserFactory();
+
     private User create(short id,String nom,String password,String dateCreation,short acces){
         User ret = new User();
 
@@ -17,4 +20,6 @@ public class UserFactory {
 
         return ret;
     }
+
+    public static UserFactory GetInstance(){return instance;}
 }

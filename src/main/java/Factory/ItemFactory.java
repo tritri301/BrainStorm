@@ -6,6 +6,9 @@ import Models.Item;
  * The type Item factory.
  */
 public class ItemFactory {
+
+    private static final ItemFactory instance = new ItemFactory();
+
     private Item create (int idItem, int idItemInfo, int idContainer, String description) {
         Item ret = new Item();
 
@@ -16,4 +19,5 @@ public class ItemFactory {
 
         return ret;
     }
+    public static ItemFactory GetInstance(){ return instance;}
 }
