@@ -26,7 +26,7 @@ public class UserRepository implements UserRepositoryInterface {
     }
 
     @Override
-    public User Create(User UserToAdd) {
+    public User Create(User userToAdd) {
         return null;
     }
     public static UserRepository GetInstance() {

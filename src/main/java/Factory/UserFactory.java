@@ -9,7 +9,7 @@ public class UserFactory {
 
     private static final UserFactory instance =new UserFactory();
 
-    private User create(short id,String nom,String password,String dateCreation,short acces){
+    public User Create(short id,String nom,String password,String dateCreation,short acces){
         User ret = new User();
 
         ret.setIdUser(id);

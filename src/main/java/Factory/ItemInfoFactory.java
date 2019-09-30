@@ -9,7 +9,7 @@ public class ItemInfoFactory {
 
     private static final ItemInfoFactory instance = new ItemInfoFactory();
 
-    private ItemInfo create(int idItem, String description, String nom, int poids, int volume) {
+    public ItemInfo Create(int idItem, String description, String nom, int poids, int volume) {
         ItemInfo ret= new ItemInfo();
 
         ret.setIdItemInfo(idItem);
