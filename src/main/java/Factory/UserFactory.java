@@ -2,6 +2,9 @@ package Factory;
 
 import Models.User;
 
+/**
+ * The type User factory.
+ */
 public class UserFactory {
     private User create(short id,String nom,String password,String dateCreation,short acces){
         User ret = new User();
