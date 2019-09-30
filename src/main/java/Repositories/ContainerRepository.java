@@ -5,6 +5,7 @@ import Models.Container;
 
 public class ContainerRepository implements ContainerRepositoryInterface
 {
+    private static final ContainerRepository instance = new ContainerRepository();
     @Override
     public Container FindById(int id) {
         return null;
@@ -28,5 +29,8 @@ public class ContainerRepository implements ContainerRepositoryInterface
     @Override
     public Container Create(Container ContainerToAdd) {
         return null;
+    }
+    public static ContainerRepository GetInstance() {
+        return instance;
     }
 }

@@ -37,8 +37,7 @@ public class ItemRepository implements ItemRepositoryInterface {
     public Item Create(Item itemToAdd) {
         return null;
     }
-    public static ItemRepository GetInstance()
-    {
+    public static ItemRepository GetInstance() {
         return instance;
     }
 }

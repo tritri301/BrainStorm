@@ -4,6 +4,7 @@ import Repositories.Interfaces.ItemInfoRepositoryInterface;
 import Models.ItemInfo;
 
 public class ItemInfoRepository implements ItemInfoRepositoryInterface {
+    private static final ItemInfoRepository instance = new ItemInfoRepository();
     @Override
     public ItemInfo FindById(int id) {
         return null;
@@ -27,5 +28,8 @@ public class ItemInfoRepository implements ItemInfoRepositoryInterface {
     @Override
     public ItemInfo Create(ItemInfo itemInfoToAdd) {
         return null;
+    }
+    public static ItemInfoRepository GetInstance() {
+        return instance;
     }
 }
