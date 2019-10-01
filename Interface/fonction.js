@@ -7,3 +7,7 @@ function afficheDate(){
 	 mois[aujourdhui.getMonth()] + " " + aujourdhui.getFullYear(); 
 	document.writeln(result);
 }
+function exit()
+{
+    window.JavaApp.exit();
+}

@@ -51,7 +51,7 @@ class Browser extends BorderPane {
                         if (newValue != Worker.State.SUCCEEDED) { return; }
 
                         JSObject window = (JSObject) webEngine.executeScript("window");
-                        window.setMember("myObject", new JavaApp());
+                        window.setMember("JavaApp", new JavaApp());
                     }
                 });
 
@@ -60,10 +60,8 @@ class Browser extends BorderPane {
     }
     // JavaScript interface object
     public class JavaApp {
-
         public void exit() {
             Platform.exit();
-
         }
     }
 }
