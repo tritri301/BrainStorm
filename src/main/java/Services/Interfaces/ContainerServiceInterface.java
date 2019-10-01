@@ -2,6 +2,8 @@ package Services.Interfaces;
 
 import Models.Container;
 
+import java.util.List;
+
 /**
  * The interface Container service interface.
  */
@@ -14,6 +16,8 @@ public interface ContainerServiceInterface {
      * @return the container
      */
     public Container FindById(int id);
+
+    public List<Container> FindAll();
 
     /**
      * Find by name container.

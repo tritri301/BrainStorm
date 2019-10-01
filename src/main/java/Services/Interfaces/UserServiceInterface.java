@@ -2,6 +2,8 @@ package Services.Interfaces;
 
 import Models.User;
 
+import java.util.List;
+
 /**
  * The interface User service interface.
  */
@@ -13,6 +15,7 @@ public interface UserServiceInterface {
      * @return the user
      */
     public User FindById(int id);
+    public List<User> FindAll();
 
     /**
      * Find by name user.
