@@ -21,13 +21,16 @@ public class ItemRepository implements ItemRepositoryInterface {
     }
 
     @Override
-    public void Update(Item itemToUpdate) throws Exception {
-
-    }
-
-    @Override
-    public Item FindByName(String name) throws Exception{
-        return new Item();
+    public List<Item> FindByName(String name) throws Exception{
+        List<Item> item = new ArrayList<>();
+        PreparedStatement stmt = con.prepareStatement("select item.* from item, itemInfo where itemInfo.idItemInfo = item.idItemInfo and nom = ?");
+        stmt.setString(1, name);
+        ResultSet rs = stmt.executeQuery();
+        while(rs.next())
+        {
+            item.add(itemFactory.Create(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(4)));
+        }
+        return item;
     }
 
     @Override
@@ -40,14 +43,14 @@ public class ItemRepository implements ItemRepositoryInterface {
 
     @Override
     public List<Item> FindAll() throws Exception {
-        List<Item> newItem = new ArrayList<>();
+        List<Item> item = new ArrayList<>();
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery("select * from item");
         while(rs.next())
         {
-            newItem.add(itemFactory.Create(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(4)));
+            item.add(itemFactory.Create(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(4)));
         }
-        return newItem;
+        return item;
     }
 
     @Override
@@ -63,6 +66,16 @@ public class ItemRepository implements ItemRepositoryInterface {
         stmt.setInt(2, itemToAdd.getIdItemInfo());
         stmt.setInt(3, itemToAdd.getIdContainer());
         stmt.setString(4, itemToAdd.getDescription());
+
+        stmt.execute();
+    }
+
+    @Override
+    public void Update(Item itemToUpdate) throws Exception {
+        PreparedStatement stmt = con.prepareStatement("update item set idItemInfo = ?, idContainer = ?, description = ? where idItem = " + itemToUpdate.getIdItem());
+        stmt.setInt(1, itemToUpdate.getIdItemInfo());
+        stmt.setInt(2, itemToUpdate.getIdContainer());
+        stmt.setString(3, itemToUpdate.getDescription());
 
         stmt.execute();
     }

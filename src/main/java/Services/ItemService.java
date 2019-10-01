@@ -39,7 +39,7 @@ public class ItemService implements ItemServiceInterface {
     }
 
     @Override
-    public Item[] FindAll() {
+    public List<Item> FindAll() {
         List<Item> item = new ArrayList<Item>();
         if (connectionBD == null)
         {
@@ -54,12 +54,12 @@ public class ItemService implements ItemServiceInterface {
             //erreur de connection BD
         }
 
-        return new Item[0];
+        return new ArrayList<>();
     }
 
     @Override
-    public Item FindByName(String name) {
-        Item item = null;
+    public List<Item> FindByName(String name) {
+        List<Item> item = new ArrayList<Item>();
         if (connectionBD.GetConnectionStatus() == null)
         {
             try {

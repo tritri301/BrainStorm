@@ -11,10 +11,10 @@ public class main
         ItemRepository Repo = ItemRepository.GetInstance();
         ItemFactory Facto = ItemFactory.GetInstance();
 
-        Item newItem = Facto.Create(1, 1, 1, "test");
+        Item item = Facto.Create(1, 1, 1, "Un clou modifié");
 
         try {
-            System.out.println(Repo.FindById(1).getDescription());
+            Item newItem = Repo.FindByName("Clou").get(0);
         } catch (Exception e) {
             System.out.println(e.toString());
         }

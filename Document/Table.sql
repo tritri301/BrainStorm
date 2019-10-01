@@ -28,4 +28,10 @@ create table item(
 );
 insert into container values('1', null, null, null, null, null);
 insert into itemInfo values('1', 'bleu', 'clou', '1', '1');
-insert into item values('1', '1', '1', null);
+insert into itemInfo values('2', 'bleu', 'chaussure', '1', '1');
+insert into itemInfo values('3', 'bleu', 'ordinateur', '1', '1');
+insert into itemInfo values('4', 'bleu', 'vis', '1', '1');
+insert into item values('1', '1', '1', 'Clou avec un bout piquant');
+insert into item values('2', '1', '1', 'Clou pas piquant');
+insert into item values('3', '3', '1', null);
+insert into item values('4', '2', '1', null);

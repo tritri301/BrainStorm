@@ -2,6 +2,8 @@ package Services.Interfaces;
 
 import Models.Item;
 
+import java.util.List;
+
 /**
  * The interface Item service interface.
  */
@@ -14,7 +16,7 @@ public interface ItemServiceInterface {
      */
     public Item FindById(int id);
 
-    public Item[] FindAll();
+    public List<Item> FindAll();
 
     /**
      * Find by name item.
@@ -22,7 +24,7 @@ public interface ItemServiceInterface {
      * @param name the name
      * @return the item
      */
-    public Item FindByName(String name);
+    public List<Item> FindByName(String name);
 
     /**
      * Update item.
