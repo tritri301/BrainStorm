@@ -56,7 +56,7 @@ class Browser extends BorderPane {
                 });
 
         // load the home page
-        webEngine.load("file:///C:/Users/cout840400/IdeaProjects/BrainStorm_Inventaire/Interface/index.html");
+        webEngine.load("file:///" + System.getProperty("user.dir") + "/Interface/index.html");
     }
     // JavaScript interface object
     public class JavaApp {

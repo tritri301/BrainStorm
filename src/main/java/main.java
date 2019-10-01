@@ -14,7 +14,8 @@ public class main
         Item item = Facto.Create(1, 1, 1, "Un clou modifié");
 
         try {
-            Item newItem = Repo.FindByName("Clou").get(0);
+            String currentDirectory = System.getProperty("user.dir");
+            System.out.println("The current working directory is " + currentDirectory);
         } catch (Exception e) {
             System.out.println(e.toString());
         }
