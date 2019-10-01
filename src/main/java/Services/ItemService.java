@@ -6,6 +6,9 @@ import Repositories.ItemRepository;
 import Services.Interfaces.ItemServiceInterface;
 import Models.Item;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * The type Item service.
  */
@@ -37,7 +40,7 @@ public class ItemService implements ItemServiceInterface {
 
     @Override
     public Item[] FindAll() {
-        Item item[] = null;
+        List<Item> item = new ArrayList<Item>();
         if (connectionBD == null)
         {
             try {
@@ -57,7 +60,7 @@ public class ItemService implements ItemServiceInterface {
     @Override
     public Item FindByName(String name) {
         Item item = null;
-        if (connectionBD == null)
+        if (connectionBD.GetConnectionStatus() == null)
         {
             try {
                item = this.itemRepository.FindByName(name);

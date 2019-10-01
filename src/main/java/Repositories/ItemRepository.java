@@ -1,6 +1,8 @@
 package Repositories;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import Factory.ItemFactory;
 import Models.ConnectionBD;
@@ -24,8 +26,8 @@ public class ItemRepository implements ItemRepositoryInterface {
     }
 
     @Override
-    public Item FindByName(String name) {
-        return null;
+    public Item FindByName(String name) throws Exception{
+        return new Item();
     }
 
     @Override
@@ -37,13 +39,21 @@ public class ItemRepository implements ItemRepositoryInterface {
     }
 
     @Override
-    public Item[] FindAll() throws Exception {
-        return new Item[0];
+    public List<Item> FindAll() throws Exception {
+        List<Item> newItem = new ArrayList<>();
+        Statement stmt = con.createStatement();
+        ResultSet rs = stmt.executeQuery("select * from item");
+        while(rs.next())
+        {
+            newItem.add(itemFactory.Create(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(4)));
+        }
+        return newItem;
     }
 
     @Override
     public void Delete(int id) throws Exception {
-
+        PreparedStatement stmt = con.prepareStatement("delete from item where idItem = " + id);
+        stmt.execute();
     }
 
     @Override
