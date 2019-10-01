@@ -24,6 +24,11 @@ public class ItemRepository implements ItemRepositoryInterface {
     }
 
     @Override
+    public Item FindByName(String name) {
+        return null;
+    }
+
+    @Override
     public Item FindById(int id) throws Exception{
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery("select * from item where idItem = " + id);

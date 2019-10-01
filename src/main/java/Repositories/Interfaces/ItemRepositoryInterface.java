@@ -4,6 +4,7 @@ import Models.Item;
 
 public interface ItemRepositoryInterface {
     Item FindById(int id) throws Exception;
+    Item FindByName(String name);
     Item[] FindAll() throws Exception;
     void Update(Item itemToUpdate) throws Exception;
     void Delete(int id) throws Exception;
