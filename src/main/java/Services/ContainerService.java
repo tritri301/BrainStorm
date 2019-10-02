@@ -22,6 +22,9 @@ public class ContainerService implements ContainerServiceInterface {
 
     @Override
     public Container FindById(int id) {
+
+        //verification
+
         Container container = null;
         if (connectionBD == null)
         {
@@ -60,6 +63,9 @@ public class ContainerService implements ContainerServiceInterface {
 
     @Override
     public List<Container> FindByName(String name) {
+
+        //verification
+
         List<Container> container = new ArrayList<Container>();
         if (connectionBD.GetConnectionStatus() == null)
         {
@@ -130,6 +136,8 @@ public class ContainerService implements ContainerServiceInterface {
     @Override
     public boolean Delete(int id) {
         boolean valide = true;
+
+        //verification
 
         if (connectionBD == null)
         {

@@ -21,6 +21,9 @@ public class ItemInfoService implements ItemInfoServiceInterface {
 
     @Override
     public ItemInfo FindById(int id) {
+
+        //verification
+
         ItemInfo itemInfo = null;
         if (connectionBD == null)
         {
@@ -59,6 +62,9 @@ public class ItemInfoService implements ItemInfoServiceInterface {
 
     @Override
     public List<ItemInfo> FindByName(String name) {
+
+        //verification
+
         List<ItemInfo> itemInfo = new ArrayList<ItemInfo>();
         if (connectionBD.GetConnectionStatus() == null)
         {
@@ -128,6 +134,8 @@ public class ItemInfoService implements ItemInfoServiceInterface {
     @Override
     public boolean Delete(int id) {
         boolean valide = true;
+
+        //verification
 
         if (connectionBD == null)
         {

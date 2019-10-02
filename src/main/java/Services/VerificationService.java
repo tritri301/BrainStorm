@@ -11,32 +11,57 @@ public class VerificationService implements VerificationServiceInterface {
 
     @Override
     public boolean verifierId(int id) {
-        return false;
+        boolean valide = false;
+
+        if (id >= 1) {
+            valide = true;
+        }
+
+        return valide;
     }
 
     @Override
     public boolean verifierNom(String nom) {
-        return false;
+        boolean valide = true;
+
+        /**
+        for (char ch: nom.toCharArray()) {
+            if ((ch == ';') || (ch == ' ') || (ch == ',') )
+            {
+                valide = false;
+            }
+        }
+         **/
+
+
+
+
+
+        return valide;
     }
 
     @Override
     public boolean verifierPassword(String password) {
-        return false;
+        boolean valide = false;
+        return valide;
     }
 
     @Override
     public boolean verifierDate(String date) {
-        return false;
+        boolean valide = false;
+        return valide;
     }
 
     @Override
     public boolean verifierAcces(int acces) {
-        return false;
-    }
+        boolean valide = false;
+        return valide;
+}
 
     @Override
     public boolean verifierDescription(String description) {
-        return false;
+        boolean valide = false;
+        return valide;
     }
 
     public static VerificationService GetInstance()
