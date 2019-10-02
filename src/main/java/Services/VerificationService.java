@@ -2,6 +2,9 @@ package Services;
 
 import Services.Interfaces.VerificationServiceInterface;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * The type Verification service.
  */
@@ -22,27 +25,30 @@ public class VerificationService implements VerificationServiceInterface {
 
     @Override
     public boolean verifierNom(String nom) {
-        boolean valide = true;
+        boolean valide = false;
 
-        /**
-        for (char ch: nom.toCharArray()) {
-            if ((ch == ';') || (ch == ' ') || (ch == ',') )
-            {
-                valide = false;
-            }
+        String regex = "^[a-zA-Z0-9]+$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(nom);
+
+        if (matcher.matches())
+        {
+            valide = true;
         }
-         **/
-
-
-
-
-
         return valide;
     }
 
     @Override
     public boolean verifierPassword(String password) {
-        boolean valide = false;
+        boolean valide = true;
+
+         for (char ch: password.toCharArray()) {
+             if ((ch == ';') || (ch == ' ') || (ch == ',')) {
+                 valide = false;
+                 break;
+             }
+         }
+
         return valide;
     }
 
