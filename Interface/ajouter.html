@@ -21,10 +21,10 @@ But du fichier :    Afficher le menu du site
 <div class="container-fluid" id="conteneur">
 	<div class="row" id="sectionBlancMiniTest" width="100%">
 		<div class="col-10" id="logo"><a href="index.html" class="lienCoolPlay">Cool Play inc.</a></div>
-		<div class="col-2" id="usager">Usager <br><i><a href="">Déconnexion</a></i></div>
+		<div class="col-sm" id="usager"><p class="p1">Usager <br><i><a href="">Déconnexion</a></i></p></div>
 	</div>
   	<div class="row" id="sectionSousMenu">
-		<a href="ajouter.html" class="lienSousMenu"><img src="bouton_ajouter.png"/></a>
+		<a href="ajouter.html" class="lienSousMenu" onclick="Test();"><img src="bouton_ajouter.png"/></a>
 		<a href="supprimer.html" class="lienSousMenu"><img src="bouton_supprimer.png"/></a>
 		<a href="deplacer.html" class="lienSousMenu"><img src="bouton_deplacer.png"/></a>
 		<a href="modifier.html" class="lienSousMenu"><img src="bouton_modifier.png"/></a>
@@ -62,13 +62,14 @@ But du fichier :    Afficher le menu du site
 					<input type="text" class="form-control" id="id" placeholder="Id">
 					  </div>
 				  </div>
-				  <div class="form-group">
-					<div class="col-sm-offset-5">
-						<button type="submit" class="btn btn-default" onclick="list()">Rechercher</button>
-						<button type="reset" class="btn btn-default">Annuler</button>
-					</div>
-				</div>
+
 				</form>
+			<div class="form-group">
+				<div class="col-sm-offset-5">
+					<button onclick="list();" class="btn btn-default" >Rechercher</button>
+					<button type="reset" class="btn btn-default">Annuler</button>
+				</div>
+			</div>
 			<br>
 			<!--Table-->
 		<table id="tablePreview" class="table table-bordered">
@@ -84,28 +85,8 @@ But du fichier :    Afficher le menu du site
 		  </thead>
 		  <!--Table head-->
 		  <!--Table body-->
-		  <tbody>
-			<tr>
-			  <th scope="row">1</th>
-			  <td></td>
-			  <td></td>
-			  <td></td>
-			  <td></td>
-			</tr>
-			<tr>
-			  <th scope="row">2</th>
-			  <td></td>
-			  <td></td>
-			  <td></td>
-			  <td></td>
-			</tr>
-			<tr>
-			  <th scope="row">3</th>
-			  <td></td>
-			  <td></td>
-			  <td></td>
-			  <td></td>
-			</tr>
+		  <tbody id="table1">
+
 		  </tbody>
 		  <!--Table body-->
 		</table>
@@ -113,7 +94,7 @@ But du fichier :    Afficher le menu du site
 		</div>
 	</div>
 	<div class="row" id="sectionVerte"> 
-		<div class="col"<br>
+		<div class="col"><br>
 			<p class="text-center">2019 - Tous droits réservés</p>
 		</div>
 		<br>	

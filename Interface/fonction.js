@@ -45,17 +45,17 @@ function list()
 {
     window.JavaApp.list();
 }
-function Test()
+function ShowItem(idItem, idItemInfo, idContainer, Description)
 {
     var row = document.createElement("tr");
     var column1 = document.createElement("td");
     var column2 = document.createElement("td");
     var column3 = document.createElement("td");
     var column4 = document.createElement("td");
-    column1.innerHTML = "test1";
-    column2.innerHTML = "test2";
-    column3.innerHTML = "test3";
-    column4.innerHTML = "test4";
+    column1.innerHTML = idItem;
+    column2.innerHTML = idItemInfo;
+    column3.innerHTML = idContainer;
+    column4.innerHTML = Description;
     row.appendChild(column1);
     row.appendChild(column2);
     row.appendChild(column3);
