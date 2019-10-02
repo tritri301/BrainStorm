@@ -5,6 +5,7 @@ import Models.ConnectionBD;
 import Repositories.UserRepository;
 import Services.Interfaces.UserServiceInterface;
 import Models.User;
+import Exception.*;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -25,7 +26,7 @@ public class UserService implements UserServiceInterface {
     private VerificationService verificationService = VerificationService.GetInstance();
 
     @Override
-    public User FindById(int id) {
+    public User FindById(int id) throws ExceptionCustom {
         User user = null;
         if (this.verificationService.verifier(id)) {
             if (connection == null) {
@@ -33,12 +34,16 @@ public class UserService implements UserServiceInterface {
                     user = this.userRepository.FindById(id);
                 } catch (Exception e) {
                     e.printStackTrace();
+                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd" + e.toString());
+                    throw exceptionErreurBD;
                 }
             } else {
-                //erreur de connection BD
+                ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de connection a la base de données");
+                throw exceptionErreurBD;
             }
         }else{
-            //donnée entré non valide
+            ExceptionCustom exceptionErreurBD = new ExceptionCustom("Données de saisies invalide");
+            throw exceptionErreurBD;
         }
 
         return user;
@@ -84,7 +89,7 @@ public class UserService implements UserServiceInterface {
     }
 
     @Override
-    public boolean Update(short id,String nom,String password,short acces) {
+    public boolean Update(short id,String nom,String password,short acces) throws ExceptionCustom {
 
         boolean valide = this.verificationService.verifier(id,acces);
         if (valide)

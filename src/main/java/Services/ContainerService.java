@@ -5,11 +5,9 @@ import Models.ConnectionBD;
 import Repositories.ContainerRepository;
 import Services.Interfaces.ContainerServiceInterface;
 import Models.Container;
-import javafx.util.Pair;
+import Exception.*;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.EventListener;
 import java.util.List;
 
 /**
@@ -23,10 +21,10 @@ public class ContainerService implements ContainerServiceInterface {
     private ConnectionBD connectionBD = ConnectionBD.GetInstance();
     private Object connection = this.connectionBD.GetConnectionStatus();
     private VerificationService verificationService = VerificationService.GetInstance();
-    private String status = "Ok";
+
 
     @Override
-    public Container FindById(int id) {
+    public Container FindById(int id) throws ExceptionCustom {
         Container container = null;
         if (this.verificationService.verifier(id)) {
             if (connection == null) {
@@ -34,14 +32,17 @@ public class ContainerService implements ContainerServiceInterface {
                     container = this.containerRepository.FindById(id);
                 } catch (Exception e) {
                     e.printStackTrace();
-                    status ="erreur de BD";
+                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd" + e.toString());
+                    throw exceptionErreurBD;
                 }
             } else {
-                status ="erreur de connection BD";
+                ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de connection a la base de données");
+                throw exceptionErreurBD;
             }
         }
         else{
-            status="donnée entré non valide";
+            ExceptionCustom exceptionErreurBD = new ExceptionCustom("Données de saisies invalide");
+            throw exceptionErreurBD;
             }
 
         return container;
@@ -90,7 +91,7 @@ public class ContainerService implements ContainerServiceInterface {
     **/
 
     @Override
-    public boolean Update(int idContainer, int quantite, int position, int volume, int poidsMax, int containerParent) {
+    public boolean Update(int idContainer, int quantite, int position, int volume, int poidsMax, int containerParent) throws ExceptionCustom {
 
         boolean valide = this.verificationService.verifier(idContainer,quantite,position,volume,poidsMax,containerParent);
 

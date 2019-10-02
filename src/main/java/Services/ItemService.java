@@ -5,6 +5,7 @@ import Models.ConnectionBD;
 import Repositories.ItemRepository;
 import Services.Interfaces.ItemServiceInterface;
 import Models.Item;
+import Exception.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +23,7 @@ public class ItemService implements ItemServiceInterface {
     private VerificationService verificationService = VerificationService.GetInstance();
 
     @Override
-    public Item FindById(int id) {
+    public Item FindById(int id) throws ExceptionCustom {
         Item item = null;
         if (this.verificationService.verifier(id)) {
             if (connection == null) {
@@ -30,13 +31,17 @@ public class ItemService implements ItemServiceInterface {
                     item = this.itemRepository.FindById(id);
                 } catch (Exception e) {
                     e.printStackTrace();
+                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd" + e.toString());
+                    throw exceptionErreurBD;
                 }
             } else {
-                //erreur de connection BD
+                ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de connection a la base de données");
+                throw exceptionErreurBD;
             }
         }
         else{
-            //donnée entré non valide
+            ExceptionCustom exceptionErreurBD = new ExceptionCustom("Données de saisies invalide");
+            throw exceptionErreurBD;
         }
 
         return item;
@@ -103,7 +108,7 @@ public class ItemService implements ItemServiceInterface {
     }
 
     @Override
-    public boolean Update(int idItem, int idItemInfo, int idContainer, String description) {
+    public boolean Update(int idItem, int idItemInfo, int idContainer, String description) throws ExceptionCustom {
 
         boolean valide = this.verificationService.verifier(idItem,idItemInfo,idContainer);
         if (valide)

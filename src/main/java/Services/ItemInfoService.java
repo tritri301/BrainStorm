@@ -5,6 +5,7 @@ import Models.ConnectionBD;
 import Repositories.ItemInfoRepository;
 import Services.Interfaces.ItemInfoServiceInterface;
 import Models.ItemInfo;
+import Exception.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +23,7 @@ public class ItemInfoService implements ItemInfoServiceInterface {
     private VerificationService verificationService = VerificationService.GetInstance();
 
     @Override
-    public ItemInfo FindById(int id) {
+    public ItemInfo FindById(int id) throws ExceptionCustom {
         ItemInfo itemInfo = null;
         if (this.verificationService.verifier(id)) {
             if (connection == null) {
@@ -30,12 +31,16 @@ public class ItemInfoService implements ItemInfoServiceInterface {
                     itemInfo = this.itemInfoRepository.FindById(id);
                 } catch (Exception e) {
                     e.printStackTrace();
+                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd" + e.toString());
+                    throw exceptionErreurBD;
                 }
             } else {
-                //erreur de connection BD
+                ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de connection a la base de données");
+                throw exceptionErreurBD;
             }
         }else{
-            //donnée entré non valide
+            ExceptionCustom exceptionErreurBD = new ExceptionCustom("Données de saisies invalide");
+            throw exceptionErreurBD;
         }
 
         return itemInfo;
@@ -81,7 +86,7 @@ public class ItemInfoService implements ItemInfoServiceInterface {
     }
 
     @Override
-    public boolean Update(int idItem, String description, String nom, int poids, int volume) {
+    public boolean Update(int idItem, String description, String nom, int poids, int volume) throws ExceptionCustom {
 
         boolean valide = this.verificationService.verifier(idItem,poids,volume);
         if (valide)

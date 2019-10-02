@@ -3,6 +3,7 @@ import Models.Item;
 import Repositories.ItemRepository;
 import Services.ItemInfoService;
 import Services.ItemService;
+import Exception.*;
 
 import java.sql.*;
 import java.util.List;
@@ -15,7 +16,11 @@ public class main
         ItemService itemService = ItemService.GetInstance();
         ItemFactory Facto = ItemFactory.GetInstance();
 
-        Item item = itemService.FindById(1);
+        try {
+            Item item = itemService.FindById(1);
+        } catch (ExceptionCustom exceptionCustom) {
+            System.out.print(exceptionCustom.getMessage());
+        }
         ItemInfoService itemInfoService = ItemInfoService.GetInstance();
 
         try {

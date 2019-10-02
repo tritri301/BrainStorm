@@ -1,8 +1,7 @@
 package Services.Interfaces;
 
 import Models.Container;
-import javafx.util.Pair;
-
+import Exception.*;
 import java.util.List;
 
 /**
@@ -16,7 +15,7 @@ public interface ContainerServiceInterface {
      * @param id the id
      * @return the container
      */
-    public Container FindById(int id);
+    public Container FindById(int id) throws ExceptionCustom;
 
     /**
      * Find all list.
@@ -44,7 +43,7 @@ public interface ContainerServiceInterface {
      * @param containerParent the container parent
      * @return the container
      */
-    boolean Update(int idContainer, int quantite, int position, int volume, int poidsMax, int containerParent);
+    boolean Update(int idContainer, int quantite, int position, int volume, int poidsMax, int containerParent) throws ExceptionCustom;
 
     /**
      * Create container.

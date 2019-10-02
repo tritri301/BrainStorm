@@ -1,8 +1,9 @@
 package Services.Interfaces;
 
 import Models.Item;
-
+import Exception.*;
 import java.util.List;
+import Exception.*;
 
 /**
  * The interface Item service interface.
@@ -14,7 +15,7 @@ public interface ItemServiceInterface {
      * @param id the id
      * @return the item
      */
-    Item FindById(int id);
+    Item FindById(int id) throws ExceptionCustom;
 
     /**
      * Find by id item.
@@ -48,7 +49,7 @@ public interface ItemServiceInterface {
      * @param description the description
      * @return the item
      */
-    boolean Update(int idItem, int idItemInfo, int idContainer, String description);
+    boolean Update(int idItem, int idItemInfo, int idContainer, String description) throws ExceptionCustom;
 
     /**
      * Create item.

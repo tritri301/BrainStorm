@@ -1,7 +1,7 @@
 package Services.Interfaces;
 
 import Models.User;
-
+import Exception.*;
 import java.util.List;
 
 /**
@@ -14,7 +14,7 @@ public interface UserServiceInterface {
      * @param id the id
      * @return the user
      */
-    User FindById(int id);
+    User FindById(int id) throws ExceptionCustom;
 
     /**
      * Find all list.
@@ -40,7 +40,7 @@ public interface UserServiceInterface {
      * @param acces        the acces
      * @return the user
      */
-    boolean Update(short id,String nom,String password,short acces);
+    boolean Update(short id,String nom,String password,short acces) throws ExceptionCustom;
 
     /**
      * Create user.
