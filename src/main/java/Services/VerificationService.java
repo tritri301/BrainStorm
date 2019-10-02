@@ -75,9 +75,14 @@ public class VerificationService implements VerificationServiceInterface {
         specialChar = password.replaceAll("\\p{Alnum}", "").length();
         upperCase = password.split("(?=\\p{Lu})").length - 1;
 
-         if ((upperCase <= 0) || upperCase <= 0)
+         if ((upperCase <= 0) && specialChar <= 0)
          {
              regle3 = false;
+         }
+
+         if (regle3)
+         {
+             valide = false;
          }
 
         return valide;
@@ -96,6 +101,23 @@ public class VerificationService implements VerificationServiceInterface {
         return valide;
 
     }
+
+    @Override
+    public boolean verifier(int... args)
+    {
+        boolean valide = true;
+        for (int arg : args) {
+            valide = this.verifier(arg);
+            if (!valide)
+            {
+                valide = false;
+                break;
+            }
+        }
+        return valide;
+    }
+
+
     public static VerificationService GetInstance()
     {
         return instance;
