@@ -41,9 +41,24 @@ for(var i=0; i<4; i++)
 
 
 }
-
-function getByID()
+function list()
 {
-
-
+    window.JavaApp.list();
+}
+function Test()
+{
+    var row = document.createElement("tr");
+    var column1 = document.createElement("td");
+    var column2 = document.createElement("td");
+    var column3 = document.createElement("td");
+    var column4 = document.createElement("td");
+    column1.innerHTML = "test1";
+    column2.innerHTML = "test2";
+    column3.innerHTML = "test3";
+    column4.innerHTML = "test4";
+    row.appendChild(column1);
+    row.appendChild(column2);
+    row.appendChild(column3);
+    row.appendChild(column4);
+    document.getElementById("table1").appendChild(row);
 }
