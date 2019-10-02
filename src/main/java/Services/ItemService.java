@@ -43,6 +43,27 @@ public class ItemService implements ItemServiceInterface {
     }
 
     @Override
+    public int FindAmountById(int id) {
+        int count = 0;
+        if (this.verificationService.verifier(id)) {
+            if (connection == null) {
+                try {
+                    count = this.itemRepository.FindAmountById(id);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else {
+                //erreur de connection BD
+            }
+        }
+        else{
+            //donnée entré non valide
+        }
+
+        return count;
+    }
+
+    @Override
     public List<Item> FindAll() {
         List<Item> item = new ArrayList<Item>();
         if (connection == null)

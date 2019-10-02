@@ -5,6 +5,7 @@ import Models.ConnectionBD;
 import Repositories.ContainerRepository;
 import Services.Interfaces.ContainerServiceInterface;
 import Models.Container;
+import javafx.util.Pair;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,6 +23,7 @@ public class ContainerService implements ContainerServiceInterface {
     private ConnectionBD connectionBD = ConnectionBD.GetInstance();
     private Object connection = this.connectionBD.GetConnectionStatus();
     private VerificationService verificationService = VerificationService.GetInstance();
+    private String status = "Ok";
 
     @Override
     public Container FindById(int id) {
@@ -32,13 +34,14 @@ public class ContainerService implements ContainerServiceInterface {
                     container = this.containerRepository.FindById(id);
                 } catch (Exception e) {
                     e.printStackTrace();
+                    status ="erreur de BD";
                 }
             } else {
-                //erreur de connection BD
+                status ="erreur de connection BD";
             }
         }
         else{
-            //donnée entré non valide
+            status="donnée entré non valide";
             }
 
         return container;

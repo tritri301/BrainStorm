@@ -17,6 +17,14 @@ public interface ItemServiceInterface {
     Item FindById(int id);
 
     /**
+     * Find by id item.
+     *
+     * @param id the id
+     * @return the item
+     */
+    int FindAmountById(int id);
+
+    /**
      * Find all list.
      *
      * @return the list
