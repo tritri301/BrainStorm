@@ -1,5 +1,9 @@
 package View;
 
+import Repositories.ContainerRepository;
+import Repositories.ItemInfoRepository;
+import Repositories.ItemRepository;
+import Repositories.UserRepository;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -57,9 +61,21 @@ class Browser extends BorderPane {
 
         // load the home page
         webEngine.load("file:///" + System.getProperty("user.dir") + "/Interface/index.html");
+
+        //test find by id
+        webEngine.executeScript("getByID(1);");
     }
     // JavaScript interface object
     public class JavaApp {
+
+        private ItemRepository itemRepository = ItemRepository.GetInstance();
+        private ItemInfoRepository itemInfoRepository = ItemInfoRepository.GetInstance();
+        private ContainerRepository containerRepository = ContainerRepository.GetInstance();
+        private UserRepository userRepository = UserRepository.GetInstance();
+
+        //user = this.userRepository.FindById(id);
+
+        //exemple: user = this.userRepository.FindById(id);
         public void exit() {
             Platform.exit();
         }

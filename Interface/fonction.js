@@ -11,3 +11,4 @@ function exit()
 {
     window.JavaApp.exit();
 }
+
