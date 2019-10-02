@@ -88,7 +88,7 @@ public class UserService implements UserServiceInterface {
         if (connectionBD == null)
         {
             try {
-                this.userRepository.Update(nouveauItem);
+                this.userRepository.Update(nouveauUser);
             } catch (Exception e) {
                 valide = false;
                 e.printStackTrace();
