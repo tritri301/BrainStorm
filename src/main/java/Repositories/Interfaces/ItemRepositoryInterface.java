@@ -2,10 +2,13 @@ package Repositories.Interfaces;
 
 import Models.Item;
 
+import java.util.List;
+
 public interface ItemRepositoryInterface {
     Item FindById(int id) throws Exception;
-    Item[] FindAll() throws Exception;
-    boolean Update(int id) throws Exception;
-    boolean Delete(int id) throws Exception;
-    Item Create(Item itemToAdd) throws Exception;
+    List<Item> FindByName(String name) throws Exception;
+    List<Item> FindAll() throws Exception;
+    void Update(Item itemToUpdate) throws Exception;
+    void Delete(int id) throws Exception;
+    void Create(Item itemToAdd) throws Exception;
 }

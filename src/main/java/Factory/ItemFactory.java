@@ -6,7 +6,10 @@ import Models.Item;
  * The type Item factory.
  */
 public class ItemFactory {
-    private Item create (int idItem, int idItemInfo, int idContainer, String description) {
+
+    private static final ItemFactory instance = new ItemFactory();
+
+    public Item Create (int idItem, int idItemInfo, int idContainer, String description) {
         Item ret = new Item();
 
         ret.setIdItem(idItem);
@@ -16,4 +19,5 @@ public class ItemFactory {
 
         return ret;
     }
+    public static ItemFactory GetInstance(){ return instance;}
 }

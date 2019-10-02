@@ -4,6 +4,7 @@ import Repositories.Interfaces.UserRepositoryInterface;
 import Models.User;
 
 public class UserRepository implements UserRepositoryInterface {
+    private static final UserRepository instance = new UserRepository();
     @Override
     public User FindById(int id) {
         return null;
@@ -25,7 +26,10 @@ public class UserRepository implements UserRepositoryInterface {
     }
 
     @Override
-    public User Create(User UserToAdd) {
+    public User Create(User userToAdd) {
         return null;
+    }
+    public static UserRepository GetInstance() {
+        return instance;
     }
 }

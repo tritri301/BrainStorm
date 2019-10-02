@@ -4,11 +4,6 @@ body{
 textarea {
     max-width: 470px;
 }
-#conteneur {
-	width: 75%;
-	border: 2px solid #000000;
-	margin-top: 5%;
-}
 
 #sectionBlancMiniTest {
 	background-color: #FFFFFF;

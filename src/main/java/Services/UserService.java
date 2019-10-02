@@ -1,13 +1,17 @@
 package Services;
 
+import Repositories.UserRepository;
 import Services.Interfaces.UserServiceInterface;
 import Models.User;
+
 
 /**
  * The type User service.
  */
 public class UserService implements UserServiceInterface {
 
+    private static final UserService instance = new UserService();
+    private UserRepository userRepository = UserRepository.GetInstance();
 
     @Override
     public User FindById(int id) {
@@ -32,5 +36,10 @@ public class UserService implements UserServiceInterface {
     @Override
     public User Delete(int id) {
         return null;
+    }
+
+    public static UserService GetInstance()
+    {
+        return instance;
     }
 }

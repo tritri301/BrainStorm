@@ -6,7 +6,10 @@ import Models.Container;
  * The type Container factory.
  */
 public class ContainerFactory {
-    private Container Create(int idContainer, int quantite, int position, int volume, int poidsMax, int containerParent) {
+
+    private static final ContainerFactory instance = new ContainerFactory();
+
+    public Container Create(int idContainer, int quantite, int position, int volume, int poidsMax, int containerParent) {
         Container ret = new Container();
 
         ret.setIdContainer(idContainer);
@@ -18,4 +21,5 @@ public class ContainerFactory {
 
         return ret;
     }
+    public static ContainerFactory GetInstance(){return instance;}
 }

@@ -1,21 +1,23 @@
-import java.sql.*;
+import Factory.ItemFactory;
+import Models.Item;
+import Repositories.ItemRepository;
 
+import java.sql.*;
 
 public class main
 {
     public static void main(String[] args)
     {
-        try
-        {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con= DriverManager.getConnection(
-                    "jdbc:mysql://10.20.40.40:3306/EquipeTristan_BD","BrainStorm","info420");
+        ItemRepository Repo = ItemRepository.GetInstance();
+        ItemFactory Facto = ItemFactory.GetInstance();
 
-            Statement stmt=con.createStatement();
-            ResultSet rs=stmt.executeQuery("select * from ItemInfo");
-            while(rs.next())
-                System.out.println(rs.getString("Description"));
-            con.close();
-        }catch(Exception e){ System.out.println(e);}
+        Item item = Facto.Create(1, 1, 1, "Un clou modifié");
+
+        try {
+            String currentDirectory = System.getProperty("user.dir");
+            System.out.println("The current working directory is " + currentDirectory);
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
     }
 }

@@ -1,5 +1,6 @@
 package Services;
 
+import Repositories.ItemInfoRepository;
 import Services.Interfaces.ItemInfoServiceInterface;
 import Models.ItemInfo;
 
@@ -7,6 +8,10 @@ import Models.ItemInfo;
  * The type Item info service.
  */
 public class ItemInfoService implements ItemInfoServiceInterface {
+
+    private static final ItemInfoService instance = new ItemInfoService();
+    private ItemInfoRepository itemInfoRepository = ItemInfoRepository.GetInstance();
+
     @Override
     public ItemInfo FindById(int id) {
         return null;
@@ -30,5 +35,10 @@ public class ItemInfoService implements ItemInfoServiceInterface {
     @Override
     public ItemInfo Delete(int id) {
         return null;
+    }
+
+    public static ItemInfoService GetInstance()
+    {
+        return instance;
     }
 }
