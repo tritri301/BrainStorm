@@ -83,7 +83,10 @@ public class UserService implements UserServiceInterface {
         //verification
 
         User nouveauUser = FindById(id);
-        nouveauUser.setIdUser(id);
+        nouveauUser.setNom(nom);
+        nouveauUser.setPassword(password);
+        nouveauUser.setDateCreation(dateCreation);
+        nouveauUser.setAcces(acces);
 
         if (connectionBD == null)
         {

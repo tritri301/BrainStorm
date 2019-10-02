@@ -77,7 +77,30 @@ public class ItemInfoService implements ItemInfoServiceInterface {
 
     @Override
     public boolean Update(int idItem, String description, String nom, int poids, int volume) {
-        return true;
+        boolean valide = true;
+
+        //verification
+
+        ItemInfo nouveauItemInfo = FindById(idItem);
+        nouveauItemInfo.setDescription(description);
+        nouveauItemInfo.setNom(nom);
+        nouveauItemInfo.setPoids(poids);
+        nouveauItemInfo.setVolume(volume);
+
+        if (connectionBD == null)
+        {
+            try {
+                this.itemInfoRepository.Update(nouveauItemInfo);
+            } catch (Exception e) {
+                valide = false;
+                e.printStackTrace();
+            }
+        }
+        else
+        {
+            //erreur de connection BD
+        }
+        return valide;
     }
 
     @Override

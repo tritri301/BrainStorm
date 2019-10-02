@@ -78,7 +78,31 @@ public class ContainerService implements ContainerServiceInterface {
 
     @Override
     public boolean Update(int idContainer, int quantite, int position, int volume, int poidsMax, int containerParent) {
-        return true;
+        boolean valide = true;
+
+        //verification
+
+        Container nouveauContainer = FindById(idContainer);
+        nouveauContainer.setQuantite(quantite);
+        nouveauContainer.setPosition(position);
+        nouveauContainer.setVolume(volume);
+        nouveauContainer.setPoidsMax(poidsMax);
+        nouveauContainer.setIdContainerParent(containerParent);
+
+        if (connectionBD == null)
+        {
+            try {
+                this.containerRepository.Update(nouveauContainer);
+            } catch (Exception e) {
+                valide = false;
+                e.printStackTrace();
+            }
+        }
+        else
+        {
+            //erreur de connection BD
+        }
+        return valide;
     }
 
     @Override
