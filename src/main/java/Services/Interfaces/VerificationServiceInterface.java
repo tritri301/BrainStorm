@@ -36,7 +36,7 @@ public interface VerificationServiceInterface {
     * @param date the date
     * @return the boolean
     */
-   public boolean verifierDate(String date);
+   boolean verifierDate(String date);
 
    /**
     * Verifier acces boolean.
@@ -44,7 +44,7 @@ public interface VerificationServiceInterface {
     * @param acces the acces
     * @return the boolean
     */
-   public boolean verifierAcces(int acces);
+   boolean verifierAcces(int acces);
 
    /**
     * Verifier description boolean.
@@ -52,5 +52,5 @@ public interface VerificationServiceInterface {
     * @param description the description
     * @return the boolean
     */
-   public boolean verifierDescription(String description);
+   boolean verifierDescription(String description);
 }

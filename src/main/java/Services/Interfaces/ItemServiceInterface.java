@@ -14,9 +14,14 @@ public interface ItemServiceInterface {
      * @param id the id
      * @return the item
      */
-    public Item FindById(int id);
+    Item FindById(int id);
 
-    public List<Item> FindAll();
+    /**
+     * Find all list.
+     *
+     * @return the list
+     */
+    List<Item> FindAll();
 
     /**
      * Find by name item.
@@ -24,21 +29,29 @@ public interface ItemServiceInterface {
      * @param name the name
      * @return the item
      */
-    public List<Item> FindByName(String name);
+    List<Item> FindByName(String name);
 
     /**
      * Update item.
      *
+     * @param idItem      the id item
+     * @param idItemInfo  the id item info
+     * @param idContainer the id container
+     * @param description the description
      * @return the item
      */
-    public boolean Update(int idItem, int idItemInfo, int idContainer, String description);
+    boolean Update(int idItem, int idItemInfo, int idContainer, String description);
 
     /**
      * Create item.
      *
+     * @param idItem      the id item
+     * @param idItemInfo  the id item info
+     * @param idContainer the id container
+     * @param description the description
      * @return the item
      */
-    public boolean Create(int idItem, int idItemInfo, int idContainer, String description);
+    boolean Create(int idItem, int idItemInfo, int idContainer, String description);
 
     /**
      * Delete item.
@@ -46,5 +59,5 @@ public interface ItemServiceInterface {
      * @param id the id
      * @return the item
      */
-    public boolean Delete(int id);
+    boolean Delete(int id);
 }

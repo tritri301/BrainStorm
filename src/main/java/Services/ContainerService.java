@@ -61,6 +61,7 @@ public class ContainerService implements ContainerServiceInterface {
         return new ArrayList<>();
     }
 
+    /**
     @Override
     public List<Container> FindByName(String name) {
 
@@ -81,6 +82,7 @@ public class ContainerService implements ContainerServiceInterface {
         }
         return container;
     }
+    **/
 
     @Override
     public boolean Update(int idContainer, int quantite, int position, int volume, int poidsMax, int containerParent) {
@@ -155,6 +157,11 @@ public class ContainerService implements ContainerServiceInterface {
         return valide;
     }
 
+    /**
+     * Get instance container service.
+     *
+     * @return the container service
+     */
     public static ContainerService GetInstance()
     {
         return instance;
