@@ -1,9 +1,11 @@
 package View;
 
+import Models.Item;
 import Repositories.ContainerRepository;
 import Repositories.ItemInfoRepository;
 import Repositories.ItemRepository;
 import Repositories.UserRepository;
+import Services.ItemService;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -78,5 +80,13 @@ class Browser extends BorderPane {
         public void exit() {
             Platform.exit();
         }
+        public void list()
+        {
+            ItemService itemService = ItemService.GetInstance();
+            Item item = itemService.FindById(1);
+            webEngine.executeScript("Test()");
+        }
     }
+
+
 }
