@@ -19,23 +19,26 @@ public class ItemService implements ItemServiceInterface {
     private ItemFactory itemFactory = ItemFactory.GetInstance();
     private ConnectionBD connectionBD = ConnectionBD.GetInstance();
     private Object connection = this.connectionBD.GetConnectionStatus();
+    private VerificationService verificationService = VerificationService.GetInstance();
 
     @Override
     public Item FindById(int id) {
         Item item = null;
-        if (connection == null)
-        {
-            try {
-                item = this.itemRepository.FindById(id);
-            } catch (Exception e) {
-                e.printStackTrace();
+        if (this.verificationService.verifier(id)) {
+            if (connection == null) {
+                try {
+                    item = this.itemRepository.FindById(id);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else {
+                //erreur de connection BD
             }
         }
-        else
-        {
-            //erreur de connection BD
+        else{
+            //donnée entré non valide
         }
-        
+
         return item;
     }
 
@@ -61,89 +64,102 @@ public class ItemService implements ItemServiceInterface {
     @Override
     public List<Item> FindByName(String name) {
         List<Item> item = new ArrayList<Item>();
-        if (connection == null)
-        {
-            try {
-               item = this.itemRepository.FindByName(name);
-            } catch (Exception e) {
-                e.printStackTrace();
+        if (this.verificationService.verifier(name)) {
+            if (connection == null) {
+                try {
+                    item = this.itemRepository.FindByName(name);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else {
+                //erreur de connection BD
             }
+        }else{
+            //donnée entré non valide
         }
-        else
-        {
-            //erreur de connection BD
-        }
+
         return item;
     }
 
     @Override
     public boolean Update(int idItem, int idItemInfo, int idContainer, String description) {
-        boolean valide = true;
 
-        //verification
-
-        Item nouveauItem = FindById(idItem);
-        nouveauItem.setIdItemInfo(idItemInfo);
-        nouveauItem.setIdContainer(idContainer);
-        nouveauItem.setDescription(description);
-
-        if (connection == null)
+        boolean valide = this.verificationService.verifier(idItem,idItemInfo,idContainer);
+        if (valide)
         {
-            try {
-                this.itemRepository.Update(nouveauItem);
-            } catch (Exception e) {
-                valide = false;
-                e.printStackTrace();
+            valide = this.verificationService.verifier(description);
+        }
+
+        if (valide) {
+            Item nouveauItem = FindById(idItem);
+            nouveauItem.setIdItemInfo(idItemInfo);
+            nouveauItem.setIdContainer(idContainer);
+            nouveauItem.setDescription(description);
+
+            if (connection == null) {
+                try {
+                    this.itemRepository.Update(nouveauItem);
+                } catch (Exception e) {
+                    valide = false;
+                    e.printStackTrace();
+                }
+            } else {
+                //erreur de connection BD
             }
+        }else{
+            //donnée entré non valide
         }
-        else
-        {
-            //erreur de connection BD
-        }
+
         return valide;
     }
 
     @Override
     public boolean Create(int idItem, int idItemInfo, int idContainer, String description) {
 
-        boolean valide = true;
-
-        //verification
-
-        if (connection == null)
+        boolean valide = this.verificationService.verifier(idItem,idItemInfo,idContainer);
+        if (valide)
         {
-            try {
-                itemRepository.Create(this.itemFactory.Create(idItem,idItemInfo,idContainer,description));
-            }catch (Exception e) {
-                valide = false;
-                e.printStackTrace();
+            valide = this.verificationService.verifier(description);
+        }
+
+        if (valide) {
+            if (connection == null) {
+                try {
+                    itemRepository.Create(this.itemFactory.Create(idItem, idItemInfo, idContainer, description));
+                } catch (Exception e) {
+                    valide = false;
+                    e.printStackTrace();
+                }
+            } else {
+                //erreur de connection BD
             }
+        }else{
+            //donnée entré non valide
         }
-        else
-        {
-            //erreur de connection BD
-        }
+
         return valide;
     }
 
     @Override
     public boolean Delete(int id) {
 
-        boolean valide = true;
+        boolean valide = this.verificationService.verifier(id);
 
-        if (connection == null)
-        {
-            try {
-                this.itemRepository.Delete(id);
-            } catch (Exception e) {
-                valide = false;
-                e.printStackTrace();
+        if (valide) {
+            if (connection == null) {
+                try {
+                    this.itemRepository.Delete(id);
+                } catch (Exception e) {
+                    valide = false;
+                    e.printStackTrace();
+                }
+            } else {
+                //erreur de connection BD
             }
+        }else{
+            //donnée entré non valide
         }
-        else
-        {
-            //erreur de connection BD
-        }
+
         return valide;
     }
 

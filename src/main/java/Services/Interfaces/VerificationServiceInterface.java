@@ -31,6 +31,14 @@ public interface VerificationServiceInterface {
     boolean verifier(int... args);
 
     /**
+     * Verifier boolean.
+     *
+     * @param args the args
+     * @return the boolean
+     */
+    boolean verifier(String... args);
+
+    /**
      * Verifier password boolean.
      *
      * @param password the password

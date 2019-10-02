@@ -22,21 +22,23 @@ public class UserService implements UserServiceInterface {
     private UserFactory userFactory = UserFactory.GetInstance();
     private ConnectionBD connectionBD = ConnectionBD.GetInstance();
     private Object connection = this.connectionBD.GetConnectionStatus();
+    private VerificationService verificationService = VerificationService.GetInstance();
 
     @Override
     public User FindById(int id) {
         User user = null;
-        if (connection == null)
-        {
-            try {
-                user = this.userRepository.FindById(id);
-            } catch (Exception e) {
-                e.printStackTrace();
+        if (this.verificationService.verifier(id)) {
+            if (connection == null) {
+                try {
+                    user = this.userRepository.FindById(id);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else {
+                //erreur de connection BD
             }
-        }
-        else
-        {
-            //erreur de connection BD
+        }else{
+            //donnée entré non valide
         }
 
         return user;
@@ -64,91 +66,106 @@ public class UserService implements UserServiceInterface {
     @Override
     public List<User> FindByName(String name) {
         List<User> user = new ArrayList<User>();
-        if (connection == null)
-        {
-            try {
-                user = this.userRepository.FindByName(name);
-            } catch (Exception e) {
-                e.printStackTrace();
+        if (this.verificationService.verifier(name)) {
+            if (connection == null) {
+                try {
+                    user = this.userRepository.FindByName(name);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else {
+                //erreur de connection BD
             }
+        }else{
+            //donnée entré non valide
         }
-        else
-        {
-            //erreur de connection BD
-        }
+
         return user;
     }
 
     @Override
-    public boolean Update(short id,String nom,String password,String dateCreation,short acces) {
-        boolean valide = true;
+    public boolean Update(short id,String nom,String password,short acces) {
 
-        //verification
-
-        User nouveauUser = FindById(id);
-        nouveauUser.setNom(nom);
-        nouveauUser.setPassword(password);
-        nouveauUser.setDateCreation(dateCreation);
-        nouveauUser.setAcces(acces);
-
-        if (connection == null)
+        boolean valide = this.verificationService.verifier(id,acces);
+        if (valide)
         {
-            try {
-                this.userRepository.Update(nouveauUser);
-            } catch (Exception e) {
-                valide = false;
-                e.printStackTrace();
+            valide = this.verificationService.verifier(nom,password);
+        }
+
+        if (valide) {
+            User nouveauUser = FindById(id);
+            nouveauUser.setNom(nom);
+            nouveauUser.setPassword(password);
+            nouveauUser.setAcces(acces);
+
+            if (connection == null) {
+                try {
+                    this.userRepository.Update(nouveauUser);
+                } catch (Exception e) {
+                    valide = false;
+                    e.printStackTrace();
+                }
+            } else {
+                //erreur de connection BD
             }
+        }else{
+            //donnée entré non valide
         }
-        else
-        {
-            //erreur de connection BD
-        }
+
         return valide;
     }
 
     @Override
     public boolean Create(short id,String nom,String password,short acces) {
-        boolean valide = true;
 
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        String dateCreation = format.format( new Date()   );
-
-        //verification
-
-        if (connection == null)
+        boolean valide = this.verificationService.verifier(id,acces);
+        if (valide)
         {
-            try {
-                userRepository.Create(this.userFactory.Create(id,nom,password,dateCreation,acces));
-            }catch (Exception e) {
-                valide = false;
-                e.printStackTrace();
+            valide = this.verificationService.verifier(nom,password);
+        }
+
+        if(valide) {
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            String dateCreation = format.format(new Date());
+
+            if (connection == null) {
+                try {
+                    userRepository.Create(this.userFactory.Create(id, nom, password, dateCreation, acces));
+                } catch (Exception e) {
+                    valide = false;
+                    e.printStackTrace();
+                }
+            } else {
+                //erreur de connection BD
             }
         }
-        else
-        {
-            //erreur de connection BD
+        else{
+            //donnée entré non valide
         }
+
         return valide;
     }
 
     @Override
     public boolean Delete(int id) {
-        boolean valide = true;
 
-        if (connection == null)
-        {
-            try {
-                this.userRepository.Delete(id);
-            } catch (Exception e) {
-                valide = false;
-                e.printStackTrace();
+        boolean valide = this.verificationService.verifier(id);
+
+        if (valide) {
+            if (connection == null) {
+                try {
+                    this.userRepository.Delete(id);
+                } catch (Exception e) {
+                    valide = false;
+                    e.printStackTrace();
+                }
+            } else {
+                //erreur de connection BD
             }
+        }else{
+            //donnée entré non valide
         }
-        else
-        {
-            //erreur de connection BD
-        }
+
         return valide;
     }
 
