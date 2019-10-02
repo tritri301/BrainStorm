@@ -41,12 +41,43 @@ public class VerificationService implements VerificationServiceInterface {
     @Override
     public boolean verifierPassword(String password) {
         boolean valide = true;
+        boolean regle3 = true;
+        int digit = 0;
+        int upperCase = 0;
+        int specialChar = 0;
+        short lenght = 0;
 
          for (char ch: password.toCharArray()) {
+             lenght++;
              if ((ch == ';') || (ch == ' ') || (ch == ',')) {
                  valide = false;
-                 break;
              }
+         }
+
+         if (lenght < 6)
+         {
+             valide = false;
+         }
+
+         //number
+        for (int i = 0, len = password.length(); i < len; i++) {
+            if (Character.isDigit(password.charAt(i))) {
+                digit++;
+                break;
+            }
+        }
+
+        if (digit <= 0)
+        {
+            valide = false;
+        }
+
+        specialChar = password.replaceAll("\\p{Alnum}", "").length();
+        upperCase = password.split("(?=\\p{Lu})").length - 1;
+
+         if ((upperCase <= 0) || upperCase <= 0)
+         {
+             regle3 = false;
          }
 
         return valide;

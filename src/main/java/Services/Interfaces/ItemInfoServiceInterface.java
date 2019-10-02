@@ -14,8 +14,14 @@ public interface ItemInfoServiceInterface {
      * @param id the id
      * @return the item info
      */
-    public ItemInfo FindById(int id);
-    public List<ItemInfo> FindAll();
+    ItemInfo FindById(int id);
+
+    /**
+     * Find all list.
+     *
+     * @return the list
+     */
+    List<ItemInfo> FindAll();
 
     /**
      * Find by name item info.
@@ -23,22 +29,31 @@ public interface ItemInfoServiceInterface {
      * @param name the name
      * @return the item info
      */
-    public List<ItemInfo> FindByName(String name);
+    List<ItemInfo> FindByName(String name);
 
     /**
      * Update item info.
      *
-     * @param id the id
+     * @param idItem      the id item
+     * @param description the description
+     * @param nom         the nom
+     * @param poids       the poids
+     * @param volume      the volume
      * @return the item info
      */
-    public boolean Update(int idItem, String description, String nom, int poids, int volume);
+    boolean Update(int idItem, String description, String nom, int poids, int volume);
 
     /**
      * Create item info.
      *
+     * @param idItem      the id item
+     * @param description the description
+     * @param nom         the nom
+     * @param poids       the poids
+     * @param volume      the volume
      * @return the item info
      */
-    public boolean Create(int idItem, String description, String nom, int poids, int volume);
+    boolean Create(int idItem, String description, String nom, int poids, int volume);
 
     /**
      * Delete item info.
@@ -46,5 +61,5 @@ public interface ItemInfoServiceInterface {
      * @param id the id
      * @return the item info
      */
-    public boolean Delete(int id);
+    boolean Delete(int id);
 }
