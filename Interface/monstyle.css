@@ -10,6 +10,14 @@ textarea {
 	color: #000000;
 }
 
+p.p1 {
+  margin-right: 2%;
+}
+
+#catalogue {
+    text-align: center;
+}
+
 #logo {
 	text-align: left;
 	font-size: 4em;
