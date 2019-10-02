@@ -25,8 +25,8 @@ public class ContainerService implements ContainerServiceInterface {
 
     @Override
     public Container FindById(int id) {
+        Container container = null;
         if (this.verificationService.verifier(id)) {
-            Container container = null;
             if (connection == null) {
                 try {
                     container = this.containerRepository.FindById(id);
@@ -36,10 +36,9 @@ public class ContainerService implements ContainerServiceInterface {
             } else {
                 //erreur de connection BD
             }
-
-            return container;
         }
-        return null;
+
+        return container;
     }
 
     @Override
@@ -86,28 +85,8 @@ public class ContainerService implements ContainerServiceInterface {
 
     @Override
     public boolean Update(int idContainer, int quantite, int position, int volume, int poidsMax, int containerParent) {
-        boolean valide = false;
 
-        if (this.verificationService.verifier(idContainer))
-        {
-            if (this.verificationService.verifier(quantite))
-            {
-                if (this.verificationService.verifier(position))
-                {
-                    if (this.verificationService.verifier(volume))
-                    {
-                        if (this.verificationService.verifier(poidsMax))
-                        {
-                            if (this.verificationService.verifier(containerParent))
-                            {
-                                valide = true;
-                            }
-                        }
-                    }
-                }
-
-            }
-        }
+        boolean valide = this.verificationService.verifier(idContainer,quantite,position,volume,poidsMax,containerParent);
 
         if (valide) {
             Container nouveauContainer = FindById(idContainer);
@@ -133,44 +112,39 @@ public class ContainerService implements ContainerServiceInterface {
 
     @Override
     public boolean Create(int idContainer, int quantite, int position, int volume, int poidsMax, int containerParent) {
-        boolean valide = true;
 
-        //verification
+        boolean valide = this.verificationService.verifier(idContainer,quantite,position,volume,poidsMax,containerParent);
 
-        if (connection == null)
-        {
-            try {
-                containerRepository.Create(this.containerFactory.Create(idContainer,quantite,position,volume,poidsMax,containerParent));
-            }catch (Exception e) {
-                valide = false;
-                e.printStackTrace();
+        if (valide) {
+            if (connection == null) {
+                try {
+                    containerRepository.Create(this.containerFactory.Create(idContainer, quantite, position, volume, poidsMax, containerParent));
+                } catch (Exception e) {
+                    valide = false;
+                    e.printStackTrace();
+                }
+            } else {
+                //erreur de connection BD
             }
-        }
-        else
-        {
-            //erreur de connection BD
         }
         return valide;
     }
 
     @Override
     public boolean Delete(int id) {
-        boolean valide = true;
+        boolean valide = this.verificationService.verifier(id);
 
-        //verification
-
-        if (connection == null)
-        {
-            try {
-                this.containerRepository.Delete(id);
-            } catch (Exception e) {
-                valide = false;
-                e.printStackTrace();
+        if (valide) {
+            if (connection == null) {
+                try {
+                    this.containerRepository.Delete(id);
+                } catch (Exception e) {
+                    valide = false;
+                    e.printStackTrace();
+                }
+            } else {
+                //erreur de connection BD
             }
-        }
-        else
-        {
-            //erreur de connection BD
         }
         return valide;
     }
