@@ -55,7 +55,7 @@ public class ItemService implements ItemServiceInterface {
             //erreur de connection BD
         }
 
-        return new ArrayList<>();
+        return item;
     }
 
     @Override

@@ -4,18 +4,21 @@ import Repositories.ItemRepository;
 import Services.ItemService;
 
 import java.sql.*;
+import java.util.List;
 
 public class main
 {
     public static void main(String[] args)
     {
-        ItemService service = ItemService.GetInstance();
+        ItemService itemService = ItemService.GetInstance();
         ItemFactory Facto = ItemFactory.GetInstance();
 
 
         try {
-            Item item = service.FindById(1);
-            System.out.println(item.getDescription());
+            List<Item> itemList = itemService.FindAll();
+            for(int i = 0; i < itemList.size(); i++) {
+                System.out.println(itemList.get(i).getDescription());
+            }
         } catch (Exception e) {
             System.out.println(e.toString());
         }

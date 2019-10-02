@@ -19,6 +19,9 @@ import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import netscape.javascript.JSObject;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class test extends Application{
     private Scene scene;
 
@@ -77,12 +80,14 @@ class Browser extends BorderPane {
         public void exit() {
             Platform.exit();
         }
-        public void list()
+        public void ListAllItems()
         {
             ItemService itemService = ItemService.GetInstance();
-            Item item = itemService.FindById(1);
-            //webEngine.executeScript("ShowItem( " + item.getIdItem() + ", " + item.getIdItemInfo() + ", " + item.getIdContainer() + ", " + item.getDescription() + ");");
-            window.call("ShowItem", item.getIdItem(), item.getIdItemInfo(), item.getIdContainer(), item.getDescription());
+            List<Item> itemList = itemService.FindAll();
+            for(int i = 0; i < itemList.size(); i++)
+            {
+                window.call("ShowItem", itemList.get(i).getIdItem(), itemList.get(i).getIdItemInfo(), itemList.get(i).getIdContainer(), itemList.get(i).getDescription());
+            }
         }
     }
 

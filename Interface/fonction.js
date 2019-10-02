@@ -41,9 +41,24 @@ for(var i=0; i<4; i++)
 
 
 }
-function list()
+function List()
 {
-    window.JavaApp.list();
+    myNode = document.getElementById("table1");
+    while (myNode.firstChild) {
+        myNode.removeChild(myNode.firstChild);
+    }
+    if(document.getElementById("chkBoxTout").checked)
+    {
+        window.JavaApp.ListAllItems();
+    }
+
+}
+function Reset()
+{
+    myNode = document.getElementById("table1");
+    while (myNode.firstChild) {
+        myNode.removeChild(myNode.firstChild);
+    }
 }
 function ShowItem(idItem, idItemInfo, idContainer, Description)
 {
