@@ -18,6 +18,7 @@ public class ItemInfoService implements ItemInfoServiceInterface {
     private ItemInfoRepository itemInfoRepository = ItemInfoRepository.GetInstance();
     private ItemInfoFactory itemInfoFactory = ItemInfoFactory.GetInstance();
     private ConnectionBD connectionBD = ConnectionBD.GetInstance();
+    private Object connection = this.connectionBD.GetConnectionStatus();
 
     @Override
     public ItemInfo FindById(int id) {
@@ -25,7 +26,7 @@ public class ItemInfoService implements ItemInfoServiceInterface {
         //verification
 
         ItemInfo itemInfo = null;
-        if (connectionBD == null)
+        if (connection == null)
         {
             try {
                 itemInfo = this.itemInfoRepository.FindById(id);
@@ -44,7 +45,7 @@ public class ItemInfoService implements ItemInfoServiceInterface {
     @Override
     public List<ItemInfo> FindAll() {
         List<ItemInfo> itemInfo = new ArrayList<ItemInfo>();
-        if (connectionBD == null)
+        if (connection == null)
         {
             try {
                // itemInfo = this.itemInfoRepository.FindAll();
@@ -66,7 +67,7 @@ public class ItemInfoService implements ItemInfoServiceInterface {
         //verification
 
         List<ItemInfo> itemInfo = new ArrayList<ItemInfo>();
-        if (connectionBD.GetConnectionStatus() == null)
+        if (connection == null)
         {
             try {
                 itemInfo = this.itemInfoRepository.FindByName(name);
@@ -93,7 +94,7 @@ public class ItemInfoService implements ItemInfoServiceInterface {
         nouveauItemInfo.setPoids(poids);
         nouveauItemInfo.setVolume(volume);
 
-        if (connectionBD == null)
+        if (connection == null)
         {
             try {
                 this.itemInfoRepository.Update(nouveauItemInfo);
@@ -115,7 +116,7 @@ public class ItemInfoService implements ItemInfoServiceInterface {
 
         //verification
 
-        if (connectionBD == null)
+        if (connection == null)
         {
             try {
                 itemInfoRepository.Create(this.itemInfoFactory.Create(idItem,description,nom,poids,volume));
@@ -137,7 +138,7 @@ public class ItemInfoService implements ItemInfoServiceInterface {
 
         //verification
 
-        if (connectionBD == null)
+        if (connection == null)
         {
             try {
                 this.itemInfoRepository.Delete(id);

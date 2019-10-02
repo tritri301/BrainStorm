@@ -8,6 +8,7 @@ import Models.Container;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.EventListener;
 import java.util.List;
 
 /**
@@ -20,12 +21,13 @@ public class ContainerService implements ContainerServiceInterface {
     private ContainerFactory containerFactory = ContainerFactory.GetInstance();
     private ConnectionBD connectionBD = ConnectionBD.GetInstance();
     private VerificationService verificationService = VerificationService.GetInstance();
+    private Object connection = this.connectionBD.GetConnectionStatus();
 
     @Override
     public Container FindById(int id) {
-        if (this.verificationService.verifierId(id)) {
+        if (this.verificationService.verifier(id)) {
             Container container = null;
-            if (connectionBD == null) {
+            if (connection == null) {
                 try {
                     container = this.containerRepository.FindById(id);
                 } catch (Exception e) {
@@ -43,7 +45,7 @@ public class ContainerService implements ContainerServiceInterface {
     @Override
     public List<Container> FindAll() {
         List<Container> container = new ArrayList<Container>();
-        if (connectionBD == null)
+        if (connection == null)
         {
             try {
               //  container = this.containerRepository.FindAll();
@@ -66,7 +68,7 @@ public class ContainerService implements ContainerServiceInterface {
         //verification
 
         List<Container> container = new ArrayList<Container>();
-        if (connectionBD.GetConnectionStatus() == null)
+        if (connection == null)
         {
             try {
                 container = this.containerRepository.FindByName(name);
@@ -84,29 +86,47 @@ public class ContainerService implements ContainerServiceInterface {
 
     @Override
     public boolean Update(int idContainer, int quantite, int position, int volume, int poidsMax, int containerParent) {
-        boolean valide = true;
+        boolean valide = false;
 
-        //verification
-
-        Container nouveauContainer = FindById(idContainer);
-        nouveauContainer.setQuantite(quantite);
-        nouveauContainer.setPosition(position);
-        nouveauContainer.setVolume(volume);
-        nouveauContainer.setPoidsMax(poidsMax);
-        nouveauContainer.setIdContainerParent(containerParent);
-
-        if (connectionBD == null)
+        if (this.verificationService.verifier(idContainer))
         {
-            try {
-                this.containerRepository.Update(nouveauContainer);
-            } catch (Exception e) {
-                valide = false;
-                e.printStackTrace();
+            if (this.verificationService.verifier(quantite))
+            {
+                if (this.verificationService.verifier(position))
+                {
+                    if (this.verificationService.verifier(volume))
+                    {
+                        if (this.verificationService.verifier(poidsMax))
+                        {
+                            if (this.verificationService.verifier(containerParent))
+                            {
+                                valide = true;
+                            }
+                        }
+                    }
+                }
+
             }
         }
-        else
-        {
-            //erreur de connection BD
+
+        if (valide) {
+            Container nouveauContainer = FindById(idContainer);
+            nouveauContainer.setQuantite(quantite);
+            nouveauContainer.setPosition(position);
+            nouveauContainer.setVolume(volume);
+            nouveauContainer.setPoidsMax(poidsMax);
+            nouveauContainer.setIdContainerParent(containerParent);
+
+            if (connection == null) {
+                try {
+                    this.containerRepository.Update(nouveauContainer);
+                } catch (Exception e) {
+                    valide = false;
+                    e.printStackTrace();
+                }
+            } else {
+                //erreur de connection BD
+            }
         }
         return valide;
     }
@@ -117,7 +137,7 @@ public class ContainerService implements ContainerServiceInterface {
 
         //verification
 
-        if (connectionBD == null)
+        if (connection == null)
         {
             try {
                 containerRepository.Create(this.containerFactory.Create(idContainer,quantite,position,volume,poidsMax,containerParent));
@@ -139,7 +159,7 @@ public class ContainerService implements ContainerServiceInterface {
 
         //verification
 
-        if (connectionBD == null)
+        if (connection == null)
         {
             try {
                 this.containerRepository.Delete(id);

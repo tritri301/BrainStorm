@@ -18,11 +18,12 @@ public class ItemService implements ItemServiceInterface {
     private ItemRepository itemRepository = ItemRepository.GetInstance();
     private ItemFactory itemFactory = ItemFactory.GetInstance();
     private ConnectionBD connectionBD = ConnectionBD.GetInstance();
+    private Object connection = this.connectionBD.GetConnectionStatus();
 
     @Override
     public Item FindById(int id) {
         Item item = null;
-        if (connectionBD.GetConnectionStatus() == null)
+        if (connection == null)
         {
             try {
                 item = this.itemRepository.FindById(id);
@@ -41,7 +42,7 @@ public class ItemService implements ItemServiceInterface {
     @Override
     public List<Item> FindAll() {
         List<Item> item = new ArrayList<Item>();
-        if (connectionBD == null)
+        if (connection == null)
         {
             try {
                 item = this.itemRepository.FindAll();
@@ -60,7 +61,7 @@ public class ItemService implements ItemServiceInterface {
     @Override
     public List<Item> FindByName(String name) {
         List<Item> item = new ArrayList<Item>();
-        if (connectionBD.GetConnectionStatus() == null)
+        if (connection == null)
         {
             try {
                item = this.itemRepository.FindByName(name);
@@ -86,7 +87,7 @@ public class ItemService implements ItemServiceInterface {
         nouveauItem.setIdContainer(idContainer);
         nouveauItem.setDescription(description);
 
-        if (connectionBD == null)
+        if (connection == null)
         {
             try {
                 this.itemRepository.Update(nouveauItem);
@@ -109,7 +110,7 @@ public class ItemService implements ItemServiceInterface {
 
         //verification
 
-        if (connectionBD == null)
+        if (connection == null)
         {
             try {
                 itemRepository.Create(this.itemFactory.Create(idItem,idItemInfo,idContainer,description));
@@ -130,7 +131,7 @@ public class ItemService implements ItemServiceInterface {
 
         boolean valide = true;
 
-        if (connectionBD == null)
+        if (connection == null)
         {
             try {
                 this.itemRepository.Delete(id);

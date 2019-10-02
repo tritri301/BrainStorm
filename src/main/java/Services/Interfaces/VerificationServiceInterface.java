@@ -8,19 +8,16 @@ import java.util.List;
 public interface VerificationServiceInterface {
    /**
     * Verifier id boolean.
-    *
-    * @param id the id
     * @return the boolean
     */
-   boolean verifierId(int id);
+   boolean verifier(int integer);
 
    /**
     * Verifier nom boolean.
     *
-    * @param nom the nom
     * @return the boolean
     */
-   public boolean verifierNom(String nom);
+   boolean verifier(String string);
 
    /**
     * Verifier password boolean.
@@ -28,7 +25,7 @@ public interface VerificationServiceInterface {
     * @param password the password
     * @return the boolean
     */
-   public boolean verifierPassword(String  password);
+   boolean verifierPassword(String password);
 
    /**
     * Verifier acces boolean.
@@ -37,12 +34,4 @@ public interface VerificationServiceInterface {
     * @return the boolean
     */
    boolean verifierAcces(int acces);
-
-   /**
-    * Verifier description boolean.
-    *
-    * @param description the description
-    * @return the boolean
-    */
-   boolean verifierDescription(String description);
 }

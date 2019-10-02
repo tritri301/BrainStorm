@@ -21,11 +21,12 @@ public class UserService implements UserServiceInterface {
     private UserRepository userRepository = UserRepository.GetInstance();
     private UserFactory userFactory = UserFactory.GetInstance();
     private ConnectionBD connectionBD = ConnectionBD.GetInstance();
+    private Object connection = this.connectionBD.GetConnectionStatus();
 
     @Override
     public User FindById(int id) {
         User user = null;
-        if (connectionBD == null)
+        if (connection == null)
         {
             try {
                 user = this.userRepository.FindById(id);
@@ -44,7 +45,7 @@ public class UserService implements UserServiceInterface {
     @Override
     public List<User> FindAll() {
         List<User> user = new ArrayList<User>();
-        if (connectionBD == null)
+        if (connection == null)
         {
             try {
                // user = this.userRepository.FindAll();
@@ -63,7 +64,7 @@ public class UserService implements UserServiceInterface {
     @Override
     public List<User> FindByName(String name) {
         List<User> user = new ArrayList<User>();
-        if (connectionBD.GetConnectionStatus() == null)
+        if (connection == null)
         {
             try {
                 user = this.userRepository.FindByName(name);
@@ -90,7 +91,7 @@ public class UserService implements UserServiceInterface {
         nouveauUser.setDateCreation(dateCreation);
         nouveauUser.setAcces(acces);
 
-        if (connectionBD == null)
+        if (connection == null)
         {
             try {
                 this.userRepository.Update(nouveauUser);
@@ -115,7 +116,7 @@ public class UserService implements UserServiceInterface {
 
         //verification
 
-        if (connectionBD == null)
+        if (connection == null)
         {
             try {
                 userRepository.Create(this.userFactory.Create(id,nom,password,dateCreation,acces));
@@ -135,7 +136,7 @@ public class UserService implements UserServiceInterface {
     public boolean Delete(int id) {
         boolean valide = true;
 
-        if (connectionBD == null)
+        if (connection == null)
         {
             try {
                 this.userRepository.Delete(id);

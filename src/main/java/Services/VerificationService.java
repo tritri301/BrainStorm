@@ -13,10 +13,10 @@ public class VerificationService implements VerificationServiceInterface {
     private static final VerificationService instance = new VerificationService();
 
     @Override
-    public boolean verifierId(int id) {
+    public boolean verifier(int integer) {
         boolean valide = false;
 
-        if (id >= 1) {
+        if (integer >= 1) {
             valide = true;
         }
 
@@ -24,12 +24,12 @@ public class VerificationService implements VerificationServiceInterface {
     }
 
     @Override
-    public boolean verifierNom(String nom) {
+    public boolean verifier(String string) {
         boolean valide = false;
 
         String regex = "^[a-zA-Z0-9]+$";
         Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(nom);
+        Matcher matcher = pattern.matcher(string);
 
         if (matcher.matches())
         {
@@ -84,7 +84,8 @@ public class VerificationService implements VerificationServiceInterface {
     }
 
     @Override
-    public boolean verifierAcces(int acces) {
+    public boolean verifierAcces(int acces)
+    {
         boolean valide = false;
 
         if ((acces == 0) || (acces == 1))
@@ -93,27 +94,8 @@ public class VerificationService implements VerificationServiceInterface {
         }
 
         return valide;
-}
 
-    @Override
-    public boolean verifierDescription(String description) {
-        boolean valide = false;
-        int nbAlpha = 0;
-
-        for (int i = 0, len = description.length(); i < len; i++) {
-            if (Character.isAlphabetic(description.charAt(i))) {
-                nbAlpha++;
-            }
-        }
-
-        if (nbAlpha == description.length())
-        {
-            valide = true;
-        }
-
-        return valide;
     }
-
     public static VerificationService GetInstance()
     {
         return instance;
