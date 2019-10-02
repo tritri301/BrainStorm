@@ -22,7 +22,7 @@ public class ItemInfoRepository implements ItemInfoRepositoryInterface {
     @Override
     public ItemInfo FindById(int id) throws Exception {
         Statement stmt = con.createStatement();
-        ResultSet rs = stmt.executeQuery("select * from item where idItem = " + id);
+        ResultSet rs = stmt.executeQuery("select * from itemInfo where idItemInfo = " + id);
         rs.next();
         return itemInfoFactory.Create(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5));
     }

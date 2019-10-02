@@ -52,7 +52,12 @@ public class ItemRepository implements ItemRepositoryInterface {
         }
         return item;
     }
-
+    public int FindAmountById(int id) throws Exception {
+        Statement stmt = con.createStatement();
+        ResultSet rs = stmt.executeQuery("select count(*) from item, itemInfo where item.idItemInfo = itemInfo.idItemInfo and item.idItemInfo = " + id);
+        rs.next();
+        return rs.getInt(1);
+    }
     @Override
     public void Delete(int id) throws Exception {
         PreparedStatement stmt = con.prepareStatement("delete from item where idItem = " + id);

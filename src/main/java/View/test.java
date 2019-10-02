@@ -5,6 +5,7 @@ import Repositories.ContainerRepository;
 import Repositories.ItemInfoRepository;
 import Repositories.ItemRepository;
 import Repositories.UserRepository;
+import Services.ItemInfoService;
 import Services.ItemService;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -83,10 +84,15 @@ class Browser extends BorderPane {
         public void ListAllItems()
         {
             ItemService itemService = ItemService.GetInstance();
+            ItemInfoService itemInfoService = ItemInfoService.GetInstance();
             List<Item> itemList = itemService.FindAll();
             for(int i = 0; i < itemList.size(); i++)
             {
-                window.call("ShowItem", itemList.get(i).getIdItem(), itemList.get(i).getIdItemInfo(), itemList.get(i).getIdContainer(), itemList.get(i).getDescription());
+                window.call("ShowItem", itemList.get(i).getIdItem(),
+                        itemInfoService.FindById(itemList.get(i).getIdItemInfo()).getNom(),
+                        itemInfoService.FindById(itemList.get(i).getIdItemInfo()).getDescription(),
+                        itemInfoService.FindById(itemList.get(i).getIdItemInfo()).getPoids(),
+                        itemInfoService.FindById(itemList.get(i).getIdItemInfo()).getVolume());
             }
         }
     }

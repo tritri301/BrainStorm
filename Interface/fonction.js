@@ -60,20 +60,23 @@ function Reset()
         myNode.removeChild(myNode.firstChild);
     }
 }
-function ShowItem(idItem, idItemInfo, idContainer, Description)
+function ShowItem(idItem, nom, description, poids, volume)
 {
     var row = document.createElement("tr");
     var column1 = document.createElement("td");
     var column2 = document.createElement("td");
     var column3 = document.createElement("td");
     var column4 = document.createElement("td");
+    var column5 = document.createElement("td");
     column1.innerHTML = idItem;
-    column2.innerHTML = idItemInfo;
-    column3.innerHTML = idContainer;
-    column4.innerHTML = Description;
+    column2.innerHTML = nom;
+    column3.innerHTML = description;
+    column4.innerHTML = poids;
+    column5.innerHTML = volume;
     row.appendChild(column1);
     row.appendChild(column2);
     row.appendChild(column3);
     row.appendChild(column4);
+    row.appendChild(column5);
     document.getElementById("table1").appendChild(row);
 }

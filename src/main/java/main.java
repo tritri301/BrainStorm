@@ -1,6 +1,7 @@
 import Factory.ItemFactory;
 import Models.Item;
 import Repositories.ItemRepository;
+import Services.ItemInfoService;
 import Services.ItemService;
 
 import java.sql.*;
@@ -10,15 +11,15 @@ public class main
 {
     public static void main(String[] args)
     {
+        ItemRepository itemRepository = ItemRepository.GetInstance();
         ItemService itemService = ItemService.GetInstance();
         ItemFactory Facto = ItemFactory.GetInstance();
 
+        Item item = itemService.FindById(1);
+        ItemInfoService itemInfoService = ItemInfoService.GetInstance();
 
         try {
-            List<Item> itemList = itemService.FindAll();
-            for(int i = 0; i < itemList.size(); i++) {
-                System.out.println(itemList.get(i).getDescription());
-            }
+            System.out.println(itemRepository.FindAmountById(1));
         } catch (Exception e) {
             System.out.println(e.toString());
         }
