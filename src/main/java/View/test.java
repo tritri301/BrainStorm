@@ -89,7 +89,7 @@ class Browser extends BorderPane {
             List<Item> itemList = itemService.FindAll();
             for(int i = 0; i < itemList.size(); i++)
             {
-               // window.call("ShowItem", itemList.get(i).getIdItem(),
+                        // window.call("ShowItem", itemList.get(i).getIdItem(),
                         //itemInfoService.FindById(itemList.get(i).getIdItemInfo()).getNom(),
                         //itemInfoService.FindById(itemList.get(i).getIdItemInfo()).getDescription(),
                         //itemInfoService.FindById(itemList.get(i).getIdItemInfo()).getPoids(),
