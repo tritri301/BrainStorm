@@ -31,14 +31,14 @@ public interface ItemInfoServiceInterface {
      * @param id the id
      * @return the item info
      */
-    public ItemInfo Update(int id);
+    public boolean Update(int idItem, String description, String nom, int poids, int volume);
 
     /**
      * Create item info.
      *
      * @return the item info
      */
-    public ItemInfo Create();
+    public boolean Create(int idItem, String description, String nom, int poids, int volume);
 
     /**
      * Delete item info.
@@ -46,5 +46,5 @@ public interface ItemInfoServiceInterface {
      * @param id the id
      * @return the item info
      */
-    public ItemInfo Delete(int id);
+    public boolean Delete(int id);
 }

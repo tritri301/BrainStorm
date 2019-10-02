@@ -25,22 +25,21 @@ public interface ContainerServiceInterface {
      * @param name the name
      * @return the container
      */
-    public Container FindByName(String name);
+    public List<Container> FindByName(String name);
 
     /**
      * Update container.
      *
-     * @param id the id
      * @return the container
      */
-    public Container Update(int id);
+    public boolean Update(int idContainer, int quantite, int position, int volume, int poidsMax, int containerParent);
 
     /**
      * Create container.
      *
      * @return the container
      */
-    public Container Create();
+    public boolean Create(int idContainer, int quantite, int position, int volume, int poidsMax, int containerParent);
 
     /**
      * Delete container.
@@ -48,5 +47,5 @@ public interface ContainerServiceInterface {
      * @param id the id
      * @return the container
      */
-    public Container Delete(int id);
+    public boolean Delete(int id);
 }

@@ -59,23 +59,68 @@ public class ContainerService implements ContainerServiceInterface {
     }
 
     @Override
-    public Container FindByName(String name) {
-        return null;
+    public List<Container> FindByName(String name) {
+        List<Container> container = new ArrayList<Container>();
+        if (connectionBD.GetConnectionStatus() == null)
+        {
+            try {
+                container = this.containerRepository.FindByName(name);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        else
+        {
+            //erreur de connection BD
+        }
+        return container;
     }
 
     @Override
-    public Container Update(int id) {
-        return null;
+    public boolean Update(int idContainer, int quantite, int position, int volume, int poidsMax, int containerParent) {
+        return true;
     }
 
     @Override
-    public Container Create() {
-        return null;
+    public boolean Create(int idContainer, int quantite, int position, int volume, int poidsMax, int containerParent) {
+        boolean valide = true;
+
+        //verification
+
+        if (connectionBD == null)
+        {
+            try {
+                containerRepository.Create(this.containerFactory.Create(idContainer,quantite,position,volume,poidsMax,containerParent));
+            }catch (Exception e) {
+                valide = false;
+                e.printStackTrace();
+            }
+        }
+        else
+        {
+            //erreur de connection BD
+        }
+        return valide;
     }
 
     @Override
-    public Container Delete(int id) {
-        return null;
+    public boolean Delete(int id) {
+        boolean valide = true;
+
+        if (connectionBD == null)
+        {
+            try {
+                this.containerRepository.Delete(id);
+            } catch (Exception e) {
+                valide = false;
+                e.printStackTrace();
+            }
+        }
+        else
+        {
+            //erreur de connection BD
+        }
+        return valide;
     }
 
     public static ContainerService GetInstance()

@@ -23,7 +23,7 @@ public interface UserServiceInterface {
      * @param name the name
      * @return the user
      */
-    public User FindByName(String name);
+    public List<User> FindByName(String name);
 
     /**
      * Update user.
@@ -31,14 +31,14 @@ public interface UserServiceInterface {
      * @param id the id
      * @return the user
      */
-    public User Update(int id);
+    public boolean Update(short id,String nom,String password,String dateCreation,short acces);
 
     /**
      * Create user.
      *
      * @return the user
      */
-    public User Create();
+    public boolean Create(short id,String nom,String password,String dateCreation,short acces);
 
     /**
      * Delete user.
@@ -46,5 +46,5 @@ public interface UserServiceInterface {
      * @param id the id
      * @return the user
      */
-    public User Delete(int id);
+    public boolean Delete(int id);
 }
