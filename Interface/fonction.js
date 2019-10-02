@@ -12,3 +12,32 @@ function exit()
     window.JavaApp.exit();
 }
 
+function afficherTableau()
+{
+// on cree le tableau bleu, contenant les lignes
+var grille = new Array();
+grille[1]="Id";
+grille[2]="Nom";
+grille[3]="Description";
+grille[4]="Poids";
+grille[5]="Volume";
+//"Nom","Description","Poids","Volume"
+// on cree les lignes (tableau vert) les unes après les autres
+/*
+for(var i=0; i<4; i++)
+   grille[i] = new Array();
+*/
+
+// on parcourt les lignes...
+for(var i=0; i<4; i++)
+   // ... et dans chaque ligne, on parcourt les cellules
+   for(var j=0; j<4; j++)
+      grille[i][j] = 0;
+
+      //affichage
+      for(var i=0; i<4; i++)
+         for(var j=0; j<4; j++)
+            document.writeln("Case "+ i + "-" + j +" : "+ grille[i][j]);
+
+
+}

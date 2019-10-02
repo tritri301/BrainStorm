@@ -2,10 +2,12 @@ package Repositories.Interfaces;
 
 import Models.Container;
 
+import java.util.List;
+
 public interface ContainerRepositoryInterface {
-    Container FindById(int id);
-    Container[] FindAll();
-    boolean Update(int id);
-    boolean Delete(int id);
-    Container Create(Container ContainerToAdd);
+    Container FindById(int id) throws Exception;
+    List<Container> FindAll() throws Exception;
+    void Update(Container containerToAdd) throws Exception;
+    void Delete(int id) throws Exception;
+    void Create(Container containerToAdd) throws Exception;
 }

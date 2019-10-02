@@ -1,6 +1,5 @@
 package Repositories.Interfaces;
 
-import Models.Item;
 import Models.ItemInfo;
 
 import java.util.List;
