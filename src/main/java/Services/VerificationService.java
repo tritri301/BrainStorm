@@ -117,6 +117,21 @@ public class VerificationService implements VerificationServiceInterface {
         return valide;
     }
 
+    @Override
+    public boolean verifier(String... args)
+    {
+        boolean valide = true;
+        for (String arg : args) {
+            valide = this.verifier(arg);
+            if (!valide)
+            {
+                valide = false;
+                break;
+            }
+        }
+        return valide;
+    }
+
 
     public static VerificationService GetInstance()
     {

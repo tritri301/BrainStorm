@@ -37,11 +37,10 @@ public interface UserServiceInterface {
      * @param id           the id
      * @param nom          the nom
      * @param password     the password
-     * @param dateCreation the date creation
      * @param acces        the acces
      * @return the user
      */
-    boolean Update(short id,String nom,String password,String dateCreation,short acces);
+    boolean Update(short id,String nom,String password,short acces);
 
     /**
      * Create user.

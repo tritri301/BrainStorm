@@ -20,8 +20,8 @@ public class ContainerService implements ContainerServiceInterface {
     private ContainerRepository containerRepository = ContainerRepository.GetInstance();
     private ContainerFactory containerFactory = ContainerFactory.GetInstance();
     private ConnectionBD connectionBD = ConnectionBD.GetInstance();
-    private VerificationService verificationService = VerificationService.GetInstance();
     private Object connection = this.connectionBD.GetConnectionStatus();
+    private VerificationService verificationService = VerificationService.GetInstance();
 
     @Override
     public Container FindById(int id) {
@@ -37,6 +37,9 @@ public class ContainerService implements ContainerServiceInterface {
                 //erreur de connection BD
             }
         }
+        else{
+            //donnée entré non valide
+            }
 
         return container;
     }
@@ -107,6 +110,10 @@ public class ContainerService implements ContainerServiceInterface {
                 //erreur de connection BD
             }
         }
+        else{
+            //donnée entré non valide
+        }
+
         return valide;
     }
 
@@ -127,6 +134,10 @@ public class ContainerService implements ContainerServiceInterface {
                 //erreur de connection BD
             }
         }
+        else{
+            //donnée entré non valide
+        }
+
         return valide;
     }
 
@@ -145,7 +156,10 @@ public class ContainerService implements ContainerServiceInterface {
             } else {
                 //erreur de connection BD
             }
+        }else{
+            //donnée entré non valide
         }
+
         return valide;
     }
 
