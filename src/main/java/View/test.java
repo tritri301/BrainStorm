@@ -62,11 +62,7 @@ class Browser extends BorderPane {
                 });
 
         // load the home page
-        webEngine.load("file:///" + System.getProperty("user.dir") + "/Interface/index.html");
-
-        //test find by id
-        webEngine.executeScript("getByID(1);");
-    }
+        webEngine.load("file:///" + System.getProperty("user.dir") + "/Interface/index.html");    }
     // JavaScript interface object
     public class JavaApp {
         private ItemRepository itemRepository = ItemRepository.GetInstance();
@@ -84,7 +80,7 @@ class Browser extends BorderPane {
         {
             ItemService itemService = ItemService.GetInstance();
             Item item = itemService.FindById(1);
-            webEngine.executeScript("Test()");
+            webEngine.executeScript("Test();");
         }
     }
 
