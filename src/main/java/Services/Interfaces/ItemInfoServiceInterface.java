@@ -2,6 +2,8 @@ package Services.Interfaces;
 
 import Models.ItemInfo;
 
+import java.util.List;
+
 /**
  * The interface Item info service interface.
  */
@@ -13,6 +15,7 @@ public interface ItemInfoServiceInterface {
      * @return the item info
      */
     public ItemInfo FindById(int id);
+    public List<ItemInfo> FindAll();
 
     /**
      * Find by name item info.
@@ -20,7 +23,7 @@ public interface ItemInfoServiceInterface {
      * @param name the name
      * @return the item info
      */
-    public ItemInfo FindByName(String name);
+    public List<ItemInfo> FindByName(String name);
 
     /**
      * Update item info.
@@ -28,14 +31,14 @@ public interface ItemInfoServiceInterface {
      * @param id the id
      * @return the item info
      */
-    public ItemInfo Update(int id);
+    public boolean Update(int idItem, String description, String nom, int poids, int volume);
 
     /**
      * Create item info.
      *
      * @return the item info
      */
-    public ItemInfo Create();
+    public boolean Create(int idItem, String description, String nom, int poids, int volume);
 
     /**
      * Delete item info.
@@ -43,5 +46,5 @@ public interface ItemInfoServiceInterface {
      * @param id the id
      * @return the item info
      */
-    public ItemInfo Delete(int id);
+    public boolean Delete(int id);
 }

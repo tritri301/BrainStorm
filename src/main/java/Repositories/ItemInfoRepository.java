@@ -54,17 +54,29 @@ public class ItemInfoRepository implements ItemInfoRepositoryInterface {
 
     @Override
     public void Update(ItemInfo itemInfoToUpdate) throws Exception {
+        PreparedStatement stmt = con.prepareStatement("update itemInfo set description = ?, nom = ?, poids = ?, volume = ? where idItemInfo = " + itemInfoToUpdate.getIdItemInfo());
+        stmt.setString(1, itemInfoToUpdate.getDescription());
+        stmt.setString(2, itemInfoToUpdate.getNom());
+        stmt.setInt(3, itemInfoToUpdate.getPoids());
+        stmt.setInt(4, itemInfoToUpdate.getVolume());
 
+        stmt.execute();
     }
 
     @Override
     public void Delete(int id) throws Exception {
-
+        PreparedStatement stmt = con.prepareStatement("delete from itemInfo where idItem = " + id);
+        stmt.execute();
     }
 
     @Override
     public void Create(ItemInfo itemInfoToAdd) throws Exception {
-
+        PreparedStatement stmt = con.prepareStatement("insert into itemInfo values(?, ?, ?, ?, ?)");
+        stmt.setInt(1, itemInfoToAdd.getIdItemInfo());
+        stmt.setString(2, itemInfoToAdd.getDescription());
+        stmt.setString(3, itemInfoToAdd.getNom());
+        stmt.setInt(4, itemInfoToAdd.getPoids());
+        stmt.setInt(5, itemInfoToAdd.getVolume());
     }
     public static ItemInfoRepository GetInstance() {
         return instance;

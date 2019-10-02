@@ -78,6 +78,9 @@ public class ItemService implements ItemServiceInterface {
     @Override
     public boolean Update(int idItem, int idItemInfo, int idContainer, String description) {
         boolean valide = true;
+
+        //verification
+
         Item nouveauItem = FindById(idItem);
         nouveauItem.setIdItemInfo(idItemInfo);
         nouveauItem.setIdContainer(idContainer);
@@ -103,6 +106,8 @@ public class ItemService implements ItemServiceInterface {
     public boolean Create(int idItem, int idItemInfo, int idContainer, String description) {
 
         boolean valide = true;
+
+        //verification
 
         if (connectionBD == null)
         {

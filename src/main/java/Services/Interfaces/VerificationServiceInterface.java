@@ -1,5 +1,7 @@
 package Services.Interfaces;
 
+import java.util.List;
+
 /**
  * The interface Verification service interface.
  */
