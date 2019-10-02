@@ -67,7 +67,6 @@ class Browser extends BorderPane {
     }
     // JavaScript interface object
     public class JavaApp {
-
         private ItemRepository itemRepository = ItemRepository.GetInstance();
         private ItemInfoRepository itemInfoRepository = ItemInfoRepository.GetInstance();
         private ContainerRepository containerRepository = ContainerRepository.GetInstance();
