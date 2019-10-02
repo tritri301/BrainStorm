@@ -65,6 +65,7 @@ class Browser extends BorderPane {
         webEngine.load("file:///" + System.getProperty("user.dir") + "/Interface/index.html");    }
     // JavaScript interface object
     public class JavaApp {
+        JSObject window = (JSObject) webEngine.executeScript("window");
         private ItemRepository itemRepository = ItemRepository.GetInstance();
         private ItemInfoRepository itemInfoRepository = ItemInfoRepository.GetInstance();
         private ContainerRepository containerRepository = ContainerRepository.GetInstance();
@@ -80,7 +81,8 @@ class Browser extends BorderPane {
         {
             ItemService itemService = ItemService.GetInstance();
             Item item = itemService.FindById(1);
-            webEngine.executeScript("Test();");
+            //webEngine.executeScript("ShowItem( " + item.getIdItem() + ", " + item.getIdItemInfo() + ", " + item.getIdContainer() + ", " + item.getDescription() + ");");
+            window.call("ShowItem", item.getIdItem(), item.getIdItemInfo(), item.getIdContainer(), item.getDescription());
         }
     }
 

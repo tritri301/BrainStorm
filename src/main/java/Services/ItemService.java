@@ -22,7 +22,7 @@ public class ItemService implements ItemServiceInterface {
     @Override
     public Item FindById(int id) {
         Item item = null;
-        if (connectionBD == null)
+        if (connectionBD.GetConnectionStatus() == null)
         {
             try {
                 item = this.itemRepository.FindById(id);
