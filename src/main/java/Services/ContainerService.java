@@ -19,27 +19,25 @@ public class ContainerService implements ContainerServiceInterface {
     private ContainerRepository containerRepository = ContainerRepository.GetInstance();
     private ContainerFactory containerFactory = ContainerFactory.GetInstance();
     private ConnectionBD connectionBD = ConnectionBD.GetInstance();
+    private VerificationService verificationService = VerificationService.GetInstance();
 
     @Override
     public Container FindById(int id) {
-
-        //verification
-
-        Container container = null;
-        if (connectionBD == null)
-        {
-            try {
-                container = this.containerRepository.FindById(id);
-            } catch (Exception e) {
-                e.printStackTrace();
+        if (this.verificationService.verifierId(id)) {
+            Container container = null;
+            if (connectionBD == null) {
+                try {
+                    container = this.containerRepository.FindById(id);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else {
+                //erreur de connection BD
             }
-        }
-        else
-        {
-            //erreur de connection BD
-        }
 
-        return container;
+            return container;
+        }
+        return null;
     }
 
     @Override

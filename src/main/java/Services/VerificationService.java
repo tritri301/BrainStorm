@@ -84,20 +84,33 @@ public class VerificationService implements VerificationServiceInterface {
     }
 
     @Override
-    public boolean verifierDate(String date) {
-        boolean valide = false;
-        return valide;
-    }
-
-    @Override
     public boolean verifierAcces(int acces) {
         boolean valide = false;
+
+        if ((acces == 0) || (acces == 1))
+        {
+            valide = true;
+        }
+
         return valide;
 }
 
     @Override
     public boolean verifierDescription(String description) {
         boolean valide = false;
+        int nbAlpha = 0;
+
+        for (int i = 0, len = description.length(); i < len; i++) {
+            if (Character.isAlphabetic(description.charAt(i))) {
+                nbAlpha++;
+            }
+        }
+
+        if (nbAlpha == description.length())
+        {
+            valide = true;
+        }
+
         return valide;
     }
 

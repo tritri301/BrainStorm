@@ -6,7 +6,9 @@ import Repositories.UserRepository;
 import Services.Interfaces.UserServiceInterface;
 import Models.User;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -105,8 +107,11 @@ public class UserService implements UserServiceInterface {
     }
 
     @Override
-    public boolean Create(short id,String nom,String password,String dateCreation,short acces) {
+    public boolean Create(short id,String nom,String password,short acces) {
         boolean valide = true;
+
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        String dateCreation = format.format( new Date()   );
 
         //verification
 

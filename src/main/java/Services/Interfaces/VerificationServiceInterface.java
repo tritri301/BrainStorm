@@ -31,14 +31,6 @@ public interface VerificationServiceInterface {
    public boolean verifierPassword(String  password);
 
    /**
-    * Verifier date boolean.
-    *
-    * @param date the date
-    * @return the boolean
-    */
-   boolean verifierDate(String date);
-
-   /**
     * Verifier acces boolean.
     *
     * @param acces the acces
