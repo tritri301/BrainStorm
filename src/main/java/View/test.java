@@ -96,11 +96,16 @@ class Browser extends BorderPane {
             List<Item> itemList = itemService.FindAll();
             for(int i = 0; i < itemList.size(); i++)
             {
-                        // window.call("ShowItem", itemList.get(i).getIdItem(),
-                        //itemInfoService.FindById(itemList.get(i).getIdItemInfo()).getNom(),
-                        //itemInfoService.FindById(itemList.get(i).getIdItemInfo()).getDescription(),
-                        //itemInfoService.FindById(itemList.get(i).getIdItemInfo()).getPoids(),
-                        //itemInfoService.FindById(itemList.get(i).getIdItemInfo()).getVolume());
+                try {
+                    window.call("ShowItem", itemList.get(i).getIdItem(),
+                    itemInfoService.FindById(itemList.get(i).getIdItemInfo()).getNom(),
+                    itemInfoService.FindById(itemList.get(i).getIdItemInfo()).getDescription(),
+                    itemInfoService.FindById(itemList.get(i).getIdItemInfo()).getPoids(),
+                    itemInfoService.FindById(itemList.get(i).getIdItemInfo()).getVolume());
+                } catch(Exception e)
+                {
+                    System.out.println("nigger");
+                }
             }
 
             //a fair un par un comme ci-dessous
