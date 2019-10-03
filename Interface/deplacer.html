@@ -46,66 +46,65 @@ But du fichier :    Afficher le menu du site
 
 	<div class="row" id="sectionBlanc">
 		<div class="col">
-			<div class="col">
-				Rechercher par le nom ou l'id:
-			</div>
-			<form class="form-horizontal">
-				<div class="form-group">
-					<label class="control-label col-sm-5" for="nom">Nom :</label>
-					<div class="col-xs-4">
-						<input type="text" class="form-control" id="nom" placeholder="Nom">
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="control-label col-sm-5" for="id">Id :</label>
-					<div class="col-xs-4">
-						<input type="text" class="form-control" id="id" placeholder="Id">
-					</div>
-				</div>
-				<div class="form-group">
-					<div class="col-sm-offset-5">
-						<button type="submit" class="btn btn-default">Rechercher</button>
-						<button type="reset" class="btn btn-default">Annuler</button>
-					</div>
-				</div>
-			</form>
-			<br>
 			<!--Table-->
+			<table id="tableauFormulaire" border="0">
+
+				<!--Table body-->
+				<tbody id="formulaire">
+				<tr>
+					<td align="center" colspan="2"><label for="titre"><i>Rechercher par le nom ou l'id</i></label></td>
+				</tr>
+				<tr>
+					<td align="right"><label for="nom">Nom :</label></td>
+					<td align="left"><input type="text" class="form-control" id="nom" placeholder="Nom"></td>
+				</tr>
+				<tr>
+					<td align="right"><label for="id">Id :</label></td>
+					<td align="left"><input type="text" class="form-control" id="id" placeholder="Id"></td>
+				</tr>
+				<tr>
+					<td align="center" colspan="2">
+						<button class="btn btn-default" >Rechercher</button>
+						<button type="reset" class="btn btn-default">Annuler</button>
+					</td>
+				</tr>
+				</tbody>
+				<!--Table body-->
+			</table>
+
 		<table id="tablePreview" class="table table-bordered">
 		<!--Table head-->
 		  <thead>
 			<tr>
-			  <th>Id</th>
-			  <th>Nom</th>
-			  <th>Description</th>
-			  <th>Information</th>
-			  <th>Modèle 3D</th>
+				<th>Id</th>
+				<th>Nom</th>
+				<th>Description</th>
+				<th>Poids</th>
+				<th>Volume</th>
 			</tr>
 		  </thead>
 		  <!--Table head-->
 		  <!--Table body-->
-		  <tbody>
-			<tr>
-			  <th scope="row">1</th>
-			  <td></td>
-			  <td></td>
-			  <td></td>
-			  <td></td>
-			</tr>
-			<tr>
-			  <th scope="row">2</th>
-			  <td></td>
-			  <td></td>
-			  <td></td>
-			  <td></td>
-			</tr>
-			<tr>
-			  <th scope="row">3</th>
-			  <td></td>
-			  <td></td>
-			  <td></td>
-			  <td></td>
-			</tr>
+		  <tbody id="table1">
+		  	<script>
+				var row = document.createElement("tr");
+				var column1 = document.createElement("td");
+				var column2 = document.createElement("td");
+				var column3 = document.createElement("td");
+				var column4 = document.createElement("td");
+				var column5 = document.createElement("td");
+				column1.innerHTML = "test1";
+				column2.innerHTML = "test2";
+				column3.innerHTML = "test3";
+				column4.innerHTML = "test4";
+				column5.innerHTML = "test5";
+				row.appendChild(column1);
+				row.appendChild(column2);
+				row.appendChild(column3);
+				row.appendChild(column4);
+				row.appendChild(column5);
+				document.getElementById("table1").appendChild(row);
+                </script>
 		  </tbody>
 		  <!--Table body-->
 		</table>

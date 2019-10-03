@@ -21,7 +21,7 @@ p.p1 {
 #logo {
 	text-align: left;
 	font-size: 4em;
-	font-family: Comic Sans Ms;
+	font-family: Georgia;
 }
 
 #titre {
@@ -71,4 +71,14 @@ a.lienSousMenu {
 	background-color: #FFFFFF;
 	color: #000000;
 	.justify-content-md-center
+}
+
+#tableauFormulaire {
+  table-layout: auto;
+  width: 50%;
+  margin: 0 auto !important;
+}
+
+#tableauFormulaire td {
+  padding: 15px;
 }

@@ -18,6 +18,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
+import javafx.scene.image.Image;
 import netscape.javascript.JSObject;
 import Exception.*;
 
@@ -28,11 +29,17 @@ public class test extends Application{
     private Scene scene;
 
     @Override
-    public void start(Stage stage) {
+    public void start(Stage stage){
 
         // create scene
-        stage.setTitle("Web View");
+
+        //Tentative d'ajout d'un icône
+        stage.setTitle("Cool Play Inc");
+        Image icone = new Image ("file:icone.png");
+        stage.getIcons().add(icone);
+
         scene = new Scene(new Browser(),Color.BLACK);
+
         stage.setScene(scene);
         stage.setMaximized(true);
         stage.show();
