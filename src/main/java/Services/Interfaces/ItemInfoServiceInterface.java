@@ -21,7 +21,7 @@ public interface ItemInfoServiceInterface {
      *
      * @return the list
      */
-    List<ItemInfo> FindAll();
+    List<ItemInfo> FindAll() throws ExceptionCustom;
 
     /**
      * Find by name item info.
@@ -29,7 +29,7 @@ public interface ItemInfoServiceInterface {
      * @param name the name
      * @return the item info
      */
-    List<ItemInfo> FindByName(String name);
+    List<ItemInfo> FindByName(String name) throws ExceptionCustom;
 
     /**
      * Update item info.
@@ -53,7 +53,7 @@ public interface ItemInfoServiceInterface {
      * @param volume      the volume
      * @return the item info
      */
-    boolean Create(int idItem, String description, String nom, int poids, int volume);
+    boolean Create(int idItem, String description, String nom, int poids, int volume) throws ExceptionCustom;
 
     /**
      * Delete item info.
@@ -61,5 +61,5 @@ public interface ItemInfoServiceInterface {
      * @param id the id
      * @return the item info
      */
-    boolean Delete(int id);
+    boolean Delete(int id) throws ExceptionCustom;
 }

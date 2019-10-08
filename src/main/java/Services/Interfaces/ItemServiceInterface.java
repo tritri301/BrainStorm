@@ -23,14 +23,14 @@ public interface ItemServiceInterface {
      * @param id the id
      * @return the item
      */
-    int FindAmountById(int id);
+    int FindAmountById(int id) throws ExceptionCustom;
 
     /**
      * Find all list.
      *
      * @return the list
      */
-    List<Item> FindAll();
+    List<Item> FindAll() throws ExceptionCustom;
 
     /**
      * Find by name item.
@@ -38,7 +38,7 @@ public interface ItemServiceInterface {
      * @param name the name
      * @return the item
      */
-    List<Item> FindByName(String name);
+    List<Item> FindByName(String name) throws ExceptionCustom;
 
     /**
      * Update item.
@@ -60,7 +60,7 @@ public interface ItemServiceInterface {
      * @param description the description
      * @return the item
      */
-    boolean Create(int idItem, int idItemInfo, int idContainer, String description);
+    boolean Create(int idItem, int idItemInfo, int idContainer, String description) throws ExceptionCustom;
 
     /**
      * Delete item.
@@ -68,5 +68,5 @@ public interface ItemServiceInterface {
      * @param id the id
      * @return the item
      */
-    boolean Delete(int id);
+    boolean Delete(int id) throws ExceptionCustom;
 }

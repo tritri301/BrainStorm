@@ -49,46 +49,25 @@ public class ContainerService implements ContainerServiceInterface {
     }
 
     @Override
-    public List<Container> FindAll() {
+    public List<Container> FindAll() throws ExceptionCustom {
         List<Container> container = new ArrayList<Container>();
         if (connection == null)
         {
             try {
-              //  container = this.containerRepository.FindAll();
+              container = this.containerRepository.FindAll();
             } catch (Exception e) {
-                e.printStackTrace();
+                ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd" + e.toString());
+                throw exceptionErreurBD;
             }
         }
         else
         {
-            //erreur de connection BD
+            ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de connection a la base de données");
+            throw exceptionErreurBD;
         }
 
         return new ArrayList<>();
     }
-
-    /**
-    @Override
-    public List<Container> FindByName(String name) {
-
-        //verification
-
-        List<Container> container = new ArrayList<Container>();
-        if (connection == null)
-        {
-            try {
-                container = this.containerRepository.FindByName(name);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        else
-        {
-            //erreur de connection BD
-        }
-        return container;
-    }
-    **/
 
     @Override
     public boolean Update(int idContainer, int quantite, int position, int volume, int poidsMax, int containerParent) throws ExceptionCustom {
@@ -108,21 +87,25 @@ public class ContainerService implements ContainerServiceInterface {
                     this.containerRepository.Update(nouveauContainer);
                 } catch (Exception e) {
                     valide = false;
-                    e.printStackTrace();
+                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd" + e.toString());
+                    throw exceptionErreurBD;
                 }
             } else {
-                //erreur de connection BD
+                valide = false;
+                ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de connection a la base de données");
+                throw exceptionErreurBD;
             }
         }
         else{
-            //donnée entré non valide
+            valide = false;
+            ExceptionCustom exceptionErreurBD = new ExceptionCustom("Données de saisies invalide");
+            throw exceptionErreurBD;
         }
-
         return valide;
     }
 
     @Override
-    public boolean Create(int idContainer, int quantite, int position, int volume, int poidsMax, int containerParent) {
+    public boolean Create(int idContainer, int quantite, int position, int volume, int poidsMax, int containerParent) throws ExceptionCustom {
 
         boolean valide = this.verificationService.verifier(idContainer,quantite,position,volume,poidsMax,containerParent);
 
@@ -132,21 +115,26 @@ public class ContainerService implements ContainerServiceInterface {
                     containerRepository.Create(this.containerFactory.Create(idContainer, quantite, position, volume, poidsMax, containerParent));
                 } catch (Exception e) {
                     valide = false;
-                    e.printStackTrace();
+                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd" + e.toString());
+                    throw exceptionErreurBD;
                 }
             } else {
-                //erreur de connection BD
+                valide = false;
+                ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de connection a la base de données");
+                throw exceptionErreurBD;
             }
         }
         else{
-            //donnée entré non valide
+            valide = false;
+            ExceptionCustom exceptionErreurBD = new ExceptionCustom("Données de saisies invalide");
+            throw exceptionErreurBD;
         }
 
         return valide;
     }
 
     @Override
-    public boolean Delete(int id) {
+    public boolean Delete(int id) throws ExceptionCustom {
         boolean valide = this.verificationService.verifier(id);
 
         if (valide) {
@@ -155,13 +143,18 @@ public class ContainerService implements ContainerServiceInterface {
                     this.containerRepository.Delete(id);
                 } catch (Exception e) {
                     valide = false;
-                    e.printStackTrace();
+                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd" + e.toString());
+                    throw exceptionErreurBD;
                 }
             } else {
-                //erreur de connection BD
+                valide = false;
+                ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de connection a la base de données");
+                throw exceptionErreurBD;
             }
         }else{
-            //donnée entré non valide
+            valide = false;
+            ExceptionCustom exceptionErreurBD = new ExceptionCustom("Données de saisies invalide");
+            throw exceptionErreurBD;
         }
 
         return valide;

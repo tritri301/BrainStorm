@@ -30,7 +30,30 @@ public class ItemService implements ItemServiceInterface {
                 try {
                     item = this.itemRepository.FindById(id);
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd" + e.toString());
+                    throw exceptionErreurBD;
+                }
+            } else {
+                ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de connection a la base de données");
+                throw exceptionErreurBD;
+            }
+        }
+        else {
+            ExceptionCustom exceptionErreurBD = new ExceptionCustom("Données de saisies invalide");
+            throw exceptionErreurBD;
+        }
+
+        return item;
+    }
+
+    @Override
+    public int FindAmountById(int id) throws ExceptionCustom {
+        int count = 0;
+        if (this.verificationService.verifier(id)) {
+            if (connection == null) {
+                try {
+                    count = this.itemRepository.FindAmountById(id);
+                } catch (Exception e) {
                     ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd" + e.toString());
                     throw exceptionErreurBD;
                 }
@@ -44,64 +67,48 @@ public class ItemService implements ItemServiceInterface {
             throw exceptionErreurBD;
         }
 
-        return item;
-    }
-
-    @Override
-    public int FindAmountById(int id) {
-        int count = 0;
-        if (this.verificationService.verifier(id)) {
-            if (connection == null) {
-                try {
-                    count = this.itemRepository.FindAmountById(id);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            } else {
-                //erreur de connection BD
-            }
-        }
-        else{
-            //donnée entré non valide
-        }
-
         return count;
     }
 
     @Override
-    public List<Item> FindAll() {
+    public List<Item> FindAll() throws ExceptionCustom {
         List<Item> item = new ArrayList<Item>();
         if (connection == null)
         {
             try {
                 item = this.itemRepository.FindAll();
             } catch (Exception e) {
-                e.printStackTrace();
+                ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd" + e.toString());
+                throw exceptionErreurBD;
             }
         }
         else
         {
-            //erreur de connection BD
+            ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de connection a la base de données");
+            throw exceptionErreurBD;
         }
 
         return item;
     }
 
     @Override
-    public List<Item> FindByName(String name) {
+    public List<Item> FindByName(String name) throws ExceptionCustom {
         List<Item> item = new ArrayList<Item>();
         if (this.verificationService.verifier(name)) {
             if (connection == null) {
                 try {
                     item = this.itemRepository.FindByName(name);
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd" + e.toString());
+                    throw exceptionErreurBD;
                 }
             } else {
-                //erreur de connection BD
+                ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de connection a la base de données");
+                throw exceptionErreurBD;
             }
         }else{
-            //donnée entré non valide
+            ExceptionCustom exceptionErreurBD = new ExceptionCustom("Données de saisies invalide");
+            throw exceptionErreurBD;
         }
 
         return item;
@@ -127,20 +134,25 @@ public class ItemService implements ItemServiceInterface {
                     this.itemRepository.Update(nouveauItem);
                 } catch (Exception e) {
                     valide = false;
-                    e.printStackTrace();
+                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd" + e.toString());
+                    throw exceptionErreurBD;
                 }
             } else {
-                //erreur de connection BD
+                valide = false;
+                ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de connection a la base de données");
+                throw exceptionErreurBD;
             }
         }else{
-            //donnée entré non valide
+            valide = false;
+            ExceptionCustom exceptionErreurBD = new ExceptionCustom("Données de saisies invalide");
+            throw exceptionErreurBD;
         }
 
         return valide;
     }
 
     @Override
-    public boolean Create(int idItem, int idItemInfo, int idContainer, String description) {
+    public boolean Create(int idItem, int idItemInfo, int idContainer, String description) throws ExceptionCustom {
 
         boolean valide = this.verificationService.verifier(idItem,idItemInfo,idContainer);
         if (valide)
@@ -154,20 +166,25 @@ public class ItemService implements ItemServiceInterface {
                     itemRepository.Create(this.itemFactory.Create(idItem, idItemInfo, idContainer, description));
                 } catch (Exception e) {
                     valide = false;
-                    e.printStackTrace();
+                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd" + e.toString());
+                    throw exceptionErreurBD;
                 }
             } else {
-                //erreur de connection BD
+                valide = false;
+                ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de connection a la base de données");
+                throw exceptionErreurBD;
             }
         }else{
-            //donnée entré non valide
+            valide = false;
+            ExceptionCustom exceptionErreurBD = new ExceptionCustom("Données de saisies invalide");
+            throw exceptionErreurBD;
         }
 
         return valide;
     }
 
     @Override
-    public boolean Delete(int id) {
+    public boolean Delete(int id) throws ExceptionCustom {
 
         boolean valide = this.verificationService.verifier(id);
 
@@ -177,13 +194,18 @@ public class ItemService implements ItemServiceInterface {
                     this.itemRepository.Delete(id);
                 } catch (Exception e) {
                     valide = false;
-                    e.printStackTrace();
+                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd" + e.toString());
+                    throw exceptionErreurBD;
                 }
             } else {
-                //erreur de connection BD
+                valide = false;
+                ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de connection a la base de données");
+                throw exceptionErreurBD;
             }
         }else{
-            //donnée entré non valide
+            valide = false;
+            ExceptionCustom exceptionErreurBD = new ExceptionCustom("Données de saisies invalide");
+            throw exceptionErreurBD;
         }
 
         return valide;

@@ -22,7 +22,7 @@ public interface ContainerServiceInterface {
      *
      * @return the list
      */
-    List<Container> FindAll();
+    List<Container> FindAll() throws ExceptionCustom;
 
     /**
      * Find by name container.
@@ -56,7 +56,7 @@ public interface ContainerServiceInterface {
      * @param containerParent the container parent
      * @return the container
      */
-    boolean Create(int idContainer, int quantite, int position, int volume, int poidsMax, int containerParent);
+    boolean Create(int idContainer, int quantite, int position, int volume, int poidsMax, int containerParent) throws ExceptionCustom;
 
     /**
      * Delete container.
@@ -64,5 +64,5 @@ public interface ContainerServiceInterface {
      * @param id the id
      * @return the container
      */
-    boolean Delete(int id);
+    boolean Delete(int id) throws ExceptionCustom;
 }

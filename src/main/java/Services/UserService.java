@@ -50,39 +50,44 @@ public class UserService implements UserServiceInterface {
     }
 
     @Override
-    public List<User> FindAll() {
+    public List<User> FindAll() throws ExceptionCustom {
         List<User> user = new ArrayList<User>();
         if (connection == null)
         {
             try {
                // user = this.userRepository.FindAll();
             } catch (Exception e) {
-                e.printStackTrace();
+                ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd" + e.toString());
+                throw exceptionErreurBD;
             }
         }
         else
         {
-            //erreur de connection BD
+            ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de connection a la base de données");
+            throw exceptionErreurBD;
         }
 
         return new ArrayList<>();
     }
 
     @Override
-    public List<User> FindByName(String name) {
+    public List<User> FindByName(String name) throws ExceptionCustom {
         List<User> user = new ArrayList<User>();
         if (this.verificationService.verifier(name)) {
             if (connection == null) {
                 try {
                     user = this.userRepository.FindByName(name);
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd" + e.toString());
+                    throw exceptionErreurBD;
                 }
             } else {
-                //erreur de connection BD
+                ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de connection a la base de données");
+                throw exceptionErreurBD;
             }
         }else{
-            //donnée entré non valide
+            ExceptionCustom exceptionErreurBD = new ExceptionCustom("Données de saisies invalide");
+            throw exceptionErreurBD;
         }
 
         return user;
@@ -108,20 +113,25 @@ public class UserService implements UserServiceInterface {
                     this.userRepository.Update(nouveauUser);
                 } catch (Exception e) {
                     valide = false;
-                    e.printStackTrace();
+                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd" + e.toString());
+                    throw exceptionErreurBD;
                 }
             } else {
-                //erreur de connection BD
+                valide = false;
+                ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de connection a la base de données");
+                throw exceptionErreurBD;
             }
         }else{
-            //donnée entré non valide
+            valide = false;
+            ExceptionCustom exceptionErreurBD = new ExceptionCustom("Données de saisies invalide");
+            throw exceptionErreurBD;
         }
 
         return valide;
     }
 
     @Override
-    public boolean Create(short id,String nom,String password,short acces) {
+    public boolean Create(short id,String nom,String password,short acces) throws ExceptionCustom {
 
         boolean valide = this.verificationService.verifier(id,acces);
         if (valide)
@@ -138,21 +148,26 @@ public class UserService implements UserServiceInterface {
                     userRepository.Create(this.userFactory.Create(id, nom, password, dateCreation, acces));
                 } catch (Exception e) {
                     valide = false;
-                    e.printStackTrace();
+                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd" + e.toString());
+                    throw exceptionErreurBD;
                 }
             } else {
-                //erreur de connection BD
+                valide = false;
+                ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de connection a la base de données");
+                throw exceptionErreurBD;
             }
         }
         else{
-            //donnée entré non valide
+            valide = false;
+            ExceptionCustom exceptionErreurBD = new ExceptionCustom("Données de saisies invalide");
+            throw exceptionErreurBD;
         }
 
         return valide;
     }
 
     @Override
-    public boolean Delete(int id) {
+    public boolean Delete(int id) throws ExceptionCustom {
 
         boolean valide = this.verificationService.verifier(id);
 
@@ -162,13 +177,18 @@ public class UserService implements UserServiceInterface {
                     this.userRepository.Delete(id);
                 } catch (Exception e) {
                     valide = false;
-                    e.printStackTrace();
+                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd" + e.toString());
+                    throw exceptionErreurBD;
                 }
             } else {
-                //erreur de connection BD
+                valide = false;
+                ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de connection a la base de données");
+                throw exceptionErreurBD;
             }
         }else{
-            //donnée entré non valide
+            valide = false;
+            ExceptionCustom exceptionErreurBD = new ExceptionCustom("Données de saisies invalide");
+            throw exceptionErreurBD;
         }
 
         return valide;

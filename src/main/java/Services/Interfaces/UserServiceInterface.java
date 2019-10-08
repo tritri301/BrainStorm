@@ -21,7 +21,7 @@ public interface UserServiceInterface {
      *
      * @return the list
      */
-    List<User> FindAll();
+    List<User> FindAll() throws ExceptionCustom;
 
     /**
      * Find by name user.
@@ -29,7 +29,7 @@ public interface UserServiceInterface {
      * @param name the name
      * @return the user
      */
-    List<User> FindByName(String name);
+    List<User> FindByName(String name) throws ExceptionCustom;
 
     /**
      * Update user.
@@ -51,7 +51,7 @@ public interface UserServiceInterface {
      * @param acces    the acces
      * @return the user
      */
-    boolean Create(short id,String nom,String password,short acces);
+    boolean Create(short id,String nom,String password,short acces) throws ExceptionCustom;
 
     /**
      * Delete user.
@@ -59,5 +59,5 @@ public interface UserServiceInterface {
      * @param id the id
      * @return the user
      */
-    boolean Delete(int id);
+    boolean Delete(int id) throws ExceptionCustom;
 }
