@@ -55,24 +55,24 @@ class Browser extends BorderPane {
 
     private WebView browser = new WebView();
     private WebEngine webEngine = browser.getEngine();
+    private JSObject window = (JSObject) webEngine.executeScript("window");
 
-
-
+    //Browser constructor
     public Browser() {
         //add components
         setCenter(browser);
 
         //add listenners
         webEngine.getLoadWorker().stateProperty().addListener(
-                new ChangeListener() {
-                    @Override
-                    public void changed(ObservableValue observable, Object oldValue, Object newValue) {
-                        if (newValue != Worker.State.SUCCEEDED) { return; }
+        new ChangeListener() {
+            @Override
+            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+                if (newValue != Worker.State.SUCCEEDED) { return; }
 
-                        JSObject window = (JSObject) webEngine.executeScript("window");
-                        window.setMember("JavaApp", new JavaApp());
-                    }
-                });
+                JSObject window = (JSObject) webEngine.executeScript("window");
+                window.setMember("JavaApp", new JavaApp());
+            }
+        });
         webEngine.setOnAlert(event -> {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText(event.getData());
@@ -80,11 +80,15 @@ class Browser extends BorderPane {
         });
 
         // load the home page
-        webEngine.load("file:///" + System.getProperty("user.dir") + "/Interface/index.html");    }
+        webEngine.load("file:///" + System.getProperty("user.dir") + "/Interface/index.html");
+    }
     // JavaScript interface object
-
+    public void Alert()
+    {
+        window.call("Alert","wow it might work");
+    }
     public class JavaApp {
-        JSObject window = (JSObject) webEngine.executeScript("window");
+
         private ItemRepository itemRepository = ItemRepository.GetInstance();
         private ItemInfoRepository itemInfoRepository = ItemInfoRepository.GetInstance();
         private ContainerRepository containerRepository = ContainerRepository.GetInstance();
@@ -109,10 +113,9 @@ class Browser extends BorderPane {
                     itemInfoService.FindById(itemList.get(i).getIdItemInfo()).getDescription(),
                     itemInfoService.FindById(itemList.get(i).getIdItemInfo()).getPoids(),
                     itemInfoService.FindById(itemList.get(i).getIdItemInfo()).getVolume());
-                    window.call("Alert","Simple test");
                 } catch(Exception e)
                 {
-                    System.out.println("nigger");
+                    System.out.println("Problem");
                 }
             }
 
