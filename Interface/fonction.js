@@ -24,19 +24,7 @@ function SubmitList()
         myNode.removeChild(myNode.firstChild);
     }
 
-    //Checks if a name or an id has been set
-    if(idItem != "")
-    {
-
-    }
-    else if(nameItem != "")
-    {
-
-    }
-    else
-    {
-        window.JavaApp.ListItem();
-    }
+    window.JavaApp.ListItem();
 }
 function Reset()
 {
@@ -59,5 +47,5 @@ function ShowItem()
 }
 function Alert(msg)
 {
-    alert(msg);
+    window.alert(msg);
 }

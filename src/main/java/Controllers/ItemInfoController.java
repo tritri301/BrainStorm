@@ -14,7 +14,7 @@ import Exception.*;
 public class ItemInfoController implements ItemInfoControllerInterface {
 
     private static final ItemInfoController instance = new ItemInfoController();
-    ItemInfoService itemInfoService = ItemInfoService.GetInstance();
+    private ItemInfoService itemInfoService = ItemInfoService.GetInstance();
 
 
     @Override
