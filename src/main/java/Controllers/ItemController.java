@@ -119,6 +119,11 @@ public class ItemController implements ItemControllerInterface
 
         return delete;
     }
+
+    public static ItemController GetInstance()
+    {
+        return instance;
+    }
 }
 //----------------------------------------------------------------------------------------------------------------------
 

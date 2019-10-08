@@ -111,4 +111,9 @@ public class ItemInfoController implements ItemInfoControllerInterface {
         return delete;
     }
 
+    public static ItemInfoController GetInstance()
+    {
+        return instance;
+    }
+
 }
