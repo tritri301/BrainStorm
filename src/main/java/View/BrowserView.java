@@ -26,7 +26,7 @@ import Exception.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class test extends Application{
+public class BrowserView extends Application{
     private Scene scene;
 
     @Override
@@ -39,7 +39,7 @@ public class test extends Application{
         Image icone = new Image ("file:icone.png");
         stage.getIcons().add(icone);
 
-        scene = new Scene(new Browser(),Color.BLACK);
+        scene = new Scene(Browser.GetInstance(),Color.BLACK);
 
         stage.setScene(scene);
         stage.setMaximized(true);
@@ -52,13 +52,15 @@ public class test extends Application{
 }
 
 class Browser extends BorderPane {
-
+    private static final Browser instance = new Browser();
     private WebView browser = new WebView();
     private WebEngine webEngine = browser.getEngine();
     private JSObject window = (JSObject) webEngine.executeScript("window");
 
     //Browser constructor
     public Browser() {
+
+
         //add components
         setCenter(browser);
 
@@ -82,51 +84,67 @@ class Browser extends BorderPane {
         // load the home page
         webEngine.load("file:///" + System.getProperty("user.dir") + "/Interface/index.html");
     }
-    // JavaScript interface object
+    //Signleton function
+    public static Browser GetInstance(){
+        return instance;
+    }
+
+
+    //JavaScript caller object
     public void Alert()
     {
         window.call("Alert","wow it might work");
     }
-    public class JavaApp {
-
-        private ItemRepository itemRepository = ItemRepository.GetInstance();
-        private ItemInfoRepository itemInfoRepository = ItemInfoRepository.GetInstance();
-        private ContainerRepository containerRepository = ContainerRepository.GetInstance();
-        private UserRepository userRepository = UserRepository.GetInstance();
-
-        //user = this.userRepository.FindById(id);
-
-        //exemple: user = this.userRepository.FindById(id);
-        public void exit() {
-            Platform.exit();
-        }
-        public void ListAllItems()
+    public void ListItems()
+    {
+        ItemService itemService = ItemService.GetInstance();
+        ItemInfoService itemInfoService = ItemInfoService.GetInstance();
+        List<Item> itemList = itemService.FindAll();
+        for(int i = 0; i < itemList.size(); i++)
         {
-            ItemService itemService = ItemService.GetInstance();
-            ItemInfoService itemInfoService = ItemInfoService.GetInstance();
-            List<Item> itemList = itemService.FindAll();
-            for(int i = 0; i < itemList.size(); i++)
-            {
-                try {
-                    window.call("ShowItem", itemList.get(i).getIdItem(),
-                    itemInfoService.FindById(itemList.get(i).getIdItemInfo()).getNom(),
-                    itemInfoService.FindById(itemList.get(i).getIdItemInfo()).getDescription(),
-                    itemInfoService.FindById(itemList.get(i).getIdItemInfo()).getPoids(),
-                    itemInfoService.FindById(itemList.get(i).getIdItemInfo()).getVolume());
-                } catch(Exception e)
-                {
-                    System.out.println("Problem");
-                }
-            }
-
-            //a fair un par un comme ci-dessous
             try {
-                Item item = itemService.FindById(1);
-            } catch (ExceptionCustom exceptionCustom) {
-                System.out.print(exceptionCustom.getMessage());
+                window.call("ShowItem", itemList.get(i).getIdItem(),
+                        itemInfoService.FindById(itemList.get(i).getIdItemInfo()).getNom(),
+                        itemInfoService.FindById(itemList.get(i).getIdItemInfo()).getDescription(),
+                        itemInfoService.FindById(itemList.get(i).getIdItemInfo()).getPoids(),
+                        itemInfoService.FindById(itemList.get(i).getIdItemInfo()).getVolume());
+            } catch(Exception e)
+            {
+                System.out.println("Problem");
             }
+        }
+    }
+    public void ListItems(int id)
+    {
+        ItemService itemService = ItemService.GetInstance();
+        ItemInfoService itemInfoService = ItemInfoService.GetInstance();
+        Item item;
+        try{
+            item = itemService.FindById(id);
+        }
+        catch(Exception e){
+            item = null;
+        }
+        try {
+            window.call("ShowItem", item.getIdItem(),
+                    itemInfoService.FindById(item.getIdItemInfo()).getNom(),
+                    itemInfoService.FindById(item.getIdItemInfo()).getDescription(),
+                    itemInfoService.FindById(item.getIdItemInfo()).getPoids(),
+                    itemInfoService.FindById(item.getIdItemInfo()).getVolume());
+        } catch(Exception e)
+        {
+            System.out.println("Problem");
         }
     }
 
 
+
+
+    // JavaScript interface object
+    public class JavaApp {
+        public void exit() {
+            Platform.exit();
+        }
+
+    }
 }

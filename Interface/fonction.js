@@ -12,17 +12,32 @@ function exit()
     window.JavaApp.exit();
 }
 
-function List()
+function SubmitList()
 {
-    myNode = document.getElementById("table1");
+    //Variable declaration
+    var idItem = document.getElementById("id").value;
+    var nameItem = document.getElementById("name").value;
+    var myNode = document.getElementById("table1");
+
+    //Deletes all existing entries
     while (myNode.firstChild) {
         myNode.removeChild(myNode.firstChild);
     }
-    if(document.getElementById("chkBoxTout").checked)
-    {
-        window.JavaApp.ListAllItems();
-    }
 
+    //Checks if a name or an id has been set
+    if(idItem != "")
+    {
+
+    }
+    else if(nameItem != "")
+    {
+
+    }
+    else
+    {
+
+    }
+    List();
 }
 function Reset()
 {
