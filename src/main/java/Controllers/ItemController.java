@@ -19,7 +19,10 @@ public class ItemController implements ItemControllerInterface
         Item item =  null;
         try {
              item = itemService.FindById(id);
-        } catch (ExceptionCustom exceptionCustom) {
+        } catch (ExceptionCustom e) {
+
+        }
+        catch(Exception e) {
 
         }
         return item;
@@ -31,33 +34,40 @@ public class ItemController implements ItemControllerInterface
         int amountID = 0;
         try {
              amountID = itemService.FindAmountById(id);
-        } catch (ExceptionCustom exceptionCustom) {
+        } catch (ExceptionCustom e) {
             //Alert ;
         }
+        catch(Exception e) {
 
+        }
         return amountID;
     }
 
     @Override
     public List<Item> FindAll() {
-        List<Item> itemList;
+        List<Item> itemList = null;
 
         try {
             itemList = itemService.FindAll();
-        } catch (ExceptionCustom exceptionCustom) {
+        } catch (ExceptionCustom e) {
             //Alert ;
         }
+        catch(Exception e) {
 
+        }
         return itemList;
     }
 
     @Override
     public List<Item> FindByName(String name) {
-            List<Item> itemList;
+            List<Item> itemList = null;
         try {
               itemList = itemService.FindByName(name);
-        } catch (ExceptionCustom exceptionCustom) {
+        } catch (ExceptionCustom e) {
             //Alert ;
+        }
+        catch(Exception e) {
+
         }
         return itemList;
     }
@@ -69,10 +79,12 @@ public class ItemController implements ItemControllerInterface
 
         try {
             update = itemService.Update(idItem,idItemInfo,idContainer,description);
-        } catch (ExceptionCustom exceptionCustom) {
+        } catch (ExceptionCustom e) {
             //Alert ;
         }
+        catch(Exception e) {
 
+        }
         return update;
     }
 
@@ -83,8 +95,11 @@ public class ItemController implements ItemControllerInterface
 
         try {
             create = itemService.Create(idItem,idItemInfo,idContainer,description);
-        } catch (ExceptionCustom exceptionCustom) {
+        } catch (ExceptionCustom e) {
             //Alert ;
+        }
+        catch(Exception e) {
+
         }
 
         return create;
@@ -95,8 +110,11 @@ public class ItemController implements ItemControllerInterface
         boolean delete = true;
         try {
             delete = itemService.Delete(id);
-        } catch (ExceptionCustom exceptionCustom) {
+        } catch (ExceptionCustom e) {
             //Alert ;
+        }
+        catch(Exception e) {
+
         }
 
         return delete;
