@@ -43,6 +43,7 @@ for(var i=0; i<4; i++)
 }
 function List()
 {
+    alert("This is an alert");
     myNode = document.getElementById("table1");
     while (myNode.firstChild) {
         myNode.removeChild(myNode.firstChild);
@@ -71,4 +72,8 @@ function ShowItem()
          row.appendChild(column);
     }
     document.getElementById("table1").appendChild(row);
+}
+function Alert()
+{
+    alert(arguments[0]);
 }

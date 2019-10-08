@@ -8,6 +8,7 @@ import Repositories.UserRepository;
 import Services.ItemInfoService;
 import Services.ItemService;
 import javafx.application.Application;
+import javafx.scene.control.Alert;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -72,10 +73,16 @@ class Browser extends BorderPane {
                         window.setMember("JavaApp", new JavaApp());
                     }
                 });
+        webEngine.setOnAlert(event -> {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText(event.getData());
+            alert.showAndWait();
+        });
 
         // load the home page
         webEngine.load("file:///" + System.getProperty("user.dir") + "/Interface/index.html");    }
     // JavaScript interface object
+
     public class JavaApp {
         JSObject window = (JSObject) webEngine.executeScript("window");
         private ItemRepository itemRepository = ItemRepository.GetInstance();
@@ -102,6 +109,7 @@ class Browser extends BorderPane {
                     itemInfoService.FindById(itemList.get(i).getIdItemInfo()).getDescription(),
                     itemInfoService.FindById(itemList.get(i).getIdItemInfo()).getPoids(),
                     itemInfoService.FindById(itemList.get(i).getIdItemInfo()).getVolume());
+                    window.call("Alert","Simple test");
                 } catch(Exception e)
                 {
                     System.out.println("nigger");
