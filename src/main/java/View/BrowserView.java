@@ -3,12 +3,6 @@ package View;
 import Controllers.ItemController;
 import Controllers.ItemInfoController;
 import Models.Item;
-import Repositories.ContainerRepository;
-import Repositories.ItemInfoRepository;
-import Repositories.ItemRepository;
-import Repositories.UserRepository;
-import Services.ItemInfoService;
-import Services.ItemService;
 import javafx.application.Application;
 import javafx.scene.control.Alert;
 import javafx.application.Platform;
@@ -61,8 +55,6 @@ class Browser extends BorderPane {
 
     //Browser constructor
     public Browser() {
-
-
         //add components
         setCenter(browser);
 
@@ -97,33 +89,6 @@ class Browser extends BorderPane {
     {
         window.call("Alert","wow it might work");
     }
-    public void ListItems()
-    {
-        ItemInfoController itemInfoController = ItemInfoController.GetInstance();
-        ItemController itemController = ItemController.GetInstance();
-        List<Item> itemList = itemController.FindAll();
-        for(int i = 0; i < itemList.size(); i++)
-        {
-            window.call("ShowItem", itemList.get(i).getIdItem(),
-                    itemInfoController.FindById(itemList.get(i).getIdItemInfo()).getNom(),
-                    itemInfoController.FindById(itemList.get(i).getIdItemInfo()).getDescription(),
-                    itemInfoController.FindById(itemList.get(i).getIdItemInfo()).getPoids(),
-                    itemInfoController.FindById(itemList.get(i).getIdItemInfo()).getVolume());
-        }
-    }
-    public void ListItems(int id)
-    {
-        ItemInfoController itemInfoController = ItemInfoController.GetInstance();
-        ItemController itemController = ItemController.GetInstance();
-        Item item = itemController.FindById(id);
-        window.call("ShowItem", item.getIdItem(),
-                itemInfoController.FindById(item.getIdItemInfo()).getNom(),
-                itemInfoController.FindById(item.getIdItemInfo()).getDescription(),
-                itemInfoController.FindById(item.getIdItemInfo()).getPoids(),
-                itemInfoController.FindById(item.getIdItemInfo()).getVolume());
-
-    }
-
 
 
 
@@ -132,6 +97,31 @@ class Browser extends BorderPane {
         public void exit() {
             Platform.exit();
         }
+        public void ListItem()
+        {
+            ItemInfoController itemInfoController = ItemInfoController.GetInstance();
+            ItemController itemController = ItemController.GetInstance();
+            List<Item> itemList = itemController.FindAll();
+            for(int i = 0; i < itemList.size(); i++)
+            {
+                window.call("ShowItem", itemList.get(i).getIdItem(),
+                        itemInfoController.FindById(itemList.get(i).getIdItemInfo()).getNom(),
+                        itemInfoController.FindById(itemList.get(i).getIdItemInfo()).getDescription(),
+                        itemInfoController.FindById(itemList.get(i).getIdItemInfo()).getPoids(),
+                        itemInfoController.FindById(itemList.get(i).getIdItemInfo()).getVolume());
+            }
+        }
+        public void ListItem(int id)
+        {
+            ItemInfoController itemInfoController = ItemInfoController.GetInstance();
+            ItemController itemController = ItemController.GetInstance();
+            Item item = itemController.FindById(id);
+            window.call("ShowItem", item.getIdItem(),
+                    itemInfoController.FindById(item.getIdItemInfo()).getNom(),
+                    itemInfoController.FindById(item.getIdItemInfo()).getDescription(),
+                    itemInfoController.FindById(item.getIdItemInfo()).getPoids(),
+                    itemInfoController.FindById(item.getIdItemInfo()).getVolume());
 
+        }
     }
 }

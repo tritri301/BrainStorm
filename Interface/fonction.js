@@ -35,9 +35,8 @@ function SubmitList()
     }
     else
     {
-
+        window.JavaApp.ListItem();
     }
-    List();
 }
 function Reset()
 {
