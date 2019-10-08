@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <!-- 
-Date           :	18 septembre 2019
-Nom du fichier :    ajouter.html
-But du fichier :    Afficher le menu du site
+Date           :	10 octobre 2019
+Nom du fichier :    ajouterCatalogue.html
+But du fichier :    Afficher le menu ajouter catalogue du site
 -->
 <html lang="fr">
 <head>
@@ -20,16 +20,13 @@ But du fichier :    Afficher le menu du site
 <div class="container-fluid" id="conteneur">
 	<div class="row" id="sectionBlancMiniTest" width="100%">
 		<div class="col-sm" id="logo"><a href="index.html" class="lienCoolPlay">Cool Play inc.</a></div>
-		<div class="col-sm" id="catalogue"><a href="catalogue.html"><img src="bouton_catalogue.png"/></a></div>
-		<div class="col-sm" id="usager"><p class="p1">Usager <br><i><a href="">Déconnexion</a></i></p></div>
 	</div>
-  	<div class="row" id="sectionSousMenu">
-		<a href="ajouter.html" class="lienSousMenu" onclick="Test();"><img src="bouton_ajouter.png"/></a>
-		<a href="supprimer.html" class="lienSousMenu"><img src="bouton_supprimer.png"/></a>
-		<a href="deplacer.html" class="lienSousMenu"><img src="bouton_deplacer.png"/></a>
-		<a href="modifier.html" class="lienSousMenu"><img src="bouton_modifier.png"/></a>
-		<a href="lister.html" class="lienSousMenu"><img src="bouton_lister.png"/></a>
-		<a href="rapport.html" class="lienSousMenu"><img src="bouton_rapport.png"/></a>	</div>
+	<div class="row" id="sectionSousMenu">
+		<a href="ajouterCatalogue.html" class="lienSousMenu"><img src="bouton_ajouter.png"/></a>
+		<a href="supprimerCatalogue.html" class="lienSousMenu"><img src="bouton_supprimer.png"/></a>
+		<a href="modifierCatalogue.html" class="lienSousMenu"><img src="bouton_modifier.png"/></a>
+		<a href="listerCatalogue.html" class="lienSousMenu"><img src="bouton_lister.png"/></a>
+	</div>
 	<div class="row" id="sectionVerte"> 
 		<br>
 	</div>
@@ -40,7 +37,7 @@ But du fichier :    Afficher le menu du site
 	</div>
 	<div class="row">
 		<div class="col" id="titre">
-			Ajouter
+			Ajouter - Catalogue
 	</div>
 	</div>
 
@@ -52,12 +49,16 @@ But du fichier :    Afficher le menu du site
 				<!--Table body-->
 				<tbody id="formulaire">
 					<tr>
-						<td align="right"><label for="upc">UPC :</label></td>
-						<td align="left"><input type="text" class="form-control" id="upc" placeholder="UPC"></td>
+						<td align="right"><label for="nom">Nom :</label></td>
+						<td align="left"><input type="text" class="form-control" id="nom" placeholder="Nom"></td>
 					</tr>
 					<tr>
-					<td align="right"><label for="emplacement">Emplacement :</label></td>
-					<td align="left"><input type="text" class="form-control" id="emplacement" placeholder="Emplacement"></td>
+					<td align="right"><label for="poids">Poids :</label></td>
+					<td align="left"><input type="text" class="form-control" id="poids" placeholder="Poids"></td>
+				</tr>
+				<tr>
+					<td align="right"><label for="volume">Volume :</label></td>
+					<td align="left"><input type="text" class="form-control" id="volume" placeholder="Volume"></td>
 				</tr>
 				<tr>
 					<td align="right"><label for="description">Description :</label></td>
