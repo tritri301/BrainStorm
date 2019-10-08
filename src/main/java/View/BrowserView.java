@@ -1,5 +1,7 @@
 package View;
 
+import Controllers.ItemController;
+import Controllers.ItemInfoController;
 import Models.Item;
 import Repositories.ContainerRepository;
 import Repositories.ItemInfoRepository;
@@ -97,44 +99,29 @@ class Browser extends BorderPane {
     }
     public void ListItems()
     {
-        ItemService itemService = ItemService.GetInstance();
-        ItemInfoService itemInfoService = ItemInfoService.GetInstance();
-        List<Item> itemList = itemService.FindAll();
+        ItemInfoController itemInfoController = ItemInfoController.GetInstance();
+        ItemController itemController = ItemController.GetInstance();
+        List<Item> itemList = itemController.FindAll();
         for(int i = 0; i < itemList.size(); i++)
         {
-            try {
-                window.call("ShowItem", itemList.get(i).getIdItem(),
-                        itemInfoService.FindById(itemList.get(i).getIdItemInfo()).getNom(),
-                        itemInfoService.FindById(itemList.get(i).getIdItemInfo()).getDescription(),
-                        itemInfoService.FindById(itemList.get(i).getIdItemInfo()).getPoids(),
-                        itemInfoService.FindById(itemList.get(i).getIdItemInfo()).getVolume());
-            } catch(Exception e)
-            {
-                System.out.println("Problem");
-            }
+            window.call("ShowItem", itemList.get(i).getIdItem(),
+                    itemInfoController.FindById(itemList.get(i).getIdItemInfo()).getNom(),
+                    itemInfoController.FindById(itemList.get(i).getIdItemInfo()).getDescription(),
+                    itemInfoController.FindById(itemList.get(i).getIdItemInfo()).getPoids(),
+                    itemInfoController.FindById(itemList.get(i).getIdItemInfo()).getVolume());
         }
     }
     public void ListItems(int id)
     {
-        ItemService itemService = ItemService.GetInstance();
-        ItemInfoService itemInfoService = ItemInfoService.GetInstance();
-        Item item;
-        try{
-            item = itemService.FindById(id);
-        }
-        catch(Exception e){
-            item = null;
-        }
-        try {
-            window.call("ShowItem", item.getIdItem(),
-                    itemInfoService.FindById(item.getIdItemInfo()).getNom(),
-                    itemInfoService.FindById(item.getIdItemInfo()).getDescription(),
-                    itemInfoService.FindById(item.getIdItemInfo()).getPoids(),
-                    itemInfoService.FindById(item.getIdItemInfo()).getVolume());
-        } catch(Exception e)
-        {
-            System.out.println("Problem");
-        }
+        ItemInfoController itemInfoController = ItemInfoController.GetInstance();
+        ItemController itemController = ItemController.GetInstance();
+        Item item = itemController.FindById(id);
+        window.call("ShowItem", item.getIdItem(),
+                itemInfoController.FindById(item.getIdItemInfo()).getNom(),
+                itemInfoController.FindById(item.getIdItemInfo()).getDescription(),
+                itemInfoController.FindById(item.getIdItemInfo()).getPoids(),
+                itemInfoController.FindById(item.getIdItemInfo()).getVolume());
+
     }
 
 
