@@ -163,7 +163,7 @@ public class ItemService implements ItemServiceInterface {
         if (valide) {
             if (connection == null) {
                 try {
-                    itemRepository.Create(this.itemFactory.Create(idItemInfo, idContainer, description));
+                    itemRepository.Create(this.itemFactory.Create(0, idItemInfo, idContainer, description));
                 } catch (Exception e) {
                     valide = false;
                     ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd" + e.toString());

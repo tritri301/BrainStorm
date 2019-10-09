@@ -12,7 +12,7 @@ public class main
         ItemRepository itemRepository = ItemRepository.GetInstance();
         ItemFactory itemFactory = ItemFactory.GetInstance();
 
-        Item item = itemFactory.Create(1,1,"item creer sans id");
+        Item item = itemFactory.Create(0,1,1,"item creer sans id");
         try {
             itemRepository.Create(item);
         } catch (Exception e) {
