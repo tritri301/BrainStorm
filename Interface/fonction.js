@@ -36,6 +36,20 @@ function SubmitList()
         window.JavaApp.ListAllItem();
     }
 }
+
+function DeleteItem()
+ {
+     //Variable declaration
+     var idItem = document.getElementById("id").value;
+     window.JavaApp.DeleteItem();
+ }
+
+ function ResetItem()
+ {
+     //Variable declaration
+    document.getElementById("id").value = "";
+ }
+
 function Reset()
 {
     myNode = document.getElementById("table1");
