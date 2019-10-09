@@ -9,7 +9,6 @@ public class main
 {
     public static void main(String[] args)
     {
-        ItemController itemController = ItemController.GetInstance();
         ItemRepository itemRepository = ItemRepository.GetInstance();
         ItemFactory itemFactory = ItemFactory.GetInstance();
 
@@ -18,7 +17,7 @@ public class main
             itemRepository.Create(item);
         } catch (Exception e) {
             e.printStackTrace();
-        }
+       }
 
     }
 }

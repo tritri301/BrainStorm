@@ -66,12 +66,10 @@ public class ItemRepository implements ItemRepositoryInterface {
 
     @Override
     public void Create(Item itemToAdd) throws Exception {
-        PreparedStatement stmt = con.prepareStatement("insert into item values(?, ?, ?, ?)");
-
-        stmt.setInt(2, itemToAdd.getIdItemInfo());
-        stmt.setInt(3, itemToAdd.getIdContainer());
-        stmt.setString(4, itemToAdd.getDescription());
-
+        PreparedStatement stmt = con.prepareStatement("insert into item values(default, ?, ?, ?)");
+        stmt.setInt(1, itemToAdd.getIdItemInfo());
+        stmt.setInt(2, itemToAdd.getIdContainer());
+        stmt.setString(3, itemToAdd.getDescription());
         stmt.execute();
     }
 
