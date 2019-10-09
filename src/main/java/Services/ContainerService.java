@@ -23,7 +23,8 @@ public class ContainerService implements ContainerServiceInterface {
     private VerificationService verificationService = VerificationService.GetInstance();
 
 
-    public int FindById(int id) throws ExceptionCustom {
+    @Override
+    public Container FindById(int id) throws ExceptionCustom {
         Container container = null;
         if (this.verificationService.verifier(id)) {
             if (connection == null) {
@@ -48,7 +49,7 @@ public class ContainerService implements ContainerServiceInterface {
     }
 
     @Override
-    public static List<Container> FindAll() throws ExceptionCustom {
+    public List<Container> FindAll() throws ExceptionCustom {
         List<Container> container = new ArrayList<Container>();
         if (connection == null)
         {
@@ -69,17 +70,12 @@ public class ContainerService implements ContainerServiceInterface {
     }
 
     @Override
-    public static boolean Update(int idContainer, int quantite, int position, int volume, int poidsMax, int containerParent) throws ExceptionCustom {
+    public boolean Update(int idContainer, int quantite, int position, int volume, int poidsMax, int containerParent) throws ExceptionCustom {
 
         boolean valide = this.verificationService.verifier(idContainer,quantite,position,volume,poidsMax,containerParent);
 
         if (valide) {
-            Container nouveauContainer = null;
-            try {
-                nouveauContainer = FindById(idContainer);
-            } catch (Exception.ExceptionCustom exceptionCustom) {
-                exceptionCustom.printStackTrace();
-            }
+            Container nouveauContainer = FindById(idContainer);
             nouveauContainer.setQuantite(quantite);
             nouveauContainer.setPosition(position);
             nouveauContainer.setVolume(volume);
@@ -109,7 +105,7 @@ public class ContainerService implements ContainerServiceInterface {
     }
 
     @Override
-    public static boolean Create(int idContainer, int quantite, int position, int volume, int poidsMax, int containerParent) throws ExceptionCustom {
+    public boolean Create(int idContainer, int quantite, int position, int volume, int poidsMax, int containerParent) throws ExceptionCustom {
 
         boolean valide = this.verificationService.verifier(idContainer,quantite,position,volume,poidsMax,containerParent);
 
