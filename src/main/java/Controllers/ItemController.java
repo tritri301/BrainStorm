@@ -91,12 +91,12 @@ public class ItemController implements ItemControllerInterface
     }
 
     @Override
-    public boolean Create(int idItem, int idItemInfo, int idContainer, String description) {
+    public boolean Create(int idItemInfo, int idContainer, String description) {
 
         boolean create = true;
 
         try {
-            create = itemService.Create(idItem,idItemInfo,idContainer,description);
+            create = itemService.Create(idItemInfo,idContainer,description);
         } catch (ExceptionCustom e) {
             browser.Alert(e.getMessage());
         }

@@ -54,13 +54,12 @@ public interface ItemServiceInterface {
     /**
      * Create item.
      *
-     * @param idItem      the id item
      * @param idItemInfo  the id item info
      * @param idContainer the id container
      * @param description the description
      * @return the item
      */
-    boolean Create(int idItem, int idItemInfo, int idContainer, String description) throws ExceptionCustom;
+    boolean Create(int idItemInfo, int idContainer, String description) throws ExceptionCustom;
 
     /**
      * Delete item.

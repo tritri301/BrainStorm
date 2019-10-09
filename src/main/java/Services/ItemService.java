@@ -152,9 +152,9 @@ public class ItemService implements ItemServiceInterface {
     }
 
     @Override
-    public boolean Create(int idItem, int idItemInfo, int idContainer, String description) throws ExceptionCustom {
+    public boolean Create(int idItemInfo, int idContainer, String description) throws ExceptionCustom {
 
-        boolean valide = this.verificationService.verifier(idItem,idItemInfo,idContainer);
+        boolean valide = this.verificationService.verifier(idItemInfo,idContainer);
         if (valide)
         {
             valide = this.verificationService.verifier(description);
@@ -163,7 +163,7 @@ public class ItemService implements ItemServiceInterface {
         if (valide) {
             if (connection == null) {
                 try {
-                    itemRepository.Create(this.itemFactory.Create(idItem, idItemInfo, idContainer, description));
+                    itemRepository.Create(this.itemFactory.Create(idItemInfo, idContainer, description));
                 } catch (Exception e) {
                     valide = false;
                     ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd" + e.toString());

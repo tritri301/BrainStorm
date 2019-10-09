@@ -9,10 +9,9 @@ public class ItemFactory {
 
     private static final ItemFactory instance = new ItemFactory();
 
-    public Item Create (int idItem, int idItemInfo, int idContainer, String description) {
+    public Item Create (int idItemInfo, int idContainer, String description) {
         Item ret = new Item();
 
-        ret.setIdItem(idItem);
         ret.setIdItemInfo(idItemInfo);
         ret.setIdContainer(idContainer);
         ret.setDescription(description);
