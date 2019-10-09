@@ -37,6 +37,10 @@ public class BrowserView extends Application{
 
         scene = new Scene(Browser.GetInstance(),Color.BLACK);
 
+        //Work around bug
+        ItemController itemController = ItemController.GetInstance();
+        ItemInfoController itemInfoController = ItemInfoController.GetInstance();
+
         stage.setScene(scene);
         stage.setMaximized(true);
         stage.show();
