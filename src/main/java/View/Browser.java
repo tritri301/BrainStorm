@@ -102,5 +102,10 @@ public class Browser extends BorderPane {
                         itemInfoController.FindById(itemList.get(i).getIdItemInfo()).getVolume());
             }
         }
+        public void DeleteItem(int id)
+        {
+            ItemController itemController = ItemController.GetInstance();
+            itemController.Delete(id);
+        }
     }
 }
