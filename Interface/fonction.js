@@ -41,7 +41,7 @@ function DeleteItem()
  {
      //Variable declaration
      var idItem = document.getElementById("id").value;
-     window.JavaApp.DeleteItem();
+     window.JavaApp.DeleteItem(idItem);
  }
 
  function ResetItem()

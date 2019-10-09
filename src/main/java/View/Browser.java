@@ -105,7 +105,10 @@ public class Browser extends BorderPane {
         public void DeleteItem(int id)
         {
             ItemController itemController = ItemController.GetInstance();
-            itemController.Delete(id);
+            if(itemController.Delete(id))
+            {
+                Alert("Objet supprimé avec succes");
+            }
         }
     }
 }
