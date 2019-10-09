@@ -17,7 +17,7 @@ import netscape.javascript.JSObject;
 import java.util.List;
 
 public class Browser extends BorderPane {
-    private static final Browser instance = new Browser();
+    private static final View.Browser instance = new View.Browser();
     private WebView browser = new WebView();
     private WebEngine webEngine = browser.getEngine();
     private JSObject window = (JSObject) webEngine.executeScript("window");
@@ -51,7 +51,7 @@ public class Browser extends BorderPane {
     }
 
     //Signleton function
-    public static Browser GetInstance() {
+    public static View.Browser GetInstance() {
         return instance;
     }
 
@@ -69,6 +69,7 @@ public class Browser extends BorderPane {
         }
 
         public void ListItem() {
+            ItemService itemService = ItemService.GetInstance();
             ItemController itemController = ItemController.GetInstance();
             ItemInfoController itemInfoController = ItemInfoController.GetInstance();
             List<Item> itemList = itemController.FindAll();
