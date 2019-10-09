@@ -12,7 +12,7 @@ public interface ContainerControllerInterface {
      * @param id the id
      * @return the container
      */
-    public Container FindById(int id);
+    public int FindById(int id);
 
     /**
      * Find all list.
@@ -62,11 +62,6 @@ public interface ContainerControllerInterface {
      * @return the container
      */
     boolean Delete(int id);
-
-
-
-
-
 
 
 }
