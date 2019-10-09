@@ -56,6 +56,13 @@ a.lienSousMenu {
 	text-align: center; 
 }
 
+#sectionEnTete {
+	background-color:#93c47d;
+	text-align: center;
+	border-top: 1px solid #000000;
+	border-bottom: 1px solid #000000;
+}
+
 #sectionNoirDeux {
 	background-color: #000000;
 	color: #FFFFFF;
