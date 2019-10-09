@@ -23,8 +23,18 @@ function SubmitList()
     while (myNode.firstChild) {
         myNode.removeChild(myNode.firstChild);
     }
-
-    window.JavaApp.ListItem();
+    if(idItem != "")
+    {
+        window.JavaApp.ListItemById(idItem);
+    }
+    else if(nameItem != "")
+    {
+        window.JavaApp.ListItemByName(nameItem);
+    }
+    else
+    {
+        window.JavaApp.ListAllItem();
+    }
 }
 function Reset()
 {

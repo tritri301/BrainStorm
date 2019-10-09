@@ -68,11 +68,32 @@ public class Browser extends BorderPane {
             Platform.exit();
         }
 
-        public void ListItem() {
-            ItemService itemService = ItemService.GetInstance();
+        public void ListAllItem() {
             ItemController itemController = ItemController.GetInstance();
             ItemInfoController itemInfoController = ItemInfoController.GetInstance();
             List<Item> itemList = itemController.FindAll();
+            for (int i = 0; i < itemList.size(); i++) {
+                window.call("ShowItem", itemList.get(i).getIdItem(),
+                        itemInfoController.FindById(itemList.get(i).getIdItemInfo()).getNom(),
+                        itemInfoController.FindById(itemList.get(i).getIdItemInfo()).getDescription(),
+                        itemInfoController.FindById(itemList.get(i).getIdItemInfo()).getPoids(),
+                        itemInfoController.FindById(itemList.get(i).getIdItemInfo()).getVolume());
+            }
+        }
+        public void ListItemById(int id) {
+            ItemController itemController = ItemController.GetInstance();
+            ItemInfoController itemInfoController = ItemInfoController.GetInstance();
+            Item item = itemController.FindById(id);
+            window.call("ShowItem", item.getIdItem(),
+                    itemInfoController.FindById(item.getIdItemInfo()).getNom(),
+                    itemInfoController.FindById(item.getIdItemInfo()).getDescription(),
+                    itemInfoController.FindById(item.getIdItemInfo()).getPoids(),
+                    itemInfoController.FindById(item.getIdItemInfo()).getVolume());
+        }
+        public void ListItemByName(String name) {
+            ItemController itemController = ItemController.GetInstance();
+            ItemInfoController itemInfoController = ItemInfoController.GetInstance();
+            List<Item> itemList = itemController.FindByName(name);
             for (int i = 0; i < itemList.size(); i++) {
                 window.call("ShowItem", itemList.get(i).getIdItem(),
                         itemInfoController.FindById(itemList.get(i).getIdItemInfo()).getNom(),

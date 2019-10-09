@@ -36,6 +36,8 @@ public class BrowserView extends Application{
         stage.getIcons().add(icone);
 
         scene = new Scene(Browser.GetInstance(),Color.BLACK);
+        ItemController itemController = ItemController.GetInstance();
+        ItemInfoController itemInfoController = ItemInfoController.GetInstance();
 
         stage.setScene(scene);
         stage.setMaximized(true);
