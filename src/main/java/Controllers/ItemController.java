@@ -113,10 +113,11 @@ public class ItemController implements ItemControllerInterface
         try {
             delete = itemService.Delete(id);
         } catch (ExceptionCustom e) {
+            delete = false;
             browser.Alert(e.getMessage());
         }
         catch(Exception e) {
-
+            delete = false;
         }
 
         return delete;
