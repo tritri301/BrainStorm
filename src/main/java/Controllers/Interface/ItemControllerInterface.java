@@ -52,7 +52,7 @@ public interface ItemControllerInterface
      * @param description the description
      * @return the item
      */
-    boolean Create(int idItem, int idItemInfo, int idContainer, String description);
+    boolean Create(int idItemInfo, int idContainer, String description);
 
     /**
      * Delete item.
