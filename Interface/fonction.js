@@ -73,3 +73,12 @@ function Alert(msg)
 {
     window.alert(msg);
 }
+
+function CreateItem()
+{
+   var upc =  document.getElementById("upc").value;
+   var emplacement = document.getElementById("emplacement").value;
+   var  description =  document.getElementById("description").value;
+
+    window.JavaApp.CreateItem(upc,emplacement,description);
+}
