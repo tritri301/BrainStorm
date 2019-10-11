@@ -19,7 +19,17 @@ But du fichier :    Afficher le menu ajouter catalogue du site
 <body>
 <div class="container-fluid" id="conteneur">
 	<div class="row" id="sectionBlancMiniTest" width="100%">
-		<div class="col-sm" id="logo"><a href="index.html" class="lienCoolPlay">Cool Play inc.</a></div>
+		<div class="col-sm" id="logo"><a href="index.html" class="lienCoolPlay"><img src="logo.png"/></a></div>
+		<div class="row" id="sectionEnTete">
+			<div class="col">
+				<div class="col-sm" id="catalogue">
+					<a href="index.html"><img src="bouton_item.png" onmouseover="this.src='bouton_item2.png'" onmouseout="this.src='bouton_item.png'"/></a>
+					<a href="catalogue.html"><img src="bouton_catalogue3.png"/></a>
+					<a href="inventaire.html"><img src="bouton_inventaire.png" onmouseover="this.src='bouton_inventaire2.png'" onmouseout="this.src='bouton_inventaire.png'"/></a>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm" id="usager"><p class="usager"><i><a href="connexion.html" class="connexion">Connexion</a></i></p></div>
 	</div>
 	<div class="row" id="sectionSousMenu">
 		<a href="ajouterCatalogue.html" class="lienSousMenu"><img src="bouton_ajouter.png"/></a>
