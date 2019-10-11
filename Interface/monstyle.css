@@ -19,9 +19,28 @@ p.p1 {
 }
 
 #logo {
-	text-align: left;
-	font-size: 4em;
-	font-family: Georgia;
+	text-align: center;
+	padding-bottom: 15px;
+}
+
+#conteneurUsager {
+	background-color: #FFFFFF;
+	margin-top:100px;
+	padding-bottom:100px;
+	margin-left: 550px;
+	margin-right: 550px;
+	border-style: groove;
+	border-color: green;
+	border-width: 5px;
+}
+
+#espace {
+	padding-bottom: 100px;
+}
+
+#logoUsager {
+	text-align: center;
+	padding-bottom: 50px;
 }
 
 #titre {
@@ -30,7 +49,14 @@ p.p1 {
 }
 
 #usager {
-	text-align: right; 
+	text-align: right;
+	font-size: 1.5em;
+	padding-right: 10px;
+}
+
+a.connexion {
+	color: #38761d;
+	text-decoration: none;
 }
 
 a.lienCoolPlay {
@@ -47,7 +73,8 @@ a.lienSousMenu {
 #sectionSousMenu {
 	background-color: #FFFFFF;
 	color: #FFFFFF;
-	text-align: center; 
+	text-align: center;
+	padding-bottom: 10px;
 }
 
 #sectionVerte {
@@ -81,10 +108,10 @@ a.lienSousMenu {
 }
 
 #tableauFormulaire {
-  table-layout: auto;
-  width: 50%;
-  margin: 0 auto !important;
-}
+   table-layout: auto;
+   width: 50%;
+   margin: 0 auto !important;
+ }
 
 #tableauFormulaire td {
   padding: 15px;

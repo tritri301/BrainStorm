@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<!--
+Date           :	11 octobre 2019
+Nom du fichier :    connexion.html
+But du fichier :    Afficher la page connexion du site
+-->
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>CoolPlay inc.</title>
+    <link rel="shortcut icon" href="icone.ico" type="image/x-icon" />
+    <script type="text/javascript" src="fonction.js"></script>
+    <link rel="stylesheet" type="text/css" href="monstyle.css" media="all">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container-fluid" id="conteneurUsager">
+    <div class="col-sm" id="espace"></div>
+    <div class="col-sm" id="logoUsager"><a href="index.html" class="lienCoolPlay"><img src="logo.png"/></a></div>
+<!--Table-->
+<table id="tableauFormulaire" border="0">
+
+    <!--Table body-->
+    <tbody id="formulaire">
+    <tr>
+        <td align="right"><label for="nomUsager">Nom d'usager :</label></td>
+        <td align="left"><input type="text" class="form-control" id="nomUsager"></td>
+    </tr>
+    <tr>
+        <td align="right"><label for="pwd">Mot de passe :</label></td>
+        <td align="left"><input type="password" class="form-control" id="pwd" ></td>
+    </tr>
+    <tr>
+        <td align="center" colspan="2">
+            <button class="btn btn-default" >Connexion</button>
+            <button type="reset" class="btn btn-default">Annuler</button>
+        </td>
+    </tr>
+    </tbody>
+    <!--Table body-->
+</table>
+</div>
+</body>
+</html>
