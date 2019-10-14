@@ -93,6 +93,7 @@ But du fichier :    Afficher la liste d'items
                     <th>Description</th>
                     <th>Poids</th>
                     <th>Volume</th>
+                    <th>Emplacement</th>
                 </tr>
                 </thead>
                 <!--Table head-->
@@ -105,16 +106,19 @@ But du fichier :    Afficher la liste d'items
 				var column3 = document.createElement("td");
 				var column4 = document.createElement("td");
 				var column5 = document.createElement("td");
-				column1.innerHTML = "test1";
-				column2.innerHTML = "test2";
-				column3.innerHTML = "test3";
-				column4.innerHTML = "test4";
-				column5.innerHTML = "test5";
+				var column6 = document.createElement("td");
+				column1.innerHTML = "Id";
+				column2.innerHTML = "Nom";
+				column3.innerHTML = "Description";
+				column4.innerHTML = "Poids";
+				column5.innerHTML = "Volume";
+				column6.innerHTML = "Emplacement";
 				row.appendChild(column1);
 				row.appendChild(column2);
 				row.appendChild(column3);
 				row.appendChild(column4);
 				row.appendChild(column5);
+				row.appendChild(column6);
 				document.getElementById("table1").appendChild(row);
                 </script>
                 </tbody>
