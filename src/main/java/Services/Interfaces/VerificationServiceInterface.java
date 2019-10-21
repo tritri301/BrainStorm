@@ -53,4 +53,6 @@ public interface VerificationServiceInterface {
      * @return the boolean
      */
     boolean verifierAcces(int acces);
+
+    String normalisation(String string);
 }

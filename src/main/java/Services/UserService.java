@@ -76,6 +76,7 @@ public class UserService implements UserServiceInterface {
         if (this.verificationService.verifier(name)) {
             if (connection == null) {
                 try {
+                    name = verificationService.normalisation(name);
                     user = this.userRepository.FindByName(name);
                 } catch (Exception e) {
                     ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd" + e.toString());
@@ -103,6 +104,7 @@ public class UserService implements UserServiceInterface {
         }
 
         if (valide) {
+            nom = verificationService.normalisation(nom);
             User nouveauUser = FindById(id);
             nouveauUser.setNom(nom);
             nouveauUser.setPassword(password);
@@ -140,6 +142,7 @@ public class UserService implements UserServiceInterface {
         }
 
         if(valide) {
+            nom = verificationService.normalisation(nom);
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             String dateCreation = format.format(new Date());
 

@@ -73,6 +73,7 @@ public class ItemInfoService implements ItemInfoServiceInterface {
         if (this.verificationService.verifier(name)) {
             if (connection == null) {
                 try {
+                    name = verificationService.normalisation(name);
                     itemInfo = this.itemInfoRepository.FindByName(name);
                 } catch (Exception e) {
                     ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd" + e.toString());
@@ -100,6 +101,8 @@ public class ItemInfoService implements ItemInfoServiceInterface {
         }
 
         if (valide) {
+            description = verificationService.normalisation(description);
+            nom = verificationService.normalisation(nom);
             ItemInfo nouveauItemInfo = FindById(idItem);
             nouveauItemInfo.setDescription(description);
             nouveauItemInfo.setNom(nom);
@@ -141,6 +144,8 @@ public class ItemInfoService implements ItemInfoServiceInterface {
         if (valide) {
             if (connection == null) {
                 try {
+                    description = verificationService.normalisation(description);
+                    nom = verificationService.normalisation(nom);
                     itemInfoRepository.Create(this.itemInfoFactory.Create(idItem, description, nom, poids, volume));
                 } catch (Exception e) {
                     valide = false;

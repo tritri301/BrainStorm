@@ -2,6 +2,7 @@ import Controllers.ItemController;
 import Factory.ItemFactory;
 import Models.Item;
 import Repositories.ItemRepository;
+import Services.VerificationService;
 
 import java.io.Console;
 import java.sql.*;
@@ -13,10 +14,14 @@ public class main
 
 		ItemRepository itemRepository = ItemRepository.GetInstance();
 		ItemFactory itemFactory = ItemFactory.GetInstance();
+		VerificationService verif = VerificationService.GetInstance();
 
 		Item item = itemFactory.Create(0, 1, 1, "item creer sans id",1);
 		try {
-			itemRepository.Create(item);
+			//itemRepository.Create(item);
+			String string;
+			string = "ÉèèààBLSUSYUD";
+			System.out.print(verif.normalisation(string));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
