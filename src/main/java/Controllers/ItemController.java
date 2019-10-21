@@ -83,9 +83,10 @@ public class ItemController implements ItemControllerInterface
             update = itemService.Update(idItem,idItemInfo,idContainer,description);
         } catch (ExceptionCustom e) {
             browser.Alert(e.getMessage());
+            update = false;
         }
         catch(Exception e) {
-
+            update = false;
         }
         return update;
     }
@@ -99,9 +100,10 @@ public class ItemController implements ItemControllerInterface
             create = itemService.Create(idItemInfo,idContainer,description);
         } catch (ExceptionCustom e) {
             browser.Alert(e.getMessage());
+            create = false;
         }
         catch(Exception e) {
-
+            create = false;
         }
 
         return create;
