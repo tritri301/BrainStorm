@@ -81,7 +81,7 @@ function CreateItem()
 {
    var upc =  document.getElementById("upc").value;
    var emplacement = document.getElementById("emplacement").value;
-   var  description =  document.getElementById("description").value;
+   var description =  document.getElementById("description").value;
 
     if(window.JavaApp.CreateItem(upc,emplacement,description))
     {
