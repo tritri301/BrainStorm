@@ -102,21 +102,25 @@ public class Browser extends BorderPane {
                         itemInfoController.FindById(itemList.get(i).getIdItemInfo()).getVolume());
             }
         }
-        public void DeleteItem(int id)
+        public boolean DeleteItem(int id)
         {
             ItemController itemController = ItemController.GetInstance();
             if(itemController.Delete(id))
             {
                 Alert("Objet supprimé avec succes");
+                return true;
             }
+            return false;
         }
-        public void CreateItem(int upc,int idCotainer, int emplacement, String description,int quantite)
+        public boolean CreateItem(int upc,int idContainer, int emplacement, String description,int quantite)
         {
             ItemController itemController = ItemController.GetInstance();
-            if(itemController.Create(upc,idCotainer, description,quantite,emplacement))
+            if(itemController.Create(upc,idContainer, description,quantite,emplacement))
             {
                 Alert("Objet ajouté avec succes");
+                return true;
             }
+            return false;
         }
     }
 }

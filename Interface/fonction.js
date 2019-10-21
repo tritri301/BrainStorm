@@ -7,10 +7,6 @@ function afficheDate(){
 	 mois[aujourdhui.getMonth()] + " " + aujourdhui.getFullYear(); 
 	document.writeln(result);
 }
-function exit()
-{
-    window.JavaApp.exit();
-}
 
 function SubmitList()
 {
@@ -44,13 +40,20 @@ function DeleteItem()
      window.JavaApp.DeleteItem(idItem);
  }
 
- function ResetItem()
+ function ResetSupprimer()
  {
      //Variable declaration
     document.getElementById("id").value = "";
  }
 
-function Reset()
+ function ResetAjouter()
+ {
+    document.getElementById("upc").value = "";
+    document.getElementById("emplacement").value = "";
+    document.getElementById("description").value = "";
+ }
+
+function ResetList()
 {
     myNode = document.getElementById("table1");
     while (myNode.firstChild) {
@@ -80,5 +83,8 @@ function CreateItem()
    var emplacement = document.getElementById("emplacement").value;
    var  description =  document.getElementById("description").value;
 
-    window.JavaApp.CreateItem(upc,emplacement,description);
+    if(window.JavaApp.CreateItem(upc,emplacement,description))
+    {
+        ResetAjouter();
+    }
 }

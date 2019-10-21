@@ -22,6 +22,8 @@ create table item(
 	idItem int primary key,
 	idItemInfo int not null,
 	idContainer int not null,
+	quantite int not null default 1,
+	emplacement int not null,
 	description varchar(255),
 	foreign key (idItemInfo) references itemInfo(idItemInfo) on delete cascade,
 	foreign key (idContainer) references container(idContainer) on delete cascade
