@@ -3,6 +3,7 @@ package View;
 import Controllers.ItemController;
 import Controllers.ItemInfoController;
 import Models.Item;
+import Models.ItemInfo;
 import Services.ItemService;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -73,33 +74,39 @@ public class Browser extends BorderPane {
             ItemInfoController itemInfoController = ItemInfoController.GetInstance();
             List<Item> itemList = itemController.FindAll();
             for (int i = 0; i < itemList.size(); i++) {
+                ItemInfo tmp = itemInfoController.FindById(itemList.get(i).getIdItemInfo());
                 window.call("ShowItem", itemList.get(i).getIdItem(),
-                        itemInfoController.FindById(itemList.get(i).getIdItemInfo()).getNom(),
-                        itemInfoController.FindById(itemList.get(i).getIdItemInfo()).getDescription(),
-                        itemInfoController.FindById(itemList.get(i).getIdItemInfo()).getPoids(),
-                        itemInfoController.FindById(itemList.get(i).getIdItemInfo()).getVolume());
+                        tmp.getNom(),
+                        tmp.getDescription(),
+                        tmp.getPoids(),
+                        tmp.getVolume(),
+                        itemList.get(i).getQuantite());
             }
         }
         public void ListItemById(int id) {
             ItemController itemController = ItemController.GetInstance();
             ItemInfoController itemInfoController = ItemInfoController.GetInstance();
             Item item = itemController.FindById(id);
+            ItemInfo tmp = itemInfoController.FindById(item.getIdItemInfo());
             window.call("ShowItem", item.getIdItem(),
-                    itemInfoController.FindById(item.getIdItemInfo()).getNom(),
-                    itemInfoController.FindById(item.getIdItemInfo()).getDescription(),
-                    itemInfoController.FindById(item.getIdItemInfo()).getPoids(),
-                    itemInfoController.FindById(item.getIdItemInfo()).getVolume());
+                    tmp.getNom(),
+                    tmp.getDescription(),
+                    tmp.getPoids(),
+                    tmp.getVolume(),
+                    item.getQuantite());
         }
         public void ListItemByName(String name) {
             ItemController itemController = ItemController.GetInstance();
             ItemInfoController itemInfoController = ItemInfoController.GetInstance();
             List<Item> itemList = itemController.FindByName(name);
             for (int i = 0; i < itemList.size(); i++) {
+                ItemInfo tmp = itemInfoController.FindById(itemList.get(i).getIdItemInfo());
                 window.call("ShowItem", itemList.get(i).getIdItem(),
-                        itemInfoController.FindById(itemList.get(i).getIdItemInfo()).getNom(),
-                        itemInfoController.FindById(itemList.get(i).getIdItemInfo()).getDescription(),
-                        itemInfoController.FindById(itemList.get(i).getIdItemInfo()).getPoids(),
-                        itemInfoController.FindById(itemList.get(i).getIdItemInfo()).getVolume());
+                        tmp.getNom(),
+                        tmp.getDescription(),
+                        tmp.getPoids(),
+                        tmp.getVolume(),
+                        itemList.get(i).getQuantite());
             }
         }
         public boolean DeleteItem(int id)
@@ -112,10 +119,10 @@ public class Browser extends BorderPane {
             }
             return false;
         }
-        public boolean CreateItem(int upc,int idContainer, int emplacement, String description,int quantite)
+        public boolean CreateItem(int upc,int idContainer, String description, int quantite)
         {
             ItemController itemController = ItemController.GetInstance();
-            if(itemController.Create(upc,idContainer, description,quantite,emplacement))
+            if(itemController.Create(upc,idContainer, description, quantite))
             {
                 Alert("Objet ajouté avec succes");
                 return true;

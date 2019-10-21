@@ -8,7 +8,6 @@ public class Item
     private int idItem;
     private int idItemInfo;
     private int idContainer;
-    private int emplacement;
     private int quantite;
     private String description;
 
@@ -73,14 +72,6 @@ public class Item
      */
     public String getDescription() {
         return description;
-    }
-
-    public int getEmplacement() {
-        return emplacement;
-    }
-
-    public void setEmplacement(int emplacement) {
-        this.emplacement = emplacement;
     }
 
     public int getQuantite() {

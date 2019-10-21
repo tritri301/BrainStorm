@@ -115,9 +115,9 @@ public class ItemService implements ItemServiceInterface {
     }
 
     @Override
-    public boolean Update(int idItem, int idItemInfo, int idContainer, String description,int quantite, int emplacement) throws ExceptionCustom {
+    public boolean Update(int idItem, int idItemInfo, int idContainer, String description,int quantite) throws ExceptionCustom {
 
-        boolean valide = this.verificationService.verifier(idItem,idItemInfo,idContainer,quantite,emplacement);
+        boolean valide = this.verificationService.verifier(idItem,idItemInfo,idContainer,quantite);
         if (valide)
         {
             valide = this.verificationService.verifier(description);
@@ -129,7 +129,6 @@ public class ItemService implements ItemServiceInterface {
             nouveauItem.setIdContainer(idContainer);
             nouveauItem.setDescription(description);
             nouveauItem.setQuantite(quantite);
-            nouveauItem.setEmplacement(emplacement);
 
             if (connection == null) {
                 try {
@@ -154,9 +153,9 @@ public class ItemService implements ItemServiceInterface {
     }
 
     @Override
-    public boolean Create(int idItemInfo, int idContainer, String description,int quantite, int emplacement) throws ExceptionCustom {
+    public boolean Create(int idItemInfo, int idContainer, String description,int quantite) throws ExceptionCustom {
 
-        boolean valide = this.verificationService.verifier(idItemInfo,idContainer,quantite,emplacement);
+        boolean valide = this.verificationService.verifier(idItemInfo,idContainer,quantite);
         if (valide)
         {
             valide = this.verificationService.verifier(description);
@@ -165,7 +164,7 @@ public class ItemService implements ItemServiceInterface {
         if (valide) {
             if (connection == null) {
                 try {
-                    itemRepository.Create(this.itemFactory.Create(0, idItemInfo, idContainer, description,quantite,emplacement));
+                    itemRepository.Create(this.itemFactory.Create(0, idItemInfo, idContainer, description,quantite));
                 } catch (Exception e) {
                     valide = false;
                     ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd" + e.toString());
