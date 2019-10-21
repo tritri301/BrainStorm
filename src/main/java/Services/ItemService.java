@@ -115,9 +115,9 @@ public class ItemService implements ItemServiceInterface {
     }
 
     @Override
-    public boolean Update(int idItem, int idItemInfo, int idContainer, String description) throws ExceptionCustom {
+    public boolean Update(int idItem, int idItemInfo, int idContainer, String description,int quantite, int emplacement) throws ExceptionCustom {
 
-        boolean valide = this.verificationService.verifier(idItem,idItemInfo,idContainer);
+        boolean valide = this.verificationService.verifier(idItem,idItemInfo,idContainer,quantite,emplacement);
         if (valide)
         {
             valide = this.verificationService.verifier(description);
@@ -128,6 +128,8 @@ public class ItemService implements ItemServiceInterface {
             nouveauItem.setIdItemInfo(idItemInfo);
             nouveauItem.setIdContainer(idContainer);
             nouveauItem.setDescription(description);
+            nouveauItem.setQuantite(quantite);
+            nouveauItem.setEmplacement(emplacement);
 
             if (connection == null) {
                 try {
@@ -152,9 +154,9 @@ public class ItemService implements ItemServiceInterface {
     }
 
     @Override
-    public boolean Create(int idItemInfo, int idContainer, String description) throws ExceptionCustom {
+    public boolean Create(int idItemInfo, int idContainer, String description,int quantite, int emplacement) throws ExceptionCustom {
 
-        boolean valide = this.verificationService.verifier(idItemInfo,idContainer);
+        boolean valide = this.verificationService.verifier(idItemInfo,idContainer,quantite,emplacement);
         if (valide)
         {
             valide = this.verificationService.verifier(description);
@@ -163,7 +165,7 @@ public class ItemService implements ItemServiceInterface {
         if (valide) {
             if (connection == null) {
                 try {
-                    itemRepository.Create(this.itemFactory.Create(0, idItemInfo, idContainer, description));
+                    itemRepository.Create(this.itemFactory.Create(0, idItemInfo, idContainer, description,quantite,emplacement));
                 } catch (Exception e) {
                     valide = false;
                     ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd" + e.toString());
