@@ -78,7 +78,11 @@ function CreateItem()
 {
    var upc =  document.getElementById("upc").value;
    var emplacement = document.getElementById("emplacement").value;
-   var  description =  document.getElementById("description").value;
+   var description =  document.getElementById("description").value;
 
-    window.JavaApp.CreateItem(upc,emplacement,description);
+
+   3333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333
+
+
+   window.JavaApp.CreateItem(upc,emplacement,description);
 }
