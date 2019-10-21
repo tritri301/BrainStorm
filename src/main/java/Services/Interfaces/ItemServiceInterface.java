@@ -49,7 +49,7 @@ public interface ItemServiceInterface {
      * @param description the description
      * @return the item
      */
-    boolean Update(int idItem, int idItemInfo, int idContainer, String description) throws ExceptionCustom;
+    boolean Update(int idItem, int idItemInfo, int idContainer, String description,int quantite, int emplacement) throws ExceptionCustom;
 
     /**
      * Create item.
@@ -59,7 +59,7 @@ public interface ItemServiceInterface {
      * @param description the description
      * @return the item
      */
-    boolean Create(int idItemInfo, int idContainer, String description) throws ExceptionCustom;
+    boolean Create(int idItemInfo, int idContainer, String description,int quantite, int emplacement) throws ExceptionCustom;
 
     /**
      * Delete item.
