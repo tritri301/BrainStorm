@@ -1,7 +1,9 @@
 package Services;
 
 import Services.Interfaces.VerificationServiceInterface;
+import com.sun.xml.internal.ws.util.StringUtils;
 
+import java.text.Normalizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -103,6 +105,16 @@ public class VerificationService implements VerificationServiceInterface {
     }
 
     @Override
+    public String normalisation(String string) {
+
+        string = Normalizer.normalize(string, Normalizer.Form.NFD);
+        string = string.replaceAll("[^\\p{ASCII}]", "");
+        string = string.toLowerCase();
+
+        return string;
+    }
+
+    @Override
     public boolean verifier(int... args)
     {
         boolean valide = true;
@@ -131,7 +143,6 @@ public class VerificationService implements VerificationServiceInterface {
         }
         return valide;
     }
-
 
     public static VerificationService GetInstance()
     {

@@ -97,6 +97,7 @@ public class ItemService implements ItemServiceInterface {
         if (this.verificationService.verifier(name)) {
             if (connection == null) {
                 try {
+                    name = verificationService.normalisation(name);
                     item = this.itemRepository.FindByName(name);
                 } catch (Exception e) {
                     ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd" + e.toString());
@@ -124,6 +125,9 @@ public class ItemService implements ItemServiceInterface {
         }
 
         if (valide) {
+
+            description = verificationService.normalisation(description);
+
             Item nouveauItem = FindById(idItem);
             nouveauItem.setIdItemInfo(idItemInfo);
             nouveauItem.setIdContainer(idContainer);
@@ -162,6 +166,9 @@ public class ItemService implements ItemServiceInterface {
         }
 
         if (valide) {
+
+            description = verificationService.normalisation(description);
+
             if (connection == null) {
                 try {
                     itemRepository.Create(this.itemFactory.Create(0, idItemInfo, idContainer, description,quantite));
