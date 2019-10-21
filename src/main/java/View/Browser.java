@@ -110,10 +110,10 @@ public class Browser extends BorderPane {
                 Alert("Objet supprimé avec succes");
             }
         }
-        public void CreateItem(int upc, int emplacement, String description)
+        public void CreateItem(int upc,int idCotainer, int emplacement, String description,int quantite)
         {
             ItemController itemController = ItemController.GetInstance();
-            if(itemController.Create(upc, emplacement, description))
+            if(itemController.Create(upc,idCotainer, description,quantite,emplacement))
             {
                 Alert("Objet ajouté avec succes");
             }

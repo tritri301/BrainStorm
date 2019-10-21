@@ -28,7 +28,7 @@ public class ItemRepository implements ItemRepositoryInterface {
         ResultSet rs = stmt.executeQuery();
         while(rs.next())
         {
-            item.add(itemFactory.Create(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(4)));
+            item.add(itemFactory.Create(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(4),rs.getInt(5),rs.getInt(6)));
         }
         return item;
     }
@@ -38,7 +38,7 @@ public class ItemRepository implements ItemRepositoryInterface {
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery("select * from item where idItem = " + id);
         rs.next();
-        return itemFactory.Create(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(4));
+        return itemFactory.Create(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(4),rs.getInt(5),rs.getInt(6));
     }
 
     @Override
@@ -48,7 +48,7 @@ public class ItemRepository implements ItemRepositoryInterface {
         ResultSet rs = stmt.executeQuery("select * from item");
         while(rs.next())
         {
-            item.add(itemFactory.Create(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(4)));
+            item.add(itemFactory.Create(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(4),rs.getInt(5),rs.getInt(6)));
         }
         return item;
     }
