@@ -54,5 +54,9 @@ public interface VerificationServiceInterface {
      */
     boolean verifierAcces(int acces);
 
+    boolean emplacementVerification(int emplacementBrut);
+
     String normalisation(String string);
+
+    int[] EmplacementDecortiquer(int emplacementBrut);
 }

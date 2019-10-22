@@ -105,6 +105,17 @@ public class VerificationService implements VerificationServiceInterface {
     }
 
     @Override
+    public boolean emplacementVerification(int emplacementBrut) {
+
+        if (emplacementBrut < 100000000)
+        {
+            return false;
+        }
+        else
+            return true;
+    }
+
+    @Override
     public String normalisation(String string) {
 
         string = Normalizer.normalize(string, Normalizer.Form.NFD);
@@ -112,6 +123,21 @@ public class VerificationService implements VerificationServiceInterface {
         string = string.toLowerCase();
 
         return string;
+    }
+
+    @Override
+    public int[] EmplacementDecortiquer(int emplacementBrut) {
+
+        int [] emplacement = new int[]{ 1,2,3};
+        int posX = Integer.parseInt(Integer.toString(emplacementBrut).substring(0,3));
+        int posY = Integer.parseInt(Integer.toString(emplacementBrut).substring(3,3));
+        int posZ = Integer.parseInt(Integer.toString(emplacementBrut).substring(6));
+
+        emplacement[0] = posX;
+        emplacement[1] = posY;
+        emplacement[2] = posZ;
+
+        return emplacement;
     }
 
     @Override
