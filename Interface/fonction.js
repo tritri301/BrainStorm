@@ -122,7 +122,7 @@ function ShowDeleteItem()
     }
     column2 = document.createElement("td");
     column3 = document.createElement("td");
-    column2.innerHTML = "<input type='text' class='form-control' id=" + arguments[5] + "placeholder='Quantité à enlever'>";
+    column2.innerHTML = "<div class='col-xs-4'><input type='text' class='form-control' id=" + arguments[5] + "placeholder='Quantité à enlever'></div>";
     column3.innerHTML = "<button class='btn btn-default' onclick='DeleteItem(" + arguments[5] + ");' >Retirer</button>";
     row.appendChild(column);
     row.appendChild(column2);
