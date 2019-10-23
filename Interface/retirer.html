@@ -84,7 +84,7 @@ But du fichier :    Afficher la page du site qui permet de retirer des items
             </table>
             <!--Table-->
             <!--Table-->
-            <table id="tablePreview" class="table table-bordered">
+            <table id="tableRetirer" class="table table-bordered">
                 <!--Table head-->
                 <thead align="center">
                 <tr>
@@ -100,31 +100,7 @@ But du fichier :    Afficher la page du site qui permet de retirer des items
                 <!--Table head-->
                 <!--Table body-->
                 <tbody id="table1">
-                <script>
-				var row = document.createElement("tr");
-				var column1 = document.createElement("td");
-				var column2 = document.createElement("td");
-				var column3 = document.createElement("td");
-				var column4 = document.createElement("td");
-				var column5 = document.createElement("td");
-				var column6 = document.createElement("td");
-				var column7 = document.createElement("td");
-				column1.innerHTML = "UPC";
-				column2.innerHTML = "Nom";
-				column3.innerHTML = "Description";
-				column4.innerHTML = "Quantité";
-				column5.innerHTML = "Emplacement";
-				column6.innerHTML = "<div class='col-xs-4'><input type='text' class='form-control' id='qtEnlever' placeholder='Quantité à enlever'> </div>";
-				column7.innerHTML = "<button class='btn btn-default' onclick='DeleteItem();' >Supprimer</button>";
-				row.appendChild(column1);
-				row.appendChild(column2);
-				row.appendChild(column3);
-				row.appendChild(column4);
-				row.appendChild(column5);
-				row.appendChild(column6);
-				row.appendChild(column7);
-				document.getElementById("table1").appendChild(row);
-                </script>
+
                 </tbody>
                 <!--Table body-->
             </table>
