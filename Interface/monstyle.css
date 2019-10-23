@@ -116,3 +116,7 @@ a.lienSousMenu {
 #tableauFormulaire td {
   padding: 15px;
 }
+
+#table1 td {
+  vertical-align: middle !important;
+}
