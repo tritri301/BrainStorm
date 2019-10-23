@@ -69,8 +69,8 @@ public class ItemRepository implements ItemRepositoryInterface {
         PreparedStatement stmt = con.prepareStatement("insert into item values(default, ?, ?, ?, ?)");
         stmt.setInt(1, itemToAdd.getIdItemInfo());
         stmt.setInt(2, itemToAdd.getIdContainer());
-        stmt.setInt(3, itemToAdd.getQuantite());
-        stmt.setString(4, itemToAdd.getDescription());
+        stmt.setInt(4, itemToAdd.getQuantite());
+        stmt.setString(3, itemToAdd.getDescription());
         stmt.execute();
     }
 

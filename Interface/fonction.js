@@ -34,17 +34,53 @@ function SubmitList()
 }
 function SubmitDelete()
 {
-    window.JavaApp.ListAllDeleteItem();
+    upc = document.getElementById("upc").value;
+    emplacement = document.getElementById("emplacement").value;
+    myNode = document.getElementById("table1");
+
+    //Deletes all existing entries
+    while (myNode.firstChild) {
+        myNode.removeChild(myNode.firstChild);
+    }
+    if(upc != "")
+    {
+        //if we have both a emplacement and a upc code
+        if(emplacement != "")
+        {
+            //TODO
+        }
+        //if we only have upc
+        else
+        {
+            window.JavaApp.ListDeleteItemByUPC(upc);
+        }
+    } else if(emplacement != "") //if upc is empty, but not emplacement
+    {
+        window.JavaApp.ListDeleteItemByContainer(emplacement);
+    }
+    else
+    {
+        window.JavaApp.ListAllDeleteItem();
+    }
+
 }
 function DeleteItem()
  {
-     Alert(arguments[0]);
+     if(confirm("Voulez-vous vraiment retirer cet item?"))
+     {
+        quantite = document.getElementById(arguments[0]);
+        window.JavaApp.DeleteItem(arguments[0]);
+     }
  }
 
  function ResetSupprimer()
  {
-     //Variable declaration
-    document.getElementById("id").value = "";
+     myNode = document.getElementById("table1");
+
+     //Deletes all existing entries
+     while (myNode.firstChild) {
+         myNode.removeChild(myNode.firstChild);
+     }
  }
 
  function ResetAjouter()
@@ -69,7 +105,7 @@ function ShowItem()
     {
          column = document.createElement("td");
          column.innerHTML = arguments[i];
-         column.setAttribute("onclick","Alert(arguments[0]);");
+         column.setAttribute("onclick","Alert(" + "'" + arguments[2] + "'" + ");")
          row.appendChild(column);
     }
     document.getElementById("table1").appendChild(row);
@@ -78,7 +114,7 @@ function ShowDeleteItem()
 {
     var row = document.createElement("tr");
     var column
-    for(var i = 0; i < arguments.length; i++)
+    for(var i = 0; i < 5; i++)
     {
          column = document.createElement("td");
          column.innerHTML = arguments[i];
@@ -86,8 +122,8 @@ function ShowDeleteItem()
     }
     column2 = document.createElement("td");
     column3 = document.createElement("td");
-    column2.innerHTML = "<input type='text' class='form-control' placeholder='Quantité à enlever'>";
-    column3.innerHTML = "<button class='btn btn-default' onclick='DeleteItem(" + arguments[0] + ");' >Retirer</button>";
+    column2.innerHTML = "<input type='text' class='form-control' id=" + arguments[5] + "placeholder='Quantité à enlever'>";
+    column3.innerHTML = "<button class='btn btn-default' onclick='DeleteItem(" + arguments[5] + ");' >Retirer</button>";
     row.appendChild(column);
     row.appendChild(column2);
     row.appendChild(column3);
@@ -104,8 +140,9 @@ function CreateItem()
    var upc =  document.getElementById("upc").value;
    var emplacement = document.getElementById("emplacement").value;
    var description =  document.getElementById("description").value;
+   var quantite = document.getElementById("qt").value;
 
-    if(window.JavaApp.CreateItem(upc,emplacement,description))
+    if(window.JavaApp.CreateItem(upc,emplacement,description,quantite))
     {
         ResetAjouter();
     }

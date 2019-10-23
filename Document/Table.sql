@@ -19,7 +19,7 @@ create table container(
 	foreign key (idContainerParent) references container(idContainer) on delete cascade
 );
 create table item(
-	idItem int primary key,
+	idItem int primary key auto_increment,
 	idItemInfo int not null,
 	idContainer int not null,
 	description varchar(255),

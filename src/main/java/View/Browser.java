@@ -4,8 +4,10 @@ import Controllers.ItemController;
 import Controllers.ItemInfoController;
 import Models.Item;
 import Models.ItemInfo;
+import javafx.scene.control.Dialog;
 import Services.ItemService;
 import javafx.application.Platform;
+import javafx.scene.control.ButtonType;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Worker;
@@ -45,6 +47,14 @@ public class Browser extends BorderPane {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText(event.getData());
             alert.showAndWait();
+        });
+        webEngine.setConfirmHandler(message -> {
+            Dialog<ButtonType> confirm = new Dialog<>();
+            confirm.getDialogPane().setContentText(message);
+            confirm.getDialogPane().getButtonTypes().addAll(ButtonType.YES, ButtonType.NO);
+            boolean result = confirm.showAndWait().filter(ButtonType.YES::equals).isPresent();
+
+            return result ;
         });
 
         // load the home page
@@ -122,8 +132,9 @@ public class Browser extends BorderPane {
                             tmp.getIdItemInfo(),
                             tmp.getNom(),
                             tmp.getDescription(),
+                            itemList.get(i).getIdContainer(),
                             itemList.get(i).getQuantite(),
-                            itemList.get(i).getIdContainer());
+                            itemList.get(i).getIdItem());
                 }
             }
         }
@@ -140,8 +151,9 @@ public class Browser extends BorderPane {
                             tmp.getIdItemInfo(),
                             tmp.getNom(),
                             tmp.getDescription(),
+                            itemList.get(i).getIdContainer(),
                             itemList.get(i).getQuantite(),
-                            itemList.get(i).getIdContainer());
+                            itemList.get(i).getIdItem());
                 }
             }
         }
@@ -156,8 +168,9 @@ public class Browser extends BorderPane {
                         tmp.getIdItemInfo(),
                         tmp.getNom(),
                         tmp.getDescription(),
+                        itemList.get(i).getIdContainer(),
                         itemList.get(i).getQuantite(),
-                        itemList.get(i).getIdContainer());
+                        itemList.get(i).getIdItem());
             }
         }
         public boolean DeleteItem(int id)
