@@ -69,6 +69,7 @@ function ShowItem()
     {
          column = document.createElement("td");
          column.innerHTML = arguments[i];
+         column.setAttribute("onclick","Alert(arguments[0]);");
          row.appendChild(column);
     }
     document.getElementById("table1").appendChild(row);
