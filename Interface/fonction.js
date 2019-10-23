@@ -32,12 +32,13 @@ function SubmitList()
         window.JavaApp.ListAllItem();
     }
 }
-
+function SubmitDelete()
+{
+    window.JavaApp.ListAllDeleteItem();
+}
 function DeleteItem()
  {
-     //Variable declaration
-     var idItem = document.getElementById("id").value;
-     window.JavaApp.DeleteItem(idItem);
+     Alert(arguments[0]);
  }
 
  function ResetSupprimer()
@@ -70,6 +71,26 @@ function ShowItem()
          column.innerHTML = arguments[i];
          row.appendChild(column);
     }
+    document.getElementById("table1").appendChild(row);
+}
+function ShowDeleteItem()
+{
+    var row = document.createElement("tr");
+    var column
+    for(var i = 0; i < arguments.length; i++)
+    {
+         column = document.createElement("td");
+         column.innerHTML = arguments[i];
+         row.appendChild(column);
+    }
+    column2 = document.createElement("td");
+    column3 = document.createElement("td");
+    column2.innerHTML = "<input type='text' class='form-control' placeholder='Quantité à enlever'>";
+    column3.innerHTML = "<button class='btn btn-default' onclick='DeleteItem(" + arguments[0] + ");' >Retirer</button>";
+    row.appendChild(column);
+    row.appendChild(column2);
+    row.appendChild(column3);
+
     document.getElementById("table1").appendChild(row);
 }
 function Alert(msg)

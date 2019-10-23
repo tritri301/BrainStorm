@@ -109,6 +109,57 @@ public class Browser extends BorderPane {
                         itemList.get(i).getQuantite());
             }
         }
+        public void ListDeleteItemByUPC(int upc)
+        {
+            ItemController itemController = ItemController.GetInstance();
+            ItemInfoController itemInfoController = ItemInfoController.GetInstance();
+            List<Item> itemList = itemController.FindAll();
+            for (int i = 0; i < itemList.size(); i++) {
+                //If the upc is correct
+                if(itemList.get(i).getIdItemInfo() == upc) {
+                    ItemInfo tmp = itemInfoController.FindById(itemList.get(i).getIdItemInfo());
+                    window.call("ShowDeleteItem",
+                            tmp.getIdItemInfo(),
+                            tmp.getNom(),
+                            tmp.getDescription(),
+                            itemList.get(i).getQuantite(),
+                            itemList.get(i).getIdContainer());
+                }
+            }
+        }
+        public void ListDeleteItemByContainer(int ContainerId)
+        {
+            ItemController itemController = ItemController.GetInstance();
+            ItemInfoController itemInfoController = ItemInfoController.GetInstance();
+            List<Item> itemList = itemController.FindAll();
+            for (int i = 0; i < itemList.size(); i++) {
+                //If the upc is correct
+                if(itemList.get(i).getIdContainer() == ContainerId) {
+                    ItemInfo tmp = itemInfoController.FindById(itemList.get(i).getIdItemInfo());
+                    window.call("ShowDeleteItem",
+                            tmp.getIdItemInfo(),
+                            tmp.getNom(),
+                            tmp.getDescription(),
+                            itemList.get(i).getQuantite(),
+                            itemList.get(i).getIdContainer());
+                }
+            }
+        }
+        public void ListAllDeleteItem()
+        {
+            ItemController itemController = ItemController.GetInstance();
+            ItemInfoController itemInfoController = ItemInfoController.GetInstance();
+            List<Item> itemList = itemController.FindAll();
+            for (int i = 0; i < itemList.size(); i++) {
+                ItemInfo tmp = itemInfoController.FindById(itemList.get(i).getIdItemInfo());
+                window.call("ShowDeleteItem",
+                        tmp.getIdItemInfo(),
+                        tmp.getNom(),
+                        tmp.getDescription(),
+                        itemList.get(i).getQuantite(),
+                        itemList.get(i).getIdContainer());
+            }
+        }
         public boolean DeleteItem(int id)
         {
             ItemController itemController = ItemController.GetInstance();
