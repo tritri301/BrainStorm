@@ -87,7 +87,6 @@ public class Browser extends BorderPane {
                 ItemInfo tmp = itemInfoController.FindById(itemList.get(i).getIdItemInfo());
                 window.call("ShowItem", itemList.get(i).getIdItem(),
                         tmp.getNom(),
-                        tmp.getDescription(),
                         tmp.getPoids(),
                         tmp.getVolume(),
                         itemList.get(i).getQuantite());
@@ -100,7 +99,6 @@ public class Browser extends BorderPane {
             ItemInfo tmp = itemInfoController.FindById(item.getIdItemInfo());
             window.call("ShowItem", item.getIdItem(),
                     tmp.getNom(),
-                    tmp.getDescription(),
                     tmp.getPoids(),
                     tmp.getVolume(),
                     item.getQuantite());
@@ -113,7 +111,6 @@ public class Browser extends BorderPane {
                 ItemInfo tmp = itemInfoController.FindById(itemList.get(i).getIdItemInfo());
                 window.call("ShowItem", itemList.get(i).getIdItem(),
                         tmp.getNom(),
-                        tmp.getDescription(),
                         tmp.getPoids(),
                         tmp.getVolume(),
                         itemList.get(i).getQuantite());
