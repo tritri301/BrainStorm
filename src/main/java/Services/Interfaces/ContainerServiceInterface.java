@@ -43,7 +43,7 @@ public interface ContainerServiceInterface {
      * @param containerParent the container parent
      * @return the container
      */
-    boolean Update(int idContainer, int quantite, int position, int volume, int poidsMax, int containerParent) throws ExceptionCustom;
+    boolean Update(int idContainer, int quantite, String position, int volume, int poidsMax, int containerParent) throws ExceptionCustom;
 
     /**
      * Create container.
@@ -56,7 +56,7 @@ public interface ContainerServiceInterface {
      * @param containerParent the container parent
      * @return the container
      */
-    boolean Create(int idContainer, int quantite, int position, int volume, int poidsMax, int containerParent) throws ExceptionCustom;
+    boolean Create(int idContainer, int quantite, String position, int volume, int poidsMax, int containerParent) throws ExceptionCustom;
 
     /**
      * Delete container.

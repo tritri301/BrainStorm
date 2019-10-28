@@ -70,9 +70,9 @@ public class ContainerService implements ContainerServiceInterface {
     }
 
     @Override
-    public boolean Update(int idContainer, int quantite, int position, int volume, int poidsMax, int containerParent) throws ExceptionCustom {
+    public boolean Update(int idContainer, int quantite, String position, int volume, int poidsMax, int containerParent) throws ExceptionCustom {
 
-        boolean valide = this.verificationService.verifier(idContainer,quantite,position,volume,poidsMax,containerParent);
+        boolean valide = this.verificationService.verifier(idContainer,quantite,volume,poidsMax,containerParent);
 
         if (valide) {
             Container nouveauContainer = FindById(idContainer);
@@ -105,9 +105,9 @@ public class ContainerService implements ContainerServiceInterface {
     }
 
     @Override
-    public boolean Create(int idContainer, int quantite, int position, int volume, int poidsMax, int containerParent) throws ExceptionCustom {
+    public boolean Create(int idContainer, int quantite, String position, int volume, int poidsMax, int containerParent) throws ExceptionCustom {
 
-        boolean valide = this.verificationService.verifier(idContainer,quantite,position,volume,poidsMax,containerParent);
+        boolean valide = this.verificationService.verifier(idContainer,quantite,volume,poidsMax,containerParent);
 
         if (valide) {
             if (connection == null) {

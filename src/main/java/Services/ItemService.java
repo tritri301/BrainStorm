@@ -30,8 +30,16 @@ public class ItemService implements ItemServiceInterface {
                 try {
                     item = this.itemRepository.FindById(id);
                 } catch (Exception e) {
-                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd" + e.toString());
-                    throw exceptionErreurBD;
+                    if (e.toString().equals("java.sql.SQLException: Illegal operation on empty result set."))
+                    {
+                        ExceptionCustom exceptionErreurBD = new ExceptionCustom("Aucun résultats");
+                        throw exceptionErreurBD;
+                    }
+                    else
+                    {
+                        ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd :t " + e.toString());
+                        throw exceptionErreurBD;
+                    }
                 }
             } else {
                 ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de connection a la base de données");
@@ -53,8 +61,13 @@ public class ItemService implements ItemServiceInterface {
             if (connection == null) {
                 try {
                     count = this.itemRepository.FindAmountById(id);
+                    if (count == 0)
+                    {
+                        ExceptionCustom exceptionErreurBD = new ExceptionCustom("Aucun Résultats");
+                        throw exceptionErreurBD;
+                    }
                 } catch (Exception e) {
-                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd" + e.toString());
+                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd : " + e.toString());
                     throw exceptionErreurBD;
                 }
             } else {
@@ -77,8 +90,13 @@ public class ItemService implements ItemServiceInterface {
         {
             try {
                 item = this.itemRepository.FindAll();
+                if (item == null)
+                {
+                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("Aucun Résultats");
+                    throw exceptionErreurBD;
+                }
             } catch (Exception e) {
-                ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd" + e.toString());
+                ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd : " + e.toString());
                 throw exceptionErreurBD;
             }
         }
@@ -99,8 +117,13 @@ public class ItemService implements ItemServiceInterface {
                 try {
                     name = verificationService.normalisation(name);
                     item = this.itemRepository.FindByName(name);
+                    if (item == null)
+                    {
+                        ExceptionCustom exceptionErreurBD = new ExceptionCustom("Aucun Résultats");
+                        throw exceptionErreurBD;
+                    }
                 } catch (Exception e) {
-                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd" + e.toString());
+                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd : " + e.toString());
                     throw exceptionErreurBD;
                 }
             } else {
@@ -139,7 +162,7 @@ public class ItemService implements ItemServiceInterface {
                     this.itemRepository.Update(nouveauItem);
                 } catch (Exception e) {
                     valide = false;
-                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd" + e.toString());
+                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd : " + e.toString());
                     throw exceptionErreurBD;
                 }
             } else {
@@ -174,7 +197,7 @@ public class ItemService implements ItemServiceInterface {
                     itemRepository.Create(this.itemFactory.Create(0, idItemInfo, idContainer, description,quantite));
                 } catch (Exception e) {
                     valide = false;
-                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd" + e.toString());
+                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd :" + e.toString());
                     throw exceptionErreurBD;
                 }
             } else {
@@ -202,7 +225,7 @@ public class ItemService implements ItemServiceInterface {
                     this.itemRepository.Delete(id);
                 } catch (Exception e) {
                     valide = false;
-                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd" + e.toString());
+                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd :" + e.toString());
                     throw exceptionErreurBD;
                 }
             } else {

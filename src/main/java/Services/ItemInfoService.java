@@ -29,9 +29,14 @@ public class ItemInfoService implements ItemInfoServiceInterface {
             if (connection == null) {
                 try {
                     itemInfo = this.itemInfoRepository.FindById(id);
+                    if (itemInfo == null)
+                    {
+                        ExceptionCustom exceptionErreurBD = new ExceptionCustom("Aucun Résultats");
+                        throw exceptionErreurBD;
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
-                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd" + e.toString());
+                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd : " + e.toString());
                     throw exceptionErreurBD;
                 }
             } else {
@@ -53,8 +58,13 @@ public class ItemInfoService implements ItemInfoServiceInterface {
         {
             try {
                itemInfo = this.itemInfoRepository.FindAll();
+                if (itemInfo == null)
+                {
+                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("Aucun Résultats");
+                    throw exceptionErreurBD;
+                }
             } catch (Exception e) {
-                ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd" + e.toString());
+                ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd : " + e.toString());
                 throw exceptionErreurBD;
             }
         }
@@ -75,8 +85,13 @@ public class ItemInfoService implements ItemInfoServiceInterface {
                 try {
                     name = verificationService.normalisation(name);
                     itemInfo = this.itemInfoRepository.FindByName(name);
+                    if (itemInfo == null)
+                    {
+                        ExceptionCustom exceptionErreurBD = new ExceptionCustom("Aucun Résultats");
+                        throw exceptionErreurBD;
+                    }
                 } catch (Exception e) {
-                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd" + e.toString());
+                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd : " + e.toString());
                     throw exceptionErreurBD;
                 }
             } else {
@@ -114,7 +129,7 @@ public class ItemInfoService implements ItemInfoServiceInterface {
                     this.itemInfoRepository.Update(nouveauItemInfo);
                 } catch (Exception e) {
                     valide = false;
-                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd" + e.toString());
+                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd : " + e.toString());
                     throw exceptionErreurBD;
                 }
             } else {
@@ -149,7 +164,7 @@ public class ItemInfoService implements ItemInfoServiceInterface {
                     itemInfoRepository.Create(this.itemInfoFactory.Create(idItem, description, nom, poids, volume));
                 } catch (Exception e) {
                     valide = false;
-                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd" + e.toString());
+                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd : " + e.toString());
                     throw exceptionErreurBD;
                 }
             } else {
@@ -177,7 +192,7 @@ public class ItemInfoService implements ItemInfoServiceInterface {
                     this.itemInfoRepository.Delete(id);
                 } catch (Exception e) {
                     valide = false;
-                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd" + e.toString());
+                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd : " + e.toString());
                     throw exceptionErreurBD;
                 }
             } else {

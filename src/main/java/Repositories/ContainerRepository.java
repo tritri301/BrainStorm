@@ -25,7 +25,7 @@ public class ContainerRepository implements ContainerRepositoryInterface
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery("select * from container where idContainer = " + id);
         rs.next();
-        return containerFactory.Create(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getInt(5), rs.getInt(6));
+        return containerFactory.Create(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getInt(6));
     }
 
     @Override
@@ -35,7 +35,7 @@ public class ContainerRepository implements ContainerRepositoryInterface
         ResultSet rs = stmt.executeQuery("select * from container");
         while(rs.next())
         {
-            itemInfo.add(containerFactory.Create(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getInt(5), rs.getInt(6)));
+            itemInfo.add(containerFactory.Create(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getInt(6)));
         }
         return itemInfo;
     }
@@ -44,7 +44,7 @@ public class ContainerRepository implements ContainerRepositoryInterface
     public void Update(Container containerToAdd) throws Exception {
         PreparedStatement stmt = con.prepareStatement("update container set quantite = ?, position = ?, volume = ?, poidsmax = ?, idContainerParent = ? where idContainer = " + containerToAdd.getIdContainer());
         stmt.setInt(1, containerToAdd.getQuantite());
-        stmt.setInt(2, containerToAdd.getPosition());
+        stmt.setString(2, containerToAdd.getPosition());
         stmt.setInt(3, containerToAdd.getVolume());
         stmt.setInt(4, containerToAdd.getPoidsMax());
         stmt.setInt(5, containerToAdd.getIdContainerParent());
@@ -62,7 +62,7 @@ public class ContainerRepository implements ContainerRepositoryInterface
     public void Create(Container containerToAdd) throws Exception {
         PreparedStatement stmt = con.prepareStatement("insert into container values(?, ?, ?, ?, ?, ?)");
         stmt.setInt(1, containerToAdd.getQuantite());
-        stmt.setInt(2, containerToAdd.getPosition());
+        stmt.setString(2, containerToAdd.getPosition());
         stmt.setInt(3, containerToAdd.getVolume());
         stmt.setInt(4, containerToAdd.getPoidsMax());
         stmt.setInt(5, containerToAdd.getIdContainerParent());

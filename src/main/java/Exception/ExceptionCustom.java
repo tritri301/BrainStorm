@@ -11,5 +11,4 @@ public class ExceptionCustom extends Exception implements ExceptionInterface {
     public String getMessage() {
         return super.getMessage();
     }
-
 }

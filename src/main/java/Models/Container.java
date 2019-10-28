@@ -7,7 +7,7 @@ public class Container
 {
     private int idContainer;
     private int quantite;
-    private int position;
+    private String position;
     private int volume;
     private int poidsMax;
     private int idContainerParent;
@@ -45,6 +45,7 @@ public class Container
      * @param quantite the quantite
      */
     public void setQuantite(int quantite) {
+
         this.quantite = quantite;
     }
 
@@ -53,7 +54,7 @@ public class Container
      *
      * @return the position
      */
-    public int getPosition() {
+    public String getPosition() {
         return position;
     }
 
@@ -62,7 +63,7 @@ public class Container
      *
      * @param position the position
      */
-    public void setPosition(int position) {
+    public void setPosition(String position) {
         this.position = position;
     }
 

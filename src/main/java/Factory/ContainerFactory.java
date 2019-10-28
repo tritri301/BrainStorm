@@ -9,7 +9,7 @@ public class ContainerFactory {
 
     private static final ContainerFactory instance = new ContainerFactory();
 
-    public Container Create(int idContainer, int quantite, int position, int volume, int poidsMax, int containerParent) {
+    public Container Create(int idContainer, int quantite, String position, int volume, int poidsMax, int containerParent) {
         Container ret = new Container();
 
         ret.setIdContainer(idContainer);
