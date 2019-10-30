@@ -7,7 +7,7 @@ public class Item
 {
     private int idItem;
     private int idItemInfo;
-    private int idContainer;
+    private String emplacement;
     private int quantite;
     private String description;
 
@@ -52,17 +52,16 @@ public class Item
      *
      * @return the id container
      */
-    public int getIdContainer() {
-        return idContainer;
+    public String getEmplacement() {
+        return emplacement;
     }
 
     /**
      * Sets id container.
      *
-     * @param idContainer the id container
      */
-    public void setIdContainer(int idContainer) {
-        this.idContainer = idContainer;
+    public void setEmplacement(String emplacement) {
+        this.emplacement = emplacement;
     }
 
     /**

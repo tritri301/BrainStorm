@@ -45,21 +45,19 @@ public interface ItemServiceInterface {
      *
      * @param idItem      the id item
      * @param idItemInfo  the id item info
-     * @param idContainer the id container
      * @param description the description
      * @return the item
      */
-    boolean Update(int idItem, int idItemInfo, int idContainer, String description,int quantite) throws ExceptionCustom;
+    boolean Update(int idItem, int idItemInfo, String emplacement, String description,int quantite) throws ExceptionCustom;
 
     /**
      * Create item.
      *
      * @param idItemInfo  the id item info
-     * @param idContainer the id container
      * @param description the description
      * @return the item
      */
-    boolean Create(int idItemInfo, int idContainer, String description,int quantite) throws ExceptionCustom;
+    boolean Create(int idItemInfo, String emplacement, String description,int quantite) throws ExceptionCustom;
 
     /**
      * Delete item.

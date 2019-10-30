@@ -75,12 +75,12 @@ public class ItemController implements ItemControllerInterface
     }
 
     @Override
-    public boolean Update(int idItem, int idItemInfo, int idContainer, String description,int quantite) {
+    public boolean Update(int idItem, int idItemInfo, String emplacement, String description,int quantite) {
 
         boolean update = true;
 
         try {
-            update = itemService.Update(idItem,idItemInfo,idContainer,description,quantite);
+            update = itemService.Update(idItem,idItemInfo,emplacement,description,quantite);
         } catch (ExceptionCustom e) {
             browser.Alert(e.getMessage());
             update = false;
@@ -92,12 +92,12 @@ public class ItemController implements ItemControllerInterface
     }
 
     @Override
-    public boolean Create(int idItemInfo, int idContainer, String description,int quantite) {
+    public boolean Create(int idItemInfo, String emplacement, String description,int quantite) {
 
         boolean create = true;
 
         try {
-            create = itemService.Create(idItemInfo,idContainer,description,quantite);
+            create = itemService.Create(idItemInfo,emplacement,description,quantite);
         } catch (ExceptionCustom e) {
             browser.Alert(e.getMessage());
             create = false;

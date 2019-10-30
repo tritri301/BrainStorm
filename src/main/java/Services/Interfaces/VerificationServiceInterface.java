@@ -54,7 +54,7 @@ public interface VerificationServiceInterface {
      */
     boolean verifierAcces(int acces);
 
-    boolean emplacementVerification(int emplacementBrut);
+    boolean emplacementVerification(String emplacementBrut);
 
     String normalisation(String string);
 

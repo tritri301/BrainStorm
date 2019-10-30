@@ -37,22 +37,22 @@ public interface ItemControllerInterface
      *
      * @param idItem      the id item
      * @param idItemInfo  the id item info
-     * @param idContainer the id container
+
      * @param description the description
      * @return the item
      */
-    boolean Update(int idItem, int idItemInfo, int idContainer, String description,int quantite);
+    boolean Update(int idItem, int idItemInfo, String emplacement, String description,int quantite);
 
     /**
      * Create item.
      *
-     * @param idItem      the id item
+
      * @param idItemInfo  the id item info
-     * @param idContainer the id container
+
      * @param description the description
      * @return the item
      */
-    boolean Create(int idItemInfo, int idContainer, String description,int quantite);
+    boolean Create(int idItemInfo, String emplacement, String description,int quantite);
 
     /**
      * Delete item.

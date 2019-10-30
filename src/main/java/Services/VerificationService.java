@@ -2,6 +2,7 @@ package Services;
 
 import Services.Interfaces.VerificationServiceInterface;
 import com.sun.xml.internal.ws.util.StringUtils;
+import jdk.nashorn.internal.runtime.regexp.joni.Regex;
 
 import java.text.Normalizer;
 import java.util.regex.Matcher;
@@ -105,14 +106,10 @@ public class VerificationService implements VerificationServiceInterface {
     }
 
     @Override
-    public boolean emplacementVerification(int emplacementBrut) {
+    public boolean emplacementVerification(String emplacementBrut) {
 
-        if (emplacementBrut < 100000000)
-        {
-            return false;
-        }
-        else
-            return true;
+        //a fair
+        return true;
     }
 
     @Override
@@ -121,6 +118,7 @@ public class VerificationService implements VerificationServiceInterface {
         string = Normalizer.normalize(string, Normalizer.Form.NFD);
         string = string.replaceAll("[^\\p{ASCII}]", "");
         string = string.toLowerCase();
+        string = string.replaceAll("[^a-zA-Z0-9_-]", "");
 
         return string;
     }

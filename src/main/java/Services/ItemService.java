@@ -139,21 +139,18 @@ public class ItemService implements ItemServiceInterface {
     }
 
     @Override
-    public boolean Update(int idItem, int idItemInfo, int idContainer, String description,int quantite) throws ExceptionCustom {
+    public boolean Update(int idItem, int idItemInfo, String emplacement, String description,int quantite) throws ExceptionCustom {
 
-        boolean valide = this.verificationService.verifier(idItem,idItemInfo,idContainer,quantite);
-        if (valide)
-        {
-            valide = this.verificationService.verifier(description);
-        }
+        boolean valide = this.verificationService.verifier(idItem,idItemInfo,quantite);
 
         if (valide) {
 
             description = verificationService.normalisation(description);
+            emplacement = verificationService.normalisation(emplacement);
 
             Item nouveauItem = FindById(idItem);
             nouveauItem.setIdItemInfo(idItemInfo);
-            nouveauItem.setIdContainer(idContainer);
+            nouveauItem.setEmplacement(emplacement);
             nouveauItem.setDescription(description);
             nouveauItem.setQuantite(quantite);
 
@@ -180,35 +177,29 @@ public class ItemService implements ItemServiceInterface {
     }
 
     @Override
-    public boolean Create(int idItemInfo, int idContainer, String description,int quantite) throws ExceptionCustom {
+    public boolean Create(int idItemInfo, String emplacement, String description,int quantite) throws ExceptionCustom {
 
-        boolean valide = this.verificationService.verifier(idItemInfo,idContainer,quantite);
-        if (valide)
-        {
-            valide = this.verificationService.verifier(description);
-        }
+        boolean valide = this.verificationService.verifier(idItemInfo,quantite);
 
         if (valide) {
 
+            emplacement = verificationService.normalisation(emplacement);
             description = verificationService.normalisation(description);
 
             if (connection == null) {
                 try {
-                    itemRepository.Create(this.itemFactory.Create(0, idItemInfo, idContainer, description,quantite));
+                    itemRepository.Create(this.itemFactory.Create(0, idItemInfo, emplacement, description,quantite));
                 } catch (Exception e) {
                     valide = false;
-                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd :" + e.toString());
-                    throw exceptionErreurBD;
+                    throw new ExceptionCustom("Erreur de bd :" + e.toString());
                 }
             } else {
                 valide = false;
-                ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de connection a la base de données");
-                throw exceptionErreurBD;
+                throw new ExceptionCustom("Erreur de connection a la base de données");
             }
         }else{
             valide = false;
-            ExceptionCustom exceptionErreurBD = new ExceptionCustom("Données de saisies invalide");
-            throw exceptionErreurBD;
+            throw new ExceptionCustom("Données de saisies invalide");
         }
 
         return valide;
