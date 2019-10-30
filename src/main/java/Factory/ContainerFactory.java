@@ -9,16 +9,15 @@ public class ContainerFactory {
 
     private static final ContainerFactory instance = new ContainerFactory();
 
-    public Container Create(int idContainer, int quantite, String position, int volume, int poidsMax, int containerParent) {
+    public Container Create(String emplacement, int volume, int volumeMax, int poids, int poidsMax, String emplacementParent) {
         Container ret = new Container();
 
-        //test
-        ret.setIdContainer(idContainer);
-        ret.setQuantite(quantite);
-        ret.setPosition(position);
+        ret.setEmplacement(emplacement);
+        ret.setVolumeMax(volumeMax);
         ret.setVolume(volume);
+        ret.setPoids(poids);
         ret.setPoidsMax(poidsMax);
-        ret.setIdContainerParent(containerParent);
+        ret.setEmplacementParent(emplacementParent);
 
         return ret;
     }

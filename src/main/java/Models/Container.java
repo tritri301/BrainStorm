@@ -5,21 +5,12 @@ package Models;
  */
 public class Container
 {
-    private int idContainer;
     private String Emplacement;
     private int volume;
     private int volumeMax;
     private int poids;
     private int poidsMax;
-    private int idContainerParent;
-
-    public int getIdContainer() {
-        return idContainer;
-    }
-
-    public void setIdContainer(int idContainer) {
-        this.idContainer = idContainer;
-    }
+    private String emplacementParent;
 
     public String getEmplacement() {
         return Emplacement;
@@ -61,11 +52,11 @@ public class Container
         this.poidsMax = poidsMax;
     }
 
-    public int getIdContainerParent() {
-        return idContainerParent;
+    public String getEmplacementParent() {
+        return emplacementParent;
     }
 
-    public void setIdContainerParent(int idContainerParent) {
-        this.idContainerParent = idContainerParent;
+    public void setEmplacementParent(String emplacementParent) {
+        this.emplacementParent = emplacementParent;
     }
 }
