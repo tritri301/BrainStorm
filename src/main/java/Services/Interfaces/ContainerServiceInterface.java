@@ -15,7 +15,7 @@ public interface ContainerServiceInterface {
      * @param id the id
      * @return the container
      */
-    public Container FindById(int id) throws ExceptionCustom;
+    public Container FindById(String emplacement) throws ExceptionCustom;
 
     /**
      * Find all list.
@@ -43,7 +43,7 @@ public interface ContainerServiceInterface {
      * @param containerParent the container parent
      * @return the container
      */
-    boolean Update(int idContainer, int quantite, String position, int volume, int poidsMax, int containerParent) throws ExceptionCustom;
+    boolean Update(String emplacement, int volume,int volumeMax,int poids, int poidsMax, String emplacementParent) throws ExceptionCustom;
 
     /**
      * Create container.
@@ -56,7 +56,7 @@ public interface ContainerServiceInterface {
      * @param containerParent the container parent
      * @return the container
      */
-    boolean Create(int idContainer, int quantite, String position, int volume, int poidsMax, int containerParent) throws ExceptionCustom;
+    boolean Create(String emplacement, int volume,int volumeMax,int poids, int poidsMax, String emplacementParent) throws ExceptionCustom;
 
     /**
      * Delete container.

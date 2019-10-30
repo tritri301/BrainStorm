@@ -24,28 +24,23 @@ public class ContainerService implements ContainerServiceInterface {
 
 
     @Override
-    public Container FindById(int id) throws ExceptionCustom {
+    public Container FindById(String emplacement) throws ExceptionCustom {
         Container container = null;
-        if (this.verificationService.verifier(id)) {
-            if (connection == null) {
-                try {
-                    container = this.containerRepository.FindById("test");
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd" + e.toString());
-                    throw exceptionErreurBD;
-                }
-            } else {
-                ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de connection a la base de données");
+        emplacement = this.verificationService.normalisation(emplacement);
+
+        if (connection == null) {
+            try {
+                container = this.containerRepository.FindById("test");
+            } catch (Exception e) {
+                e.printStackTrace();
+                ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd" + e.toString());
                 throw exceptionErreurBD;
             }
-        }
-        else{
-            ExceptionCustom exceptionErreurBD = new ExceptionCustom("Données de saisies invalide");
+        } else {
+            ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de connection a la base de données");
             throw exceptionErreurBD;
-            }
-
-        return container;
+        }
+            return container;
     }
 
     @Override
@@ -70,17 +65,20 @@ public class ContainerService implements ContainerServiceInterface {
     }
 
     @Override
-    public boolean Update(int idContainer, int quantite, String position, int volume, int poidsMax, int containerParent) throws ExceptionCustom {
+    public boolean Update(String emplacement, int volume,int volumeMax,int poids, int poidsMax, String emplacementParent) throws ExceptionCustom {
 
-        boolean valide = this.verificationService.verifier(idContainer,quantite,volume,poidsMax,containerParent);
+        boolean valide = this.verificationService.verifier(volume,volumeMax,poids,poidsMax);
+        emplacement = this.verificationService.normalisation(emplacement);
+        emplacementParent = this.verificationService.normalisation(emplacementParent);
 
         if (valide) {
-            Container nouveauContainer = FindById(idContainer);
-            nouveauContainer.setQuantite(quantite);
-            nouveauContainer.setPosition(position);
+            Container nouveauContainer = FindById(emplacement);
+            nouveauContainer.setEmplacement(emplacement);
             nouveauContainer.setVolume(volume);
+            nouveauContainer.setVolumeMax(volumeMax);
+            nouveauContainer.setPoids(poids);
             nouveauContainer.setPoidsMax(poidsMax);
-            nouveauContainer.setIdContainerParent(containerParent);
+            nouveauContainer.setEmplacementParent(emplacementParent);
 
             if (connection == null) {
                 try {
@@ -108,11 +106,13 @@ public class ContainerService implements ContainerServiceInterface {
     public boolean Create(String emplacement, int volume,int volumeMax,int poids, int poidsMax, String emplacementParent) throws ExceptionCustom {
 
         boolean valide = this.verificationService.verifier(volume,volumeMax,poids,poidsMax);
+        emplacement = this.verificationService.normalisation(emplacement);
+        emplacementParent = this.verificationService.normalisation(emplacementParent);
 
         if (valide) {
             if (connection == null) {
                 try {
-                    containerRepository.Create(this.containerFactory.Create(idContainer, quantite, position, volume, poidsMax, containerParent));
+                    containerRepository.Create(this.containerFactory.Create(emplacement,volume,volumeMax, poids,poidsMax,emplacementParent));
                 } catch (Exception e) {
                     valide = false;
                     ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd" + e.toString());
