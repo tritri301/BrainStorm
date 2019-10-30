@@ -13,6 +13,7 @@ public class ContainerFactory {
         Container ret = new Container();
 
         //test
+        //testjess
         ret.setIdContainer(idContainer);
         ret.setQuantite(quantite);
         ret.setPosition(position);
