@@ -21,11 +21,11 @@ public class ContainerRepository implements ContainerRepositoryInterface
         this.containerFactory = ContainerFactory.GetInstance();
     }
     @Override
-    public Container FindById(int id) throws Exception {
+    public Container FindById(String emplacement) throws Exception {
         Statement stmt = con.createStatement();
-        ResultSet rs = stmt.executeQuery("select * from container where idContainer = " + id);
+        ResultSet rs = stmt.executeQuery("select * from container where emplacement = " + emplacement);
         rs.next();
-        return containerFactory.Create(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getInt(5), rs.getInt(6));
+        return containerFactory.Create(rs.getString(1), rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getInt(5), rs.getString(6));
     }
 
     @Override
@@ -35,20 +35,20 @@ public class ContainerRepository implements ContainerRepositoryInterface
         ResultSet rs = stmt.executeQuery("select * from container");
         while(rs.next())
         {
-            itemInfo.add(containerFactory.Create(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getInt(5), rs.getInt(6)));
+            itemInfo.add(containerFactory.Create(rs.getString(1), rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getInt(5), rs.getString(6)));
         }
         return itemInfo;
     }
 
     @Override
     public void Update(Container containerToAdd) throws Exception {
-        PreparedStatement stmt = con.prepareStatement("update container set emplacement = ?, volume = ?, volumeMax = ?, poids = ?, poidsmax = ?, idContainerParent = ? where idContainer = " + containerToAdd.getIdContainer());
+        PreparedStatement stmt = con.prepareStatement("update container set volume = ?, volumeMax = ?, poids = ?, poidsmax = ?, emplacementParent = ? where emplacement = " + containerToAdd.getEmplacement());
         stmt.setString(1, containerToAdd.getEmplacement());
         stmt.setInt(2, containerToAdd.getVolume());
         stmt.setInt(3, containerToAdd.getVolumeMax());
         stmt.setInt(4, containerToAdd.getPoids());
         stmt.setInt(5, containerToAdd.getPoidsMax());
-        stmt.setInt(6, containerToAdd.getIdContainerParent());
+        stmt.setString(6, containerToAdd.getEmplacementParent());
 
         stmt.execute();
     }
@@ -67,7 +67,7 @@ public class ContainerRepository implements ContainerRepositoryInterface
         stmt.setInt(3, containerToAdd.getVolumeMax());
         stmt.setInt(4, containerToAdd.getPoids());
         stmt.setInt(5, containerToAdd.getPoidsMax());
-        stmt.setInt(6, containerToAdd.getIdContainerParent());
+        stmt.setString(6, containerToAdd.getEmplacementParent());
 
         stmt.execute();
     }

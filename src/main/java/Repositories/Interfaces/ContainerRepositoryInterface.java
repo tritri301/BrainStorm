@@ -5,7 +5,7 @@ import Models.Container;
 import java.util.List;
 
 public interface ContainerRepositoryInterface {
-    Container FindById(int id) throws Exception;
+    Container FindById(String emplacement) throws Exception;
     List<Container> FindAll() throws Exception;
     void Update(Container containerToAdd) throws Exception;
     void Delete(int id) throws Exception;
