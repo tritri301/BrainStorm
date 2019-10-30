@@ -12,6 +12,7 @@ public class ContainerFactory {
     public Container Create(int idContainer, int quantite, String position, int volume, int poidsMax, int containerParent) {
         Container ret = new Container();
 
+        //test
         ret.setIdContainer(idContainer);
         ret.setQuantite(quantite);
         ret.setPosition(position);
