@@ -6,117 +6,65 @@ package Models;
 public class Container
 {
     private int idContainer;
-    private int quantite;
-    private String position;
+    private String Emplacement;
     private int volume;
+    private int volumeMax;
+    private int poids;
     private int poidsMax;
     private int idContainerParent;
 
-    /**
-     * Gets id container.
-     *
-     * @return the id container
-     */
     public int getIdContainer() {
         return idContainer;
     }
 
-    /**
-     * Sets id container.
-     *
-     * @param idContainer the id container
-     */
     public void setIdContainer(int idContainer) {
         this.idContainer = idContainer;
     }
 
-    /**
-     * Gets quantite.
-     *
-     * @return the quantite
-     */
-    public int getQuantite() {
-        return quantite;
+    public String getEmplacement() {
+        return Emplacement;
     }
 
-    /**
-     * Sets quantite.
-     *
-     * @param quantite the quantite
-     */
-    public void setQuantite(int quantite) {
-
-        this.quantite = quantite;
+    public void setEmplacement(String emplacement) {
+        Emplacement = emplacement;
     }
 
-    /**
-     * Gets position.
-     *
-     * @return the position
-     */
-    public String getPosition() {
-        return position;
-    }
-
-    /**
-     * Sets position.
-     *
-     * @param position the position
-     */
-    public void setPosition(String position) {
-        this.position = position;
-    }
-
-    /**
-     * Gets volume.
-     *
-     * @return the volume
-     */
     public int getVolume() {
         return volume;
     }
 
-    /**
-     * Sets volume.
-     *
-     * @param volume the volume
-     */
     public void setVolume(int volume) {
         this.volume = volume;
     }
 
-    /**
-     * Gets poids max.
-     *
-     * @return the poids max
-     */
+    public int getVolumeMax() {
+        return volumeMax;
+    }
+
+    public void setVolumeMax(int volumeMax) {
+        this.volumeMax = volumeMax;
+    }
+
+    public int getPoids() {
+        return poids;
+    }
+
+    public void setPoids(int poids) {
+        this.poids = poids;
+    }
+
     public int getPoidsMax() {
         return poidsMax;
     }
 
-    /**
-     * Sets poids max.
-     *
-     * @param poidsMax the poids max
-     */
     public void setPoidsMax(int poidsMax) {
         this.poidsMax = poidsMax;
     }
 
-    /**
-     * Gets id container parent.
-     *
-     * @return the id container parent
-     */
     public int getIdContainerParent() {
         return idContainerParent;
     }
 
-    /**
-     * Sets id container parent.
-     *
-     * @param idContainerParent the id container parent
-     */
     public void setIdContainerParent(int idContainerParent) {
         this.idContainerParent = idContainerParent;
     }

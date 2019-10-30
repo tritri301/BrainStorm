@@ -28,7 +28,7 @@ public class ItemRepository implements ItemRepositoryInterface {
         ResultSet rs = stmt.executeQuery();
         while(rs.next())
         {
-            item.add(itemFactory.Create(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(4),rs.getInt(5)));
+            item.add(itemFactory.Create(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4),rs.getInt(5)));
         }
         return item;
     }
@@ -38,7 +38,7 @@ public class ItemRepository implements ItemRepositoryInterface {
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery("select * from item where idItem = " + id);
         rs.next();
-        return itemFactory.Create(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(4),rs.getInt(5));
+        return itemFactory.Create(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4),rs.getInt(5));
     }
 
     @Override
@@ -48,7 +48,7 @@ public class ItemRepository implements ItemRepositoryInterface {
         ResultSet rs = stmt.executeQuery("select * from item");
         while(rs.next())
         {
-            item.add(itemFactory.Create(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(4),rs.getInt(5)));
+            item.add(itemFactory.Create(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4),rs.getInt(5)));
         }
         return item;
     }
@@ -68,7 +68,7 @@ public class ItemRepository implements ItemRepositoryInterface {
     public void Create(Item itemToAdd) throws Exception {
         PreparedStatement stmt = con.prepareStatement("insert into item values(default, ?, ?, ?, ?)");
         stmt.setInt(1, itemToAdd.getIdItemInfo());
-        stmt.setInt(2, itemToAdd.getIdContainer());
+        stmt.setString(2, itemToAdd.getEmplacement());
         stmt.setInt(4, itemToAdd.getQuantite());
         stmt.setString(3, itemToAdd.getDescription());
         stmt.execute();
@@ -78,7 +78,7 @@ public class ItemRepository implements ItemRepositoryInterface {
     public void Update(Item itemToUpdate) throws Exception {
         PreparedStatement stmt = con.prepareStatement("update item set idItemInfo = ?, idContainer = ?, description = ? where idItem = " + itemToUpdate.getIdItem());
         stmt.setInt(1, itemToUpdate.getIdItemInfo());
-        stmt.setInt(2, itemToUpdate.getIdContainer());
+        stmt.setString(2, itemToUpdate.getEmplacement());
         stmt.setInt(3, itemToUpdate.getQuantite());
         stmt.setString(4, itemToUpdate.getDescription());
 
