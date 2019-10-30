@@ -105,9 +105,9 @@ public class ContainerService implements ContainerServiceInterface {
     }
 
     @Override
-    public boolean Create(int idContainer, int quantite, String position, int volume, int poidsMax, int containerParent) throws ExceptionCustom {
+    public boolean Create(String emplacement, int volume,int volumeMax,int poids, int poidsMax, String emplacementParent) throws ExceptionCustom {
 
-        boolean valide = this.verificationService.verifier(idContainer,quantite,volume,poidsMax,containerParent);
+        boolean valide = this.verificationService.verifier(volume,volumeMax,poids,poidsMax);
 
         if (valide) {
             if (connection == null) {
