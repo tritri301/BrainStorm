@@ -17,13 +17,26 @@ public class main
 		VerificationService verif = VerificationService.GetInstance();
 
 		Item item = itemFactory.Create(0, 1, "111-111-111", "item creer sans id",1);
-		try {
-			//itemRepository.Create(item);
-			String string;
-			string = "Éèèà!$?&";
-			System.out.print(verif.normalisation(string));
-		} catch (Exception e) {
-			e.printStackTrace();
+		//try {
+		//	String string = "Éèèà!$?&";
+			//String string = "847-232-213";
+		//	System.out.print(verif.normalisation(string));
+		//} catch (Exception e) {
+		//	e.printStackTrace();
+
+
+		String emplacement = "R0-E0-t0";
+
+		//tester normaliser
+
+		if (verif.emplacementVerification(emplacement))
+		{
+			System.out.print("emplacement existant !!!!");
 		}
-	}
+		else
+		{
+			System.out.print("n'existe PAS !!!");
+		}
+    }
+
 }

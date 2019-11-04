@@ -1,5 +1,6 @@
 package Services;
 
+import Repositories.ContainerRepository;
 import Services.Interfaces.VerificationServiceInterface;
 import com.sun.xml.internal.ws.util.StringUtils;
 import jdk.nashorn.internal.runtime.regexp.joni.Regex;
@@ -14,6 +15,7 @@ import java.util.regex.Pattern;
 public class VerificationService implements VerificationServiceInterface {
 
     private static final VerificationService instance = new VerificationService();
+    private ContainerRepository containerRepository = ContainerRepository.GetInstance();
 
     @Override
     public boolean verifier(int integer) {
@@ -106,10 +108,18 @@ public class VerificationService implements VerificationServiceInterface {
     }
 
     @Override
-    public boolean emplacementVerification(String emplacementBrut) {
+    public boolean emplacementVerification(String emplacement) {
+        boolean valide = true;
 
-        //a fair
-        return true;
+        try {
+            containerRepository.FindById(emplacement);
+        }
+        catch(Exception e)
+        {
+            valide = false;
+        }
+
+        return valide;
     }
 
     @Override
@@ -118,7 +128,7 @@ public class VerificationService implements VerificationServiceInterface {
         string = Normalizer.normalize(string, Normalizer.Form.NFD);
         string = string.replaceAll("[^\\p{ASCII}]", "");
         string = string.toLowerCase();
-        string = string.replaceAll("[^a-zA-Z0-9_-]", "");
+        string = string.replaceAll("[^a-zA-Z0-9-]", "");
 
         return string;
     }
