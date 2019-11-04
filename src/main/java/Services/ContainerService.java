@@ -67,38 +67,39 @@ public class ContainerService implements ContainerServiceInterface {
     @Override
     public boolean Update(String emplacement, int volume,int volumeMax,int poids, int poidsMax, String emplacementParent) throws ExceptionCustom {
 
-        boolean valide = this.verificationService.verifier(volume,volumeMax,poids,poidsMax);
+        boolean valide = false;
         emplacement = this.verificationService.normalisation(emplacement);
         emplacementParent = this.verificationService.normalisation(emplacementParent);
 
-        if (valide) {
-            Container nouveauContainer = FindById(emplacement);
-            nouveauContainer.setEmplacement(emplacement);
-            nouveauContainer.setVolume(volume);
-            nouveauContainer.setVolumeMax(volumeMax);
-            nouveauContainer.setPoids(poids);
-            nouveauContainer.setPoidsMax(poidsMax);
-            nouveauContainer.setEmplacementParent(emplacementParent);
-
-            if (connection == null) {
-                try {
-                    this.containerRepository.Update(nouveauContainer);
-                } catch (Exception e) {
+        if (this.verificationService.verifier(volume,volumeMax,poids,poidsMax)) {
+            if (this.verificationService.verifier(emplacement)) {
+                    Container nouveauContainer = FindById(emplacement);
+                    nouveauContainer.setEmplacement(emplacement);
+                    nouveauContainer.setVolume(volume);
+                    nouveauContainer.setVolumeMax(volumeMax);
+                    nouveauContainer.setPoids(poids);
+                    nouveauContainer.setPoidsMax(poidsMax);
+                    nouveauContainer.setEmplacementParent(emplacementParent);
+                    valide = true;
+                    if (connection == null) {
+                        try {
+                            this.containerRepository.Update(nouveauContainer);
+                        } catch (Exception e) {
+                            valide = false;
+                            ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd" + e.toString());
+                            throw exceptionErreurBD;
+                        }
+                    } else {
+                        valide = false;
+                        ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de connection a la base de données");
+                        throw exceptionErreurBD;
+                    }
+                } else {
                     valide = false;
-                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd" + e.toString());
+                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("Données de saisies invalide");
                     throw exceptionErreurBD;
                 }
-            } else {
-                valide = false;
-                ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de connection a la base de données");
-                throw exceptionErreurBD;
             }
-        }
-        else{
-            valide = false;
-            ExceptionCustom exceptionErreurBD = new ExceptionCustom("Données de saisies invalide");
-            throw exceptionErreurBD;
-        }
         return valide;
     }
 
@@ -108,6 +109,8 @@ public class ContainerService implements ContainerServiceInterface {
         boolean valide = this.verificationService.verifier(volume,volumeMax,poids,poidsMax);
         emplacement = this.verificationService.normalisation(emplacement);
         emplacementParent = this.verificationService.normalisation(emplacementParent);
+
+        valide = this.verificationService.verifier(emplacement);
 
         if (valide) {
             if (connection == null) {
@@ -135,6 +138,7 @@ public class ContainerService implements ContainerServiceInterface {
 
     @Override
     public boolean Delete(String emplacement) throws ExceptionCustom {
+
         boolean valide = this.verificationService.verifier(emplacement);
 
         if (valide) {
@@ -160,11 +164,6 @@ public class ContainerService implements ContainerServiceInterface {
         return valide;
     }
 
-    /**
-     * Get instance container service.
-     *
-     * @return the container service
-     */
     public static ContainerService GetInstance()
     {
         return instance;
