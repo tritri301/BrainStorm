@@ -23,8 +23,9 @@ public class ContainerRepository implements ContainerRepositoryInterface
     @Override
     public Container FindById(String emplacement) throws Exception {
         PreparedStatement stmt = con.prepareStatement("select * from container where emplacement = ?");
-        stmt.setString(0 ,emplacement);
+        stmt.setString(1 ,emplacement);
         ResultSet rs = stmt.executeQuery();
+        rs.next();
         return containerFactory.Create(rs.getString(1), rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getInt(5), rs.getString(6));
     }
 

@@ -1,5 +1,6 @@
 package Services;
 
+import Models.Container;
 import Repositories.ContainerRepository;
 import Services.Interfaces.VerificationServiceInterface;
 import com.sun.xml.internal.ws.util.StringUtils;
@@ -110,11 +111,18 @@ public class VerificationService implements VerificationServiceInterface {
     @Override
     public boolean emplacementVerification(String emplacement) {
         boolean valide = true;
+        Container container = null;
 
         try {
-            containerRepository.FindById(emplacement);
+            container = containerRepository.FindById(emplacement);
         }
         catch(Exception e)
+        {
+            System.out.print(e.toString());
+            ///valide = false;
+        }
+
+        if (container == null)
         {
             valide = false;
         }
