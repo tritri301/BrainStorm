@@ -15,11 +15,12 @@ import java.util.List;
  */
 public class ItemService implements ItemServiceInterface {
 
+    private Object connection = this.connectionBD.GetConnectionStatus();
     private static final ItemService instance = new ItemService();
+    //récupère les instances
     private ItemRepository itemRepository = ItemRepository.GetInstance();
     private ItemFactory itemFactory = ItemFactory.GetInstance();
     private ConnectionBD connectionBD = ConnectionBD.GetInstance();
-    private Object connection = this.connectionBD.GetConnectionStatus();
     private VerificationService verificationService = VerificationService.GetInstance();
 
     @Override

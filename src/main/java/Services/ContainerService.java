@@ -15,28 +15,33 @@ import java.util.List;
  */
 public class ContainerService implements ContainerServiceInterface {
 
+    private Object connection = this.connectionBD.GetConnectionStatus();
     private static final ContainerService instance = new ContainerService();
+    //récupère les instances
     private ContainerRepository containerRepository = ContainerRepository.GetInstance();
     private ContainerFactory containerFactory = ContainerFactory.GetInstance();
     private ConnectionBD connectionBD = ConnectionBD.GetInstance();
-    private Object connection = this.connectionBD.GetConnectionStatus();
     private VerificationService verificationService = VerificationService.GetInstance();
-
 
     @Override
     public Container FindById(String emplacement) throws ExceptionCustom {
         Container container = null;
         emplacement = this.verificationService.normalisation(emplacement);
 
-        if (connection == null) {
-            try {
-                container = this.containerRepository.FindById("test");
-            } catch (Exception e) {
+        if (connection == null)
+        {
+            try
+            {
+                container = this.containerRepository.FindById(emplacement);
+            }
+            catch (Exception e)
+            {
                 e.printStackTrace();
                 ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd" + e.toString());
                 throw exceptionErreurBD;
             }
-        } else {
+        }
+        else {
             ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de connection a la base de données");
             throw exceptionErreurBD;
         }

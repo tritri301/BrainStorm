@@ -18,11 +18,12 @@ import java.util.List;
  */
 public class UserService implements UserServiceInterface {
 
+    private Object connection = this.connectionBD.GetConnectionStatus();
     private static final UserService instance = new UserService();
+    //récupère les instances
     private UserRepository userRepository = UserRepository.GetInstance();
     private UserFactory userFactory = UserFactory.GetInstance();
     private ConnectionBD connectionBD = ConnectionBD.GetInstance();
-    private Object connection = this.connectionBD.GetConnectionStatus();
     private VerificationService verificationService = VerificationService.GetInstance();
 
     @Override
