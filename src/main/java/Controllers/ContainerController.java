@@ -20,7 +20,6 @@ public class ContainerController implements ContainerControllerInterface {
     @Override
     public Container FindById(String emplacement)
     {
-        //test
         Container container =  null;
         try {
             container = containerService.FindById(emplacement);
