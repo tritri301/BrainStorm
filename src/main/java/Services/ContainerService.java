@@ -134,13 +134,13 @@ public class ContainerService implements ContainerServiceInterface {
     }
 
     @Override
-    public boolean Delete(int id) throws ExceptionCustom {
-        boolean valide = this.verificationService.verifier(id);
+    public boolean Delete(String emplacement) throws ExceptionCustom {
+        boolean valide = this.verificationService.verifier(emplacement);
 
         if (valide) {
             if (connection == null) {
                 try {
-                    this.containerRepository.Delete(id);
+                    this.containerRepository.Delete(emplacement);
                 } catch (Exception e) {
                     valide = false;
                     ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd" + e.toString());

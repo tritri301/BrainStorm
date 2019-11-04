@@ -54,8 +54,8 @@ public class ContainerRepository implements ContainerRepositoryInterface
     }
 
     @Override
-    public void Delete(int id) throws Exception {
-        PreparedStatement stmt = con.prepareStatement("delete from container where idContainer = " + id);
+    public void Delete(String emplacement) throws Exception {
+        PreparedStatement stmt = con.prepareStatement("delete from container where emplacement = " + emplacement);
         stmt.execute();
     }
 
