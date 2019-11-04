@@ -22,9 +22,9 @@ public class ContainerRepository implements ContainerRepositoryInterface
     }
     @Override
     public Container FindById(String emplacement) throws Exception {
-        Statement stmt = con.createStatement();
-        ResultSet rs = stmt.executeQuery("select * from container where emplacement = " + emplacement);
-        rs.next();
+        PreparedStatement stmt = con.prepareStatement("select * from container where emplacement = ?");
+        stmt.setString(0 ,emplacement);
+        ResultSet rs = stmt.executeQuery();
         return containerFactory.Create(rs.getString(1), rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getInt(5), rs.getString(6));
     }
 
