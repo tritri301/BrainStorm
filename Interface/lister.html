@@ -64,7 +64,7 @@ But du fichier :    Afficher la page du site qui permet de visualiser la liste d
                 <tbody id="formulaire">
                     <tr>
                         <td align="center" colspan="2">
-                            <label for="titre"><i>Rechercher par le nom ou l'id</i><br>Ne pas remplir les champs permet de tout lister les items</label>
+                            <label for="titre"><i>Rechercher par le nom ou l'UPC</i><br>Ne pas remplir les champs permet de tout lister les items</label>
                         </td>
                     </tr>
                     <tr>
@@ -72,8 +72,8 @@ But du fichier :    Afficher la page du site qui permet de visualiser la liste d
                         <td align="left"><input type="text" class="form-control" id="name" placeholder="Nom"></td>
                     </tr>
                     <tr>
-                        <td align="right"><label for="id">Id :</label></td>
-                        <td align="left"><input type="text" class="form-control" id="id" placeholder="Id"></td>
+                        <td align="right"><label for="upc">UPC :</label></td>
+                        <td align="left"><input type="text" class="form-control" id="upc" placeholder="UPC"></td>
                     </tr>
                     <tr>
                         <td align="center" colspan="2">
@@ -94,8 +94,9 @@ But du fichier :    Afficher la page du site qui permet de visualiser la liste d
                 <!--Table head-->
                 <thead align="center">
                 <tr>
-                    <th>Id</th>
+                    <th>UPC</th>
                     <th>Nom</th>
+                    <th>Emplacement</th>
                     <th>Poids</th>
                     <th>Volume</th>
                     <th>Quantité</th>
