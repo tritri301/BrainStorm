@@ -26,7 +26,7 @@ public class main
 
 		//etstst
 
-		String emplacement = "R0-E0-t0";
+		String emplacement = "R0-E0-T0";
 
 		//tester normaliser
 
