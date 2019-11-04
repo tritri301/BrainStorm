@@ -12,7 +12,7 @@ public interface ContainerControllerInterface {
      * @param id the id
      * @return the container
      */
-    public Container FindById(String id);
+    public Container FindById(int id);
 
     /**
      * Find all list.
@@ -40,7 +40,7 @@ public interface ContainerControllerInterface {
      * @param containerParent the container parent
      * @return the container
      */
-    boolean Update(String emplacement, int volume, int volumeMax, int poids, int poidsMax, String emplacementParent);
+    boolean Update(int idContainer, int quantite, int position, int volume, int poidsMax, int containerParent);
 
     /**
      * Create container.
@@ -53,7 +53,7 @@ public interface ContainerControllerInterface {
      * @param containerParent the container parent
      * @return the container
      */
-    boolean Create(String emplacement, int volume, int volumeMax, int poids, int poidsMax, String emplacementParent);
+    boolean Create(int idContainer, int quantite, int position, int volume, int poidsMax, int containerParent);
 
     /**
      * Delete container.
@@ -61,5 +61,12 @@ public interface ContainerControllerInterface {
      * @param id the id
      * @return the container
      */
-    boolean Delete(String id);
+    boolean Delete(int id);
+
+
+
+
+
+
+
 }
