@@ -202,14 +202,13 @@ public class Browser extends BorderPane {
         {
             ItemController itemController = ItemController.GetInstance();
 
+
             if(itemController.MoveItem(id,quantite,emplacementNouveau))
             {
                 Alert("Objet déplacé avec succes");
                 return true;
             }
             return false;
-
-
         }
 
         public boolean ModifyItem(int id, String description)

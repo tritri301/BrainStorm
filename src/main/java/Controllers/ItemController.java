@@ -131,6 +131,7 @@ public class ItemController implements ItemControllerInterface
 
         try {
             move = itemService.MoveItem(id,quantite,emplacementNouveau);
+
         } catch (ExceptionCustom e) {
             browser.Alert(e.getMessage());
             move = false;

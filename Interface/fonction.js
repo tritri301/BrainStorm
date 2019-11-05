@@ -170,8 +170,6 @@ function CreateItem()
 
     var emplacement = "R" + ranger + "-E" + etagere + "-T" + tablette;
 
-    alert(emplacement);
-
     if(window.JavaApp.CreateItem(upc,emplacement,description,quantite))
     {
         ResetAjouter();

@@ -232,17 +232,20 @@ public class VerificationService implements VerificationServiceInterface {
     public boolean verifierQuantiteRestante(int idItem, int quantite) {
         boolean valide = false;
 
+        Item item = null;
         try {
-            Item item = itemService.FindById(idItem);
+            item = itemRepository.FindById(idItem);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-            if (item.getQuantite() - quantite > 0)
+        int qtn = item.getQuantite();
+
+        if (qtn - quantite >= 0)
             {
                 valide = true;
             }
 
-        } catch (ExceptionCustom exceptionCustom) {
-            exceptionCustom.printStackTrace();
-        }
         return valide;
     }
 

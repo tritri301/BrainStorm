@@ -132,7 +132,7 @@ public class ItemService implements ItemServiceInterface {
                     if (verificationService.verifierDescription(description)) {
 
                     emplacement = verificationService.normalisation(emplacement);
-                        //TODO verifiermieux apres =, et tout enlever sauf , t =
+                    //TODO verifiermieux apres =, et tout enlever sauf , t =
                     Item nouveauItem = FindById(idItem);
                     nouveauItem.setIdItemInfo(idItemInfo);
                     nouveauItem.setEmplacement(emplacement);
@@ -187,7 +187,22 @@ public class ItemService implements ItemServiceInterface {
                             //TODO verifiermieux apres =, et tout enlever sauf , t =
                             if (connection == null) {
                             try {
-                                itemRepository.Create(this.itemFactory.Create(0, idItemInfo, emplacement, description, quantite));
+                                boolean isExist = false;
+                                //Item item;
+                                //item = itemRepository.findSimilar(idItemInfo,emplacement,description);
+                                //if (item != null)
+                              //  {
+                               //     isExist = true;
+                              //  }
+
+                                if(isExist)
+                                {
+                                    //this.Update(item.getIdItem(),idItemInfo,emplacement,description,quantite);
+                                }
+                                else
+                                {
+                                    itemRepository.Create(this.itemFactory.Create(0, idItemInfo, emplacement, description, quantite));
+                                }
                                 valide = true;
                             } catch (Exception e) {
                                 ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd : " + e.toString());
@@ -288,7 +303,7 @@ public class ItemService implements ItemServiceInterface {
             else
             {
                 valide = false;
-                ExceptionCustom exceptionErreurBD = new ExceptionCustom("format de Quantite invlide");
+                ExceptionCustom exceptionErreurBD = new ExceptionCustom("format de Quantite invalide");
                 throw exceptionErreurBD;
             }
         }
@@ -298,6 +313,7 @@ public class ItemService implements ItemServiceInterface {
             ExceptionCustom exceptionErreurBD = new ExceptionCustom("Aucun object avec id : " + id);
             throw exceptionErreurBD;
         }
+
 
         return valide;
     }

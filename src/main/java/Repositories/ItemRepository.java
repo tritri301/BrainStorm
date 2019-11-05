@@ -41,6 +41,13 @@ public class ItemRepository implements ItemRepositoryInterface {
         return itemFactory.Create(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4),rs.getInt(5));
     }
 
+    public Item findSimilar(int idItemInfo,String emplacement,String description) throws Exception{
+        Statement stmt = con.createStatement();
+        ResultSet rs = stmt.executeQuery("select * from item where idIteminfo = " + idItemInfo + " and emplacement = " + emplacement + " and description = " + description);
+        rs.next();
+        return itemFactory.Create(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4),rs.getInt(5));
+    }
+
     @Override
     public List<Item> FindAll() throws Exception {
         List<Item> item = new ArrayList<>();
