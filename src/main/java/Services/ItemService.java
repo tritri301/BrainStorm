@@ -291,8 +291,12 @@ public class ItemService implements ItemServiceInterface {
                             //update emplacement
                             Update(id,item.getIdItemInfo(),emplacementNouveau,item.getDescription(),item.getQuantite());
                         } else {
-                            Update(id,item.getIdItemInfo(),emplacementNouveau,item.getDescription(),quantite);
                             Update(id,item.getIdItemInfo(),item.getEmplacement(),item.getDescription(),item.getQuantite() - quantite);
+
+
+                            Create(item.getIdItemInfo(),emplacementNouveau,item.getDescription(),quantite);
+                            //TODO si 0 supprimer
+
                             //Update(id,item.getIdItemInfo(),emplacementNouveau,item.getDescription(),item.getQuantite() + quantite);
                             // ajouter avec le nouvel emplacement avec la quantite voulu
                             // update de l 'ancien diminuer quantite'
@@ -326,34 +330,6 @@ public class ItemService implements ItemServiceInterface {
             throw exceptionErreurBD;
         }
 
-
-        return valide;
-    }
-
-    public boolean ModifyItem(int id,String description) throws ExceptionCustom
-    {
-        boolean valide = true;
-
-        if (verificationService.itemExist(id))
-        {
-            if (verificationService.verifierDescription(description))
-            {
-                Item item = FindById(id);
-                Update(id,item.getIdItemInfo(),item.getEmplacement(),description,item.getQuantite());
-            }
-            else
-            {
-                valide = false;
-                ExceptionCustom exceptionErreurBD = new ExceptionCustom("la description ne possede pas de bon format");
-                throw exceptionErreurBD;
-            }
-
-        }else
-        {
-            valide = false;
-            ExceptionCustom exceptionErreurBD = new ExceptionCustom("Aucun object avec id : " + id);
-            throw exceptionErreurBD;
-        }
 
         return valide;
     }
