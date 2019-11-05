@@ -41,20 +41,7 @@ function creerRapport(){
 function SubmitDelete()
 {
     upc = document.getElementById("upc").value;
-    //emplacement = document.getElementById("emplacement").value;
     myNode = document.getElementById("table1");
-
-    var ranger = document.getElementById("TxtBoxRanger").value;
-    var etagere = document.getElementById("TxtBoxEtagere").value;
-    var tablette = document.getElementById("TxtBoxTablette").value;
-
-    if(tablette == "Planché")
-    {
-      tablette = 0;
-    }
-
-    var emplacement = "R" + ranger + "-E" + etagere + "-T" + tablette;
-
 
     //Deletes all existing entries
     while (myNode.firstChild) {
@@ -62,25 +49,12 @@ function SubmitDelete()
     }
     if(upc != "")
     {
-        //if we have both a emplacement and a upc code
-        if(emplacement != "")
-        {
-            //TODO
-        }
-        //if we only have upc
-        else
-        {
-            window.JavaApp.ListDeleteItemByUPC(upc);
-        }
-    } else if(emplacement != "") //if upc is empty, but not emplacement
-    {
-        window.JavaApp.ListDeleteItemByContainer(emplacement);
+        window.JavaApp.ListDeleteItemByUPC(upc);
     }
     else
     {
         window.JavaApp.ListAllDeleteItem();
     }
-
 }
 function DeleteItem()
  {
@@ -89,10 +63,12 @@ function DeleteItem()
         quantite = document.getElementById(arguments[0]);
         window.JavaApp.DeleteItem(arguments[0]);
      }
+     SubmitDelete();
  }
 
  function ResetSupprimer()
  {
+    document.getElementById("upc").value = "";
      myNode = document.getElementById("table1");
 
      //Deletes all existing entries
@@ -104,9 +80,11 @@ function DeleteItem()
  function ResetAjouter()
  {
     document.getElementById("upc").value = "";
-    document.getElementById("emplacement").value = "";
+    document.getElementById("qt").value = "";
     document.getElementById("description").value = "";
-    document.getElementById("quantite").value = "";
+    document.getElementById("TxtBoxRanger").value = "";
+    document.getElementById("TxtBoxEtagere").value = "";
+    document.getElementById("TxtBoxTablette").value = "";
  }
 
 function ResetList()
