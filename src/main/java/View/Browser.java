@@ -222,7 +222,6 @@ public class Browser extends BorderPane {
                 return true;
             }
             return false;
-
         }
 
     }

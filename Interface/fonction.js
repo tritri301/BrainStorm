@@ -32,13 +32,6 @@ function SubmitList()
         window.JavaApp.ListAllItem();
     }
 }
-
-function creerRapport(){
-
-        window.JavaApp.ListAllItem();
-        window.JavaApp.
-}
-
 function SubmitDelete()
 {
     upc = document.getElementById("upc").value;
@@ -108,12 +101,12 @@ function ResetList()
 function ShowItem()
 {
     var row = document.createElement("tr");
-    var column;
+    var column
     for(var i = 0; i < arguments.length; i++)
     {
          column = document.createElement("td");
          column.innerHTML = arguments[i];
-         column.setAttribute("onclick","Alert(" + "'" + arguments[2] + "'" + ");");
+         column.setAttribute("onclick","Alert(" + "'" + arguments[2] + "'" + ");")
          row.appendChild(column);
     }
     document.getElementById("table1").appendChild(row);
@@ -121,7 +114,7 @@ function ShowItem()
 function ShowDeleteItem()
 {
     var row = document.createElement("tr");
-    var column;
+    var column
     for(var i = 0; i < 5; i++)
     {
          column = document.createElement("td");
@@ -160,16 +153,6 @@ function MoveItem()
 {
    var itemID = document.getElementById("id").value;
    var itemQt = document.getElementById("qt").value;
-   var e = document.getElementById("idRanger");
-   var noRanger = e.options[e.selectedIndex].text;
-
-    e = document.getElementById("idEtagere");
-    var noEtagere = e.options[e.selectedIndex].text;
-
-    e = document.getElementById("idTablette");
-    var noTablette = e.options[e.selectedIndex].text;
-   //var emplacementAct = document.
-    var nouvelleEmplacement = str.concat(noRanger,noEtagere,noTablette);
 
    if(window.JavaApp.MoveItem(itemID,itemQt,nouvelleEmplacement))
    {
@@ -188,8 +171,8 @@ function ModifyItem()
 {
    var itemID = document.getElementById("id").value;
    var description = document.getElementById("description").value;
-
-   if(window.JavaApp.ModifyItem(id,description))
+   alert(itemID);
+   if(window.JavaApp.ModifyItem(itemID,description))
    {
       ResetModify();
    }
@@ -202,16 +185,3 @@ function ResetModify()
 }
 
 
-function SetRanger()
-{
-    nbRanger = arguments[0];
-    document.getElementById("TxtBoxRanger").value = nbRanger;
-}
-function SetEtagere(nbEtagere)
-{
-    document.getElementById("TxtBoxEtagere").value = nbEtagere;
-}
-function SetTablette(nbTablette)
-{
-    document.getElementById("TxtBoxTablette").value = nbTablette;
-}
