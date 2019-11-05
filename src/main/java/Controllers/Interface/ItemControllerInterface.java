@@ -64,7 +64,7 @@ public interface ItemControllerInterface
 
     boolean MoveItem(int id,int quantite,String emplacementNouveau);
 
-
+    boolean ModifyItem(int id, String description);
 
 
 }

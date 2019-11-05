@@ -67,5 +67,7 @@ public interface ItemServiceInterface {
      */
     boolean Delete(int id) throws ExceptionCustom;
 
-   // boolean Move(int)
+    boolean MoveItem(int id,int quantite,String emplacementNouveau) throws ExceptionCustom;
+
+    boolean ModifyItem(int id, String description) throws ExceptionCustom;
 }

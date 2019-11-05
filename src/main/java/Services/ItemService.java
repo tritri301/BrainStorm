@@ -272,6 +272,22 @@ public class ItemService implements ItemServiceInterface {
          */
         return valide;
     }
+
+    public boolean ModifyItem(int id,String description) throws ExceptionCustom
+    {
+        boolean valide = true;
+
+        //Logique pour service Simon
+        /*
+        ItemController itemController = ItemController.GetInstance();
+        Item item = itemController.FindById(id);
+
+        itemController.Update(id,item.getIdItemInfo(),item.getEmplacement(),description,item.getQuantite();
+
+         */
+
+        return valide;
+    }
     public static ItemService GetInstance()
     {
         return instance;
