@@ -42,9 +42,15 @@ public class ItemRepository implements ItemRepositoryInterface {
     }
 
     public Item findSimilar(int idItemInfo,String emplacement,String description) throws Exception{
-        Statement stmt = con.createStatement();
-        ResultSet rs = stmt.executeQuery("select * from item where idIteminfo = " + idItemInfo + " and emplacement = " + emplacement + " and description = " + description);
+        PreparedStatement stmt = con.prepareStatement("select * from item where idIteminfo = ? and emplacement = ? and description = ?");
+        stmt.setInt(1, idItemInfo);
+        stmt.setString(2, emplacement);
+        stmt.setString(3, description);
+        stmt.execute();
+
+        ResultSet rs = stmt.getResultSet();
         rs.next();
+
         return itemFactory.Create(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4),rs.getInt(5));
     }
 

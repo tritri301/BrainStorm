@@ -131,32 +131,32 @@ public class ItemService implements ItemServiceInterface {
                 if (verificationService.emplacementExist(emplacement)) {
                     if (verificationService.verifierDescription(description)) {
 
-                    emplacement = verificationService.normalisation(emplacement);
-                    //TODO verifiermieux apres =, et tout enlever sauf , t =
-                    Item nouveauItem = FindById(idItem);
-                    nouveauItem.setIdItemInfo(idItemInfo);
-                    nouveauItem.setEmplacement(emplacement);
-                    nouveauItem.setDescription(description);
-                    nouveauItem.setQuantite(quantite);
+                        emplacement = verificationService.normalisation(emplacement);
+                        //TODO verifiermieux apres =, et tout enlever sauf , t =
+                        Item nouveauItem = FindById(idItem);
+                        nouveauItem.setIdItemInfo(idItemInfo);
+                        nouveauItem.setEmplacement(emplacement);
+                        nouveauItem.setDescription(description);
+                        nouveauItem.setQuantite(quantite);
 
-                    if (connection == null) {
-                        try {
-                            this.itemRepository.Update(nouveauItem);
-                            valide = true;
-                        } catch (Exception e) {
-                            ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd : " + e.toString());
+                        if (connection == null) {
+                            try {
+                                this.itemRepository.Update(nouveauItem);
+                                valide = true;
+                            } catch (Exception e) {
+                                ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd : " + e.toString());
+                                throw exceptionErreurBD;
+                            }
+                        } else {
+                            ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de connection a la base de données");
                             throw exceptionErreurBD;
                         }
-                    } else {
-                        ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de connection a la base de données");
+                    }
+                    else {
+                        ExceptionCustom exceptionErreurBD = new ExceptionCustom("la description na pas le bon format");
                         throw exceptionErreurBD;
                     }
                 }
-                else {
-                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("la description na pas le bon format");
-                    throw exceptionErreurBD;
-                }
-            }
                 else {
                     ExceptionCustom exceptionErreurBD = new ExceptionCustom("l'emplacement est invalide");
                     throw exceptionErreurBD;
@@ -183,21 +183,18 @@ public class ItemService implements ItemServiceInterface {
             if (verificationService.itemInfoExist(idItemInfo)) {
                 if (verificationService.emplacementExist(emplacement)) {
                     if (verificationService.verifierDescription(description)) {
-                            emplacement = verificationService.normalisation(emplacement);
-                            //TODO verifiermieux apres =, et tout enlever sauf , t =
-                            if (connection == null) {
+                        emplacement = verificationService.normalisation(emplacement);
+                        //TODO verifiermieux apres =, et tout enlever sauf , t =
+                        if (connection == null) {
                             try {
-                                boolean isExist = false;
-                                //Item item;
-                                //item = itemRepository.findSimilar(idItemInfo,emplacement,description);
-                                //if (item != null)
-                              //  {
-                               //     isExist = true;
-                              //  }
 
-                                if(isExist)
+                                Item item = null;
+                                item = this.trouverSimilaire(idItemInfo, emplacement, description);
+
+                                if(item != null)
                                 {
-                                    //this.Update(item.getIdItem(),idItemInfo,emplacement,description,quantite);
+                                    quantite = quantite + item.getQuantite();
+                                    this.Update(item.getIdItem(),idItemInfo,emplacement,description,quantite);
                                 }
                                 else
                                 {
@@ -296,6 +293,7 @@ public class ItemService implements ItemServiceInterface {
                         } else {
                             Update(id,item.getIdItemInfo(),emplacementNouveau,item.getDescription(),quantite);
                             Update(id,item.getIdItemInfo(),item.getEmplacement(),item.getDescription(),item.getQuantite() - quantite);
+                            //Update(id,item.getIdItemInfo(),emplacementNouveau,item.getDescription(),item.getQuantite() + quantite);
                             // ajouter avec le nouvel emplacement avec la quantite voulu
                             // update de l 'ancien diminuer quantite'
                         }
@@ -359,6 +357,19 @@ public class ItemService implements ItemServiceInterface {
 
         return valide;
     }
+
+    @Override
+    public Item trouverSimilaire(int idItemInfo, String emplacement, String description) {
+        Item item = null;
+        try {
+            item = itemRepository.findSimilar(idItemInfo,emplacement,description);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return item;
+    }
+
     public static ItemService GetInstance()
     {
         return instance;
