@@ -17,6 +17,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import netscape.javascript.JSObject;
+import java.io.FileWriter;
+import java.io.IOException;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -95,6 +97,38 @@ public class Browser extends BorderPane {
                         tmp.getVolume(),
                         itemList.get(i).getQuantite());
             }
+        }
+
+        public void ListAllItemRapport() {
+            ItemController itemController = ItemController.GetInstance();
+            ItemInfoController itemInfoController = ItemInfoController.GetInstance();
+            List<Item> itemList = itemController.FindAll();
+            for (int i = 0; i < itemList.size(); i++) {
+                ItemInfo tmp = itemInfoController.FindById(itemList.get(i).getIdItemInfo());
+                window.call("ShowItemRapport", itemList.get(i).getIdItem(),
+                        tmp.getNom(),
+                        itemList.get(i).getEmplacement(),
+                        tmp.getPoids(),
+                        tmp.getVolume(),
+                        itemList.get(i).getQuantite());
+            }
+        }
+
+        public void ecrireFichier() {
+            ItemController itemController = ItemController.GetInstance();
+            ItemInfoController itemInfoController = ItemInfoController.GetInstance();
+            List<Item> itemList = itemController.FindAll();
+            try {
+                FileWriter writer = new FileWriter("C:\\MyFile.txt", true);
+                for (int i = 0; i < itemList.size(); i++) {
+                    ItemInfo tmp = itemInfoController.FindById(itemList.get(i).getIdItemInfo());
+                    writer.write(itemList.get(i).getIdItem());
+                }
+                writer.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
         }
         public void ListItemById(int id) {
             ItemController itemController = ItemController.GetInstance();

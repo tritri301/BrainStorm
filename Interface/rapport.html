@@ -17,7 +17,7 @@ But du fichier :    Afficher la page du site qui permet de creer un rapport d'it
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 <body>
-<script type="text/javascript">creerRapport();</script>
+<script type="text/javascript">window.onload = creerRapport();</script>
 <div class="container-fluid" id="conteneur">
 	<div class="row" id="sectionBlancMiniTest" width="100%">
 		<div class="col-sm" id="logo"><a href="index.html" class="lienCoolPlay"><img src="logo.png"/></a></div>
@@ -37,7 +37,7 @@ But du fichier :    Afficher la page du site qui permet de creer un rapport d'it
 		<a href="deplacer.html" class="lienSousMenu"><img src="bouton_deplacer.png" onmouseover="this.src='bouton_deplacer2.png'" onmouseout="this.src='bouton_deplacer.png'"/></a>
 		<a href="modifier.html" class="lienSousMenu"><img src="bouton_modifier.png" onmouseover="this.src='bouton_modifier2.png'" onmouseout="this.src='bouton_modifier.png'"/></a>
 		<a href="lister.html" class="lienSousMenu"><img src="bouton_lister.png"  onmouseover="this.src='bouton_lister2.png'" onmouseout="this.src='bouton_lister.png'"/></a>
-		<a href="" class="lienSousMenu"><img src="bouton_rapport4.png"  onmouseover="this.src='bouton_rapport4.png'" onmouseout="this.src='bouton_rapport4.png'"/></a>
+		<a href="rapport.html" class="lienSousMenu"><img src="bouton_rapport.png" onmouseover="this.src='bouton_rapport2.png'" onmouseout="this.src='bouton_rapport.png'"/></a>
 	</div>
 	<div class="row" id="sectionVerte"> 
 		<br>
@@ -50,11 +50,12 @@ But du fichier :    Afficher la page du site qui permet de creer un rapport d'it
 	<div class="row">
 		<div class="col" id="titre">
 			Rapport<br>
+			<button align="center" id="btnRapport" class="btn btn-default" onclick="creerRapport();ecrireFichier();" >Générer</button>
 		</div>
 	</div>
 	<div class="row" id="sectionBlanc">
 		<!--Table-->
-		<table id="tablePreview" class="table table-bordered">
+		<table id="tablePreview2" class="table table-bordered">
 			<!--Table head-->
 			<thead align="center">
 			<tr>
@@ -68,9 +69,9 @@ But du fichier :    Afficher la page du site qui permet de creer un rapport d'it
 			</thead>
 			<!--Table head-->
 			<!--Table body-->
-			<tbody id="table1">
+			<tbody id="table2">
+			<script type="text/javascript">creerRapport();</script>
 
-			<button class="btn btn-default" onclick="creerRapport();" >Rechercher</button>
 			</tbody>
 			<!--Table body-->
 		</table>

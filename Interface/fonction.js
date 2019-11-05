@@ -34,8 +34,12 @@ function SubmitList()
 }
 
 function creerRapport(){
+var myNode = document.getElementById("table2");
 
-        window.JavaApp.ListAllItem();
+    while (myNode.firstChild) {
+        myNode.removeChild(myNode.firstChild);
+    }
+        window.JavaApp.ListAllItemRapport();
 }
 
 function SubmitDelete()
@@ -108,6 +112,19 @@ function ShowItem()
          row.appendChild(column);
     }
     document.getElementById("table1").appendChild(row);
+}
+
+function ShowItemRapport()
+{
+    var row = document.createElement("tr");
+    var column;
+    for(var i = 0; i < arguments.length; i++)
+    {
+         column = document.createElement("td");
+         column.innerHTML = arguments[i];
+         row.appendChild(column);
+    }
+    document.getElementById("table2").appendChild(row);
 }
 function ShowDeleteItem()
 {
