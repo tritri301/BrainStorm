@@ -88,6 +88,7 @@ function DeleteItem()
     document.getElementById("upc").value = "";
     document.getElementById("emplacement").value = "";
     document.getElementById("description").value = "";
+    document.getElementById("quantite").value = "";
  }
 
 function ResetList()
@@ -146,5 +147,59 @@ function CreateItem()
     {
         ResetAjouter();
     }
+}
+
+function MoveItem()
+{
+   var itemID = document.getElementById("id").value;
+   var itemQt = document.getElementById("qt").value;
+
+   var e = document.getElementById("idRanger");
+   var noRanger = e.options[e.selectedIndex].text;
+
+    e = document.getElementById("idEtagere");
+    var noEtagere = e.options[e.selectedIndex].text;
+
+    e = document.getElementById("idTablette");
+    var noTablette = e.options[e.selectedIndex].text;
+   //var emplacementAct = document.
+    var nouvelleEmplacement = str.concat(noRanger,noEtagere,noTablette);
+
+   if(window.JavaApp.MoveItem(itemID,itemQt,nouvelleEmplacement)
+   {
+        ResetDeplacer();
+   }
 
 }
+function ResetDeplacer()
+{
+    document.getElementById("id").value = " ";
+    document.getElementById("qt").value = " ";
+}
+
+
+function ModifyItem()
+{
+   var itemID = document.getElementById("id").value;
+   var description = document.getElementById("description").value;
+
+   if(window.JavaApp.ModifyItem(id,description))
+   {
+      ResetModify();
+   }
+}
+
+function ResetModify()
+{
+   document.getElementById("id").value = " ";
+   document.getElementById("description").value = " ";
+}
+
+
+/*var strUser = e.options[e.selectedIndex].text;
+So you're clear on the terminology:
+
+<select>
+    <option value="hello">Hello World</option>
+</select>
+*/

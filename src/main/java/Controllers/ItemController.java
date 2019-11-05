@@ -125,6 +125,28 @@ public class ItemController implements ItemControllerInterface
         return delete;
     }
 
+    public boolean MoveItem(int id,int quantite,String emplacementNouveau)
+    {
+        boolean move = true;
+
+        try {
+            move = itemService.MoveItem(id,quantite,emplacementNouveau);
+        } catch (ExceptionCustom e) {
+            browser.Alert(e.getMessage());
+            move = false;
+        }
+        catch(Exception e) {
+            move = false;
+        }
+
+        return move;
+
+    }
+
+
+
+
+
     public static ItemController GetInstance()
     {
         return instance;

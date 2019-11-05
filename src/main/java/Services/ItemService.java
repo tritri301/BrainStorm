@@ -232,7 +232,30 @@ public class ItemService implements ItemServiceInterface {
 
         return valide;
     }
+    public boolean MoveItem(int id,int quantite,String emplacementNouveau) throws ExceptionCustom
+    {
+        boolean valide = true;
 
+
+        // Logique pour déplacement Simon
+        /*
+         ItemController itemController = ItemController.GetInstance();
+            Item item = itemController.FindById(id);
+
+
+            if (item.getQuantite() == 1) {
+                //update emplacement
+                itemController.Update(id,item.getIdItemInfo(),emplacementNouveau,item.getDescription(),item.getQuantite());
+            } else {
+                itemController.Update(id,item.getIdItemInfo(),emplacementNouveau,item.getDescription(),quantite);
+                itemController.Update(id,item.getIdItemInfo(),item.getEmplacement(),item.getDescription(),item.getQuantite() - quantite);
+               // ajouter avec le nouvel emplacement avec la quantite voulu
+               // update de l 'ancien diminuer quantite'
+      }
+
+         */
+        return valide;
+    }
     public static ItemService GetInstance()
     {
         return instance;

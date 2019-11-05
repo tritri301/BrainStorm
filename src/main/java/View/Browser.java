@@ -4,6 +4,7 @@ import Controllers.ItemController;
 import Controllers.ItemInfoController;
 import Models.Item;
 import Models.ItemInfo;
+import Services.ItemInfoService;
 import javafx.scene.control.Dialog;
 import Services.ItemService;
 import javafx.application.Platform;
@@ -193,5 +194,35 @@ public class Browser extends BorderPane {
             }
             return false;
         }
+
+        /*
+        public void MoveItem(int id,int quantite,String emplacementNouveau) {
+
+            ItemController itemController = ItemController.GetInstance();
+            Item item = itemController.FindById(id);
+
+
+            if (item.getQuantite() == 1) {
+                //update emplacement
+                itemController.Update(id,item.getIdItemInfo(),emplacementNouveau,item.getDescription(),item.getQuantite());
+            } else {
+                itemController.Update(id,item.getIdItemInfo(),emplacementNouveau,item.getDescription(),quantite);
+                itemController.Update(id,item.getIdItemInfo(),item.getEmplacement(),item.getDescription(),item.getQuantite() - quantite);
+               // ajouter avec le nouvel emplacement avec la quantite voulu
+               // update de l 'ancien diminuer quantite'
+            }
+
+
+            if(itemController.(id,quantite,,emplacementNouveau))
+            {
+                Alert("Objet déplacé avec succes");
+                return true;
+            }
+            return false;
+
+
+        }
+        */
+
     }
 }
