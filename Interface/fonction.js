@@ -32,6 +32,13 @@ function SubmitList()
         window.JavaApp.ListAllItem();
     }
 }
+
+function creerRapport(){
+
+        window.JavaApp.ListAllItem();
+        window.JavaApp.
+}
+
 function SubmitDelete()
 {
     upc = document.getElementById("upc").value;

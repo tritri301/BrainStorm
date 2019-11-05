@@ -18,6 +18,8 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import netscape.javascript.JSObject;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public class Browser extends BorderPane {

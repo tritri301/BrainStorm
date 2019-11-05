@@ -48,10 +48,31 @@ But du fichier :    Afficher la page du site qui permet de creer un rapport d'it
 	</div>
 	<div class="row">
 		<div class="col" id="titre">
-			Rapport
+			Rapport<br>
 		</div>
 	</div>
 	<div class="row" id="sectionBlanc">
+		<!--Table-->
+		<table id="tablePreview" class="table table-bordered">
+			<!--Table head-->
+			<thead align="center">
+			<tr>
+				<th>UPC</th>
+				<th>Nom</th>
+				<th>Emplacement</th>
+				<th>Poids</th>
+				<th>Volume</th>
+				<th>Quantité</th>
+			</tr>
+			</thead>
+			<!--Table head-->
+			<!--Table body-->
+			<tbody id="table1">
+			<script>creerRapport();</script>
+			</tbody>
+			<!--Table body-->
+		</table>
+		<!--Table-->
 	</div>
 </div>
 </body>
