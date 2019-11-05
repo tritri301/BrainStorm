@@ -34,7 +34,7 @@ public class UserService implements UserServiceInterface {
                     user = this.userRepository.FindById(id);
                 } catch (Exception e) {
                     e.printStackTrace();
-                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd" + e.toString());
+                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("L'usager recherché est introuvable");
                     throw exceptionErreurBD;
                 }
             } else {
@@ -56,6 +56,11 @@ public class UserService implements UserServiceInterface {
         {
             try {
                // user = this.userRepository.FindAll();
+                if (user == null)
+                {
+                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("Aucun Résultats");
+                    throw exceptionErreurBD;
+                }
             } catch (Exception e) {
                 ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd" + e.toString());
                 throw exceptionErreurBD;
@@ -79,7 +84,7 @@ public class UserService implements UserServiceInterface {
                     name = verificationService.normalisation(name);
                     user = this.userRepository.FindByName(name);
                 } catch (Exception e) {
-                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd" + e.toString());
+                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("L'usager recherché est introuvable");
                     throw exceptionErreurBD;
                 }
             } else {
@@ -180,7 +185,7 @@ public class UserService implements UserServiceInterface {
                     this.userRepository.Delete(id);
                 } catch (Exception e) {
                     valide = false;
-                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd" + e.toString());
+                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("L'usager recherché est introuvable");
                     throw exceptionErreurBD;
                 }
             } else {

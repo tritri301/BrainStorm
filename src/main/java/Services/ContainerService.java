@@ -33,7 +33,7 @@ public class ContainerService implements ContainerServiceInterface {
                 container = this.containerRepository.FindById("test");
             } catch (Exception e) {
                 e.printStackTrace();
-                ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd" + e.toString());
+                ExceptionCustom exceptionErreurBD = new ExceptionCustom("cette position est introuvable");
                 throw exceptionErreurBD;
             }
         } else {
@@ -71,8 +71,9 @@ public class ContainerService implements ContainerServiceInterface {
         emplacement = this.verificationService.normalisation(emplacement);
         emplacementParent = this.verificationService.normalisation(emplacementParent);
 
-        if (this.verificationService.verifier(volume,volumeMax,poids,poidsMax)) {
-            if (this.verificationService.verifier(emplacement)) {
+        //TODO verifier limite du container
+            if (this.verificationService.verifier(emplacement) && this.verificationService.verifier(volume,volumeMax,poids,poidsMax))
+            {
                     Container nouveauContainer = FindById(emplacement);
                     nouveauContainer.setEmplacement(emplacement);
                     nouveauContainer.setVolume(volume);
@@ -99,7 +100,6 @@ public class ContainerService implements ContainerServiceInterface {
                     ExceptionCustom exceptionErreurBD = new ExceptionCustom("Données de saisies invalide");
                     throw exceptionErreurBD;
                 }
-            }
         return valide;
     }
 
@@ -110,7 +110,7 @@ public class ContainerService implements ContainerServiceInterface {
         emplacement = this.verificationService.normalisation(emplacement);
         emplacementParent = this.verificationService.normalisation(emplacementParent);
 
-        valide = this.verificationService.verifier(emplacement);
+        //TODO verifier limite du container
 
         if (valide) {
             if (connection == null) {
@@ -147,7 +147,7 @@ public class ContainerService implements ContainerServiceInterface {
                     this.containerRepository.Delete(emplacement);
                 } catch (Exception e) {
                     valide = false;
-                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd" + e.toString());
+                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("cette position est introuvable");
                     throw exceptionErreurBD;
                 }
             } else {

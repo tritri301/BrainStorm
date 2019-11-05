@@ -30,13 +30,33 @@ public class main
 
 		//tester normaliser
 
-		if (verif.emplacementVerification(emplacement))
+		if (verif.emplacementExist(emplacement))
 		{
 			System.out.print("emplacement existant !!!!");
 		}
 		else
 		{
 			System.out.print("n'existe PAS !!!");
+		}
+
+		if (verif.itemInfoExist(3))
+		{
+			System.out.print("item existant !!!!");
+		}
+		else
+		{
+			System.out.print("n'existe PAS !!!");
+		}
+
+		String description = "asd=asd,asd=asd";
+
+		if (verif.verifierDescription(description))
+		{
+			System.out.print("Valide !!!!!!!");
+		}
+		else
+		{
+			System.out.print("non Valide...");
 		}
     }
 

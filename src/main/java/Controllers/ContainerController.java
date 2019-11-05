@@ -11,6 +11,9 @@ import Exception.*;
 
 
 public class ContainerController implements ContainerControllerInterface {
+
+    private static final ContainerController instance = new ContainerController();
+
     @Override
     public Container FindById(int id) {
         return null;
@@ -34,5 +37,10 @@ public class ContainerController implements ContainerControllerInterface {
     @Override
     public boolean Delete(int id) {
         return false;
+    }
+
+    public static ContainerController GetInstance()
+    {
+        return instance;
     }
 }

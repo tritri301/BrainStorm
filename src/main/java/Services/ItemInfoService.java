@@ -36,7 +36,7 @@ public class ItemInfoService implements ItemInfoServiceInterface {
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
-                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd : " + e.toString());
+                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("ce code UPC est introuvable dans le catalogue");
                     throw exceptionErreurBD;
                 }
             } else {
@@ -91,7 +91,7 @@ public class ItemInfoService implements ItemInfoServiceInterface {
                         throw exceptionErreurBD;
                     }
                 } catch (Exception e) {
-                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd : " + e.toString());
+                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("ce code UPC est introuvable dans le catalogue");
                     throw exceptionErreurBD;
                 }
             } else {
@@ -110,6 +110,7 @@ public class ItemInfoService implements ItemInfoServiceInterface {
     public boolean Update(int idItem, String description, String nom, int poids, int volume) throws ExceptionCustom {
 
         boolean valide = this.verificationService.verifier(idItem,poids,volume);
+
         if (valide)
         {
             valide = this.verificationService.verifier(description,nom);
@@ -175,7 +176,7 @@ public class ItemInfoService implements ItemInfoServiceInterface {
         }
         else{
             valide = false;
-            ExceptionCustom exceptionErreurBD = new ExceptionCustom("Données de saisies invalide");
+            ExceptionCustom exceptionErreurBD = new ExceptionCustom("Données de saisies ou code UPC invalide");
             throw exceptionErreurBD;
         }
 
@@ -192,7 +193,7 @@ public class ItemInfoService implements ItemInfoServiceInterface {
                     this.itemInfoRepository.Delete(id);
                 } catch (Exception e) {
                     valide = false;
-                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd : " + e.toString());
+                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("ce code UPC est introuvable dans le catalogue");
                     throw exceptionErreurBD;
                 }
             } else {

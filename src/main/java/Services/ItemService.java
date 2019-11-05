@@ -30,23 +30,14 @@ public class ItemService implements ItemServiceInterface {
                 try {
                     item = this.itemRepository.FindById(id);
                 } catch (Exception e) {
-                    if (e.toString().equals("java.sql.SQLException: Illegal operation on empty result set."))
-                    {
-                        ExceptionCustom exceptionErreurBD = new ExceptionCustom("Aucun résultats");
-                        throw exceptionErreurBD;
-                    }
-                    else
-                    {
-                        ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd :t " + e.toString());
-                        throw exceptionErreurBD;
-                    }
+                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("l'objet que vous recherché est introuvable");
+                    throw exceptionErreurBD;
                 }
             } else {
                 ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de connection a la base de données");
                 throw exceptionErreurBD;
             }
-        }
-        else {
+        } else {
             ExceptionCustom exceptionErreurBD = new ExceptionCustom("Données de saisies invalide");
             throw exceptionErreurBD;
         }
@@ -61,21 +52,19 @@ public class ItemService implements ItemServiceInterface {
             if (connection == null) {
                 try {
                     count = this.itemRepository.FindAmountById(id);
-                    if (count == 0)
-                    {
+                    if (count == 0) {
                         ExceptionCustom exceptionErreurBD = new ExceptionCustom("Aucun Résultats");
                         throw exceptionErreurBD;
                     }
                 } catch (Exception e) {
-                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd : " + e.toString());
+                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("l'objet que vous recherché est introuvable");
                     throw exceptionErreurBD;
                 }
             } else {
                 ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de connection a la base de données");
                 throw exceptionErreurBD;
             }
-        }
-        else{
+        } else {
             ExceptionCustom exceptionErreurBD = new ExceptionCustom("Données de saisies invalide");
             throw exceptionErreurBD;
         }
@@ -86,12 +75,10 @@ public class ItemService implements ItemServiceInterface {
     @Override
     public List<Item> FindAll() throws ExceptionCustom {
         List<Item> item = new ArrayList<Item>();
-        if (connection == null)
-        {
+        if (connection == null) {
             try {
                 item = this.itemRepository.FindAll();
-                if (item == null)
-                {
+                if (item == null) {
                     ExceptionCustom exceptionErreurBD = new ExceptionCustom("Aucun Résultats");
                     throw exceptionErreurBD;
                 }
@@ -99,9 +86,7 @@ public class ItemService implements ItemServiceInterface {
                 ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd : " + e.toString());
                 throw exceptionErreurBD;
             }
-        }
-        else
-        {
+        } else {
             ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de connection a la base de données");
             throw exceptionErreurBD;
         }
@@ -117,20 +102,19 @@ public class ItemService implements ItemServiceInterface {
                 try {
                     name = verificationService.normalisation(name);
                     item = this.itemRepository.FindByName(name);
-                    if (item == null)
-                    {
+                    if (item == null) {
                         ExceptionCustom exceptionErreurBD = new ExceptionCustom("Aucun Résultats");
                         throw exceptionErreurBD;
                     }
                 } catch (Exception e) {
-                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd : " + e.toString());
+                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("l'objet que vous recherché est introuvable");
                     throw exceptionErreurBD;
                 }
             } else {
                 ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de connection a la base de données");
                 throw exceptionErreurBD;
             }
-        }else{
+        } else {
             ExceptionCustom exceptionErreurBD = new ExceptionCustom("Données de saisies invalide");
             throw exceptionErreurBD;
         }
@@ -139,69 +123,101 @@ public class ItemService implements ItemServiceInterface {
     }
 
     @Override
-    public boolean Update(int idItem, int idItemInfo, String emplacement, String description,int quantite) throws ExceptionCustom {
+    public boolean Update(int idItem, int idItemInfo, String emplacement, String description, int quantite) throws ExceptionCustom {
+        boolean valide = false;
 
-        boolean valide = this.verificationService.verifier(idItem,idItemInfo,quantite);
+        if (this.verificationService.verifier(quantite)) {
+            if (verificationService.itemInfoExist(idItemInfo)) {
+                if (verificationService.emplacementExist(emplacement)) {
+                    if (verificationService.verifierDescription(description)) {
 
-        if (valide) {
+                    emplacement = verificationService.normalisation(emplacement);
+                        //TODO verifiermieux apres =, et tout enlever sauf , t =
+                    Item nouveauItem = FindById(idItem);
+                    nouveauItem.setIdItemInfo(idItemInfo);
+                    nouveauItem.setEmplacement(emplacement);
+                    nouveauItem.setDescription(description);
+                    nouveauItem.setQuantite(quantite);
 
-            description = verificationService.normalisation(description);
-            emplacement = verificationService.normalisation(emplacement);
-
-            Item nouveauItem = FindById(idItem);
-            nouveauItem.setIdItemInfo(idItemInfo);
-            nouveauItem.setEmplacement(emplacement);
-            nouveauItem.setDescription(description);
-            nouveauItem.setQuantite(quantite);
-
-            if (connection == null) {
-                try {
-                    this.itemRepository.Update(nouveauItem);
-                } catch (Exception e) {
-                    valide = false;
-                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd : " + e.toString());
+                    if (connection == null) {
+                        try {
+                            this.itemRepository.Update(nouveauItem);
+                            valide = true;
+                        } catch (Exception e) {
+                            ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd : " + e.toString());
+                            throw exceptionErreurBD;
+                        }
+                    } else {
+                        ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de connection a la base de données");
+                        throw exceptionErreurBD;
+                    }
+                }
+                else {
+                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("la description na pas le bon format");
                     throw exceptionErreurBD;
                 }
-            } else {
-                valide = false;
-                ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de connection a la base de données");
+            }
+                else {
+                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("l'emplacement est invalide");
+                    throw exceptionErreurBD;
+                }
+            }
+            else {
+                ExceptionCustom exceptionErreurBD = new ExceptionCustom("le code upc est invalide");
                 throw exceptionErreurBD;
             }
-        }else{
-            valide = false;
-            ExceptionCustom exceptionErreurBD = new ExceptionCustom("Données de saisies invalide");
+        }
+        else {
+            ExceptionCustom exceptionErreurBD = new ExceptionCustom("la quantité est invalide");
             throw exceptionErreurBD;
         }
-
         return valide;
     }
 
     @Override
     public boolean Create(int idItemInfo, String emplacement, String description,int quantite) throws ExceptionCustom {
 
-        boolean valide = this.verificationService.verifier(idItemInfo,quantite);
+        boolean valide = false;
 
-        if (valide) {
+        if (this.verificationService.verifier(quantite)) {
+            if (verificationService.itemInfoExist(idItemInfo)) {
+                if (verificationService.emplacementExist(emplacement)) {
+                    if (verificationService.verifierDescription(description)) {
+                            emplacement = verificationService.normalisation(emplacement);
+                            //TODO verifiermieux apres =, et tout enlever sauf , t =
+                            if (connection == null) {
+                            try {
+                                itemRepository.Create(this.itemFactory.Create(0, idItemInfo, emplacement, description, quantite));
+                                valide = true;
+                            } catch (Exception e) {
+                                ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd : " + e.toString());
+                                throw exceptionErreurBD;
+                            }
 
-            emplacement = verificationService.normalisation(emplacement);
-            description = verificationService.normalisation(description);
-
-            if (connection == null) {
-                try {
-                    itemRepository.Create(this.itemFactory.Create(0, idItemInfo, emplacement, description,quantite));
-                } catch (Exception e) {
-                    valide = false;
-                    throw new ExceptionCustom("Erreur de bd :" + e.toString());
+                        } else {
+                            ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de connection a la base de données");
+                            throw exceptionErreurBD;
+                        }
+                    }
+                    else {
+                        ExceptionCustom exceptionErreurBD = new ExceptionCustom("la description na pas le bon format");
+                        throw exceptionErreurBD;
+                    }
                 }
-            } else {
-                valide = false;
-                throw new ExceptionCustom("Erreur de connection a la base de données");
+                else {
+                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("l'emplacement est invalide");
+                    throw exceptionErreurBD;
+                }
             }
-        }else{
-            valide = false;
-            throw new ExceptionCustom("Données de saisies invalide");
+            else {
+                ExceptionCustom exceptionErreurBD = new ExceptionCustom("le code upc est invalide");
+                throw exceptionErreurBD;
+            }
         }
-
+        else {
+            ExceptionCustom exceptionErreurBD = new ExceptionCustom("la quantité est invalide");
+            throw exceptionErreurBD;
+        }
         return valide;
     }
 
@@ -216,7 +232,7 @@ public class ItemService implements ItemServiceInterface {
                     this.itemRepository.Delete(id);
                 } catch (Exception e) {
                     valide = false;
-                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd :" + e.toString());
+                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("l'objet que vous recherché est introuvable");
                     throw exceptionErreurBD;
                 }
             } else {

@@ -1,7 +1,11 @@
 package Services;
 
 import Models.Container;
+import Models.Item;
+import Models.ItemInfo;
 import Repositories.ContainerRepository;
+import Repositories.ItemInfoRepository;
+import Repositories.ItemRepository;
 import Services.Interfaces.VerificationServiceInterface;
 import com.sun.xml.internal.ws.util.StringUtils;
 import jdk.nashorn.internal.runtime.regexp.joni.Regex;
@@ -17,6 +21,7 @@ public class VerificationService implements VerificationServiceInterface {
 
     private static final VerificationService instance = new VerificationService();
     private ContainerRepository containerRepository = ContainerRepository.GetInstance();
+    private ItemInfoRepository itemInfoRepository = ItemInfoRepository.GetInstance();
 
     @Override
     public boolean verifier(int integer) {
@@ -109,7 +114,7 @@ public class VerificationService implements VerificationServiceInterface {
     }
 
     @Override
-    public boolean emplacementVerification(String emplacement) {
+    public boolean emplacementExist(String emplacement) {
         boolean valide = true;
         Container container = null;
 
@@ -119,10 +124,30 @@ public class VerificationService implements VerificationServiceInterface {
         catch(Exception e)
         {
             System.out.print(e.toString());
-            ///valide = false;
         }
 
         if (container == null)
+        {
+            valide = false;
+        }
+
+        return valide;
+    }
+
+    @Override
+    public boolean itemInfoExist(int idItem) {
+        boolean valide = true;
+        ItemInfo itemInfo = null;
+
+        try {
+            itemInfo = itemInfoRepository.FindById(idItem);
+        }
+        catch(Exception e)
+        {
+            System.out.print(e.toString());
+        }
+
+        if (itemInfo == null)
         {
             valide = false;
         }
@@ -139,6 +164,43 @@ public class VerificationService implements VerificationServiceInterface {
         string = string.replaceAll("[^a-zA-Z0-9-]", "");
 
         return string;
+    }
+
+    @Override
+    public boolean verifierDescription(String description) {
+        short nbEqual = 0;
+        short nbComma = 0;
+        boolean valide = false;
+
+        for(int i = 0; i < description.length(); i++)
+        {
+            char c = description.charAt(i);
+
+            if(c == '=')
+            {
+                nbEqual++;
+            }
+
+            if(c == ',')
+            {
+                nbComma++;
+            }
+        }
+
+        if (nbComma > 0 && nbEqual > 0)
+        {
+            if (nbComma + 1 > nbEqual)
+            {
+                valide = false;
+            }
+
+            if (nbEqual -1 > nbComma)
+            {
+                valide = false;
+            }
+        }
+
+        return valide;
     }
 
     @Override
