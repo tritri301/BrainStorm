@@ -76,11 +76,11 @@ public class ItemRepository implements ItemRepositoryInterface {
 
     @Override
     public void Update(Item itemToUpdate) throws Exception {
-        PreparedStatement stmt = con.prepareStatement("update item set idItemInfo = ?, idContainer = ?, description = ? where idItem = " + itemToUpdate.getIdItem());
+        PreparedStatement stmt = con.prepareStatement("update item set idItemInfo = ?, emplacement = ?, description = ?, quantite = ? where idItem = " + itemToUpdate.getIdItem());
         stmt.setInt(1, itemToUpdate.getIdItemInfo());
         stmt.setString(2, itemToUpdate.getEmplacement());
-        stmt.setInt(3, itemToUpdate.getQuantite());
-        stmt.setString(4, itemToUpdate.getDescription());
+        stmt.setInt(4, itemToUpdate.getQuantite());
+        stmt.setString(3, itemToUpdate.getDescription());
 
         stmt.execute();
     }
