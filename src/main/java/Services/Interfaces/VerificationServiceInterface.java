@@ -58,9 +58,13 @@ public interface VerificationServiceInterface {
 
     boolean itemInfoExist(int iditem);
 
+    boolean itemExist(int iditem);
+
     String normalisation(String string);
 
-     boolean verifierDescription(String description);
+    boolean verifierDescription(String description);
+
+    boolean verifierQuantiteRestante(int idItem,int quantite);
 
     int[] EmplacementDecortiquer(int emplacementBrut);
 }

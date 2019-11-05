@@ -252,24 +252,53 @@ public class ItemService implements ItemServiceInterface {
     {
         boolean valide = true;
 
+        if (verificationService.itemExist(id))
+        {
+            if (verificationService.verifier(quantite))
+            {
+                if (verificationService.verifierQuantiteRestante(id,quantite))
+                {
+                    if (verificationService.emplacementExist(emplacementNouveau))
+                    {
+                        Item item = FindById(id);
+                        if (item.getQuantite() == 1) {
+                            //update emplacement
+                            Update(id,item.getIdItemInfo(),emplacementNouveau,item.getDescription(),item.getQuantite());
+                        } else {
+                            Update(id,item.getIdItemInfo(),emplacementNouveau,item.getDescription(),quantite);
+                            Update(id,item.getIdItemInfo(),item.getEmplacement(),item.getDescription(),item.getQuantite() - quantite);
+                            // ajouter avec le nouvel emplacement avec la quantite voulu
+                            // update de l 'ancien diminuer quantite'
+                        }
+                    }
+                    else
+                    {
+                        valide = false;
+                        ExceptionCustom exceptionErreurBD = new ExceptionCustom("le nouvelle emplacement n'est pas valide");
+                        throw exceptionErreurBD;
+                    }
+                }
+                else
+                {
+                    valide = false;
+                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("vous déplacer plus d'object que la quantité en stock");
+                    throw exceptionErreurBD;
+                }
+            }
+            else
+            {
+                valide = false;
+                ExceptionCustom exceptionErreurBD = new ExceptionCustom("format de Quantite invlide");
+                throw exceptionErreurBD;
+            }
+        }
+        else
+        {
+            valide = false;
+            ExceptionCustom exceptionErreurBD = new ExceptionCustom("Aucun object avec id : " + id);
+            throw exceptionErreurBD;
+        }
 
-        // Logique pour déplacement Simon
-        /*
-         ItemController itemController = ItemController.GetInstance();
-            Item item = itemController.FindById(id);
-
-
-            if (item.getQuantite() == 1) {
-                //update emplacement
-                itemController.Update(id,item.getIdItemInfo(),emplacementNouveau,item.getDescription(),item.getQuantite());
-            } else {
-                itemController.Update(id,item.getIdItemInfo(),emplacementNouveau,item.getDescription(),quantite);
-                itemController.Update(id,item.getIdItemInfo(),item.getEmplacement(),item.getDescription(),item.getQuantite() - quantite);
-               // ajouter avec le nouvel emplacement avec la quantite voulu
-               // update de l 'ancien diminuer quantite'
-      }
-
-         */
         return valide;
     }
 
@@ -277,14 +306,26 @@ public class ItemService implements ItemServiceInterface {
     {
         boolean valide = true;
 
-        //Logique pour service Simon
-        /*
-        ItemController itemController = ItemController.GetInstance();
-        Item item = itemController.FindById(id);
+        if (verificationService.itemExist(id))
+        {
+            if (verificationService.verifierDescription(description))
+            {
+                Item item = FindById(id);
+                Update(id,item.getIdItemInfo(),item.getEmplacement(),description,item.getQuantite());
+            }
+            else
+            {
+                valide = false;
+                ExceptionCustom exceptionErreurBD = new ExceptionCustom("la description ne possede pas de bon format");
+                throw exceptionErreurBD;
+            }
 
-        itemController.Update(id,item.getIdItemInfo(),item.getEmplacement(),description,item.getQuantite();
-
-         */
+        }else
+        {
+            valide = false;
+            ExceptionCustom exceptionErreurBD = new ExceptionCustom("Aucun object avec id : " + id);
+            throw exceptionErreurBD;
+        }
 
         return valide;
     }

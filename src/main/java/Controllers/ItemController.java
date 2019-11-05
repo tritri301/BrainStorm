@@ -140,7 +140,6 @@ public class ItemController implements ItemControllerInterface
         }
 
         return move;
-
     }
 
     public boolean ModifyItem(int id, String description)
@@ -159,9 +158,6 @@ public class ItemController implements ItemControllerInterface
 
         return modify;
     }
-
-
-
 
     public static ItemController GetInstance()
     {

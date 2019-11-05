@@ -7,6 +7,7 @@ import Repositories.ContainerRepository;
 import Repositories.ItemInfoRepository;
 import Repositories.ItemRepository;
 import Services.Interfaces.VerificationServiceInterface;
+import Exception.*;
 import com.sun.xml.internal.ws.util.StringUtils;
 import jdk.nashorn.internal.runtime.regexp.joni.Regex;
 
@@ -22,6 +23,8 @@ public class VerificationService implements VerificationServiceInterface {
     private static final VerificationService instance = new VerificationService();
     private ContainerRepository containerRepository = ContainerRepository.GetInstance();
     private ItemInfoRepository itemInfoRepository = ItemInfoRepository.GetInstance();
+    private ItemRepository itemRepository = ItemRepository.GetInstance();
+    private ItemService itemService = ItemService.GetInstance();
 
     @Override
     public boolean verifier(int integer) {
@@ -156,6 +159,28 @@ public class VerificationService implements VerificationServiceInterface {
     }
 
     @Override
+    public boolean itemExist(int id) {
+
+        boolean valide = true;
+        Item item = null;
+
+        try {
+            item = itemRepository.FindById(id);
+        }
+        catch(Exception e)
+        {
+            System.out.print(e.toString());
+        }
+
+        if (item == null)
+        {
+            valide = false;
+        }
+
+        return valide;
+    }
+
+    @Override
     public String normalisation(String string) {
 
         string = Normalizer.normalize(string, Normalizer.Form.NFD);
@@ -200,6 +225,24 @@ public class VerificationService implements VerificationServiceInterface {
             }
         }
 
+        return valide;
+    }
+
+    @Override
+    public boolean verifierQuantiteRestante(int idItem, int quantite) {
+        boolean valide = false;
+
+        try {
+            Item item = itemService.FindById(idItem);
+
+            if (item.getQuantite() - quantite > 0)
+            {
+                valide = true;
+            }
+
+        } catch (ExceptionCustom exceptionCustom) {
+            exceptionCustom.printStackTrace();
+        }
         return valide;
     }
 
