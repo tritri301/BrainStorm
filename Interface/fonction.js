@@ -89,6 +89,8 @@ function DeleteItem()
 
 function ResetList()
 {
+    document.getElementById("upc").value = "";
+    document.getElementById("name").value = "";
     myNode = document.getElementById("table1");
     while (myNode.firstChild) {
         myNode.removeChild(myNode.firstChild);
@@ -180,8 +182,11 @@ function MoveItem()
 }
 function ResetDeplacer()
 {
-    document.getElementById("id").value = " ";
-    document.getElementById("qt").value = " ";
+    document.getElementById("id").value = "";
+    document.getElementById("qt").value = "";
+    document.getElementById("TxtBoxRanger").value = "";
+    document.getElementById("TxtBoxEtagere").value = "";
+    document.getElementById("TxtBoxTablette").value = "";
 }
 
 
