@@ -195,7 +195,7 @@ public class VerificationService implements VerificationServiceInterface {
     public boolean verifierDescription(String description) {
         short nbEqual = 0;
         short nbComma = 0;
-        boolean valide = false;
+        boolean valide = true;
 
         for(int i = 0; i < description.length(); i++)
         {

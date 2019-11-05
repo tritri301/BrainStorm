@@ -30,16 +30,9 @@ public class main
 
 		//tester normaliser
 
-		if (verif.emplacementExist(emplacement))
-		{
-			System.out.print("emplacement existant !!!!");
-		}
-		else
-		{
-			System.out.print("n'existe PAS !!!");
-		}
 
-		if (verif.itemInfoExist(3))
+
+		if (verif.itemExist(2))
 		{
 			System.out.print("item existant !!!!");
 		}
@@ -48,16 +41,6 @@ public class main
 			System.out.print("n'existe PAS !!!");
 		}
 
-		String description = "asd=asd,asd=asd";
-
-		if (verif.verifierDescription(description))
-		{
-			System.out.print("Valide !!!!!!!");
-		}
-		else
-		{
-			System.out.print("non Valide...");
-		}
     }
 
 }
