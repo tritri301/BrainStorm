@@ -10,6 +10,6 @@ public interface ItemRepositoryInterface {
     List<Item> FindAll() throws Exception;
     int FindAmountById(int id) throws Exception;
     void Update(Item itemToUpdate) throws Exception;
-    void Delete(int id) throws Exception;
+    void Delete(int id, int quantite) throws Exception;
     void Create(Item itemToAdd) throws Exception;
 }

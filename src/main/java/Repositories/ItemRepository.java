@@ -66,8 +66,14 @@ public class ItemRepository implements ItemRepositoryInterface {
         return rs.getInt(1);
     }
     @Override
-    public void Delete(int id) throws Exception {
-        PreparedStatement stmt = con.prepareStatement("delete from item where idItem = " + id);
+    public void Delete(int id, int quantite) throws Exception {
+        int quantiteFinale = this.FindById(id).getQuantite() - quantite;
+        PreparedStatement stmt;
+        if(quantiteFinale != 0) {
+            stmt = con.prepareStatement("update item set quantite = " + quantite +" where idItem = " + id);
+        }else{
+            stmt = con.prepareStatement("delete from item where idItem = " + id);
+        }
         stmt.execute();
     }
 

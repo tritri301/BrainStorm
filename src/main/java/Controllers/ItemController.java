@@ -110,10 +110,10 @@ public class ItemController implements ItemControllerInterface
     }
 
     @Override
-    public boolean Delete(int id) {
+    public boolean Delete(int id, int quantite) {
         boolean delete = true;
         try {
-            delete = itemService.Delete(id);
+            delete = itemService.Delete(id, quantite);
         } catch (ExceptionCustom e) {
             delete = false;
             browser.Alert(e.getMessage());

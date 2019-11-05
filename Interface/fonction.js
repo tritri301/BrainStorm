@@ -60,8 +60,8 @@ function DeleteItem()
  {
      if(confirm("Voulez-vous vraiment retirer cet item?"))
      {
-        quantite = document.getElementById(arguments[0]);
-        window.JavaApp.DeleteItem(arguments[0]);
+        quantite = document.getElementById(arguments[0]).value;
+        window.JavaApp.DeleteItem(arguments[0], quantite);
      }
      SubmitDelete();
  }
@@ -121,7 +121,7 @@ function ShowDeleteItem()
     }
     column2 = document.createElement("td");
     column3 = document.createElement("td");
-    column2.innerHTML = "<div class='col-xs-4'><input type='text' class='form-control' id=" + arguments[5] + "placeholder='Quantité à enlever'></div>";
+    column2.innerHTML = "<div class='col-xs-4'><input type='text' class='form-control' id=" + "'" + arguments[5] + "'" + "placeholder='Quantité à enlever'></div>";
     column3.innerHTML = "<button class='btn btn-default' onclick='DeleteItem(" + arguments[5] + ");' >Retirer</button>";
     row.appendChild(column);
     row.appendChild(column2);

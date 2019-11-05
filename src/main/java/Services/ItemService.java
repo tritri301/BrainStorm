@@ -237,30 +237,44 @@ public class ItemService implements ItemServiceInterface {
     }
 
     @Override
-    public boolean Delete(int id) throws ExceptionCustom {
-
-        boolean valide = this.verificationService.verifier(id);
-
-        if (valide) {
-            if (connection == null) {
-                try {
-                    this.itemRepository.Delete(id);
-                } catch (Exception e) {
+    public boolean Delete(int id, int quantite) throws ExceptionCustom {
+        boolean valide = true;
+        boolean valideId = this.verificationService.verifier(id);
+        boolean valideQt = this.verificationService.verifier(quantite);
+        if(valideQt) {
+            if (valideId) {
+                if (connection == null) {
+                    try {
+                        if(this.itemRepository.FindById(id).getQuantite() < quantite || quantite < 1)
+                        {
+                            throw new ExceptionCustom("La quantité entrée est invalide!");
+                        }
+                        else
+                        {
+                            this.itemRepository.Delete(id, quantite);
+                        }
+                    }catch(ExceptionCustom e) {
+                        throw e;
+                    } catch (Exception e) {
+                        valide = false;
+                        ExceptionCustom exceptionErreurBD = new ExceptionCustom("l'objet que vous recherché est introuvable");
+                        throw exceptionErreurBD;
+                    }
+                } else {
                     valide = false;
-                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("l'objet que vous recherché est introuvable");
+                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de connection a la base de données");
                     throw exceptionErreurBD;
                 }
             } else {
                 valide = false;
-                ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de connection a la base de données");
+                ExceptionCustom exceptionErreurBD = new ExceptionCustom("Données de saisies invalide");
                 throw exceptionErreurBD;
             }
-        }else{
+        } else {
             valide = false;
             ExceptionCustom exceptionErreurBD = new ExceptionCustom("Données de saisies invalide");
             throw exceptionErreurBD;
         }
-
         return valide;
     }
     public boolean MoveItem(int id,int quantite,String emplacementNouveau) throws ExceptionCustom

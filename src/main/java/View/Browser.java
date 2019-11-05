@@ -176,10 +176,10 @@ public class Browser extends BorderPane {
                         itemList.get(i).getIdItem());
             }
         }
-        public boolean DeleteItem(int id)
+        public boolean DeleteItem(int id, int quantite)
         {
             ItemController itemController = ItemController.GetInstance();
-            if(itemController.Delete(id))
+            if(itemController.Delete(id, quantite))
             {
                 Alert("Objet retiré avec succes");
                 return true;

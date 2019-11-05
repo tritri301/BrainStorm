@@ -60,7 +60,7 @@ public interface ItemControllerInterface
      * @param id the id
      * @return the item
      */
-    boolean Delete(int id);
+    boolean Delete(int id, int quantite);
 
     boolean MoveItem(int id,int quantite,String emplacementNouveau);
 
