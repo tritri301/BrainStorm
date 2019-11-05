@@ -335,6 +335,39 @@ public class ItemService implements ItemServiceInterface {
     }
 
     @Override
+    public boolean ModifyItem(int id, String description) throws ExceptionCustom {
+        boolean valide = true;
+
+        if (verificationService.itemExist(id))
+        {
+            if (verificationService.verifierDescription(description))
+            {
+                Item item = FindById(id);
+                Update(id,item.getIdItemInfo(),item.getEmplacement(),description,item.getQuantite());
+            }
+            else
+            {
+                valide = false;
+                ExceptionCustom exceptionErreurBD = new ExceptionCustom("la description ne possede pas de bon format");
+                throw exceptionErreurBD;
+            }
+
+        }else
+        {
+            valide = false;
+            ExceptionCustom exceptionErreurBD = new ExceptionCustom("Aucun object avec id : " + id);
+            throw exceptionErreurBD;
+        }
+
+        return valide;
+
+
+
+
+
+    }
+
+    @Override
     public Item trouverSimilaire(int idItemInfo, String emplacement, String description) {
         Item item = null;
         try {
