@@ -41,8 +41,20 @@ function creerRapport(){
 function SubmitDelete()
 {
     upc = document.getElementById("upc").value;
-    emplacement = document.getElementById("emplacement").value;
+    //emplacement = document.getElementById("emplacement").value;
     myNode = document.getElementById("table1");
+
+    var ranger = document.getElementById("TxtBoxRanger").value;
+    var etagere = document.getElementById("TxtBoxEtagere").value;
+    var tablette = document.getElementById("TxtBoxTablette").value;
+
+    if(tablette == "Planché")
+    {
+      tablette = 0;
+    }
+
+    var emplacement = "R" + ranger + "-E" + etagere + "-T" + tablette;
+
 
     //Deletes all existing entries
     while (myNode.firstChild) {
@@ -168,8 +180,8 @@ function CreateItem()
 
 function MoveItem()
 {
-   var itemID = document.getElementById("id").value;
-   var itemQt = document.getElementById("qt").value;
+   var id = document.getElementById("id").value;
+   var quantite = document.getElementById("qt").value;
    var ranger = document.getElementById("TxtBoxRanger").value;
    var etagere = document.getElementById("TxtBoxEtagere").value;
    var tablette = document.getElementById("TxtBoxTablette").value;
@@ -181,12 +193,13 @@ function MoveItem()
 
    var nouvelleEmplacement = "R" + ranger + "-E" + etagere + "-T" + tablette;
 
-   alert(nouvelleEmplacement);
 
-   if(window.JavaApp.MoveItem(itemID,itemQt,nouvelleEmplacement))
+
+   if(window.JavaApp.MoveItem(id,quantite,nouvelleEmplacement))
    {
         ResetDeplacer();
    }
+
 
 }
 function ResetDeplacer()
