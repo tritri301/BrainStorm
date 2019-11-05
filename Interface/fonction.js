@@ -170,6 +170,18 @@ function MoveItem()
 {
    var itemID = document.getElementById("id").value;
    var itemQt = document.getElementById("qt").value;
+   var ranger = document.getElementById("TxtBoxRanger").value;
+   var etagere = document.getElementById("TxtBoxEtagere").value;
+   var tablette = document.getElementById("TxtBoxTablette").value;
+
+   if(tablette == "Planché")
+   {
+     tablette = 0;
+   }
+
+   var nouvelleEmplacement = "R" + ranger + "-E" + etagere + "-T" + tablette;
+
+   alert(nouvelleEmplacement);
 
    if(window.JavaApp.MoveItem(itemID,itemQt,nouvelleEmplacement))
    {
