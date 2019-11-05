@@ -68,6 +68,7 @@ public class BrowserView extends Application{
         UserService userService = UserService.GetInstance();
         VerificationService verificationService = VerificationService.GetInstance();
 
+
         stage.setScene(scene);
         stage.setMaximized(true);
         stage.show();
