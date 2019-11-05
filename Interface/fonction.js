@@ -11,7 +11,7 @@ function afficheDate(){
 function SubmitList()
 {
     //Variable declaration
-    var idItem = document.getElementById("id").value;
+    var idItem = document.getElementById("upc").value;
     var nameItem = document.getElementById("name").value;
     var myNode = document.getElementById("table1");
 
@@ -32,6 +32,12 @@ function SubmitList()
         window.JavaApp.ListAllItem();
     }
 }
+
+function creerRapport(){
+
+        window.JavaApp.ListAllItem();
+}
+
 function SubmitDelete()
 {
     upc = document.getElementById("upc").value;
@@ -101,12 +107,12 @@ function ResetList()
 function ShowItem()
 {
     var row = document.createElement("tr");
-    var column
+    var column;
     for(var i = 0; i < arguments.length; i++)
     {
          column = document.createElement("td");
          column.innerHTML = arguments[i];
-         column.setAttribute("onclick","Alert(" + "'" + arguments[2] + "'" + ");")
+         column.setAttribute("onclick","Alert(" + "'" + arguments[2] + "'" + ");");
          row.appendChild(column);
     }
     document.getElementById("table1").appendChild(row);
@@ -114,7 +120,7 @@ function ShowItem()
 function ShowDeleteItem()
 {
     var row = document.createElement("tr");
-    var column
+    var column;
     for(var i = 0; i < 5; i++)
     {
          column = document.createElement("td");
@@ -138,10 +144,21 @@ function Alert(msg)
 
 function CreateItem()
 {
-   var upc =  document.getElementById("upc").value;
-   var emplacement = document.getElementById("emplacement").value;
-   var description =  document.getElementById("description").value;
-   var quantite = document.getElementById("qt").value;
+    var upc =  document.getElementById("upc").value;
+    var ranger = document.getElementById("TxtBoxRanger").value;
+    var etagere = document.getElementById("TxtBoxEtagere").value;
+    var tablette = document.getElementById("TxtBoxTablette").value;
+    var description =  document.getElementById("description").value;
+    var quantite = document.getElementById("qt").value;
+
+    if(tablette == "Planché")
+    {
+        tablette = 0;
+    }
+
+    var emplacement = "R" + ranger + "-E" + etagere + "-T" + tablette;
+
+    alert(emplacement);
 
     if(window.JavaApp.CreateItem(upc,emplacement,description,quantite))
     {
@@ -185,3 +202,15 @@ function ResetModify()
 }
 
 
+function SetRanger(nbRanger)
+{
+    document.getElementById("TxtBoxRanger").value = nbRanger;
+}
+function SetEtagere(nbEtagere)
+{
+    document.getElementById("TxtBoxEtagere").value = nbEtagere;
+}
+function SetTablette(nbTablette)
+{
+    document.getElementById("TxtBoxTablette").value = nbTablette;
+}
