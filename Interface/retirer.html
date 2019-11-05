@@ -72,47 +72,59 @@ But du fichier :    Afficher la page du site qui permet de retirer des items
                     <td align="right"><label>Emplacement :</label></td>
                     <td align="left">
                         <div class="btn-group">
-                            <button type="button" class="btn btn-success">H</button>
-                            <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split" data-toggle="dropdown">
-                            </button>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">0</a>
-                                <a class="dropdown-item" href="#">1</a>
-                                <a class="dropdown-item" href="#">2</a>
-                                <a class="dropdown-item" href="#">3</a>
+                            <div class="dropdown">
+                                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Rangée
+                                    <span class="caret"></span></button>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#" onclick="SetRanger(this.innerHTML)">0</a></li>
+                                    <li><a href="#" onclick="SetRanger(this.innerHTML)">1</a></li>
+                                    <li><a href="#" onclick="SetRanger(this.innerHTML)">2</a></li>
+                                    <li><a href="#" onclick="SetRanger(this.innerHTML)">3</a></li>
+                                </ul>
+                                <div>
+                                    <input id="TxtBoxRanger" class="form-control" type="text" readonly>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="btn-group">
+                            <div class="dropdown">
+                                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Étagère
+                                    <span class="caret"></span></button>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#" onclick="SetEtagere(this.innerHTML)">0</a></li>
+                                    <li><a href="#" onclick="SetEtagere(this.innerHTML)">1</a></li>
+                                    <li><a href="#" onclick="SetEtagere(this.innerHTML)">2</a></li>
+                                    <li><a href="#" onclick="SetEtagere(this.innerHTML)">3</a></li>
+                                    <li><a href="#" onclick="SetEtagere(this.innerHTML)">4</a></li>
+                                    <li><a href="#" onclick="SetEtagere(this.innerHTML)">5</a></li>
+                                    <li><a href="#" onclick="SetEtagere(this.innerHTML)">6</a></li>
+                                    <li><a href="#" onclick="SetEtagere(this.innerHTML)">7</a></li>
+                                </ul>
+                                <div>
+                                    <input id="TxtBoxEtagere" class="form-control" type="text" readonly>
+                                </div>
                             </div>
                         </div>
 
                         <div class="btn-group">
-                            <button type="button" class="btn btn-info">E</button>
-                            <button type="button" class="btn btn-info dropdown-toggle dropdown-toggle-split" data-toggle="dropdown">
-                            </button>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">0</a>
-                                <a class="dropdown-item" href="#">1</a>
-                                <a class="dropdown-item" href="#">2</a>
-                                <a class="dropdown-item" href="#">3</a>
-                                <a class="dropdown-item" href="#">4</a>
-                                <a class="dropdown-item" href="#">5</a>
-                                <a class="dropdown-item" href="#">6</a>
-                                <a class="dropdown-item" href="#">7</a>
-                            </div>
-                        </div>
-
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-warning">T</button>
-                            <button type="button" class="btn btn-warning dropdown-toggle dropdown-toggle-split" data-toggle="dropdown">
-                            </button>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">0</a>
-                                <a class="dropdown-item" href="#">1</a>
-                                <a class="dropdown-item" href="#">2</a>
-                                <a class="dropdown-item" href="#">3</a>
-                                <a class="dropdown-item" href="#">4</a>
-                                <a class="dropdown-item" href="#">5</a>
+                            <div class="dropdown">
+                                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Tablette
+                                    <span class="caret"></span></button>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#" onclick="SetTablette(this.innerHTML)">Planché</a></li>
+                                    <li><a href="#" onclick="SetTablette(this.innerHTML)">1</a></li>
+                                    <li><a href="#" onclick="SetTablette(this.innerHTML)">2</a></li>
+                                    <li><a href="#" onclick="SetTablette(this.innerHTML)">3</a></li>
+                                    <li><a href="#" onclick="SetTablette(this.innerHTML)">4</a></li>
+                                    <li><a href="#" onclick="SetTablette(this.innerHTML)">5</a></li>
+                                </ul>
+                                <div>
+                                    <input id="TxtBoxTablette" class="form-control" type="text" readonly>
+                                </div>
                             </div>
                         </div>
                     </td>
+
                 </tr>
                 <tr>
                     <td align="center" colspan="2">
