@@ -143,6 +143,22 @@ public class ItemController implements ItemControllerInterface
 
     }
 
+    public boolean ModifyItem(int id, String description)
+    {
+        boolean modify = true;
+
+        try {
+            modify = itemService.ModifyItem(id,description);
+        } catch (ExceptionCustom e) {
+            browser.Alert(e.getMessage());
+            modify = false;
+        }
+        catch(Exception e) {
+            modify = false;
+        }
+
+        return modify;
+    }
 
 
 
