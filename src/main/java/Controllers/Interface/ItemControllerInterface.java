@@ -62,7 +62,7 @@ public interface ItemControllerInterface
      */
     boolean Delete(int id);
 
-
+    boolean MoveItem(int id,int quantite,String emplacementNouveau);
 
 
 

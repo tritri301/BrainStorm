@@ -66,4 +66,6 @@ public interface ItemServiceInterface {
      * @return the item
      */
     boolean Delete(int id) throws ExceptionCustom;
+
+   // boolean Move(int)
 }

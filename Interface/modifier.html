@@ -62,17 +62,17 @@ But du fichier :    Afficher la page du site qui permet la modification d'items
                 <!--Table body-->
                 <tbody id="formulaire">
                 <tr>
-                    <td align="right"><label for="upc">UPC :</label></td>
-                    <td align="left"><input type="text" class="form-control" id="upc" placeholder="UPC"></td>
+                    <td align="right"><label for="id">ID :</label></td>
+                    <td align="left"><input type="text" class="form-control" id="id" placeholder="ID"></td>
                 </tr>
                 <tr>
                     <td align="right"><label for="Description">Description :</label></td>
-                    <td align="left"><input type="text" class="form-control" id="Description" placeholder="Couleur=bleu,Longueur=12 cm"></td>
+                    <td align="left"><input type="text" class="form-control" id="description" placeholder="Couleur=bleu,Longueur=12 cm"></td>
                 </tr>
                 <tr>
                     <td align="center" colspan="2">
-                        <button class="btn btn-default">Modifier</button>
-                        <button type="reset" class="btn btn-default">Annuler</button>
+                        <button class="btn btn-default" onclick="ModifyItem();">Modifier</button>
+                        <button type="reset" class="btn btn-default" onclick="ResetModify();">Annuler</button>
                     </td>
                 </tr>
                 </tbody>
