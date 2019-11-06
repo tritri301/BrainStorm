@@ -14,7 +14,7 @@ public class ReportService implements ReportServiceInterface {
     private ConnectionBD connectionBD = ConnectionBD.GetInstance();
     private Object connection = this.connectionBD.GetConnectionStatus();
     private VerificationService verificationService = VerificationService.GetInstance();
-//jwa
+//aaa
     public static ReportService GetInstance()
     {
         return instance;
