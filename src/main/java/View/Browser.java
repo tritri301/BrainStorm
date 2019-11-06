@@ -90,7 +90,7 @@ public class Browser extends BorderPane {
             List<Item> itemList = itemController.FindAll();
             for (int i = 0; i < itemList.size(); i++) {
                 ItemInfo tmp = itemInfoController.FindById(itemList.get(i).getIdItemInfo());
-                window.call("ShowItem", itemList.get(i).getIdItem(),
+                window.call("ShowItem", tmp.getIdItemInfo(),
                         tmp.getNom(),
                         itemList.get(i).getEmplacement(),
                         tmp.getPoids(),
@@ -105,7 +105,7 @@ public class Browser extends BorderPane {
             List<Item> itemList = itemController.FindAll();
             for (int i = 0; i < itemList.size(); i++) {
                 ItemInfo tmp = itemInfoController.FindById(itemList.get(i).getIdItemInfo());
-                window.call("ShowItemRapport", itemList.get(i).getIdItem(),
+                window.call("ShowItemRapport", tmp.getIdItemInfo(),
                         tmp.getNom(),
                         itemList.get(i).getEmplacement(),
                         tmp.getPoids(),
@@ -135,7 +135,7 @@ public class Browser extends BorderPane {
             ItemInfoController itemInfoController = ItemInfoController.GetInstance();
             Item item = itemController.FindById(id);
             ItemInfo tmp = itemInfoController.FindById(item.getIdItemInfo());
-            window.call("ShowItem", item.getIdItem(),
+            window.call("ShowItem", tmp.getIdItemInfo(),
                     tmp.getNom(),
                     item.getEmplacement(),
                     tmp.getPoids(),
@@ -148,7 +148,7 @@ public class Browser extends BorderPane {
             List<Item> itemList = itemController.FindByName(name);
             for (int i = 0; i < itemList.size(); i++) {
                 ItemInfo tmp = itemInfoController.FindById(itemList.get(i).getIdItemInfo());
-                window.call("ShowItem", itemList.get(i).getIdItem(),
+                window.call("ShowItem", tmp.getIdItemInfo(),
                         tmp.getNom(),
                         itemList.get(i).getEmplacement(),
                         tmp.getPoids(),
