@@ -49,9 +49,13 @@ public class ItemRepository implements ItemRepositoryInterface {
         stmt.execute();
 
         ResultSet rs = stmt.getResultSet();
-        rs.next();
+        if(rs.next())
+        {
+            return itemFactory.Create(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4),rs.getInt(5));
+        }else{
+            return null;
+        }
 
-        return itemFactory.Create(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4),rs.getInt(5));
     }
 
     @Override
@@ -76,7 +80,7 @@ public class ItemRepository implements ItemRepositoryInterface {
         int quantiteFinale = this.FindById(id).getQuantite() - quantite;
         PreparedStatement stmt;
         if(quantiteFinale != 0) {
-            stmt = con.prepareStatement("update item set quantite = " + quantite +" where idItem = " + id);
+            stmt = con.prepareStatement("update item set quantite = " + quantiteFinale +" where idItem = " + id);
         }else{
             stmt = con.prepareStatement("delete from item where idItem = " + id);
         }
