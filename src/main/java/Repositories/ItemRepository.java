@@ -68,6 +68,7 @@ public class ItemRepository implements ItemRepositoryInterface {
             item.add(itemFactory.Create(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4),rs.getInt(5)));
         }
         return item;
+        //jesicabranch
     }
     public int FindAmountById(int id) throws Exception {
         Statement stmt = con.createStatement();
