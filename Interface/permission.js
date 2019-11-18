@@ -5,19 +5,30 @@ function CheckPermission()
     var permissionCntr = 0;
 
     //Variable containing all permissions for a given user
-    var permissions = "1101110000000000000000";
+    var permissions = "1001000101000101000000";
 
+    //Getting all the parents of the buttons we want permission on
     var logoCoolPlay = document.getElementById("logo");
     var catalogue = document.getElementById("catalogue");
     var deconnexion = document.getElementById("deconnexion");
     var menuPrincipal = document.getElementById("sectionSousMenu");
     var boutonAjouter = document.getElementById("SubmitAjouter");
+    var boutonSupprimer = document.getElementById("boutonSupprimer");
+    var boutonDeplacer = document.getElementById("boutonDeplacer");
+    var boutonModifier = document.getElementById("boutonModifier");
+    var boutonLister = document.getElementById("boutonLister");
 
+    //Setting the permissions on these buttons, meaning, we deactivate the ones the user
+    //Shouldn't have access to.
     permissionCntr = VerifyNode(logoCoolPlay, permissionCntr, permissions, 1);
     permissionCntr = VerifyNode(catalogue, permissionCntr, permissions, 2);
     permissionCntr = VerifyNode(deconnexion, permissionCntr, permissions, 1);
     permissionCntr = VerifyNode(menuPrincipal, permissionCntr, permissions, 6);
     permissionCntr = VerifyNode(boutonAjouter, permissionCntr, permissions, 2);
+    permissionCntr = VerifyNode(boutonSupprimer, permissionCntr, permissions, 2);
+    permissionCntr = VerifyNode(boutonDeplacer, permissionCntr, permissions, 2);
+    permissionCntr = VerifyNode(boutonModifier, permissionCntr, permissions, 2);
+    permissionCntr = VerifyNode(boutonLister, permissionCntr, permissions, 2);
 }
 
 //This function detects which tag we have, and apply
@@ -37,9 +48,10 @@ function DisableTag(domNode)
 //Verifies if the node is currently displayed, if it is, we can
 //loop into it, or check it's permission, else, we just
 //increment permissionCntr and skip that permission check.
-//the defaultNumber is the number of child node a parent
-//is supposed to have, so that if the parent isn't there, we can
-//update currentPermissionIndex to check the next permission.
+//The defaultNumber variable is the ammount of permission is certain parent is allowed
+//to take, meaning that if we know a parent might
+//have another child button in the future, we can set the defaultNumber
+//to allow that parent to have more buttons in the future
 function VerifyNode(parentNode, currentPermissionIndex, permissions, defaultNumber)
 {
     if(parentNode == null)

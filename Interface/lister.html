@@ -10,6 +10,7 @@ But du fichier :    Afficher la page du site qui permet de visualiser la liste d
     <title>CoolPlay inc.</title>
     <link rel="shortcut icon" href="icone.ico" type="image/x-icon"/>
     <script type="text/javascript" src="fonction.js"></script>
+    <script type="text/javascript" src="permission.js"></script>
     <link rel="stylesheet" type="text/css" href="monstyle.css" media="all">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -17,7 +18,7 @@ But du fichier :    Afficher la page du site qui permet de visualiser la liste d
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
-<body>
+<body onload="CheckPermission()">
 <div class="container-fluid" id="conteneur">
     <div class="row" id="sectionBlancMiniTest" width="100%">
         <div class="col-sm" id="logo"><a href="index.html" class="lienCoolPlay"><img src="logo.png"/></a></div>
@@ -80,7 +81,7 @@ But du fichier :    Afficher la page du site qui permet de visualiser la liste d
                         </td>
                     </tr>
                     <tr>
-                        <td align="center" colspan="2">
+                        <td align="center" colspan="2" id="boutonLister">
                             <button class="btn btn-default" onclick="SubmitList();" >Rechercher</button>
                             <button onclick="ResetList();" class="btn btn-default">Annuler</button>
                         </td>
