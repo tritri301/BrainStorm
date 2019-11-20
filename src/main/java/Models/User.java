@@ -5,98 +5,75 @@ package Models;
  */
 public class User {
     private int idUser;
-    private String nom;
+    private String email;
     private String password;
-    private String dateCreation;
-    private int acces;
+    private String poste;
+    private String lastName;
+    private String firstName;
+    private String adresse;
+    private int idRole;
 
-    /**
-     * Gets id user.
-     *
-     * @return the id user
-     */
     public int getIdUser() {
         return idUser;
     }
 
-    /**
-     * Sets id user.
-     *
-     * @param idUser the id user
-     */
     public void setIdUser(int idUser) {
         this.idUser = idUser;
     }
 
-    /**
-     * Gets nom.
-     *
-     * @return the nom
-     */
-    public String getNom() {
-        return nom;
+    public String getEmail() {
+        return email;
     }
 
-    /**
-     * Sets nom.
-     *
-     * @param nom the nom
-     */
-    public void setNom(String nom) {
-        this.nom = nom;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    /**
-     * Gets password.
-     *
-     * @return the password
-     */
     public String getPassword() {
         return password;
     }
 
-    /**
-     * Sets password.
-     *
-     * @param password the password
-     */
     public void setPassword(String password) {
         this.password = password;
     }
 
-    /**
-     * Gets date creation.
-     *
-     * @return the date creation
-     */
-    public String getDateCreation() {
-        return dateCreation;
+    public String getPoste() {
+        return poste;
     }
 
-    /**
-     * Sets date creation.
-     *
-     * @param dateCreation the date creation
-     */
-    public void setDateCreation(String dateCreation) {
-        this.dateCreation = dateCreation;
+    public void setPoste(String poste) {
+        this.poste = poste;
     }
 
-    /**
-     * Gets acces.
-     *
-     * @return the acces
-     */
-    public int getAcces() {
-        return acces;
+    public String getLastName() {
+        return lastName;
     }
 
-    /**
-     * Sets acces.
-     *
-     * @param acces the acces
-     */
-    public void setAcces(int acces) {
-        this.acces = acces;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getAdresse() {
+        return adresse;
+    }
+
+    public void setAdresse(String adresse) {
+        this.adresse = adresse;
+    }
+
+    public int getIdRole() {
+        return idRole;
+    }
+
+    public void setIdRole(int idRole) {
+        this.idRole = idRole;
     }
 }

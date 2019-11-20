@@ -44,11 +44,11 @@ public class UserController implements UserControllerInterface {
     }
 
     @Override
-    public List<User> FindByName(String name) {
+    public List<User> FindByEmail(String email) {
 
         List<User> userList = null;
         try {
-            userList = userService.FindByName(name);
+            userList = userService.FindByEmail(email);
         } catch (ExceptionCustom e) {
 
         }
@@ -59,12 +59,12 @@ public class UserController implements UserControllerInterface {
     }
 
     @Override
-    public boolean Update(short id, String nom, String password, short acces) {
+    public boolean Update(User userToUpdate) {
 
         boolean update = true;
 
         try {
-            update = userService.Update(id,nom,password,acces);
+            update = userService.Update(userToUpdate);
         } catch (ExceptionCustom e) {
 
         }
@@ -76,12 +76,12 @@ public class UserController implements UserControllerInterface {
     }
 
     @Override
-    public boolean Create(short id, String nom, String password, short acces) {
+    public boolean Create(int idUser, String email, String password, String poste, String lastName, String firstName, String adresse, int idRole) {
 
         boolean create = true;
 
         try {
-            create = userService.Create(id,nom,password,acces);
+            create = userService.Create(idUser, email, password, poste, lastName, firstName, adresse, idRole);
         } catch (ExceptionCustom e) {
 
         }

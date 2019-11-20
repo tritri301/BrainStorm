@@ -55,7 +55,7 @@ public class UserService implements UserServiceInterface {
         if (connection == null)
         {
             try {
-               // user = this.userRepository.FindAll();
+                user = this.userRepository.FindAll();
                 if (user == null)
                 {
                     ExceptionCustom exceptionErreurBD = new ExceptionCustom("Aucun Résultats");
@@ -76,13 +76,13 @@ public class UserService implements UserServiceInterface {
     }
 
     @Override
-    public List<User> FindByName(String name) throws ExceptionCustom {
+    public List<User> FindByEmail(String email) throws ExceptionCustom {
         List<User> user = new ArrayList<User>();
-        if (this.verificationService.verifier(name)) {
+        if (this.verificationService.verifierEmail(email)) {
             if (connection == null) {
                 try {
-                    name = verificationService.normalisation(name);
-                    user = this.userRepository.FindByName(name);
+                    email = email.toLowerCase();
+                    user = this.userRepository.FindByEmail(email);
                 } catch (Exception e) {
                     ExceptionCustom exceptionErreurBD = new ExceptionCustom("L'usager recherché est introuvable");
                     throw exceptionErreurBD;
@@ -100,24 +100,20 @@ public class UserService implements UserServiceInterface {
     }
 
     @Override
-    public boolean Update(short id,String nom,String password,short acces) throws ExceptionCustom {
+    public boolean Update(User userToUpdate) throws ExceptionCustom {
 
-        boolean valide = this.verificationService.verifier(id,acces);
+        boolean valide = this.verificationService.verifier(userToUpdate.getIdUser());
         if (valide)
         {
-            valide = this.verificationService.verifier(nom,password);
+            valide = this.verificationService.verifierEmail(userToUpdate.getEmail());
         }
 
         if (valide) {
-            nom = verificationService.normalisation(nom);
-            User nouveauUser = FindById(id);
-            nouveauUser.setNom(nom);
-            nouveauUser.setPassword(password);
-            nouveauUser.setAcces(acces);
+            userToUpdate.setEmail(userToUpdate.getEmail().toLowerCase());
 
             if (connection == null) {
                 try {
-                    this.userRepository.Update(nouveauUser);
+                    this.userRepository.Update(userToUpdate);
                 } catch (Exception e) {
                     valide = false;
                     ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd" + e.toString());
@@ -138,22 +134,22 @@ public class UserService implements UserServiceInterface {
     }
 
     @Override
-    public boolean Create(short id,String nom,String password,short acces) throws ExceptionCustom {
+    public boolean Create(int idUser, String email, String password, String poste, String lastName, String firstName, String adresse, int idRole) throws ExceptionCustom {
 
-        boolean valide = this.verificationService.verifier(id,acces);
+        boolean valide = this.verificationService.verifier(idUser);
         if (valide)
         {
-            valide = this.verificationService.verifier(nom,password);
+            valide = this.verificationService.verifierEmail(email);
         }
 
         if(valide) {
-            nom = verificationService.normalisation(nom);
+            email = email.toLowerCase();
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             String dateCreation = format.format(new Date());
 
             if (connection == null) {
                 try {
-                    userRepository.Create(this.userFactory.Create(id, nom, password, dateCreation, acces));
+                    userRepository.Create(this.userFactory.Create(idUser, email, password, poste, lastName, firstName, adresse, idRole));
                 } catch (Exception e) {
                     valide = false;
                     ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd" + e.toString());

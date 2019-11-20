@@ -9,14 +9,17 @@ public class UserFactory {
 
     private static final UserFactory instance =new UserFactory();
 
-    public User Create(short id,String nom,String password,String dateCreation,short acces){
+    public User Create(int idUser, String email, String password, String poste, String lastName, String firstName, String adresse, int idRole){
         User ret = new User();
 
-        ret.setIdUser(id);
-        ret.setNom(nom);
+        ret.setIdUser(idUser);
+        ret.setEmail(email);
         ret.setPassword(password);
-        ret.setDateCreation(dateCreation);
-        ret.setAcces(acces);
+        ret.setPoste(poste);
+        ret.setLastName(lastName);
+        ret.setFirstName(firstName);
+        ret.setAdresse(adresse);
+        ret.setIdRole(idRole);
 
         return ret;
     }

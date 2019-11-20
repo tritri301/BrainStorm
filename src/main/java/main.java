@@ -1,7 +1,10 @@
 import Controllers.ItemController;
+import Controllers.UserController;
 import Factory.ItemFactory;
 import Models.Item;
+import Models.User;
 import Repositories.ItemRepository;
+import Repositories.UserRepository;
 import Services.VerificationService;
 
 import java.io.Console;
@@ -12,34 +15,15 @@ public class main
 {
     public static void main(String[] args) {
 
-		ItemRepository itemRepository = ItemRepository.GetInstance();
-		ItemFactory itemFactory = ItemFactory.GetInstance();
-		VerificationService verif = VerificationService.GetInstance();
+		UserController controller = UserController.GetInstance();
 
-		Item item = itemFactory.Create(0, 1, "111-111-111", "item creer sans id",1);
-		//try {
-		//	String string = "Éèèà!$?&";
-			//String string = "847-232-213";
-		//	System.out.print(verif.normalisation(string));
-		//} catch (Exception e) {
-		//	e.printStackTrace();
+		User test = controller.FindById(12);
 
-		//etstst
+		test.setPassword("bruh modified");
+		test.setEmail("flash2014@nigger.com");
 
-		String emplacement = "R0-E0-T0";
-
-		//tester normaliser
-
-
-
-		if (verif.itemExist(2))
-		{
-			System.out.print("item existant !!!!");
-		}
-		else
-		{
-			System.out.print("n'existe PAS !!!");
-		}
+		controller.Update(test);
+		//controller.Delete(12);
 
     }
 

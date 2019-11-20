@@ -63,7 +63,7 @@ public class Browser extends BorderPane {
         });
 
         // load the home page
-        webEngine.load("file:///" + System.getProperty("user.dir") + "/Interface/index.html");
+        webEngine.load("file:///" + System.getProperty("user.dir") + "/Interface/connexion.html");
     }
 
     //Signleton function

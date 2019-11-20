@@ -27,7 +27,7 @@ public interface UserControllerInterface {
      * @param name the name
      * @return the user
      */
-    List<User> FindByName(String name);
+    List<User> FindByEmail(String email);
 
     /**
      * Update user.
@@ -38,7 +38,7 @@ public interface UserControllerInterface {
      * @param acces        the acces
      * @return the user
      */
-    boolean Update(short id, String nom, String password, short acces);
+    boolean Update(User userToUpdate);
 
     /**
      * Create user.
@@ -49,7 +49,7 @@ public interface UserControllerInterface {
      * @param acces    the acces
      * @return the user
      */
-    boolean Create(short id, String nom, String password, short acces);
+    boolean Create(int idUser, String email, String password, String poste, String lastName, String firstName, String adresse, int idRole);
 
     /**
      * Delete user.
