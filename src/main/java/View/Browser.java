@@ -2,8 +2,14 @@ package View;
 
 import Controllers.ItemController;
 import Controllers.ItemInfoController;
+import Controllers.RoleController;
+import Controllers.UserController;
+import Factory.UserFactory;
+import Models.ConnectedUser;
 import Models.Item;
 import Models.ItemInfo;
+import Models.User;
+import Services.HashService;
 import Services.ItemInfoService;
 import javafx.scene.control.Dialog;
 import Services.ItemService;
@@ -44,10 +50,12 @@ public class Browser extends BorderPane {
                             return;
                         }
 
-                        JSObject window = (JSObject) webEngine.executeScript("window");
-                        window.setMember("JavaApp", new JavaApp());
+
                     }
                 });
+        JSObject window = (JSObject) webEngine.executeScript("window");
+        window.setMember("JavaApp", new JavaApp());
+        
         webEngine.setOnAlert(event -> {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText(event.getData());
@@ -77,9 +85,34 @@ public class Browser extends BorderPane {
         window.call("Alert", msg);
     }
 
-
-    // JavaScript interface object
     public class JavaApp {
+        UserController userController = UserController.GetInstance();
+        RoleController roleController = RoleController.getInstance();
+        ConnectedUser connectedUser = ConnectedUser.GetInstance();
+        UserFactory userFactory = UserFactory.GetInstance();
+        HashService hashService = HashService.getInstance();
+        public boolean CheckConnexion(String user, String password)
+        {
+            List<User> userToConnect = userController.FindByEmail(user);
+            if(userToConnect == null)
+            {
+                return false;
+            }
+            if(userToConnect.get(0).getPassword().equals(hashService.HashString(password)))
+            {
+                connectedUser = userFactory.CreateConnected(userToConnect.get(0));
+                return true;
+            }
+            connectedUser = null;
+            return false;
+        }
+
+        public String CheckPermission()
+        {
+            int idRole = connectedUser.getIdRole();
+            return roleController.FindById(idRole).getPermissions();
+        }
+
         public void exit() {
             Platform.exit();
         }
@@ -245,12 +278,10 @@ public class Browser extends BorderPane {
             return false;
         }
 
-        public boolean ModifyItem(int id, String description)
-        {
+        public boolean ModifyItem(int id, String description) {
             ItemController itemController = ItemController.GetInstance();
 
-            if(itemController.ModifyItem(id,description))
-            {
+            if (itemController.ModifyItem(id, description)) {
                 Alert("Objet modifié avec succes");
                 return true;
             }

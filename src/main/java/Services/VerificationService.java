@@ -64,7 +64,20 @@ public class VerificationService implements VerificationServiceInterface {
         }
         return valide;
     }
+    public boolean verifierPermission(String permission)
+    {
+        boolean valide = false;
 
+        String regex = "^[0-1]+$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(permission);
+
+        if (matcher.matches())
+        {
+            valide = true;
+        }
+        return valide;
+    }
     @Override
     public boolean verifierPassword(String password) {
         boolean valide = true;

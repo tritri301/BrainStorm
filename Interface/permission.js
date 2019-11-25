@@ -1,11 +1,30 @@
-//Checks the permission and calls the apply permission acording
+window.onload = function(){
+ApplyPermission();
+}
+
+function CheckConnexion()
+{
+    var user = document.getElementById("user").value;
+    var password = document.getElementById("password").value;
+
+    if(!window.JavaApp.CheckConnexion(user, password))
+    {
+        alert("Email ou mot de passe incorrect!");
+    }
+    else
+    {
+        window.location.href = "index.html";
+    }
+}
+
 function CheckPermission()
 {
     //The permission counter for all the perms
     var permissionCntr = 0;
 
     //Variable containing all permissions for a given user
-    var permissions = "1001000101000101000000";
+    var permissions = window.JavaApp.CheckPermission();
+
 
     //Getting all the parents of the buttons we want permission on
     var logoCoolPlay = document.getElementById("logo");
@@ -43,6 +62,10 @@ function DisableTag(domNode)
     {
         domNode.disabled = true;
     }
+}
+function test()
+{
+    window.JavaApp.exit();
 }
 
 //Verifies if the node is currently displayed, if it is, we can

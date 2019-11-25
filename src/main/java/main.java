@@ -1,10 +1,13 @@
 import Controllers.ItemController;
+import Controllers.RoleController;
 import Controllers.UserController;
 import Factory.ItemFactory;
 import Models.Item;
+import Models.Role;
 import Models.User;
 import Repositories.ItemRepository;
 import Repositories.UserRepository;
+import Services.HashService;
 import Services.VerificationService;
 
 import java.io.Console;
@@ -15,16 +18,13 @@ public class main
 {
     public static void main(String[] args) {
 
-		UserController controller = UserController.GetInstance();
+		RoleController controller = RoleController.getInstance();
+		HashService hashService = HashService.getInstance();
 
-		User test = controller.FindById(12);
+		//controller.Create(166, "test@test.com", "password", null, "coudé", "Tristan", null, 1);
 
-		test.setPassword("bruh modified");
-		test.setEmail("flash2014@nigger.com");
-
-		controller.Update(test);
-		//controller.Delete(12);
-
+		Role test = controller.Create("11111111111111111111111111111111", "Admin");
+		System.out.println(test.getRoleName());
     }
 
 }

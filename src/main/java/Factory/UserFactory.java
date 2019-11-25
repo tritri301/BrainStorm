@@ -1,5 +1,6 @@
 package Factory;
 
+import Models.ConnectedUser;
 import Models.User;
 
 /**
@@ -20,6 +21,21 @@ public class UserFactory {
         ret.setFirstName(firstName);
         ret.setAdresse(adresse);
         ret.setIdRole(idRole);
+
+        return ret;
+    }
+    public ConnectedUser CreateConnected(User user)
+    {
+        ConnectedUser ret = ConnectedUser.GetInstance();
+
+        ret.setIdUser(user.getIdUser());
+        ret.setEmail(user.getEmail());
+        ret.setPassword(user.getPassword());
+        ret.setPoste(user.getPoste());
+        ret.setLastName(user.getLastName());
+        ret.setFirstName(user.getFirstName());
+        ret.setAdresse(user.getAdresse());
+        ret.setIdRole(user.getIdRole());
 
         return ret;
     }

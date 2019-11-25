@@ -23,6 +23,7 @@ public class UserService implements UserServiceInterface {
     private UserFactory userFactory = UserFactory.GetInstance();
     private ConnectionBD connectionBD = ConnectionBD.GetInstance();
     private Object connection = this.connectionBD.GetConnectionStatus();
+    private HashService hashService = HashService.getInstance();
     private VerificationService verificationService = VerificationService.GetInstance();
 
     @Override
@@ -146,7 +147,7 @@ public class UserService implements UserServiceInterface {
             email = email.toLowerCase();
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             String dateCreation = format.format(new Date());
-
+            password = hashService.HashString(password);
             if (connection == null) {
                 try {
                     userRepository.Create(this.userFactory.Create(idUser, email, password, poste, lastName, firstName, adresse, idRole));
