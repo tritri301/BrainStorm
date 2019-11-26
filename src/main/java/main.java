@@ -18,13 +18,13 @@ public class main
 {
     public static void main(String[] args) {
 
-		RoleController controller = RoleController.getInstance();
+		UserController controller = UserController.GetInstance();
 		HashService hashService = HashService.getInstance();
 
-		//controller.Create(166, "test@test.com", "password", null, "coudé", "Tristan", null, 1);
+		controller.Create(166, "test@test.com", "password", null, "coudé", "Tristan", null, 1);
 
-		Role test = controller.Create("11111111111111111111111111111111", "Admin");
-		System.out.println(test.getRoleName());
+		//Role test = controller.Create("11111111111111111111111111111111", "Admin");
+		//System.out.println(test.getRoleName());
     }
 
 }

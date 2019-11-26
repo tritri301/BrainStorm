@@ -1,6 +1,3 @@
-window.onload = function(){
-ApplyPermission();
-}
 
 function CheckConnexion()
 {
@@ -23,8 +20,8 @@ function CheckPermission()
     var permissionCntr = 0;
 
     //Variable containing all permissions for a given user
+    //var permissions = window.JavaApp.CheckPermission();
     var permissions = window.JavaApp.CheckPermission();
-
 
     //Getting all the parents of the buttons we want permission on
     var logoCoolPlay = document.getElementById("logo");
@@ -57,15 +54,15 @@ function DisableTag(domNode)
     if(domNode.tagName == "A") //disables the <a> tag
     {
         domNode.href = "#";
+        if(domNode.childNodes[0].tagName == "IMG")
+        {
+            domNode.childNodes[0].style.filter = "grayscale(100%)";
+        }
     }
     else if(domNode.tagName == "INPUT" || domNode.tagName == "BUTTON") //disables the <input> tag
     {
         domNode.disabled = true;
     }
-}
-function test()
-{
-    window.JavaApp.exit();
 }
 
 //Verifies if the node is currently displayed, if it is, we can

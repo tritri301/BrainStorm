@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<!--
+Date           :	18 septembre 2019
+Nom du fichier :    index.html
+But du fichier :    Afficher le menu du site
+-->
+<html lang="fr">
+<head>
+	<meta charset="utf-8">
+	<title>CoolPlay inc.</title>
+	<link rel="shortcut icon" href="icone.ico" type="image/x-icon" />
+	<script type="text/javascript" src="fonction.js"></script>
+	<script type="text/javascript" src="permission.js"></script>
+	<script type="text/javascript" src="user.js"></script>
+	<link rel="stylesheet" type="text/css" href="monstyle.css" media="all">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container-fluid" id="conteneur">
+	<div class="row" id="sectionBlancMiniTest" width="100%">
+		<div class="col-sm" id="logo"><a href="index.html" class="lienCoolPlay"><img src="logo.png"/></a></div>
+		<div class="row" id="sectionEnTete">
+			<div class="col">
+				Section d'administration
+			</div>
+		</div>
+		<div class="col-sm" id="usager">
+			<p class="usager"><i>
+				<a href="connexion.html" class="connexion">Déconnexion</a></i><br>
+				<i><a href="index.html" class="connexion">Retour</a></i>
+			</p>
+		</div>
+	</div>
+	<div class="row" id="sectionVerte"> 
+		<br>
+	</div>
+	<div class="row" id="sectionNoirDeux">
+		<div class="col">
+				<p class="text-center"><script type="text/javascript">afficheDate();</script></p>
+		</div>
+	</div>
+	<div class="row">
+
+	</div>
+	<div class="row" id="sectionBlanc">
+		<div class="col user">
+			<form>
+				<div class="form-group">
+					<label for="NumEmpl">Numéro d'employé</label>
+					<input type="email" class="form-control" id="NumEmpl" aria-describedby="emailHelp" placeholder="Entrez le numero d'employé">
+				</div>
+				<div class="form-group">
+					<label for="Email">Adresse Email</label>
+					<input type="email" class="form-control" id="Email" aria-describedby="emailHelp" placeholder="Entrez l'email">
+				</div>
+				<div class="form-group">
+					<label for="password">Mot de passe</label>
+					<input type="password" class="form-control" id="password" placeholder="Mot de passe">
+				</div>
+				<div class="form-group">
+					<label for="Poste">Poste</label>
+					<input type="text" class="form-control" id="Poste" placeholder="Poste">
+					<small class="form-text text-muted">Optionnel*</small>
+				</div>
+				<div class="form-group">
+					<label for="LastName">Nom de famille</label>
+					<input type="text" class="form-control" id="LastName" placeholder="Nom de famille">
+				</div>
+				<div class="form-group">
+					<label for="FirstName">Prénom</label>
+					<input type="text" class="form-control" id="FirstName" placeholder="Prénom">
+				</div>
+				<div class="form-group">
+					<label for="Address">Adresse</label>
+					<input type="text" class="form-control" id="Address" placeholder="Adresse">
+					<small class="form-text text-muted">Optionnel*</small>
+				</div>
+				<div class="form-group">
+					<label for="idRole">Role</label>
+					<input type="text" class="form-control" id="idRole" placeholder="id Role">
+				</div>
+				<button class="btn btn-primary" onclick="CreateUser();">Submit</button>
+			</form>
+		</div>
+	</div>
+	<div class="row" id="sectionVerte"> 
+		<div class="col"><br>
+			<p class="text-center">2019 - Tous droits réservés</p>
+		</div>
+		<br>	
+	</div>
+</div>
+</body>
+</html>
