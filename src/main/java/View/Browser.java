@@ -4,10 +4,7 @@ import Controllers.ItemController;
 import Controllers.ItemInfoController;
 import Models.Item;
 import Models.ItemInfo;
-import com.itextpdf.text.Chunk;
-import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.pdf.PdfWriter;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -20,7 +17,9 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import netscape.javascript.JSObject;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -387,7 +386,8 @@ public class Browser extends BorderPane {
             SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd_HH.mm");
             String dateString = date.format(new Date());
 
-            Document document = new Document();
+//Ce code fonctionne mais je n'arrive pas à l'adapter à notre code
+/*            Document document = new Document();
             try {
                 PdfWriter.getInstance(document, new FileOutputStream("Rapport\\"+ dateString + ".pdf"));
             } catch (DocumentException e) {
@@ -400,13 +400,11 @@ public class Browser extends BorderPane {
             Chunk chunk = new Chunk();
 
             document.add(chunk);
-            document.close();
+            document.close();*/
 
             ItemController itemController = ItemController.GetInstance();
             ItemInfoController itemInfoController = ItemInfoController.GetInstance();
             List<Item> itemList = itemController.FindAll();
-
-
 
             try {
                 PrintWriter writer = new PrintWriter("Rapport\\" + dateString + ".txt");
