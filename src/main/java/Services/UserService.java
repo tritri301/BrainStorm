@@ -111,9 +111,13 @@ public class UserService implements UserServiceInterface {
 
         if (valide) {
             userToUpdate.setEmail(userToUpdate.getEmail().toLowerCase());
-
             if (connection == null) {
                 try {
+                    if(!userToUpdate.getPassword().equals(userRepository.FindById(userToUpdate.getIdUser()).getPassword()))
+                    {
+                        //if the password was changed hash the new password
+                        userToUpdate.setPassword(hashService.HashString(userToUpdate.getPassword()));
+                    }
                     this.userRepository.Update(userToUpdate);
                 } catch (Exception e) {
                     valide = false;

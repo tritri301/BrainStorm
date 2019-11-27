@@ -7,9 +7,7 @@ import Controllers.UserController;
 import Factory.UserFactory;
 import Models.*;
 import Services.HashService;
-import Services.ItemInfoService;
 import javafx.scene.control.Dialog;
-import Services.ItemService;
 import javafx.application.Platform;
 import javafx.scene.control.ButtonType;
 import javafx.beans.value.ChangeListener;
@@ -22,9 +20,6 @@ import javafx.scene.web.WebView;
 import netscape.javascript.JSObject;
 import java.io.FileWriter;
 import java.io.IOException;
-
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 public class Browser extends BorderPane {
@@ -32,10 +27,11 @@ public class Browser extends BorderPane {
     private WebView browser = new WebView();
     private WebEngine webEngine = browser.getEngine();
     private JSObject window = (JSObject) webEngine.executeScript("window");
-    private String lastLocation;
+    private JavaApp javaApp;
 
     //Browser constructor
     public Browser() {
+        javaApp = new JavaApp();
         //add components
         setCenter(browser);
         //add listenners
@@ -47,9 +43,8 @@ public class Browser extends BorderPane {
                             return;
                         }
                         JSObject window = (JSObject) webEngine.executeScript("window");
-                        window.setMember("JavaApp", new JavaApp());
+                        window.setMember("JavaApp", javaApp);
                         window.call("CheckPermission");
-                        lastLocation = webEngine.getLocation();
                     }
                 });
 
@@ -83,14 +78,40 @@ public class Browser extends BorderPane {
     }
 
     public class JavaApp {
-        UserController userController = UserController.GetInstance();
-        RoleController roleController = RoleController.getInstance();
-        ConnectedUser connectedUser = ConnectedUser.GetInstance();
-        UserFactory userFactory = UserFactory.GetInstance();
-        HashService hashService = HashService.getInstance();
+        public void FindUserById(int id)
+        {
+            UserController userController = UserController.GetInstance();
 
+            User user = userController.FindById(id);
+            if(user != null)
+            {
+                window.call("ShowUser",
+                        user.getEmail(),
+                        user.getPassword(),
+                        user.getPoste(),
+                        user.getLastName(),
+                        user.getFirstName(),
+                        user.getAdresse(),
+                        user.getIdRole());
+            }
+        }
+        public void ModifyUser(int numEmpl, String email, String password, String Poste, String lastName, String firstName, String adresse, int idRole)
+        {
+            UserFactory userFactory = UserFactory.GetInstance();
+            UserController userController = UserController.GetInstance();
+            User userToUpdate = userFactory.Create(numEmpl, email, password, Poste, lastName, firstName, adresse, idRole);
+            if(userController.Update(userToUpdate))
+            {
+                Alert("User modified successfully!");
+            }
+            else
+            {
+                Alert("There was a problem modifying this user!");
+            }
+        }
         public void CreateUser(int numEmpl, String email, String password, String Poste, String lastName, String firstName, String adresse, int idRole)
         {
+            UserController userController = UserController.GetInstance();
             if(userController.Create(numEmpl, email, password, Poste, lastName, firstName, adresse, idRole))
             {
                 Alert("User created successfully!");
@@ -103,6 +124,11 @@ public class Browser extends BorderPane {
 
         public boolean CheckConnexion(String user, String password)
         {
+            ConnectedUser connectedUser = ConnectedUser.GetInstance();
+            UserFactory userFactory = UserFactory.GetInstance();
+            HashService hashService = HashService.getInstance();
+            UserController userController = UserController.GetInstance();
+
             List<User> userToConnect = userController.FindByEmail(user);
             if(userToConnect == null)
             {
@@ -119,6 +145,9 @@ public class Browser extends BorderPane {
 
         public String CheckPermission()
         {
+            RoleController roleController = RoleController.getInstance();
+            ConnectedUser connectedUser = ConnectedUser.GetInstance();
+
             int idRole = connectedUser.getIdRole();
             Role role = roleController.FindById(idRole);
             if(role != null) //if no permission is found for a user, remove all rights to the app
