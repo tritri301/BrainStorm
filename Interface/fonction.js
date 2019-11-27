@@ -60,6 +60,34 @@ function SubmitDelete()
         window.JavaApp.ListAllDeleteItem();
     }
 }
+
+function CreateFile()
+{
+    window.JavaApp.CreateFile();
+}
+
+function CreateCSVFileTRI(choixTri)
+{
+    choixTri = document.getElementById("optionTri").value;
+    window.JavaApp.CreateCSVFileTRI(choixTri);
+}
+function CreateCSVFile()
+{
+    window.JavaApp.CreateCSVFile();
+    window.alert("Fichier CSV générer avec succès");
+}
+
+function CreateExcelFile()
+{
+    window.JavaApp.CreateExcelFile();
+    window.alert("Aucun fichier généré, veuillez contacter la personne en charge du logiciel");
+}
+
+function CreatePDFFile()
+{
+    window.JavaApp.CreatePDFFile();
+    window.alert("Un fichier c'est générer mais il n'a pas le format PDF");
+}
 function DeleteItem()
  {
      if(confirm("Voulez-vous vraiment retirer cet item?"))

@@ -1,13 +1,16 @@
 package Repositories;
 
-import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
-
 import Factory.ItemFactory;
 import Models.ConnectionBD;
-import Repositories.Interfaces.ItemRepositoryInterface;
 import Models.Item;
+import Repositories.Interfaces.ItemRepositoryInterface;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ItemRepository implements ItemRepositoryInterface {
     private static final ItemRepository instance = new ItemRepository();
@@ -68,7 +71,18 @@ public class ItemRepository implements ItemRepositoryInterface {
             item.add(itemFactory.Create(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4),rs.getInt(5)));
         }
         return item;
-        //jesicabranch
+    }
+
+    @Override
+    public List<Item> SortByName() throws Exception {
+        List<Item> item = new ArrayList<>();
+        Statement stmt = con.createStatement();
+        ResultSet rs = stmt.executeQuery("select * from item, itemInfo where itemInfo.idItemInfo = item.idItemInfo order by nom");
+        while(rs.next())
+        {
+            item.add(itemFactory.Create(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4),rs.getInt(5)));
+        }
+        return item;
     }
     public int FindAmountById(int id) throws Exception {
         Statement stmt = con.createStatement();

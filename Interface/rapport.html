@@ -48,32 +48,35 @@ But du fichier :    Afficher la page du site qui permet de creer un rapport d'it
 	</div>
 	<div class="row">
 		<div class="col" id="titre">
-			Rapport<br>
-			<button align="center" id="btnRapport" class="btn btn-default" onclick="creerRapport();ecrireFichier();" >Générer</button>
+			Rapport
+		</div>
+	</div>
+	<table id="tableauFormulaire" border="0">
+		<tbody id="formulaire">
+		<tr>
+			<td align="right"><label for="optionTri">Option de tri :</label></td>
+			<td align="left">
+				<select name="tri" id="optionTri">
+					<option value="aucun">Aucun</option>
+					<option value="id">Id</option>
+					<option value="nom">Nom</option>
+					<option value="emplacement">Emplacement</option>
+					<option value="poids">Poids</option>
+					<option value="volume">Volume</option>
+					<option value="quantite">Quantité</option>
+				</select>
+			</td>
+		</tr>
+		</tbody>
+	</table>
+	<div class="row">
+		<div class="col" id="titre">
+			<button align="center" id="btnRapportCSV" class="btn btn-default" onclick="CreateCSVFile();" >Générer fichier CSV</button>
+            <button align="center" id="btnRapportEx" class="btn btn-default" onclick="CreateExcelFile();" >Générer fichier Excel</button>
+			<button align="center" class="btn btn-default" onclick="CreatePDFFile();" >Générer fichier PDF</button>
 		</div>
 	</div>
 	<div class="row" id="sectionBlanc">
-		<!--Table-->
-		<table id="tablePreview2" class="table table-bordered">
-			<!--Table head-->
-			<thead align="center">
-			<tr>
-				<th>UPC</th>
-				<th>Nom</th>
-				<th>Emplacement</th>
-				<th>Poids</th>
-				<th>Volume</th>
-				<th>Quantité</th>
-			</tr>
-			</thead>
-			<!--Table head-->
-			<!--Table body-->
-			<tbody id="table2">
-			<script type="text/javascript">creerRapport();</script>
-
-			</tbody>
-			<!--Table body-->
-		</table>
 		<!--Table-->
 	</div>
 </div>

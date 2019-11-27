@@ -1,6 +1,5 @@
 package Controllers.Interface;
 
-import Controllers.ItemController;
 import Models.ItemInfo;
 
 import java.util.List;
@@ -16,7 +15,9 @@ public interface ItemInfoControllerInterface {
          */
         List<ItemInfo> FindAll();
 
-        /**
+        List<ItemInfo> SortByName();
+
+    /**
          * Find by name item info.
          *
          * @param name the name

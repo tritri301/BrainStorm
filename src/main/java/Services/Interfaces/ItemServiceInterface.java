@@ -1,9 +1,9 @@
 package Services.Interfaces;
 
+import Exception.ExceptionCustom;
 import Models.Item;
-import Exception.*;
+
 import java.util.List;
-import Exception.*;
 
 /**
  * The interface Item service interface.
@@ -31,6 +31,8 @@ public interface ItemServiceInterface {
      * @return the list
      */
     List<Item> FindAll() throws ExceptionCustom;
+
+    List<Item> SortByName() throws ExceptionCustom;
 
     /**
      * Find by name item.

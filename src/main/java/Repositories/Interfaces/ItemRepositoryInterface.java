@@ -8,6 +8,9 @@ public interface ItemRepositoryInterface {
     Item FindById(int id) throws Exception;
     List<Item> FindByName(String name) throws Exception;
     List<Item> FindAll() throws Exception;
+
+    List<Item> SortByName() throws Exception;
+
     int FindAmountById(int id) throws Exception;
     void Update(Item itemToUpdate) throws Exception;
     void Delete(int id, int quantite) throws Exception;

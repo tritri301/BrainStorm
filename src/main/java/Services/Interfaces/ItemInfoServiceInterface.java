@@ -29,6 +29,9 @@ public interface ItemInfoServiceInterface {
      * @param name the name
      * @return the item info
      */
+
+    List<ItemInfo> SortByName() throws ExceptionCustom;
+
     List<ItemInfo> FindByName(String name) throws ExceptionCustom;
 
     /**
