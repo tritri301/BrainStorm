@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<!--
+Date           :	18 septembre 2019
+Nom du fichier :    index.html
+But du fichier :    Afficher le menu du site
+-->
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>CoolPlay inc.</title>
+    <link rel="shortcut icon" href="icone.ico" type="image/x-icon" />
+    <script type="text/javascript" src="fonction.js"></script>
+    <link rel="stylesheet" type="text/css" href="monstyle.css" media="all">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container-fluid" id="conteneur">
+    <div class="row" id="sectionBlancMiniTest" width="100%">
+        <div class="col-sm" id="logo"><a href="index.html" class="lienCoolPlay"><img src="logo.png"/></a></div>
+        <div class="row" id="sectionEnTete">
+            <div class="col">
+                <div class="col-sm" id="catalogue">
+                    <a href=""><img src="bouton_item3.png"/></a>
+                    <a href="catalogue.html"><img src="bouton_catalogue.png" onmouseover="this.src='bouton_catalogue2.png'" onmouseout="this.src='bouton_catalogue.png'"/></a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm" id="usager"><p class="usager"><i><a href="connexion.html" class="connexion">Connexion</a></i></p></div>
+    </div>
+    <div class="row" id="sectionSousMenu">
+        <a href="ajouter.html" class="lienSousMenu"><img src="bouton_ajouter.png" onmouseover="this.src='bouton_ajouter2.png'" onmouseout="this.src='bouton_ajouter.png'"/></a>
+        <a href="retirer.html" class="lienSousMenu"><img src="bouton_retirer.png"onmouseover="this.src='bouton_retirer2.png'" onmouseout="this.src='bouton_retirer.png'"/></a>
+        <a href="deplacer.html" class="lienSousMenu"><img src="bouton_deplacer.png" onmouseover="this.src='bouton_deplacer2.png'" onmouseout="this.src='bouton_deplacer.png'"/></a>
+        <a href="modifier.html" class="lienSousMenu"><img src="bouton_modifier.png" onmouseover="this.src='bouton_modifier2.png'" onmouseout="this.src='bouton_modifier.png'"/></a>
+        <a href="lister.html" class="lienSousMenu"><img src="bouton_lister.png"  onmouseover="this.src='bouton_lister2.png'" onmouseout="this.src='bouton_lister.png'"/></a>
+        <a href="rapport.html" class="lienSousMenu"><img src="bouton_rapport.png" onmouseover="this.src='bouton_rapport2.png'" onmouseout="this.src='bouton_rapport.png'"/></a>
+        <a href="backup.html" class="lienSousMenu"> <button type="button"> Backup  </button></a>
+    </div>
+    <div class="row" id="sectionVerte">
+        <br>
+    </div>
+    <div class="row" id="sectionNoirDeux">
+        <div class="col">
+            <p class="text-center"><script type="text/javascript">afficheDate();</script></p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col" id="titre">
+            Backup et Restoration
+        </div>
+    </div>
+    <div class="row" id="sectionBlanc">
+        <div class="col">
+        </div>
+    </div>
+
+    <div class="row" id="sectionBlanc">
+        <div class="col">
+            <!--Table-->
+            <table id="tableauFormulaire" border="0">
+
+                <!--Table body-->
+                <tbody id="formulaire">
+                <tr>
+                    <td align="center" colspan="2">
+                        <label for="titre"><i>Appuyez sur le bouton pour faire afficher le menu de backup/restore</i></label>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center"><button id="backupComplet" onclick="ShowBackupMenu();" >Menu Backup</button>
+                </td>
+                </tr>
+
+                </tbody>
+                <!--Table body-->
+            </table>
+
+        </div>
+    </div>
+
+
+
+    <div class="row" id="sectionVerte">
+        <div class="col"><br>
+            <p class="text-center">2019 - Tous droits réservés</p>
+        </div>
+        <br>
+    </div>
+</div>
+</body>
+</html>

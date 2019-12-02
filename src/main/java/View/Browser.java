@@ -1,5 +1,6 @@
 package View;
 
+import Controllers.BackupController;
 import Controllers.ItemController;
 import Controllers.ItemInfoController;
 import Models.Item;
@@ -17,6 +18,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import netscape.javascript.JSObject;
+
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -255,6 +258,19 @@ public class Browser extends BorderPane {
                 return true;
             }
             return false;
+        }
+
+        public void ShowBackupMenu()
+        {
+            BackupController backupController = BackupController.GetInstance();
+
+            backupController.ShowBackupMenu();
+
+                Alert("Objet modifié avec succes");
+
+
+
+
         }
 
     }
