@@ -361,6 +361,10 @@ public class Browser extends BorderPane {
                 Alert("Une erreur c'est produite");
             }
         }
+        public void afficherRapportInterface() {
+
+        }
+
         //--------------------MODULE COMMANDE---------------------------------------
 
         //Cette fonction créer une commande et une commandeItem avec les paramètres reçus en javascrpt
