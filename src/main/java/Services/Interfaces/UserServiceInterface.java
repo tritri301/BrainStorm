@@ -29,7 +29,7 @@ public interface UserServiceInterface {
      * @param name the name
      * @return the user
      */
-    List<User> FindByName(String name) throws ExceptionCustom;
+    List<User> FindByEmail(String email) throws ExceptionCustom;
 
     /**
      * Update user.
@@ -40,7 +40,7 @@ public interface UserServiceInterface {
      * @param acces        the acces
      * @return the user
      */
-    boolean Update(short id,String nom,String password,short acces) throws ExceptionCustom;
+    boolean Update(User userToUpdate) throws ExceptionCustom;
 
     /**
      * Create user.
@@ -51,7 +51,7 @@ public interface UserServiceInterface {
      * @param acces    the acces
      * @return the user
      */
-    boolean Create(short id,String nom,String password,short acces) throws ExceptionCustom;
+    boolean Create(int idUser, String email, String password, String poste, String lastName, String firstName, String adresse, int idRole) throws ExceptionCustom;
 
     /**
      * Delete user.

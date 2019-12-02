@@ -1,6 +1,10 @@
 drop table if exists item;
 drop table if exists container;
 drop table if exists itemInfo;
+drop table if exists user;
+drop table if exists role;
+drop table if exists commande;
+drop table if exists TtemCommande;
 
 create table itemInfo(
 	idItemInfo int primary key,
@@ -49,6 +53,22 @@ CREATE TABLE ItemCommande (
 );
 
 
+create table role(
+    idRole int primary key auto_increment,
+    permission varchar(45) not null,
+    roleName varchar(45) not null
+);
+create table user(
+    idUser int primary key,
+    email varchar(45) not null,
+    password varchar(45) not null,
+    poste varchar(45),
+    lastName varchar(45) not null,
+    firstName varchar(45) not null,
+    adresse varchar(45),
+    idRole int,
+    foreign key (idRole) references role(idRole) on delete cascade
+);
 insert into container values("Entrepot", 0, 150, 0, 150, null);
 
 insert into container values("R0-E0-T0", 0, 150, 0, 150, "Entrepot");

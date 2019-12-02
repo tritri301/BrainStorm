@@ -10,6 +10,7 @@ But du fichier :    Afficher la page connexion du site
     <title>CoolPlay inc.</title>
     <link rel="shortcut icon" href="icone.ico" type="image/x-icon" />
     <script type="text/javascript" src="fonction.js"></script>
+    <script type="text/javascript" src="permission.js"></script>
     <link rel="stylesheet" type="text/css" href="monstyle.css" media="all">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
@@ -26,22 +27,17 @@ But du fichier :    Afficher la page connexion du site
     <!--Table body-->
     <tbody id="formulaire">
     <tr>
-        <td align="right"><label for="nomUsager">Nom d'usager :</label></td>
-        <td align="left"><input type="text" class="form-control" id="nomUsager"></td>
+        <td align="right"><label for="user">Nom d'usager :</label></td>
+        <td align="left"><input type="text" class="form-control" id="user"></td>
     </tr>
     <tr>
-        <td align="right"><label for="pwd">Mot de passe :</label></td>
-        <td align="left"><input type="password" class="form-control" id="pwd" ></td>
+        <td align="right"><label for="password">Mot de passe :</label></td>
+        <td align="left"><input type="password" class="form-control" id="password" ></td>
     </tr>
     <tr>
         <td align="center" colspan="2">
-            <button class="btn btn-default" >Connexion</button>
+            <button class="btn btn-default" onclick="CheckConnexion()">Connexion</button>
             <button type="reset" class="btn btn-default">Annuler</button>
-        </td>
-    </tr>
-    <tr>
-        <td align="center" colspan="2">
-            <a href="index.html"><img src="precedent.png"/></a>  <b>Précédent</b>
         </td>
     </tr>
     </tbody>

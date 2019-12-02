@@ -51,7 +51,33 @@ public class VerificationService implements VerificationServiceInterface {
         }
         return valide;
     }
+    public boolean verifierEmail(String email) {
+        boolean valide = false;
 
+        String regex = "^[a-zA-Z0-9]+@+[a-zA-Z0-9]+[.]+[a-zA-Z0-9]+$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(email);
+
+        if (matcher.matches())
+        {
+            valide = true;
+        }
+        return valide;
+    }
+    public boolean verifierPermission(String permission)
+    {
+        boolean valide = false;
+
+        String regex = "^[0-1]+$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(permission);
+
+        if (matcher.matches())
+        {
+            valide = true;
+        }
+        return valide;
+    }
     @Override
     public boolean verifierPassword(String password) {
         boolean valide = true;
@@ -102,19 +128,6 @@ public class VerificationService implements VerificationServiceInterface {
         return valide;
     }
 
-    @Override
-    public boolean verifierAcces(int acces)
-    {
-        boolean valide = false;
-
-        if ((acces == 0) || (acces == 1))
-        {
-            valide = true;
-        }
-
-        return valide;
-
-    }
 
     @Override
     public boolean emplacementExist(String emplacement) {

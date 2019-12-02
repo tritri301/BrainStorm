@@ -9,8 +9,12 @@ import Models.Item;
 import Models.ItemCommande;
 import Models.ItemInfo;
 import Services.ItemInfoService;
+import Controllers.RoleController;
+import Controllers.UserController;
+import Factory.UserFactory;
+import Models.*;
+import Services.HashService;
 import javafx.scene.control.Dialog;
-import Services.ItemService;
 import javafx.application.Platform;
 import javafx.scene.control.ButtonType;
 import javafx.beans.value.ChangeListener;
@@ -47,11 +51,13 @@ public class Browser extends BorderPane {
                         if (newValue != Worker.State.SUCCEEDED) {
                             return;
                         }
-
                         JSObject window = (JSObject) webEngine.executeScript("window");
                         window.setMember("JavaApp", javaApp);
+                        window.call("CheckPermission");
                     }
                 });
+
+
         webEngine.setOnAlert(event -> {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText(event.getData());
@@ -65,9 +71,8 @@ public class Browser extends BorderPane {
 
             return result ;
         });
-
         // load the home page
-        webEngine.load("file:///" + System.getProperty("user.dir") + "/Interface/index.html");
+        webEngine.load("file:///" + System.getProperty("user.dir") + "/Interface/connexion.html");
     }
 
     //Signleton function
@@ -81,9 +86,85 @@ public class Browser extends BorderPane {
         window.call("Alert", msg);
     }
 
-
-    // JavaScript interface object
     public class JavaApp {
+        public void FindUserById(int id)
+        {
+            UserController userController = UserController.GetInstance();
+
+            User user = userController.FindById(id);
+            if(user != null)
+            {
+                window.call("ShowUser",
+                        user.getEmail(),
+                        user.getPassword(),
+                        user.getPoste(),
+                        user.getLastName(),
+                        user.getFirstName(),
+                        user.getAdresse(),
+                        user.getIdRole());
+            }
+        }
+        public void ModifyUser(int numEmpl, String email, String password, String Poste, String lastName, String firstName, String adresse, int idRole)
+        {
+            UserFactory userFactory = UserFactory.GetInstance();
+            UserController userController = UserController.GetInstance();
+            User userToUpdate = userFactory.Create(numEmpl, email, password, Poste, lastName, firstName, adresse, idRole);
+            if(userController.Update(userToUpdate))
+            {
+                Alert("User modified successfully!");
+            }
+            else
+            {
+                Alert("There was a problem modifying this user!");
+            }
+        }
+        public void CreateUser(int numEmpl, String email, String password, String Poste, String lastName, String firstName, String adresse, int idRole)
+        {
+            UserController userController = UserController.GetInstance();
+            if(userController.Create(numEmpl, email, password, Poste, lastName, firstName, adresse, idRole))
+            {
+                Alert("User created successfully!");
+            }
+            else
+            {
+                Alert("There was a problem creating this user!");
+            }
+        }
+
+        public boolean CheckConnexion(String user, String password)
+        {
+            ConnectedUser connectedUser = ConnectedUser.GetInstance();
+            UserFactory userFactory = UserFactory.GetInstance();
+            HashService hashService = HashService.getInstance();
+            UserController userController = UserController.GetInstance();
+
+            List<User> userToConnect = userController.FindByEmail(user);
+            if(userToConnect == null)
+            {
+                return false;
+            }
+            if(userToConnect.get(0).getPassword().equals(hashService.HashString(password)))
+            {
+                connectedUser = userFactory.CreateConnected(userToConnect.get(0));
+                return true;
+            }
+            connectedUser = null;
+            return false;
+        }
+
+        public String CheckPermission()
+        {
+            RoleController roleController = RoleController.getInstance();
+            ConnectedUser connectedUser = ConnectedUser.GetInstance();
+
+            int idRole = connectedUser.getIdRole();
+            Role role = roleController.FindById(idRole);
+            if(role != null) //if no permission is found for a user, remove all rights to the app
+                return roleController.FindById(idRole).getPermissions();
+            else
+                return "00000000000000000000000000000000000000000000000";
+        }
+
         public void exit() {
             Platform.exit();
         }

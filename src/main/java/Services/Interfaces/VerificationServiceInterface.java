@@ -52,7 +52,7 @@ public interface VerificationServiceInterface {
      * @param acces the acces
      * @return the boolean
      */
-    boolean verifierAcces(int acces);
+    boolean verifierEmail(String email);
 
     boolean emplacementExist(String emplacementBrut);
 

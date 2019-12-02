@@ -221,8 +221,8 @@ function ModifyItem()
 
 function ResetModify()
 {
-   document.getElementById("id").value = " ";
-   document.getElementById("description").value = " ";
+   document.getElementById("id").value = "";
+   document.getElementById("description").value = "";
 }
 
 

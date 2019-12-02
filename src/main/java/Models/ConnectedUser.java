@@ -1,9 +1,10 @@
 package Models;
 
-/**
- * The type User.
- */
-public class User {
+import sun.security.jca.GetInstance;
+
+public class ConnectedUser {
+    private static final ConnectedUser instance = new ConnectedUser();
+
     private int idUser;
     private String email;
     private String password;
@@ -76,4 +77,6 @@ public class User {
     public void setIdRole(int idRole) {
         this.idRole = idRole;
     }
+
+    public static ConnectedUser GetInstance(){return instance;}
 }

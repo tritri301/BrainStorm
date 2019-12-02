@@ -70,7 +70,12 @@ a.lienSousMenu {
 	text-decoration: none;
 	font-family: Arial;
 }	
-
+.user {
+    padding-top: 30px;
+      padding-right: 30px;
+      padding-bottom: 30px;
+      padding-left: 30px;
+}
 #sectionSousMenu {
 	background-color: #FFFFFF;
 	color: #FFFFFF;

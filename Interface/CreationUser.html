@@ -11,6 +11,7 @@ But du fichier :    Afficher le menu du site
 	<link rel="shortcut icon" href="icone.ico" type="image/x-icon" />
 	<script type="text/javascript" src="fonction.js"></script>
 	<script type="text/javascript" src="permission.js"></script>
+	<script type="text/javascript" src="user.js"></script>
 	<link rel="stylesheet" type="text/css" href="monstyle.css" media="all">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
@@ -24,28 +25,16 @@ But du fichier :    Afficher le menu du site
 		<div class="col-sm" id="logo"><a href="index.html" class="lienCoolPlay"><img src="logo.png"/></a></div>
 		<div class="row" id="sectionEnTete">
 			<div class="col">
-				<div class="col-sm" id="catalogue">
-					<a href=""><img src="bouton_item.png"/></a>
-					<a href="catalogue.html"><img src="bouton_catalogue.png" onmouseover="this.src='bouton_catalogue2.png'" onmouseout="this.src='bouton_catalogue.png'"/></a>
-				</div>
+				Section d'administration
 			</div>
 		</div>
 		<div class="col-sm" id="usager">
 			<p class="usager"><i>
 				<a href="connexion.html" class="connexion">Déconnexion</a></i><br>
-				<i><a href="Administration.html" class="connexion">Administration</a></i>
+				<i><a href="index.html" class="connexion">Retour</a></i>
 			</p>
 		</div>
 	</div>
-  	<div class="row" id="sectionSousMenu">
-		<a href="ajouter.html" class="lienSousMenu"><img src="bouton_ajouter.png" onmouseover="this.src='bouton_ajouter2.png'" onmouseout="this.src='bouton_ajouter.png'"/></a>
-		<a href="retirer.html" class="lienSousMenu"><img src="bouton_retirer.png"onmouseover="this.src='bouton_retirer2.png'" onmouseout="this.src='bouton_retirer.png'"/></a>
-		<a href="deplacer.html" class="lienSousMenu"><img src="bouton_deplacer.png" onmouseover="this.src='bouton_deplacer2.png'" onmouseout="this.src='bouton_deplacer.png'"/></a>
-		<a href="modifier.html" class="lienSousMenu"><img src="bouton_modifier.png" onmouseover="this.src='bouton_modifier2.png'" onmouseout="this.src='bouton_modifier.png'"/></a>
-		<a href="lister.html" class="lienSousMenu"><img src="bouton_lister.png"  onmouseover="this.src='bouton_lister2.png'" onmouseout="this.src='bouton_lister.png'"/></a>
-		<a href="rapport.html" class="lienSousMenu"><img src="bouton_rapport.png" onmouseover="this.src='bouton_rapport2.png'" onmouseout="this.src='bouton_rapport.png'"/></a>
-		<a href="commande.html" class="lienSousMenu"><img src="bouton_commande.png" onmouseover="this.src='bouton_commande2.png'" onmouseout="this.src='bouton_commande.png'"/></a>
-</div>
 	<div class="row" id="sectionVerte"> 
 		<br>
 	</div>
@@ -55,12 +44,45 @@ But du fichier :    Afficher le menu du site
 		</div>
 	</div>
 	<div class="row">
-		<div class="col" id="titre">
-			Bienvenue
-		</div>
+
 	</div>
 	<div class="row" id="sectionBlanc">
-		<div class="col">
+		<div class="col user">
+			<div class="form-group">
+				<label for="NumEmpl">Numéro d'employé</label>
+				<input type="email" class="form-control" id="NumEmpl" aria-describedby="emailHelp" placeholder="Entrez le numero d'employé">
+			</div>
+			<div class="form-group">
+				<label for="Email">Adresse Email</label>
+				<input type="email" class="form-control" id="Email" aria-describedby="emailHelp" placeholder="Entrez l'email">
+			</div>
+			<div class="form-group">
+				<label for="password">Mot de passe</label>
+				<input type="password" class="form-control" id="password" placeholder="Mot de passe">
+			</div>
+			<div class="form-group">
+				<label for="Poste">Poste</label>
+				<input type="text" class="form-control" id="Poste" placeholder="Poste">
+				<small class="form-text text-muted">Optionnel*</small>
+			</div>
+			<div class="form-group">
+				<label for="LastName">Nom de famille</label>
+				<input type="text" class="form-control" id="LastName" placeholder="Nom de famille">
+			</div>
+			<div class="form-group">
+				<label for="FirstName">Prénom</label>
+				<input type="text" class="form-control" id="FirstName" placeholder="Prénom">
+			</div>
+			<div class="form-group">
+				<label for="Address">Adresse</label>
+				<input type="text" class="form-control" id="Address" placeholder="Adresse">
+				<small class="form-text text-muted">Optionnel*</small>
+			</div>
+			<div class="form-group">
+				<label for="idRole">Role</label>
+				<input type="text" class="form-control" id="idRole" placeholder="id Role">
+			</div>
+			<button class="btn btn-primary" onclick="CreateUser()">Submit</button>
 		</div>
 	</div>
 	<div class="row" id="sectionVerte"> 

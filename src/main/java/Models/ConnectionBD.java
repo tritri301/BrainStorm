@@ -13,7 +13,7 @@ public class ConnectionBD
     public ConnectionBD() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            DriverManager.setLoginTimeout(3);
+            DriverManager.setLoginTimeout(10);
             con = DriverManager.getConnection(
                     "jdbc:mysql://10.20.40.40:3306/EquipeTristan_BD", "BrainStorm", "info420");
 

@@ -71,7 +71,7 @@ public class ItemInfoRepository implements ItemInfoRepositoryInterface {
 
     @Override
     public void Create(ItemInfo itemInfoToAdd) throws Exception {
-        PreparedStatement stmt = con.prepareStatement("insert into itemInfo values(?, ?, ?, ?, ?)");
+        PreparedStatement stmt = con.prepareStatement("insert into itemInfo(iditeminfo, description, nom, poids, volume) values(?, ?, ?, ?, ?)");
         stmt.setInt(1, itemInfoToAdd.getIdItemInfo());
         stmt.setString(2, itemInfoToAdd.getDescription());
         stmt.setString(3, itemInfoToAdd.getNom());

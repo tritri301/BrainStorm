@@ -2,6 +2,8 @@ package View;
 
 import Controllers.*;
 import Factory.*;
+import Controllers.*;
+import Models.ConnectedUser;
 import Models.Item;
 import Repositories.*;
 import Services.*;
@@ -63,6 +65,10 @@ public class BrowserView extends Application{
         ItemService itemService = ItemService.GetInstance();
         UserService userService = UserService.GetInstance();
         VerificationService verificationService = VerificationService.GetInstance();
+
+        RoleController roleController = RoleController.getInstance();
+        ConnectedUser connectedUser = ConnectedUser.GetInstance();
+
         CommandeService commandeService = CommandeService.GetInstance();
 
         stage.setScene(scene);

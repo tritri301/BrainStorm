@@ -9,6 +9,7 @@ But du fichier :    Afficher la page du site qui permet d'ajouter des items
 	<meta charset="utf-8">
 	<title>CoolPlay inc.</title>
 	<script type="text/javascript" src="fonction.js"></script>
+	<script type="text/javascript" src="permission.js"></script>
 	<link rel="stylesheet" type="text/css" href="monstyle.css" media="all">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,7 +17,7 @@ But du fichier :    Afficher la page du site qui permet d'ajouter des items
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
-<body>
+<body onload="CheckPermission()">
 <div class="container-fluid" id="conteneur">
 	<div class="row" id="sectionBlancMiniTest" width="100%">
 		<div class="col-sm" id="logo"><a href="index.html" class="lienCoolPlay"><img src="logo.png"/></a></div>
@@ -28,7 +29,7 @@ But du fichier :    Afficher la page du site qui permet d'ajouter des items
 				</div>
 			</div>
 		</div>
-		<div class="col-sm" id="usager"><p class="usager"><i><a href="connexion.html" class="connexion">Connexion</a></i></p></div>
+		<div class="col-sm" id="usager"><p class="usager"><i id="deconnexion"><a href="connexion.html" class="connexion">Connexion</a></i></p></div>
 	</div>
 	<div class="row" id="sectionSousMenu">
 		<a href="ajouter.html" class="lienSousMenu"><img src="bouton_ajouter.png" onmouseover="this.src='bouton_ajouter2.png'" onmouseout="this.src='bouton_ajouter.png'"/></a>
@@ -58,7 +59,7 @@ But du fichier :    Afficher la page du site qui permet d'ajouter des items
 			<table id="tableauFormulaire" border="0">
 
 				<!--Table body-->
-				<tbody id="formulaire">
+				<tbody id="formulaireAjouter">
 					<tr>
 						<td align="right"><label for="upc">UPC :</label></td>
 						<td align="left"><input type="text" class="form-control" id="upc" placeholder="UPC"></td>
@@ -129,7 +130,7 @@ But du fichier :    Afficher la page du site qui permet d'ajouter des items
 						<td align="left"><input type="text" class="form-control" id="description" placeholder="Couleur=bleu,Longueur=12 cm"></td>
 					</tr>
 					<tr>
-						<td align="center" colspan="2">
+						<td align="center" colspan="2" id="SubmitAjouter">
 							<button class="btn btn-default" onclick="CreateItem();" >Ajouter</button>
 							<button type="reset" class="btn btn-default" onclick="ResetAjouter();">Annuler</button>
 						</td>
