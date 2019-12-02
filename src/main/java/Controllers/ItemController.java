@@ -1,12 +1,12 @@
 package Controllers;
 
 import Controllers.Interface.ItemControllerInterface;
+import Exception.ExceptionCustom;
 import Models.Item;
 import Services.ItemService;
+import View.Browser;
 
 import java.util.List;
-import Exception.*;
-import View.Browser;
 
 public class ItemController implements ItemControllerInterface
 {
@@ -58,6 +58,21 @@ public class ItemController implements ItemControllerInterface
 
         try {
             itemList = itemService.FindAll();
+        } catch (ExceptionCustom e) {
+            browser.Alert(e.getMessage());
+        }
+        catch(Exception e) {
+            browser.Alert(e.toString());
+        }
+        return itemList;
+    }
+
+    @Override
+    public List<Item> SortByName() {
+        List<Item> itemList = null;
+
+        try {
+            itemList = itemService.SortByName();
         } catch (ExceptionCustom e) {
             browser.Alert(e.getMessage());
         }

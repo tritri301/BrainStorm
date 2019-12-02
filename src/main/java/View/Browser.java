@@ -16,17 +16,23 @@ import Models.*;
 import Services.HashService;
 import javafx.scene.control.Dialog;
 import javafx.application.Platform;
-import javafx.scene.control.ButtonType;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Worker;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import netscape.javascript.JSObject;
-import java.io.FileWriter;
+
+import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 
 import java.util.*;
 
@@ -199,22 +205,6 @@ public class Browser extends BorderPane {
             }
         }
 
-        public void ecrireFichier() {
-            ItemController itemController = ItemController.GetInstance();
-            ItemInfoController itemInfoController = ItemInfoController.GetInstance();
-            List<Item> itemList = itemController.FindAll();
-            try {
-                FileWriter writer = new FileWriter("C:\\MyFile.txt", true);
-                for (int i = 0; i < itemList.size(); i++) {
-                    ItemInfo tmp = itemInfoController.FindById(itemList.get(i).getIdItemInfo());
-                    writer.write(itemList.get(i).getIdItem());
-                }
-                writer.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-        }
         public void ListItemById(int id) {
             ItemController itemController = ItemController.GetInstance();
             ItemInfoController itemInfoController = ItemInfoController.GetInstance();
@@ -227,6 +217,7 @@ public class Browser extends BorderPane {
                     tmp.getVolume(),
                     item.getQuantite());
         }
+
         public void ListItemByName(String name) {
             ItemController itemController = ItemController.GetInstance();
             ItemInfoController itemInfoController = ItemInfoController.GetInstance();
@@ -241,8 +232,8 @@ public class Browser extends BorderPane {
                         itemList.get(i).getQuantite());
             }
         }
-        public void ListDeleteItemByUPC(int upc)
-        {
+
+        public void ListDeleteItemByUPC(int upc) {
             ItemController itemController = ItemController.GetInstance();
             ItemInfoController itemInfoController = ItemInfoController.GetInstance();
             List<Item> itemList = itemController.FindAll();
@@ -340,7 +331,46 @@ public class Browser extends BorderPane {
             }
             return false;
         }
+        public void CreateCSVFile() {
+            ItemController itemController = ItemController.GetInstance();
+            ItemInfoController itemInfoController = ItemInfoController.GetInstance();
+            List<Item> itemList = itemController.FindAll();
+            List<ItemInfo> itemInfoList = itemInfoController.FindAll();
 
+            SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd_HH.mm");
+
+            String dateString = date.format(new Date());
+            try {
+                PrintWriter writer = new PrintWriter(new File("Rapport\\" + dateString + ".csv"));
+                StringBuffer csvHeader = new StringBuffer("");
+                StringBuffer csvData = new StringBuffer("");
+                csvHeader.append("Id,Nom,Emplacement,Poids,Volume,Quantite\n");
+
+                // write header
+                writer.write(csvHeader.toString());
+
+                for (int i = 0; i < itemList.size(); i++) {
+                    ItemInfo tmp = itemInfoController.FindById(itemList.get(i).getIdItemInfo());
+                    csvData.append(tmp.getIdItemInfo());
+                    csvData.append(',');
+                    csvData.append(tmp.getNom());
+                    csvData.append(',');
+                    csvData.append(itemList.get(i).getEmplacement());
+                    csvData.append(',');
+                    csvData.append(tmp.getPoids());
+                    csvData.append(',');
+                    csvData.append(tmp.getVolume());
+                    csvData.append(',');
+                    csvData.append(itemList.get(i).getQuantite());
+                    csvData.append('\n');
+                    writer.write(csvData.toString());
+                }
+                writer.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+                Alert("Une erreur c'est produite");
+            }
+        }
         //--------------------MODULE COMMANDE---------------------------------------
 
         //Cette fonction créer une commande et une commandeItem avec les paramètres reçus en javascrpt

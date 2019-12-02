@@ -25,6 +25,8 @@ public interface ItemControllerInterface
      */
     List<Item> FindAll();
 
+    List<Item> SortByName();
+
     /**
      * Find by name item.
      *

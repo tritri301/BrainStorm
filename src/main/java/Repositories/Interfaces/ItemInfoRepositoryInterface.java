@@ -8,6 +8,7 @@ public interface ItemInfoRepositoryInterface {
     ItemInfo FindById(int id) throws Exception;
     List<ItemInfo> FindByName(String name) throws Exception;
     List<ItemInfo> FindAll() throws Exception;
+    List<ItemInfo> SortByName() throws Exception;
     void Update(ItemInfo itemInfoToUpdate) throws Exception;
     void Delete(int id) throws Exception;
     void Create(ItemInfo itemInfoToAdd) throws Exception;

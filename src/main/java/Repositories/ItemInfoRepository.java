@@ -52,6 +52,17 @@ public class ItemInfoRepository implements ItemInfoRepositoryInterface {
         return itemInfo;
     }
 
+    public List<ItemInfo> SortByName() throws Exception {
+        List<ItemInfo> itemInfo = new ArrayList<>();
+        Statement stmt = con.createStatement();
+        ResultSet rs = stmt.executeQuery("select * from itemInfo order by nom");
+        while(rs.next())
+        {
+            itemInfo.add(itemInfoFactory.Create(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5)));
+        }
+        return itemInfo;
+    }
+
     @Override
     public void Update(ItemInfo itemInfoToUpdate) throws Exception {
         PreparedStatement stmt = con.prepareStatement("update itemInfo set description = ?, nom = ?, poids = ?, volume = ? where idItemInfo = " + itemInfoToUpdate.getIdItemInfo());

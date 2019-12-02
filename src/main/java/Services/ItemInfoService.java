@@ -77,6 +77,31 @@ public class ItemInfoService implements ItemInfoServiceInterface {
         return new ArrayList<>();
     }
 
+    public List<ItemInfo> SortByName() throws ExceptionCustom {
+        List<ItemInfo> itemInfo = new ArrayList<ItemInfo>();
+        if (connection == null)
+        {
+            try {
+                itemInfo = this.itemInfoRepository.SortByName();
+                if (itemInfo == null)
+                {
+                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("Aucun Résultats");
+                    throw exceptionErreurBD;
+                }
+            } catch (Exception e) {
+                ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd : " + e.toString());
+                throw exceptionErreurBD;
+            }
+        }
+        else
+        {
+            ExceptionCustom exceptionErreurBD = new ExceptionCustom("Données de saisies invalide");
+            throw exceptionErreurBD;
+        }
+
+        return new ArrayList<>();
+    }
+
     @Override
     public List<ItemInfo> FindByName(String name) throws ExceptionCustom {
         List<ItemInfo> itemInfo = new ArrayList<ItemInfo>();

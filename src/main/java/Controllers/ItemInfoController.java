@@ -1,14 +1,11 @@
 package Controllers;
 
-import Controllers.Interface.ItemControllerInterface;
 import Controllers.Interface.ItemInfoControllerInterface;
-import Models.Item;
+import Exception.ExceptionCustom;
 import Models.ItemInfo;
 import Services.ItemInfoService;
-import Services.ItemService;
 
 import java.util.List;
-import Exception.*;
 
 
 public class ItemInfoController implements ItemInfoControllerInterface {
@@ -45,6 +42,21 @@ public class ItemInfoController implements ItemInfoControllerInterface {
         }
         return itemInfoList;
     }
+
+    @Override
+    public List<ItemInfo> SortByName() {
+        List<ItemInfo> itemInfoList = null;
+        try {
+            itemInfoList = itemInfoService.SortByName();
+        } catch (ExceptionCustom e) {
+            //Alert ;
+        }
+        catch(Exception e) {
+
+        }
+        return itemInfoList;
+    }
+
 
     @Override
     public List<ItemInfo> FindByName(String name) {

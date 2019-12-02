@@ -95,6 +95,28 @@ public class ItemService implements ItemServiceInterface {
     }
 
     @Override
+    public List<Item> SortByName() throws ExceptionCustom {
+        List<Item> item = new ArrayList<Item>();
+        if (connection == null) {
+            try {
+                item = this.itemRepository.SortByName();
+                if (item == null) {
+                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("Aucun Résultats");
+                    throw exceptionErreurBD;
+                }
+            } catch (Exception e) {
+                ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd : " + e.toString());
+                throw exceptionErreurBD;
+            }
+        } else {
+            ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de connection a la base de données");
+            throw exceptionErreurBD;
+        }
+
+        return item;
+    }
+
+    @Override
     public List<Item> FindByName(String name) throws ExceptionCustom {
         List<Item> item = new ArrayList<Item>();
         if (this.verificationService.verifier(name)) {
