@@ -27,6 +27,28 @@ create table item(
 	foreign key (idItemInfo) references itemInfo(idItemInfo) on delete cascade,
 	foreign key (emplacement) references container(emplacement) on delete cascade
 );
+
+CREATE TABLE commande (
+  idCommande int(11) NOT NULL AUTO_INCREMENT,
+  DateCommande datetime DEFAULT NULL,
+  DateLivraison datetime DEFAULT NULL,
+  Etat int(11) NOT NULL DEFAULT '0',
+  DateLivraisonPrevu datetime DEFAULT NULL,
+  nomPEnvoi varchar(45) DEFAULT NULL,
+  nomPRecu varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`idCommande`)
+);
+
+CREATE TABLE ItemCommande (
+  idItemCommande int(11) NOT NULL AUTO_INCREMENT,
+  IdCommande int(11) DEFAULT NULL,
+  idItemInfo int(11) DEFAULT NULL,
+  description varchar(45) DEFAULT NULL,
+  quantite int(11) DEFAULT NULL,
+  PRIMARY KEY (idItemCommande)
+);
+
+
 insert into container values("Entrepot", 0, 150, 0, 150, null);
 
 insert into container values("R0-E0-T0", 0, 150, 0, 150, "Entrepot");
