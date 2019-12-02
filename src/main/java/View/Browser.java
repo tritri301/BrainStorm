@@ -4,6 +4,14 @@ import Controllers.*;
 import Factory.UserFactory;
 import Models.*;
 import Services.HashService;
+import Controllers.BackupController;
+import Controllers.ItemController;
+import Controllers.ItemInfoController;
+import Models.Item;
+import Models.ItemInfo;
+import Services.ItemInfoService;
+import javafx.scene.control.Dialog;
+import Services.ItemService;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -17,6 +25,9 @@ import javafx.scene.web.WebView;
 import netscape.javascript.JSObject;
 
 import java.io.File;
+
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
@@ -447,5 +458,18 @@ public class Browser extends BorderPane {
                 }
             }
         }
+        public void ShowBackupMenu()
+        {
+            BackupController backupController = BackupController.GetInstance();
+
+            backupController.ShowBackupMenu();
+
+                Alert("Objet modifié avec succes");
+
+
+
+
+        }
+
     }
 }

@@ -9,7 +9,7 @@ import Exception.*;
 
 import java.util.ArrayList;
 import java.util.List;
-
+//
 /**
  * The type Item service.
  */
@@ -348,20 +348,7 @@ public class ItemService implements ItemServiceInterface {
             if (verificationService.verifierDescription(description))
             {
                 Item item = FindById(id);
-                //Item itemSimilaire = null;
-                //TODO find similaire quand on modifie et delete quand quantite = 0
-                //itemSimilaire = this.trouverSimilaire(item.getIdItemInfo(),item.getEmplacement(),item.getDescription());
-
-                //if(itemSimilaire != null)
-                //{
-                    //int quantite = item.getQuantite() + itemSimilaire.getQuantite();
-                    //this.Update(itemSimilaire.getIdItem(),itemSimilaire.getIdItemInfo(),itemSimilaire.getEmplacement(),description,quantite);
-                    //this.Delete(id,item.getQuantite());
-                //}
-                //else
-                //{
-                    Update(id,item.getIdItemInfo(),item.getEmplacement(),description,item.getQuantite());
-                //}
+                Update(id,item.getIdItemInfo(),item.getEmplacement(),description,item.getQuantite());
             }
             else
             {
@@ -378,6 +365,10 @@ public class ItemService implements ItemServiceInterface {
         }
 
         return valide;
+
+
+
+
 
     }
 

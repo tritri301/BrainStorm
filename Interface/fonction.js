@@ -458,3 +458,15 @@ function RecevoirCommande(id)
 
 //--------------------FIN MODULE COMMANDE---------------------------------------
 
+
+
+function ShowBackupMenu()
+{
+   // var shell = new ActiveXObject();
+   // shell.run(which,1,true);
+    //shell.run("\\Users\\BOUD240295\\Documents\\BrainStorm\\Interface\\menu-backup.bat");
+   // shell.run("")
+   // window.open()
+   // alert("test");
+   Window.JavaApp.ShowBackupMenu();
+}
