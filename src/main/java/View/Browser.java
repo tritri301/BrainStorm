@@ -1,20 +1,9 @@
 package View;
 
-import Controllers.CommandeController;
-import Controllers.ItemCommandeController;
-import Controllers.ItemController;
-import Controllers.ItemInfoController;
-import Models.Commande;
-import Models.Item;
-import Models.ItemCommande;
-import Models.ItemInfo;
-import Services.ItemInfoService;
-import Controllers.RoleController;
-import Controllers.UserController;
+import Controllers.*;
 import Factory.UserFactory;
 import Models.*;
 import Services.HashService;
-import javafx.scene.control.Dialog;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -31,10 +20,9 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
-import java.util.*;
 
 public class Browser extends BorderPane {
     private static final View.Browser instance = new View.Browser();
@@ -341,7 +329,9 @@ public class Browser extends BorderPane {
 
             String dateString = date.format(new Date());
             try {
-                PrintWriter writer = new PrintWriter(new File("Rapport\\" + dateString + ".csv"));
+                File file = new File("Rapport\\" + dateString + ".csv");
+                file.getParentFile().mkdirs();
+                PrintWriter writer = new PrintWriter(file);
                 StringBuffer csvHeader = new StringBuffer("");
                 StringBuffer csvData = new StringBuffer("");
                 csvHeader.append("Id,Nom,Emplacement,Poids,Volume,Quantite\n");
