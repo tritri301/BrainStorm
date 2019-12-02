@@ -22,7 +22,6 @@ public class ContainerService implements ContainerServiceInterface {
     private Object connection = this.connectionBD.GetConnectionStatus();
     private VerificationService verificationService = VerificationService.GetInstance();
 
-
     @Override
     public Container FindById(String emplacement) throws ExceptionCustom {
         Container container = null;

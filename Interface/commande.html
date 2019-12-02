@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <!-- 
-Date           :	18 septembre 2019
-Nom du fichier :    retirer.html
-But du fichier :    Afficher la page du site qui permet de retirer des items
+Date           :	2 octobre 2019
+Nom du fichier :    lister.html
+But du fichier :    Afficher la page du site qui permet de visualiser la liste d'items
 -->
 <html lang="fr">
 <head>
@@ -12,6 +12,7 @@ But du fichier :    Afficher la page du site qui permet de retirer des items
     <script type="text/javascript" src="fonction.js"></script>
     <link rel="stylesheet" type="text/css" href="monstyle.css" media="all">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
@@ -37,9 +38,8 @@ But du fichier :    Afficher la page du site qui permet de retirer des items
         <a href="modifier.html" class="lienSousMenu"><img src="bouton_modifier.png" onmouseover="this.src='bouton_modifier2.png'" onmouseout="this.src='bouton_modifier.png'"/></a>
         <a href="lister.html" class="lienSousMenu"><img src="bouton_lister.png"  onmouseover="this.src='bouton_lister2.png'" onmouseout="this.src='bouton_lister.png'"/></a>
         <a href="rapport.html" class="lienSousMenu"><img src="bouton_rapport.png" onmouseover="this.src='bouton_rapport2.png'" onmouseout="this.src='bouton_rapport.png'"/></a>
-        <a href="commande.html" class="lienSousMenu"><img src="bouton_commande.png" onmouseover="this.src='bouton_commande2.png'" onmouseout="this.src='bouton_commande.png'"/></a>
-</div>
-    <div class="row" id="sectionVerte">
+        <a href="commande.html" class="lienSousMenu"><img src="bouton_commande.png" onmouseover="this.src='bouton_commande2.png'" onmouseout="this.src='bouton_commande.png'"/></a></div>
+<div class="row" id="sectionVerte">
         <br>
     </div>
     <div class="row" id="sectionNoirDeux">
@@ -51,7 +51,7 @@ But du fichier :    Afficher la page du site qui permet de retirer des items
     </div>
     <div class="row">
         <div class="col" id="titre">
-            Retirer
+            Commande
         </div>
     </div>
 
@@ -61,36 +61,68 @@ But du fichier :    Afficher la page du site qui permet de retirer des items
             <table id="tableauFormulaire" border="0">
 
                 <!--Table body-->
-                <tbody id="formulaire">
-                <tr>
-                    <td align="center" colspan="2"><label for="titre"><i>Rechercher par l'UPC</i></label></td>
-                </tr>
-                <tr>
-                    <td align="right"><label for="upc">UPC :</label></td>
-                    <td align="left"><input type="text" class="form-control" id="upc" placeholder="UPC"></td>
-                </tr>
-                <tr>
-                    <td align="center" colspan="2">
-                        <button class="btn btn-default" onclick="SubmitDelete();" >Rechercher</button>
-                        <button type="reset" onclick="ResetSupprimer();" class="btn btn-default">Annuler</button>
-                    </td>
-                </tr>
+                <tbody" id="formulaire">
+                    <tr>
+                        <td align="center" colspan="2">
+                            <label for="titre"><i>Pour entrer une commande inscriver le code UPC,quantite et Description </i><br></label>
+                        </td>
+                        <td align="center" colspan="2">
+                            <label for="titre"><i>Rechercher par le nom ou l'UPC</i><br>Ne pas remplir les champs permet de tout lister les items</label>
+                        </td>
+                    </tr>
+                    <tr align="left">
+                        <td align="right"><label for="upc">UPC1 :</label></td>
+                        <td align="left"><input type="text" class="form-control" id="upcCommande" placeholder="UPC"></td>
+                        <td align="right"><label for="name">Nom2 :</label></td>
+                        <td><input type="text" class="form-control" id="name" placeholder="Nom"></td>
+                    </tr>
+                    <tr align="left">
+                        <td align="right"><label for="qtCommande">Quantité1 :</label></td>
+                        <td align="left"><input type="text" class="form-control" id="qtCommande" placeholder="Quantité"></td>
+                        <td align="right"><label for="upc">UPC2 :</label></td>
+                        <td><input type="text" class="form-control" id="upc" placeholder="UPC"></td>
+                    </tr>
+                    <tr align="left">
+                        <td align="right"><label for="descriptionCommande">Description1 :</label></td>
+                        <td align="left"><input type="text" class="form-control" id="descriptionCommande" placeholder="Couleur=bleu,Longueur=12 cm"></td>
+                        <td align="right"><label for="etatCommande">Etat2 :</label></td>
+                        <td align="left"><input type="text" class="form-control" id="etatCommande" placeholder="0"></td>
+                    </tr>
+                    <tr>
+                        <td align="center" colspan="2">
+                            <br>
+                        </td>
+                        <td align="center" colspan="2">
+                            <label for="titre"><i>Cliquer sur une ligne pour avoir plus d'informations sur l'item</i></label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center" colspan="2">
+                            <button class="btn btn-default" onclick="CreateCommande();" >Envoyer la commande</button>
+                            <button onclick="ResetCreateCommande();" class="btn btn-default">Annuler</button>
+                        </td>
+                        <td align="center" colspan="2">
+                            <button class="btn btn-default" onclick="SubmitCommande();" >Rechercher</button>
+                            <button onclick="ResetRechercheCommande();" class="btn btn-default">Annuler</button>
+                            <input type="checkbox" id="retard" value="1"> retard
+                        </td>
+                    </tr>
                 </tbody>
                 <!--Table body-->
             </table>
             <!--Table-->
-            <!--Table-->
-            <table id="tableRetirer" class="table table-bordered">
+            <table id="tablePreview" class="table table-bordered">
                 <!--Table head-->
                 <thead align="center">
                 <tr>
-                    <th>UPC</th>
+                    <th>Id</th>
                     <th>Nom</th>
                     <th>Description</th>
+                    <th>Quantité commandé</th>
+                    <th>Livraison prévu le</th>
+                    <th>Etat</th>
                     <th>Emplacement</th>
-                    <th>Quantité</th>
-                    <th>Quantité à enlever</th>
-                    <th>Bouton</th>
+                    <th>Boutton</th>
                 </tr>
                 </thead>
                 <!--Table head-->

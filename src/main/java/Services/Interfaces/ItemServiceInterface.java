@@ -71,4 +71,5 @@ public interface ItemServiceInterface {
 
     boolean ModifyItem(int id, String description) throws ExceptionCustom;
     Item trouverSimilaire(int idItemInfo,String emplacement,String description);
+    Item trouverSimilaire(int idItemInfo,String description);
 }

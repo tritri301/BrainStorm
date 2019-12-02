@@ -30,7 +30,7 @@ public class VerificationService implements VerificationServiceInterface {
     public boolean verifier(int integer) {
         boolean valide = false;
 
-        if (integer >= 1) {
+        if (integer >= 0) {
             valide = true;
         }
 
@@ -247,7 +247,6 @@ public class VerificationService implements VerificationServiceInterface {
             }
 
         return valide;
-        //testbranchsimon
     }
 
     @Override

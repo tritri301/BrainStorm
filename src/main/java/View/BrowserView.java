@@ -1,18 +1,9 @@
 package View;
 
-import Controllers.ContainerController;
-import Controllers.ItemController;
-import Controllers.ItemInfoController;
-import Controllers.UserController;
-import Factory.ContainerFactory;
-import Factory.ItemFactory;
-import Factory.ItemInfoFactory;
-import Factory.UserFactory;
+import Controllers.*;
+import Factory.*;
 import Models.Item;
-import Repositories.ContainerRepository;
-import Repositories.ItemInfoRepository;
-import Repositories.ItemRepository;
-import Repositories.UserRepository;
+import Repositories.*;
 import Services.*;
 import javafx.application.Application;
 import javafx.scene.control.Alert;
@@ -52,23 +43,27 @@ public class BrowserView extends Application{
         ItemInfoController itemInfoController = ItemInfoController.GetInstance();
         ContainerController containerController = ContainerController.GetInstance();
         UserController userController = UserController.GetInstance();
+        CommandeController commandeController = CommandeController.GetInstance();
+
 
         ContainerFactory containerFactory = ContainerFactory.GetInstance();
         ItemFactory itemFactory = ItemFactory.GetInstance();
         ItemInfoFactory itemInfoFactory = ItemInfoFactory.GetInstance();
         UserFactory userFactory = UserFactory.GetInstance();
+        CommandeFactory commandeFactory = CommandeFactory.GetInstance();
 
         ContainerRepository containerRepository = ContainerRepository.GetInstance();
         ItemInfoRepository itemInfoRepository = ItemInfoRepository.GetInstance();
         ItemRepository itemRepository = ItemRepository.GetInstance();
         UserRepository userRepository = UserRepository.GetInstance();
+        CommandeRepository commandeRepository = CommandeRepository.GetInstance();
 
         ContainerService containerService = ContainerService.GetInstance();
         ItemInfoService itemInfoService = ItemInfoService.GetInstance();
         ItemService itemService = ItemService.GetInstance();
         UserService userService = UserService.GetInstance();
         VerificationService verificationService = VerificationService.GetInstance();
-
+        CommandeService commandeService = CommandeService.GetInstance();
 
         stage.setScene(scene);
         stage.setMaximized(true);

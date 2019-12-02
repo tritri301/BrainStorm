@@ -57,7 +57,7 @@ public class ItemService implements ItemServiceInterface {
                         throw exceptionErreurBD;
                     }
                 } catch (Exception e) {
-                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("l'objet que vous recherché est introuvable");
+                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("l'objet que vous recherché est introuvable par quantite");
                     throw exceptionErreurBD;
                 }
             } else {
@@ -242,14 +242,8 @@ public class ItemService implements ItemServiceInterface {
             if (valideId) {
                 if (connection == null) {
                     try {
-                        if(this.itemRepository.FindById(id).getQuantite() < quantite || quantite < 1)
-                        {
-                            throw new ExceptionCustom("La quantité entrée est invalide!");
-                        }
-                        else
-                        {
+                        //verifier Quantite
                             this.itemRepository.Delete(id, quantite);
-                        }
                     }catch(ExceptionCustom e) {
                         throw e;
                     } catch (Exception e) {
@@ -287,20 +281,9 @@ public class ItemService implements ItemServiceInterface {
                     if (verificationService.emplacementExist(emplacementNouveau))
                     {
                         Item item = FindById(id);
-                        if (item.getQuantite() == 1) {
-                            //update emplacement
-                            Update(id,item.getIdItemInfo(),emplacementNouveau,item.getDescription(),item.getQuantite());
-                        } else {
-                            Update(id,item.getIdItemInfo(),item.getEmplacement(),item.getDescription(),item.getQuantite() - quantite);
-
-
-                            Create(item.getIdItemInfo(),emplacementNouveau,item.getDescription(),quantite);
-                            //TODO si 0 supprimer
-
-                            //Update(id,item.getIdItemInfo(),emplacementNouveau,item.getDescription(),item.getQuantite() + quantite);
-                            // ajouter avec le nouvel emplacement avec la quantite voulu
-                            // update de l 'ancien diminuer quantite'
-                        }
+                        Update(id,item.getIdItemInfo(),item.getEmplacement(),item.getDescription(),item.getQuantite() - quantite);
+                        Delete(id,0);
+                        Create(item.getIdItemInfo(),emplacementNouveau,item.getDescription(),quantite);
                     }
                     else
                     {
@@ -386,6 +369,19 @@ public class ItemService implements ItemServiceInterface {
         }
 
         return item;
+    }
+
+    @Override
+    public Item trouverSimilaire(int idItemInfo, String description) {
+
+            Item item = null;
+            try {
+                item = itemRepository.findSimilar(idItemInfo,description);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return item;
     }
 
     public static ItemService GetInstance()

@@ -30,6 +30,13 @@ public class ItemController implements ItemControllerInterface
         return item;
     }
 
+    @Override
+    public Item trouverSimilaire(int idItemInfo, String emplacement, String description) {
+        Item item =  null;
+        item = itemService.trouverSimilaire(idItemInfo, emplacement, description);
+        return item;
+    }
+
 
     @Override
     public int FindAmountById(int id) {

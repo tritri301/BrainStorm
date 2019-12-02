@@ -9,7 +9,6 @@ import java.util.List;
  */
 public interface ContainerServiceInterface {
 
-
     Container FindById(String emplacement) throws ExceptionCustom;
 
     /**
@@ -20,7 +19,6 @@ public interface ContainerServiceInterface {
     List<Container> FindAll() throws ExceptionCustom;
 
     //List<Container> FindByName(String name);
-
 
     boolean Update(String emplacement, int volume,int volumeMax,int poids, int poidsMax, String emplacementParent) throws ExceptionCustom;
 

@@ -59,6 +59,22 @@ public class ItemRepository implements ItemRepositoryInterface {
     }
 
     @Override
+    public Item findSimilar(int idItemInfo, String description) throws SQLException {
+        PreparedStatement stmt = con.prepareStatement("select * from item where idIteminfo = ? and emplacement IS NULL and description = ?");
+        stmt.setInt(1, idItemInfo);
+        stmt.setString(2, description);
+        stmt.execute();
+
+        ResultSet rs = stmt.getResultSet();
+        if(rs.next())
+        {
+            return itemFactory.Create(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4),rs.getInt(5));
+        }else{
+            return null;
+        }
+    }
+
+    @Override
     public List<Item> FindAll() throws Exception {
         List<Item> item = new ArrayList<>();
         Statement stmt = con.createStatement();
@@ -79,7 +95,7 @@ public class ItemRepository implements ItemRepositoryInterface {
     public void Delete(int id, int quantite) throws Exception {
         int quantiteFinale = this.FindById(id).getQuantite() - quantite;
         PreparedStatement stmt;
-        if(quantiteFinale != 0) {
+        if(quantiteFinale > 0) {
             stmt = con.prepareStatement("update item set quantite = " + quantiteFinale +" where idItem = " + id);
         }else{
             stmt = con.prepareStatement("delete from item where idItem = " + id);

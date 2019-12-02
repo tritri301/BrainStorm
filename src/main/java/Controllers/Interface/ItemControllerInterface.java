@@ -8,6 +8,7 @@ import java.util.List;
 public interface ItemControllerInterface
 {
     Item FindById(int id);
+    Item trouverSimilaire(int idItemInfo,String emplacement,String description);
 
     /**
      * Find by id item.

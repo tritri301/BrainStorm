@@ -1,8 +1,12 @@
 package View;
 
+import Controllers.CommandeController;
+import Controllers.ItemCommandeController;
 import Controllers.ItemController;
 import Controllers.ItemInfoController;
+import Models.Commande;
 import Models.Item;
+import Models.ItemCommande;
 import Models.ItemInfo;
 import Services.ItemInfoService;
 import javafx.scene.control.Dialog;
@@ -20,20 +24,20 @@ import netscape.javascript.JSObject;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class Browser extends BorderPane {
     private static final View.Browser instance = new View.Browser();
     private WebView browser = new WebView();
     private WebEngine webEngine = browser.getEngine();
     private JSObject window = (JSObject) webEngine.executeScript("window");
+    private JavaApp javaApp;
 
     //Browser constructor
     public Browser() {
         //add components
         setCenter(browser);
+       javaApp = new JavaApp();
 
         //add listenners
         webEngine.getLoadWorker().stateProperty().addListener(
@@ -45,7 +49,7 @@ public class Browser extends BorderPane {
                         }
 
                         JSObject window = (JSObject) webEngine.executeScript("window");
-                        window.setMember("JavaApp", new JavaApp());
+                        window.setMember("JavaApp", javaApp);
                     }
                 });
         webEngine.setOnAlert(event -> {
@@ -236,7 +240,6 @@ public class Browser extends BorderPane {
         {
             ItemController itemController = ItemController.GetInstance();
 
-
             if(itemController.MoveItem(id,quantite,emplacementNouveau))
             {
                 Alert("Objet déplacé avec succes");
@@ -257,5 +260,87 @@ public class Browser extends BorderPane {
             return false;
         }
 
+        //--------------------MODULE COMMANDE---------------------------------------
+
+        //Cette fonction créer une commande et une commandeItem avec les paramètres reçus en javascrpt
+        //CommandeItem est une table d'item commandé pour commande
+        public boolean CreateCommande(int upc,int quantite,String description)
+        {
+            boolean valide = false;
+            int id;
+            //Aller chercher dans UserController le nom User en cours
+            String nomPEnvoi = "AnnonymeQuiEnvoi";
+
+            CommandeController commandeController = CommandeController.GetInstance();
+            ItemCommandeController itemCommandeController = ItemCommandeController.GetInstance();
+
+            //La fonction create de commande retourne l'id de son insertion
+            id = commandeController.Create(nomPEnvoi);
+
+            //premier parametre a 0 car il sera ignoré
+            if (itemCommandeController.Create(0,id,upc,description,quantite))
+            {
+                valide = true;
+                Alert("Commande ajouté avec succes");
+            }
+
+            return valide;
+        }
+
+        //Cette fonction update une commande et crée un item avec les paramètres reçus en javascrpt
+        public boolean RecevoirCommande(int idItemCommande,String emplacement)
+        {
+            //Aller chercher dans UserController le nom User en cours
+            String nomPRecu = "AnnonymeQuiRecoit";
+            CommandeController commandeController = CommandeController.GetInstance();
+            ItemController itemController = ItemController.GetInstance();
+            ItemCommandeController itemCommandeController = ItemCommandeController.GetInstance();
+
+            ItemCommande itemCommande = itemCommandeController.FindById(idItemCommande);
+            Commande commande = commandeController.FindById(itemCommande.getIdCommande());
+
+            if(commandeController.Update(commande.getIdCommande(),2,nomPRecu))
+            {
+                if (itemController.Create(itemCommande.getIdItemInfo(),emplacement,itemCommande.getDescription(), itemCommande.getQuantite()))
+                {
+                    Alert("Commande recu avec succes");
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        //Cette fonction retourne les données recherchées à la fonction JavaSripts ShowItem
+        public void ListAllCommande(int upc,String name,int etat,boolean retard)
+        {
+            java.sql.Date dateNow = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+
+            CommandeController commandeController = CommandeController.GetInstance();
+            ItemCommandeController itemCommandeController = ItemCommandeController.GetInstance();
+            ItemInfoController itemInfoController = ItemInfoController.GetInstance();
+            ItemController itemController = ItemController.GetInstance();
+            List<ItemCommande> itemCommandeList = itemCommandeController.FindAll();
+
+            for (ItemCommande itemCommandeTmp : itemCommandeList) {
+                ItemInfo itemInfoTmp = itemInfoController.FindById(itemCommandeTmp.getIdItemInfo());
+                Commande commande = commandeController.FindById(itemCommandeTmp.getIdCommande());
+                if (itemCommandeTmp.getIdItemInfo() == upc || upc == -1) {
+                    if (itemInfoTmp.getNom().equals(name) || name.equals("-1")) {
+                        if (commande.getEtat() == etat || etat == -1) {
+                            if (commande.getDateLivraisonPrevu().before(dateNow) || !retard) {
+                                window.call("ShowCommandeItem",
+                                        itemCommandeTmp.getIdItemCommande(),
+                                        itemInfoTmp.getNom(),
+                                        itemCommandeTmp.getDescription(),
+                                        itemCommandeTmp.getQuantite(),
+                                        commande.getDateLivraisonPrevu(),
+                                        commande.getEtat());
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }

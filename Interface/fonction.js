@@ -126,6 +126,7 @@ function ShowItemRapport()
     }
     document.getElementById("table2").appendChild(row);
 }
+
 function ShowDeleteItem()
 {
     var row = document.createElement("tr");
@@ -237,3 +238,195 @@ function SetTablette(nbTablette)
 {
     document.getElementById("TxtBoxTablette").value = nbTablette;
 }
+
+// -----------------MODULE COMMANDE -------------------------------------------------
+
+//Cette fonction appelle l’application java pour créer une commande
+function CreateCommande()
+{
+   var upcCommande = document.getElementById("upcCommande").value;
+   var qtCommande = document.getElementById("qtCommande").value;
+   var descriptionCommande = document.getElementById("descriptionCommande").value;
+
+   if(window.JavaApp.CreateCommande(upcCommande,qtCommande,descriptionCommande))
+   {
+      ResetCreateCommande();
+   }
+}
+
+//Cette fonction vide les champs d'envoi de commande
+function ResetCreateCommande()
+{
+   document.getElementById("upcCommande").value = " ";
+   document.getElementById("qtCommande").value = " ";
+   document.getElementById("descriptionCommande").value = " ";
+}
+
+//Cette fonction vide les champs de recherche
+function ResetRechercheCommande()
+{
+   document.getElementById("name").value = " ";
+   document.getElementById("upc").value = " ";
+   document.getElementById("etatCommande").value = " ";
+}
+
+//Cette fonction trouve les commandes a afficher
+// son nom devrait etre AfficherToutCommande
+function SubmitCommande()
+{
+    upc = document.getElementById("upc").value;
+    etat = document.getElementById("etatCommande").value;
+    name = document.getElementById("name").value;
+    myNode = document.getElementById("table1");
+    retardCheckBox = document.getElementById("retard");
+
+    //Deletes all existing entries
+    while (myNode.firstChild) {
+        myNode.removeChild(myNode.firstChild);
+    }
+
+    if(upc == "")
+    {
+        upc = -1;
+    }
+
+    if (name == "")
+    {
+     name = "-1";
+    }
+
+    if (etat == "")
+    {
+     etat = -1;
+    }
+
+  if (retardCheckBox.checked == true){
+    retard = true;
+  } else {
+    retard = false;
+  }
+
+    window.JavaApp.ListAllCommande(upc,name,etat,retard);
+}
+
+function SetRangerC(id,nbRanger)
+{
+    document.getElementById("r"+id).value = nbRanger;
+}
+function SetEtagereC(id,nbEtagere)
+{
+    document.getElementById("e"+id).value = nbEtagere;
+}
+function SetTabletteC(id,nbTablette)
+{
+    document.getElementById("t"+id).value = nbTablette;
+}
+
+function formatDate(date) {
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2)
+        month = '0' + month;
+    if (day.length < 2)
+        day = '0' + day;
+
+    return [year, month, day].join('-');
+}
+
+//Cette fonction fait afficher les commandes
+function ShowCommandeItem()
+{
+    var row = document.createElement("tr");
+    var column;
+    for(var i = 0; i < 6; i++)
+    {
+
+      if (i==4)
+      {
+         var dateLivraison = arguments[i];
+
+         var d = new Date();
+         var dCommande = new Date(dateLivraison);
+
+         if (dCommande > d)
+         {
+          column = document.createElement("td");
+          column.innerHTML = arguments[i];
+          row.appendChild(column);
+         }
+         else
+         {
+            column = document.createElement("td");
+            column.innerHTML = "<p style='color:red;'>"+arguments[i]+"</p>";
+            row.appendChild(column);
+         }
+
+      }else
+      {
+       column = document.createElement("td");
+       column.innerHTML = arguments[i];
+       row.appendChild(column);
+      }
+    }
+    column2 = document.createElement("td");
+    column3 = document.createElement("td");
+
+    if (arguments[5] != 2)
+    {
+        column2.innerHTML = "<div class='btn-group'> <div class='dropdown'> <button class='btn btn-primary dropdown-toggle' type='button' data-toggle='dropdown'>Rangée<span class='caret'></span></button><ul class='dropdown-menu'> <li><a href='#' onclick='SetRangerC("+ arguments[0]+","+"this.innerHTML)'>0</a></li><li><a href='#' onclick='SetRangerC("+ arguments[0]+","+"this.innerHTML)'>1</a></li><li><a href='#' onclick='SetRangerC("+ arguments[0]+","+"this.innerHTML)'>2</a></li><li><a href='#' onclick='SetRangerC("+ arguments[0]+","+"this.innerHTML)'>3</a></li></ul> <div> <input id="+"'r"+ arguments[0]+"'"+"class='form-control' type='text' size='6' readonly></div> </div> </div><div class='btn-group'> <div class='dropdown'> <button class='btn btn-primary dropdown-toggle' type='button' data-toggle='dropdown'>Étagère<span class='caret'></span></button> <ul class='dropdown-menu'> <li><a href='#' onclick='SetEtagereC("+ arguments[0]+","+"this.innerHTML)'>0</a></li><li><a href='#' onclick='SetEtagereC("+ arguments[0]+","+"this.innerHTML)'>1</a></li><li><a href='#' onclick='SetEtagereC("+ arguments[0]+","+"this.innerHTML)'>2</a></li><li><a href='#' onclick='SetEtagereC("+ arguments[0]+","+"this.innerHTML)'>3</a></li><li><a href='#' onclick='SetEtagereC("+ arguments[0]+","+"this.innerHTML)'>4</a></li><li><a href='#' onclick='SetEtagereC("+ arguments[0]+","+"this.innerHTML)'>5</a></li><li><a href='#' onclick='SetEtagereC("+ arguments[0]+","+"this.innerHTML)'>6</a></li><li><a href='#' onclick='SetEtagereC("+ arguments[0]+","+"this.innerHTML)'>7</a></li></ul> <div> <input id="+"'e"+ arguments[0]+"'"+ "class='form-control' type='text' size='6' readonly></div> </div> </div><div class='btn-group'> <div class='dropdown'> <button class='btn btn-primary dropdown-toggle' type='button' data-toggle='dropdown'>Tablette<span class='caret'></span></button><ul class='dropdown-menu'> <li><a href='#' onclick='SetTabletteC("+ arguments[0]+","+"this.innerHTML)'>Planché</a></li><li><a href='#' onclick='SetTabletteC("+ arguments[0]+","+"this.innerHTML)'>1</a></li><li><a href='#' onclick='SetTabletteC("+ arguments[0]+","+"this.innerHTML)'>2</a></li><li><a href='#' onclick='SetTabletteC("+ arguments[0]+","+"this.innerHTML)'>3</a></li><li><a href='#' onclick='SetTabletteC("+ arguments[0]+","+"this.innerHTML)'>4</a></li><li><a href='#' onclick='SetTabletteC("+ arguments[0]+","+"this.innerHTML)'>5</a></li></ul> <div> <input id="+"'t"+ arguments[0]+"'"+ "class='form-control' type='text' size='6' readonly></div> </div> </div>";
+        column3.innerHTML = "<button class='btn btn-default' onclick='RecevoirCommande(" + arguments[0] +");' >Recevoir Commande</button>";
+    }
+
+    row.appendChild(column);
+    row.appendChild(column2);
+    row.appendChild(column3);
+
+    document.getElementById("table1").appendChild(row);
+}
+
+//Cette fonction reçoit une commande
+function RecevoirCommande(id)
+{
+   var ranger = document.getElementById("r"+id).value;
+   var etagere = document.getElementById("e"+id).value;
+   var tablette = document.getElementById("t"+id).value;
+
+   if (ranger != "")
+   {
+    if (etagere != "")
+    {
+        if (tablette != "")
+        {
+             if(tablette == "Planché")
+               {
+                 tablette = 0;
+               }
+
+               var nouvelleEmplacement = "R" + ranger + "-E" + etagere + "-T" + tablette;
+
+               if(window.JavaApp.RecevoirCommande(id,nouvelleEmplacement))
+               {
+                 //refresh
+               }
+        }
+        else
+        {
+            alert("la tablette est invalid");
+        }
+    }
+    else
+    {
+        alert("l'etagere est invalid");
+    }
+   }
+   else
+   {
+     alert("la ranger est invalid");
+   }
+}
+
+//--------------------FIN MODULE COMMANDE---------------------------------------
+

@@ -1,7 +1,15 @@
+import Controllers.CommandeController;
 import Controllers.ItemController;
+import Factory.CommandeFactory;
 import Factory.ItemFactory;
+import Models.Commande;
 import Models.Item;
+import Models.ItemCommande;
+import Repositories.CommandeRepository;
 import Repositories.ItemRepository;
+import Services.CommandeService;
+import Services.ItemCommandeService;
+import Services.ItemService;
 import Services.VerificationService;
 
 import java.io.Console;
@@ -13,32 +21,32 @@ public class main
     public static void main(String[] args) {
 
 		ItemRepository itemRepository = ItemRepository.GetInstance();
+		ItemService itemService = ItemService.GetInstance();
 		ItemFactory itemFactory = ItemFactory.GetInstance();
 		VerificationService verif = VerificationService.GetInstance();
 
-		Item item = itemFactory.Create(0, 1, "111-111-111", "item creer sans id",1);
-		//try {
-		//	String string = "Éèèà!$?&";
-			//String string = "847-232-213";
-		//	System.out.print(verif.normalisation(string));
-		//} catch (Exception e) {
-		//	e.printStackTrace();
+		CommandeRepository commandeRepository = CommandeRepository.GetInstance();
+		CommandeFactory commandeFactory = CommandeFactory.GetInstance();
+		CommandeService commandeService = CommandeService.GetInstance();
+		ItemCommandeService itemCommandeService = ItemCommandeService.GetInstance();
 
-		//etstst
 
+		Commande commande = null;
+
+		int idItem = 259;
+		String description;
+		int quantite = 100;
 		String emplacement = "R0-E0-T0";
 
-		//tester normaliser
+		try {
+			//itemCommandeService.Create(1,1,1,"test",1);
+			int id = 0;
 
+			id = commandeService.Create("boby");
+			System.out.println("Voici l'id generer : "+id);
 
-
-		if (verif.itemExist(2))
-		{
-			System.out.print("item existant !!!!");
-		}
-		else
-		{
-			System.out.print("n'existe PAS !!!");
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 
     }
