@@ -57,13 +57,8 @@ But du fichier :    Afficher la page du site qui permet de creer un rapport d'it
 			<td align="right"><label for="optionTri">Option de tri :</label></td>
 			<td align="left">
 				<select name="tri" id="optionTri">
-					<option value="aucun">Aucun</option>
-					<option value="id">Id</option>
-					<option value="nom">Nom</option>
-					<option value="emplacement">Emplacement</option>
-					<option value="poids">Poids</option>
-					<option value="volume">Volume</option>
-					<option value="quantite">Quantité</option>
+					<option value="aucun">Ascendant</option>
+					<option value="id">Descendant</option>
 				</select>
 			</td>
 		</tr>
@@ -72,8 +67,7 @@ But du fichier :    Afficher la page du site qui permet de creer un rapport d'it
 	<div class="row">
 		<div class="col" id="titre">
 			<button align="center" id="btnRapportCSV" class="btn btn-default" onclick="CreateCSVFile();" >Générer fichier CSV</button>
-            <button align="center" id="btnRapportEx" class="btn btn-default" onclick="CreateExcelFile();" >Générer fichier Excel</button>
-			<button align="center" class="btn btn-default" onclick="CreatePDFFile();" >Générer fichier PDF</button>
+            <button align="center" id="btnRapportEx" class="btn btn-default" disabled onclick="CreateExcelFile();" >Générer fichier Excel</button>
 		</div>
 	</div>
 	<div class="row" id="sectionBlanc">
