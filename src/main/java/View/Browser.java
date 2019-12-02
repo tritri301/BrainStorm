@@ -27,11 +27,10 @@ public class Browser extends BorderPane {
     private WebView browser = new WebView();
     private WebEngine webEngine = browser.getEngine();
     private JSObject window = (JSObject) webEngine.executeScript("window");
-    private JavaApp javaApp;
+    private JavaApp javaApp = new JavaApp();
 
     //Browser constructor
     public Browser() {
-        javaApp = new JavaApp();
         //add components
         setCenter(browser);
         //add listenners

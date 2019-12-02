@@ -46,6 +46,29 @@ public class BrowserView extends Application{
         stage.getIcons().add(icone);
 
         scene = new Scene(Browser.GetInstance(),Color.BLACK);
+        ItemController itemController = ItemController.GetInstance();
+        ItemInfoController itemInfoController = ItemInfoController.GetInstance();
+        ContainerController containerController = ContainerController.GetInstance();
+        UserController userController = UserController.GetInstance();
+
+        ContainerFactory containerFactory = ContainerFactory.GetInstance();
+        ItemFactory itemFactory = ItemFactory.GetInstance();
+        ItemInfoFactory itemInfoFactory = ItemInfoFactory.GetInstance();
+        UserFactory userFactory = UserFactory.GetInstance();
+
+        ContainerRepository containerRepository = ContainerRepository.GetInstance();
+        ItemInfoRepository itemInfoRepository = ItemInfoRepository.GetInstance();
+        ItemRepository itemRepository = ItemRepository.GetInstance();
+        UserRepository userRepository = UserRepository.GetInstance();
+
+        ContainerService containerService = ContainerService.GetInstance();
+        ItemInfoService itemInfoService = ItemInfoService.GetInstance();
+        ItemService itemService = ItemService.GetInstance();
+        UserService userService = UserService.GetInstance();
+        VerificationService verificationService = VerificationService.GetInstance();
+
+        RoleController roleController = RoleController.getInstance();
+        ConnectedUser connectedUser = ConnectedUser.GetInstance();
 
 
         stage.setScene(scene);
