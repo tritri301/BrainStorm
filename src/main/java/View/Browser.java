@@ -20,9 +20,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+
 
 public class Browser extends BorderPane {
     private static final View.Browser instance = new View.Browser();
@@ -48,6 +47,12 @@ public class Browser extends BorderPane {
                         JSObject window = (JSObject) webEngine.executeScript("window");
                         window.setMember("JavaApp", javaApp);
                         window.call("CheckPermission");
+                        window.call("showListFolder");
+
+                        if(webEngine.getLocation().equals("file:///" + System.getProperty("user.dir") + "/Interface/rapport.html"))
+                        {
+                            window.call("showListFolder");
+                        }
                     }
                 });
 
@@ -362,18 +367,23 @@ public class Browser extends BorderPane {
                 Alert("Une erreur c'est produite");
             }
         }
-        public void afficherRapportInterface() {
-            File f = new File("."); // current directory
+        public void ShowRapportInterface(String tri) {
+            File f = new File("Rapport\\"); // current directory
 
             File[] files = f.listFiles();
+            if (tri.equals("true")) Arrays.sort(files);
+            else if (tri.equals("false"))Arrays.sort(files, Collections.reverseOrder());
+
             for (File file : files) {
                 if (file.isDirectory()) {
-                    System.out.print("directory:");
+                    //System.out.print("directory:");
                 } else {
-                    System.out.print("     file:");
+                    //System.out.print("     file:");
                 }
                 try {
-                    System.out.println(file.getCanonicalPath());
+                    window.call("createTable",file.getCanonicalPath());
+                    String nameFile=file.getCanonicalPath();
+
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
