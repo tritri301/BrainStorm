@@ -15,6 +15,12 @@ import Services.VerificationService;
 import java.io.Console;
 import java.sql.*;
 import java.util.List;
+import java.io.InputStream;
+
+import com.jcraft.jsch.Channel;
+import com.jcraft.jsch.ChannelExec;
+import com.jcraft.jsch.JSch;
+import com.jcraft.jsch.Session;
 
 public class main
 {
@@ -31,24 +37,51 @@ public class main
 		ItemCommandeService itemCommandeService = ItemCommandeService.GetInstance();
 
 
-		Commande commande = null;
 
-		int idItem = 259;
-		String description;
-		int quantite = 100;
-		String emplacement = "R0-E0-T0";
 
-		try {
-			//itemCommandeService.Create(1,1,1,"test",1);
-			int id = 0;
 
-			id = commandeService.Create("boby");
-			System.out.println("Voici l'id generer : "+id);
+				String host="10.20.40.40";
+				String user="pi";
+				String password="raspberry";
+				String command1="mysqldump --routines -u BrainStorm -pinfo420 EquipeTristan_BD";
+				try{
 
-		} catch (Exception e) {
-			e.printStackTrace();
+					java.util.Properties config = new java.util.Properties();
+					config.put("StrictHostKeyChecking", "no");
+					JSch jsch = new JSch();
+					Session session=jsch.getSession(user, host, 22);
+					session.setPassword(password);
+					session.setConfig(config);
+					session.connect();
+					System.out.println("Connected");
+
+					Channel channel=session.openChannel("exec");
+					((ChannelExec)channel).setCommand(command1);
+					channel.setInputStream(null);
+					((ChannelExec)channel).setErrStream(System.err);
+
+					InputStream in=channel.getInputStream();
+					channel.connect();
+					byte[] tmp=new byte[1024];
+					while(true){
+						while(in.available()>0){
+							int i=in.read(tmp, 0, 1024);
+							if(i<0)break;
+							System.out.print(new String(tmp, 0, i));
+						}
+						if(channel.isClosed()){
+							System.out.println("exit-status: "+channel.getExitStatus());
+							break;
+						}
+						try{Thread.sleep(1000);}catch(Exception ee){}
+					}
+					channel.disconnect();
+					session.disconnect();
+					System.out.println("DONE");
+				}catch(Exception e){
+					e.printStackTrace();
+				}
+
+			}
+
 		}
-
-    }
-
-}

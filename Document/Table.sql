@@ -4,7 +4,7 @@ drop table if exists itemInfo;
 drop table if exists user;
 drop table if exists role;
 drop table if exists commande;
-drop table if exists TtemCommande;
+drop table if exists ItemCommande;
 
 create table itemInfo(
 	idItemInfo int primary key,
@@ -34,21 +34,21 @@ create table item(
 
 CREATE TABLE commande (
   idCommande int(11) NOT NULL AUTO_INCREMENT,
-  DateCommande datetime DEFAULT NULL,
-  DateLivraison datetime DEFAULT NULL,
+  DateCommande datetime,
+  DateLivraison datetime,
   Etat int(11) NOT NULL DEFAULT '0',
-  DateLivraisonPrevu datetime DEFAULT NULL,
-  nomPEnvoi varchar(45) DEFAULT NULL,
-  nomPRecu varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`idCommande`)
+  DateLivraisonPrevu datetime,
+  nomPEnvoi varchar(45),
+  nomPRecu varchar(45),
+  PRIMARY KEY (idCommande)
 );
 
 CREATE TABLE ItemCommande (
   idItemCommande int(11) NOT NULL AUTO_INCREMENT,
-  IdCommande int(11) DEFAULT NULL,
-  idItemInfo int(11) DEFAULT NULL,
-  description varchar(45) DEFAULT NULL,
-  quantite int(11) DEFAULT NULL,
+  IdCommande int(11),
+  idItemInfo int(11),
+  description varchar(45),
+  quantite int(11),
   PRIMARY KEY (idItemCommande)
 );
 
@@ -61,7 +61,7 @@ create table role(
 create table user(
     idUser int primary key,
     email varchar(45) not null,
-    password varchar(45) not null,
+    password varchar(150) not null,
     poste varchar(45),
     lastName varchar(45) not null,
     firstName varchar(45) not null,
@@ -271,4 +271,10 @@ insert into itemInfo values('1', 'bleu', 'clou', '1', '1');
 insert into itemInfo values('2', 'bleu', 'chaussure', '1', '1');
 insert into itemInfo values('3', 'bleu', 'ordinateur', '1', '1');
 insert into itemInfo values('4', 'bleu', 'vis', '1', '1');
+
+insert into role values(default, '0000000000000000000000000000', 'NoPerm');
+insert into role values(default, '1111111111111111111111111111', 'Admin');
+
+insert into user values('342', 'test@test.com', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', null, 'coude', 'tristan', null, '1');
+insert into user values('345', 'admin@test.com', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', null, 'admin', 'admin', null, '2');
 
