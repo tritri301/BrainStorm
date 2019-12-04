@@ -11,11 +11,17 @@ import java.util.List;
 
 //Les controller sert à appeler mes services
 
+/**
+ * The type Report controller.
+ */
 public class ReportController implements ReportControllerInterface{
 
     private static final ReportController instance = new ReportController();
     private ReportService reportService = ReportService.GetInstance();
     private ItemInfoService itemInfoService = ItemInfoService.GetInstance();
+    /**
+     * The Browser.
+     */
     Browser browser = Browser.GetInstance();
 
     public List<ItemInfo> FindAll() {
@@ -31,6 +37,11 @@ public class ReportController implements ReportControllerInterface{
         return itemInfoList;
     }
 
+    /**
+     * Get instance report controller.
+     *
+     * @return the report controller
+     */
     public static ReportController GetInstance()
     {
         return instance;

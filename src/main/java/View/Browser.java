@@ -171,6 +171,7 @@ public class Browser extends BorderPane {
                 ItemInfo tmp = itemInfoController.FindById(itemList.get(i).getIdItemInfo());
                 window.call("ShowItem", tmp.getIdItemInfo(),
                         tmp.getNom(),
+                        tmp.getDescription(),
                         itemList.get(i).getEmplacement(),
                         tmp.getPoids(),
                         tmp.getVolume(),
@@ -454,7 +455,9 @@ public class Browser extends BorderPane {
                                         itemCommandeTmp.getDescription(),
                                         itemCommandeTmp.getQuantite(),
                                         commande.getDateLivraisonPrevu(),
-                                        commande.getEtat());
+                                        commande.getEtat(),
+                                        commande.getNomPEnvoi(),
+                                        commande.getNomPRecu());
                             }
                         }
                     }

@@ -5,6 +5,9 @@ import Models.Role;
 import Services.RoleService;
 import Exception.*;
 
+/**
+ * The type Role controller.
+ */
 public class RoleController implements RoleControllerInterface {
     private static final RoleController instance = new RoleController();
     private RoleService roleService = RoleService.GetInstance();
@@ -60,6 +63,11 @@ public class RoleController implements RoleControllerInterface {
         return ret;
     }
 
+    /**
+     * Gets instance.
+     *
+     * @return the instance
+     */
     public static RoleController getInstance()
     {
         return instance;

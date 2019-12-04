@@ -8,6 +8,9 @@ import Services.ItemInfoService;
 import java.util.List;
 
 
+/**
+ * The type Item info controller.
+ */
 public class ItemInfoController implements ItemInfoControllerInterface {
 
     private static final ItemInfoController instance = new ItemInfoController();
@@ -123,6 +126,11 @@ public class ItemInfoController implements ItemInfoControllerInterface {
         return delete;
     }
 
+    /**
+     * Get instance item info controller.
+     *
+     * @return the item info controller
+     */
     public static ItemInfoController GetInstance()
     {
         return instance;

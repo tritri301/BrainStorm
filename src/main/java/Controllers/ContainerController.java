@@ -10,6 +10,9 @@ import java.util.List;
 import Exception.*;
 
 
+/**
+ * The type Container controller.
+ */
 public class ContainerController implements ContainerControllerInterface {
 
     private static final ContainerController instance = new ContainerController();
@@ -39,6 +42,11 @@ public class ContainerController implements ContainerControllerInterface {
         return false;
     }
 
+    /**
+     * Get instance container controller.
+     *
+     * @return the container controller
+     */
     public static ContainerController GetInstance()
     {
         return instance;

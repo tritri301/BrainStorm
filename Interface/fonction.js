@@ -100,7 +100,6 @@ function ShowItem()
     {
          column = document.createElement("td");
          column.innerHTML = arguments[i];
-         column.setAttribute("onclick","Alert(" + "'" + arguments[2] + "'" + ");");
          row.appendChild(column);
     }
     document.getElementById("table1").appendChild(row);
@@ -239,6 +238,7 @@ function CreateCommande()
    var upcCommande = document.getElementById("upcCommande").value;
    var qtCommande = document.getElementById("qtCommande").value;
    var descriptionCommande = document.getElementById("descriptionCommande").value;
+   //document.getElementById("buttonEnvoyerCommande");
 
    if(window.JavaApp.CreateCommande(upcCommande,qtCommande,descriptionCommande))
    {
@@ -336,32 +336,29 @@ function ShowCommandeItem()
     for(var i = 0; i < 6; i++)
     {
 
-      if (i==4)
-      {
+      if (i==4){
          var dateLivraison = arguments[i];
 
          var d = new Date();
          var dCommande = new Date(dateLivraison);
 
-         if (dCommande > d)
+         column = document.createElement("td");
+
+         if (dCommande < d)
          {
-          column = document.createElement("td");
-          column.innerHTML = arguments[i];
-          row.appendChild(column);
+           column.innerHTML = "<p style='color:red;'>"+arguments[i]+"</p>";
          }
          else
          {
-            column = document.createElement("td");
-            column.innerHTML = "<p style='color:red;'>"+arguments[i]+"</p>";
-            row.appendChild(column);
+          column.innerHTML = arguments[i];
          }
+         row.appendChild(column);
 
-      }else
-      {
-       column = document.createElement("td");
-       column.innerHTML = arguments[i];
-       row.appendChild(column);
-      }
+     }else{
+           column = document.createElement("td");
+           column.innerHTML = arguments[i];
+           row.appendChild(column);
+     }
     }
     column2 = document.createElement("td");
     column3 = document.createElement("td");
@@ -370,6 +367,11 @@ function ShowCommandeItem()
     {
         column2.innerHTML = "<div class='btn-group'> <div class='dropdown'> <button class='btn btn-primary dropdown-toggle' type='button' data-toggle='dropdown'>Rangée<span class='caret'></span></button><ul class='dropdown-menu'> <li><a href='#' onclick='SetRangerC("+ arguments[0]+","+"this.innerHTML)'>0</a></li><li><a href='#' onclick='SetRangerC("+ arguments[0]+","+"this.innerHTML)'>1</a></li><li><a href='#' onclick='SetRangerC("+ arguments[0]+","+"this.innerHTML)'>2</a></li><li><a href='#' onclick='SetRangerC("+ arguments[0]+","+"this.innerHTML)'>3</a></li></ul> <div> <input id="+"'r"+ arguments[0]+"'"+"class='form-control' type='text' size='6' readonly></div> </div> </div><div class='btn-group'> <div class='dropdown'> <button class='btn btn-primary dropdown-toggle' type='button' data-toggle='dropdown'>Étagère<span class='caret'></span></button> <ul class='dropdown-menu'> <li><a href='#' onclick='SetEtagereC("+ arguments[0]+","+"this.innerHTML)'>0</a></li><li><a href='#' onclick='SetEtagereC("+ arguments[0]+","+"this.innerHTML)'>1</a></li><li><a href='#' onclick='SetEtagereC("+ arguments[0]+","+"this.innerHTML)'>2</a></li><li><a href='#' onclick='SetEtagereC("+ arguments[0]+","+"this.innerHTML)'>3</a></li><li><a href='#' onclick='SetEtagereC("+ arguments[0]+","+"this.innerHTML)'>4</a></li><li><a href='#' onclick='SetEtagereC("+ arguments[0]+","+"this.innerHTML)'>5</a></li><li><a href='#' onclick='SetEtagereC("+ arguments[0]+","+"this.innerHTML)'>6</a></li><li><a href='#' onclick='SetEtagereC("+ arguments[0]+","+"this.innerHTML)'>7</a></li></ul> <div> <input id="+"'e"+ arguments[0]+"'"+ "class='form-control' type='text' size='6' readonly></div> </div> </div><div class='btn-group'> <div class='dropdown'> <button class='btn btn-primary dropdown-toggle' type='button' data-toggle='dropdown'>Tablette<span class='caret'></span></button><ul class='dropdown-menu'> <li><a href='#' onclick='SetTabletteC("+ arguments[0]+","+"this.innerHTML)'>Planché</a></li><li><a href='#' onclick='SetTabletteC("+ arguments[0]+","+"this.innerHTML)'>1</a></li><li><a href='#' onclick='SetTabletteC("+ arguments[0]+","+"this.innerHTML)'>2</a></li><li><a href='#' onclick='SetTabletteC("+ arguments[0]+","+"this.innerHTML)'>3</a></li><li><a href='#' onclick='SetTabletteC("+ arguments[0]+","+"this.innerHTML)'>4</a></li><li><a href='#' onclick='SetTabletteC("+ arguments[0]+","+"this.innerHTML)'>5</a></li></ul> <div> <input id="+"'t"+ arguments[0]+"'"+ "class='form-control' type='text' size='6' readonly></div> </div> </div>";
         column3.innerHTML = "<button class='btn btn-default' onclick='RecevoirCommande(" + arguments[0] +");' >Recevoir Commande</button>";
+        column.setAttribute("onclick","Alert(" + "'" + "La commande a été envoyer par : "+ arguments[6] + "'" + ");");
+    }
+    else
+    {
+        column.setAttribute("onclick","Alert(" + "'" + "La commande a été envoyer par : "+ arguments[6] +" et a été recu par "+ arguments[7]+ "'" + ");");
     }
 
     row.appendChild(column);

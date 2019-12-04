@@ -8,10 +8,19 @@ import View.Browser;
 
 import java.util.List;
 
+/**
+ * The type Item controller.
+ */
 public class ItemController implements ItemControllerInterface
 {
     private static final ItemController instance = new ItemController();
+    /**
+     * The Item service.
+     */
     ItemService itemService = ItemService.GetInstance();
+    /**
+     * The Browser.
+     */
     Browser browser = Browser.GetInstance();
     //ItemService itemService = ItemService.GetInstance();
 
@@ -182,6 +191,11 @@ public class ItemController implements ItemControllerInterface
         return modify;
     }
 
+    /**
+     * Get instance item controller.
+     *
+     * @return the item controller
+     */
     public static ItemController GetInstance()
     {
         return instance;

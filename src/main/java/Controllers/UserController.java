@@ -5,6 +5,10 @@ import Models.User;
 import Services.UserService;
 import java.util.List;
 import Exception.*;
+
+/**
+ * The type User controller.
+ */
 //test
 public class UserController implements UserControllerInterface {
 
@@ -109,6 +113,11 @@ public class UserController implements UserControllerInterface {
         return delete;
     }
 
+    /**
+     * Get instance user controller.
+     *
+     * @return the user controller
+     */
     public static UserController GetInstance()
     {
         return instance;
