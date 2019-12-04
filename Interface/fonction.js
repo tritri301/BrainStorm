@@ -33,15 +33,6 @@ function SubmitList()
     }
 }
 
-function creerRapport(){
-var myNode = document.getElementById("table2");
-
-    while (myNode.firstChild) {
-        myNode.removeChild(myNode.firstChild);
-    }
-        window.JavaApp.ListAllItemRapport();
-}
-
 function SubmitDelete()
 {
     upc = document.getElementById("upc").value;
@@ -61,33 +52,6 @@ function SubmitDelete()
     }
 }
 
-function CreateFile()
-{
-    window.JavaApp.CreateFile();
-}
-
-function CreateCSVFileTRI(choixTri)
-{
-    choixTri = document.getElementById("optionTri").value;
-    window.JavaApp.CreateCSVFileTRI(choixTri);
-}
-function CreateCSVFile()
-{
-    window.JavaApp.CreateCSVFile();
-    window.alert("Fichier CSV générer avec succès");
-}
-
-function CreateExcelFile()
-{
-    window.JavaApp.CreateExcelFile();
-    window.alert("Aucun fichier généré, veuillez contacter la personne en charge du logiciel");
-}
-
-function CreatePDFFile()
-{
-    window.JavaApp.CreatePDFFile();
-    window.alert("Un fichier c'est générer mais il n'a pas le format PDF");
-}
 function DeleteItem()
  {
      if(confirm("Voulez-vous vraiment retirer cet item?"))
