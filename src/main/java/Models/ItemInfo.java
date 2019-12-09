@@ -9,7 +9,7 @@ public class ItemInfo
     private String description;
     private String nom;
     private int poids;
-    private int Volume;
+    private int volume;
 
     /**
      * Gets id item info.
@@ -89,7 +89,7 @@ public class ItemInfo
      * @return the volume
      */
     public int getVolume() {
-        return Volume;
+        return volume;
     }
 
     /**
@@ -98,6 +98,6 @@ public class ItemInfo
      * @param volume the volume
      */
     public void setVolume(int volume) {
-        Volume = volume;
+        this.volume = volume;
     }
 }

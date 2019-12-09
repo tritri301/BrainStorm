@@ -59,6 +59,7 @@ public class Item
     /**
      * Sets id container.
      *
+     * @param emplacement the emplacement
      */
     public void setEmplacement(String emplacement) {
         this.emplacement = emplacement;
@@ -73,10 +74,20 @@ public class Item
         return description;
     }
 
+    /**
+     * Gets quantite.
+     *
+     * @return the quantite
+     */
     public int getQuantite() {
         return quantite;
     }
 
+    /**
+     * Sets quantite.
+     *
+     * @param quantite the quantite
+     */
     public void setQuantite(int quantite) {
         this.quantite = quantite;
     }

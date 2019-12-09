@@ -9,39 +9,53 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type Item repository.
+ */
 public class ItemRepository implements ItemRepositoryInterface {
     private static final ItemRepository instance = new ItemRepository();
     private Connection con;
     private ItemFactory itemFactory;
 
-    public ItemRepository() {
+    /**
+     * Instantiates a new Item repository.
+     */
+    private ItemRepository() {
         ConnectionBD BD = ConnectionBD.GetInstance();
         this.con = BD.GetConnection();
         this.itemFactory = ItemFactory.GetInstance();
     }
 
+    /**
+     * Get instance item repository.
+     *
+     * @return the item repository
+     */
+    public static ItemRepository GetInstance() {
+        return instance;
+    }
+
     @Override
-    public List<Item> FindByName(String name) throws Exception{
+    public List<Item> FindByName(String name) throws Exception {
         List<Item> item = new ArrayList<>();
         PreparedStatement stmt = con.prepareStatement("select item.* from item, itemInfo where itemInfo.idItemInfo = item.idItemInfo and nom = ?");
         stmt.setString(1, name);
         ResultSet rs = stmt.executeQuery();
-        while(rs.next())
-        {
-            item.add(itemFactory.Create(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4),rs.getInt(5)));
+        while (rs.next()) {
+            item.add(itemFactory.Create(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getInt(5)));
         }
         return item;
     }
 
     @Override
-    public Item FindById(int id) throws Exception{
+    public Item FindById(int id) throws Exception {
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery("select * from item where idItem = " + id);
         rs.next();
-        return itemFactory.Create(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4),rs.getInt(5));
+        return itemFactory.Create(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getInt(5));
     }
 
-    public Item findSimilar(int idItemInfo,String emplacement,String description) throws Exception{
+    public Item findSimilar(int idItemInfo, String emplacement, String description) throws Exception {
         PreparedStatement stmt = con.prepareStatement("select * from item where idIteminfo = ? and emplacement = ? and description = ?");
         stmt.setInt(1, idItemInfo);
         stmt.setString(2, emplacement);
@@ -49,10 +63,9 @@ public class ItemRepository implements ItemRepositoryInterface {
         stmt.execute();
 
         ResultSet rs = stmt.getResultSet();
-        if(rs.next())
-        {
-            return itemFactory.Create(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4),rs.getInt(5));
-        }else{
+        if (rs.next()) {
+            return itemFactory.Create(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getInt(5));
+        } else {
             return null;
         }
 
@@ -66,10 +79,9 @@ public class ItemRepository implements ItemRepositoryInterface {
         stmt.execute();
 
         ResultSet rs = stmt.getResultSet();
-        if(rs.next())
-        {
-            return itemFactory.Create(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4),rs.getInt(5));
-        }else{
+        if (rs.next()) {
+            return itemFactory.Create(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getInt(5));
+        } else {
             return null;
         }
     }
@@ -79,9 +91,8 @@ public class ItemRepository implements ItemRepositoryInterface {
         List<Item> item = new ArrayList<>();
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery("select * from item");
-        while(rs.next())
-        {
-            item.add(itemFactory.Create(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4),rs.getInt(5)));
+        while (rs.next()) {
+            item.add(itemFactory.Create(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getInt(5)));
         }
         return item;
     }
@@ -91,25 +102,26 @@ public class ItemRepository implements ItemRepositoryInterface {
         List<Item> item = new ArrayList<>();
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery("select * from item, itemInfo where itemInfo.idItemInfo = item.idItemInfo order by nom");
-        while(rs.next())
-        {
-            item.add(itemFactory.Create(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4),rs.getInt(5)));
+        while (rs.next()) {
+            item.add(itemFactory.Create(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getInt(5)));
         }
         return item;
     }
+
     public int FindAmountById(int id) throws Exception {
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery("select count(*) from item, itemInfo where item.idItemInfo = itemInfo.idItemInfo and item.idItemInfo = " + id);
         rs.next();
         return rs.getInt(1);
     }
+
     @Override
     public void Delete(int id, int quantite) throws Exception {
         int quantiteFinale = this.FindById(id).getQuantite() - quantite;
         PreparedStatement stmt;
-        if(quantiteFinale > 0) {
-            stmt = con.prepareStatement("update item set quantite = " + quantiteFinale +" where idItem = " + id);
-        }else{
+        if (quantiteFinale > 0) {
+            stmt = con.prepareStatement("update item set quantite = " + quantiteFinale + " where idItem = " + id);
+        } else {
             stmt = con.prepareStatement("delete from item where idItem = " + id);
         }
         stmt.execute();
@@ -134,9 +146,5 @@ public class ItemRepository implements ItemRepositoryInterface {
         stmt.setString(3, itemToUpdate.getDescription());
 
         stmt.execute();
-    }
-
-    public static ItemRepository GetInstance() {
-        return instance;
     }
 }

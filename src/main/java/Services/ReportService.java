@@ -1,18 +1,20 @@
 package Services;
 
-import Factory.ItemInfoFactory;
+import Exception.ExceptionCustom;
 import Models.ConnectionBD;
 import Models.ItemInfo;
 import Repositories.ItemInfoRepository;
 import Repositories.ReportRepository;
 import Services.Interfaces.ReportServiceInterface;
-import Exception.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 //Connection à la base de données
 
+/**
+ * The type Report service.
+ */
 public class ReportService implements ReportServiceInterface {
 
     private static final ReportService instance = new ReportService();
@@ -22,19 +24,21 @@ public class ReportService implements ReportServiceInterface {
     private Object connection = this.connectionBD.GetConnectionStatus();
     private VerificationService verificationService = VerificationService.GetInstance();
 
-    public static ReportService GetInstance()
-    {
+    /**
+     * Get instance report service.
+     *
+     * @return the report service
+     */
+    public static ReportService GetInstance() {
         return instance;
     }
 
     public List<ItemInfo> FindAll() throws ExceptionCustom {
         List<ItemInfo> itemInfo = new ArrayList<ItemInfo>();
-        if (connection == null)
-        {
+        if (connection == null) {
             try {
                 itemInfo = this.itemInfoRepository.FindAll();
-                if (itemInfo == null)
-                {
+                if (itemInfo == null) {
                     ExceptionCustom exceptionErreurBD = new ExceptionCustom("Aucun Résultats");
                     throw exceptionErreurBD;
                 }
@@ -42,14 +46,14 @@ public class ReportService implements ReportServiceInterface {
                 ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd : " + e.toString());
                 throw exceptionErreurBD;
             }
-        }
-        else
-        {
+        } else {
             ExceptionCustom exceptionErreurBD = new ExceptionCustom("Données de saisies invalide");
             throw exceptionErreurBD;
         }
 
         return new ArrayList<>();
     }
-    public void CreateFile(){}
+
+    public void CreateFile() {
+    }
 }

@@ -1,7 +1,8 @@
 package Services.Interfaces;
 
+import Exception.ExceptionCustom;
 import Models.ItemInfo;
-import Exception.*;
+
 import java.util.List;
 
 /**
@@ -13,6 +14,7 @@ public interface ItemInfoServiceInterface {
      *
      * @param id the id
      * @return the item info
+     * @throws ExceptionCustom the exception custom
      */
     ItemInfo FindById(int id) throws ExceptionCustom;
 
@@ -20,6 +22,7 @@ public interface ItemInfoServiceInterface {
      * Find all list.
      *
      * @return the list
+     * @throws ExceptionCustom the exception custom
      */
     List<ItemInfo> FindAll() throws ExceptionCustom;
 
@@ -28,10 +31,17 @@ public interface ItemInfoServiceInterface {
      *
      * @param name the name
      * @return the item info
+     * @throws ExceptionCustom the exception custom
      */
-
     List<ItemInfo> SortByName() throws ExceptionCustom;
 
+    /**
+     * Find by name list.
+     *
+     * @param name the name
+     * @return the list
+     * @throws ExceptionCustom the exception custom
+     */
     List<ItemInfo> FindByName(String name) throws ExceptionCustom;
 
     /**
@@ -43,6 +53,7 @@ public interface ItemInfoServiceInterface {
      * @param poids       the poids
      * @param volume      the volume
      * @return the item info
+     * @throws ExceptionCustom the exception custom
      */
     boolean Update(int idItem, String description, String nom, int poids, int volume) throws ExceptionCustom;
 
@@ -55,6 +66,7 @@ public interface ItemInfoServiceInterface {
      * @param poids       the poids
      * @param volume      the volume
      * @return the item info
+     * @throws ExceptionCustom the exception custom
      */
     boolean Create(int idItem, String description, String nom, int poids, int volume) throws ExceptionCustom;
 
@@ -63,6 +75,7 @@ public interface ItemInfoServiceInterface {
      *
      * @param id the id
      * @return the item info
+     * @throws ExceptionCustom the exception custom
      */
     boolean Delete(int id) throws ExceptionCustom;
 }

@@ -1,28 +1,23 @@
 package Controllers;
 
 import Controllers.Interface.ContainerControllerInterface;
-import Controllers.Interface.ItemControllerInterface;
 import Models.Container;
-import Models.Item;
-import Services.ItemService;
 
 import java.util.List;
-import Exception.*;
-
 
 /**
- * The type Container controller.
+ * @Note le container controller n'est pas coder car il n'est pas nécessaire
  */
 public class ContainerController implements ContainerControllerInterface {
 
     private static final ContainerController instance = new ContainerController();
 
-    @Override
+    @Deprecated
     public Container FindById(int id) {
         return null;
     }
 
-    @Override
+    @Deprecated
     public List<Container> FindAll() {
         return null;
     }
@@ -32,12 +27,12 @@ public class ContainerController implements ContainerControllerInterface {
         return false;
     }
 
-    @Override
+    @Deprecated
     public boolean Create(int idContainer, int quantite, int position, int volume, int poidsMax, int containerParent) {
         return false;
     }
 
-    @Override
+    @Deprecated
     public boolean Delete(int id) {
         return false;
     }

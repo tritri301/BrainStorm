@@ -2,45 +2,19 @@ package View;
 
 import Controllers.*;
 import Factory.*;
-import Controllers.*;
 import Models.ConnectedUser;
-import Models.Item;
 import Repositories.*;
-import Controllers.ContainerController;
-import Controllers.ItemController;
-import Controllers.ItemInfoController;
-import Controllers.UserController;
-import Factory.ContainerFactory;
-import Factory.ItemFactory;
-import Factory.ItemInfoFactory;
-import Factory.UserFactory;
-import Repositories.ContainerRepository;
-import Repositories.ItemInfoRepository;
-import Repositories.ItemRepository;
-import Repositories.UserRepository;
 import Services.*;
 import javafx.application.Application;
-import javafx.scene.control.Alert;
-import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.concurrent.Worker;
 import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.paint.Color;
-import javafx.scene.web.WebEngine;
-import javafx.scene.web.WebView;
-import javafx.stage.Stage;
 import javafx.scene.image.Image;
-import netscape.javascript.JSObject;
-import Exception.*;
+import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 
-
-import java.util.ArrayList;
-import java.util.List;
-
+/**
+ * The type Browser view.
+ */
 public class BrowserView extends Application{
-    private Scene scene;
 
     @Override
     public void start(Stage stage){
@@ -52,7 +26,7 @@ public class BrowserView extends Application{
         Image icone = new Image ("file:icone.png");
         stage.getIcons().add(icone);
 
-        scene = new Scene(Browser.GetInstance(),Color.BLACK);
+        Scene scene = new Scene(Browser.GetInstance(), Color.BLACK);
         ItemController itemController = ItemController.GetInstance();
         ItemInfoController itemInfoController = ItemInfoController.GetInstance();
         ContainerController containerController = ContainerController.GetInstance();
@@ -88,6 +62,11 @@ public class BrowserView extends Application{
         stage.show();
     }
 
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     */
     public static void main(String[] args) {
         launch(args);
     }

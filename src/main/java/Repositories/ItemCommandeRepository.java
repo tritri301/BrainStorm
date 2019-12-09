@@ -24,7 +24,7 @@ public class ItemCommandeRepository implements ItemCommandeRepositoryInterface {
     /**
      * Instantiates a new Item commande repository.
      */
-    public ItemCommandeRepository() {
+    private ItemCommandeRepository() {
         ConnectionBD BD = ConnectionBD.GetInstance();
         this.con = BD.GetConnection();
         this.itemCommandeFactory = ItemCommandeFactory.GetInstance();
@@ -42,22 +42,21 @@ public class ItemCommandeRepository implements ItemCommandeRepositoryInterface {
     @Override
     public ItemCommande FindById(int id) throws Exception {
         PreparedStatement stmt = con.prepareStatement("select * from ItemCommande where idItemCommande = ?");
-        stmt.setInt(1 ,id);
+        stmt.setInt(1, id);
         ResultSet rs = stmt.executeQuery();
         rs.next();
-        return itemCommandeFactory.Create(rs.getInt(1), rs.getInt(2),rs.getInt(3),rs.getString(4),rs.getInt(5));
+        return itemCommandeFactory.Create(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(4), rs.getInt(5));
     }
 
     @Override
     public List<ItemCommande> FindByIdCommande(int idCommande) throws Exception {
         List<ItemCommande> itemCommande = new ArrayList<>();
         PreparedStatement stmt = con.prepareStatement("select * from ItemCommande where idCommande = ?");
-        stmt.setInt(1 ,idCommande);
+        stmt.setInt(1, idCommande);
         ResultSet rs = stmt.executeQuery();
 
-        while(rs.next())
-        {
-            itemCommande.add(itemCommandeFactory.Create(rs.getInt(1), rs.getInt(2),rs.getInt(3),rs.getString(4),rs.getInt(5)));
+        while (rs.next()) {
+            itemCommande.add(itemCommandeFactory.Create(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(4), rs.getInt(5)));
         }
         return itemCommande;
     }
@@ -67,9 +66,8 @@ public class ItemCommandeRepository implements ItemCommandeRepositoryInterface {
         List<ItemCommande> itemCommande = new ArrayList<>();
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery("select * from ItemCommande");
-        while(rs.next())
-        {
-            itemCommande.add(itemCommandeFactory.Create(rs.getInt(1), rs.getInt(2),rs.getInt(3),rs.getString(4),rs.getInt(5)));
+        while (rs.next()) {
+            itemCommande.add(itemCommandeFactory.Create(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(4), rs.getInt(5)));
         }
         return itemCommande;
     }

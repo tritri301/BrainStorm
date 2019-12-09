@@ -1,19 +1,22 @@
 package Services;
 
+import Exception.ExceptionCustom;
 import Factory.CommandeFactory;
 import Factory.ItemFactory;
 import Models.Commande;
 import Models.ConnectionBD;
 import Models.Item;
 import Repositories.CommandeRepository;
-import Exception.*;
 import Repositories.ItemRepository;
 import Services.Interfaces.CommandeServiceInterface;
+
 import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
+/**
+ * The type Commande service.
+ */
 public class CommandeService implements CommandeServiceInterface {
 
     private static final CommandeService instance = new CommandeService();
@@ -25,6 +28,15 @@ public class CommandeService implements CommandeServiceInterface {
     private VerificationService verificationService = VerificationService.GetInstance();
     private ItemRepository itemRepository = ItemRepository.GetInstance();
     private ItemFactory itemFactory = ItemFactory.GetInstance();
+
+    /**
+     * Get instance commande service.
+     *
+     * @return the commande service
+     */
+    public static CommandeService GetInstance() {
+        return instance;
+    }
 
     @Override
     public Commande FindById(int id) throws Exception {
@@ -123,8 +135,8 @@ public class CommandeService implements CommandeServiceInterface {
             try {
                 Item item = null;
                 Date dateCommande = new Date(System.currentTimeMillis());
-                java.sql.Date dateLivraisonPrevu= new java.sql.Date( dateCommande.getTime() + (14*(24*60*60*1000)));
-                id = commandeRepository.Create(commandeFactory.Create(0, dateCommande, null, 0,dateLivraisonPrevu,nomPEnvoi,null));
+                java.sql.Date dateLivraisonPrevu = new java.sql.Date(dateCommande.getTime() + (14 * (24 * 60 * 60 * 1000)));
+                id = commandeRepository.Create(commandeFactory.Create(0, dateCommande, null, 0, dateLivraisonPrevu, nomPEnvoi, null));
                 valide = true;
             } catch (Exception e) {
                 throw new ExceptionCustom("Erreur de bd : " + e.toString());
@@ -134,10 +146,5 @@ public class CommandeService implements CommandeServiceInterface {
         }
 
         return id;
-    }
-
-    public static CommandeService GetInstance()
-    {
-        return instance;
     }
 }

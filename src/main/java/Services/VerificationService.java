@@ -7,9 +7,6 @@ import Repositories.ContainerRepository;
 import Repositories.ItemInfoRepository;
 import Repositories.ItemRepository;
 import Services.Interfaces.VerificationServiceInterface;
-import Exception.*;
-import com.sun.xml.internal.ws.util.StringUtils;
-import jdk.nashorn.internal.runtime.regexp.joni.Regex;
 
 import java.text.Normalizer;
 import java.util.regex.Matcher;
@@ -25,6 +22,15 @@ public class VerificationService implements VerificationServiceInterface {
     private ItemInfoRepository itemInfoRepository = ItemInfoRepository.GetInstance();
     private ItemRepository itemRepository = ItemRepository.GetInstance();
     private ItemService itemService = ItemService.GetInstance();
+
+    /**
+     * Get instance verification service.
+     *
+     * @return the verification service
+     */
+    public static VerificationService GetInstance() {
+        return instance;
+    }
 
     @Override
     public boolean verifier(int integer) {
@@ -45,12 +51,12 @@ public class VerificationService implements VerificationServiceInterface {
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(string);
 
-        if (matcher.matches())
-        {
+        if (matcher.matches()) {
             valide = true;
         }
         return valide;
     }
+
     public boolean verifierEmail(String email) {
         boolean valide = false;
 
@@ -58,26 +64,31 @@ public class VerificationService implements VerificationServiceInterface {
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(email);
 
-        if (matcher.matches())
-        {
+        if (matcher.matches()) {
             valide = true;
         }
         return valide;
     }
-    public boolean verifierPermission(String permission)
-    {
+
+    /**
+     * Verifier permission boolean.
+     *
+     * @param permission the permission
+     * @return the boolean
+     */
+    boolean verifierPermission(String permission) {
         boolean valide = false;
 
         String regex = "^[0-1]+$";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(permission);
 
-        if (matcher.matches())
-        {
+        if (matcher.matches()) {
             valide = true;
         }
         return valide;
     }
+
     @Override
     public boolean verifierPassword(String password) {
         boolean valide = true;
@@ -87,19 +98,18 @@ public class VerificationService implements VerificationServiceInterface {
         int specialChar = 0;
         short lenght = 0;
 
-         for (char ch: password.toCharArray()) {
-             lenght++;
-             if ((ch == ';') || (ch == ' ') || (ch == ',')) {
-                 valide = false;
-             }
-         }
+        for (char ch : password.toCharArray()) {
+            lenght++;
+            if ((ch == ';') || (ch == ' ') || (ch == ',')) {
+                valide = false;
+            }
+        }
 
-         if (lenght < 6)
-         {
-             valide = false;
-         }
+        if (lenght < 6) {
+            valide = false;
+        }
 
-         //number
+        //number
         for (int i = 0, len = password.length(); i < len; i++) {
             if (Character.isDigit(password.charAt(i))) {
                 digit++;
@@ -107,27 +117,23 @@ public class VerificationService implements VerificationServiceInterface {
             }
         }
 
-        if (digit <= 0)
-        {
+        if (digit <= 0) {
             valide = false;
         }
 
         specialChar = password.replaceAll("\\p{Alnum}", "").length();
         upperCase = password.split("(?=\\p{Lu})").length - 1;
 
-         if ((upperCase <= 0) && specialChar <= 0)
-         {
-             regle3 = false;
-         }
+        if ((upperCase <= 0) && specialChar <= 0) {
+            regle3 = false;
+        }
 
-         if (regle3)
-         {
-             valide = false;
-         }
+        if (regle3) {
+            valide = false;
+        }
 
         return valide;
     }
-
 
     @Override
     public boolean emplacementExist(String emplacement) {
@@ -136,14 +142,11 @@ public class VerificationService implements VerificationServiceInterface {
 
         try {
             container = containerRepository.FindById(emplacement);
-        }
-        catch(Exception e)
-        {
+        } catch (Exception e) {
             System.out.print(e.toString());
         }
 
-        if (container == null)
-        {
+        if (container == null) {
             valide = false;
         }
 
@@ -157,14 +160,11 @@ public class VerificationService implements VerificationServiceInterface {
 
         try {
             itemInfo = itemInfoRepository.FindById(idItem);
-        }
-        catch(Exception e)
-        {
+        } catch (Exception e) {
             System.out.print(e.toString());
         }
 
-        if (itemInfo == null)
-        {
+        if (itemInfo == null) {
             valide = false;
         }
 
@@ -179,14 +179,11 @@ public class VerificationService implements VerificationServiceInterface {
 
         try {
             item = itemRepository.FindById(id);
-        }
-        catch(Exception e)
-        {
+        } catch (Exception e) {
             System.out.print(e.toString());
         }
 
-        if (item == null)
-        {
+        if (item == null) {
             valide = false;
         }
 
@@ -210,30 +207,24 @@ public class VerificationService implements VerificationServiceInterface {
         short nbComma = 0;
         boolean valide = true;
 
-        for(int i = 0; i < description.length(); i++)
-        {
+        for (int i = 0; i < description.length(); i++) {
             char c = description.charAt(i);
 
-            if(c == '=')
-            {
+            if (c == '=') {
                 nbEqual++;
             }
 
-            if(c == ',')
-            {
+            if (c == ',') {
                 nbComma++;
             }
         }
 
-        if (nbComma > 0 && nbEqual > 0)
-        {
-            if (nbComma + 1 > nbEqual)
-            {
+        if (nbComma > 0 && nbEqual > 0) {
+            if (nbComma + 1 > nbEqual) {
                 valide = false;
             }
 
-            if (nbEqual -1 > nbComma)
-            {
+            if (nbEqual - 1 > nbComma) {
                 valide = false;
             }
         }
@@ -252,12 +243,12 @@ public class VerificationService implements VerificationServiceInterface {
             e.printStackTrace();
         }
 
+        assert item != null;
         int qtn = item.getQuantite();
 
-        if (qtn - quantite >= 0)
-            {
-                valide = true;
-            }
+        if (qtn - quantite >= 0) {
+            valide = true;
+        }
 
         return valide;
     }
@@ -265,9 +256,9 @@ public class VerificationService implements VerificationServiceInterface {
     @Override
     public int[] EmplacementDecortiquer(int emplacementBrut) {
 
-        int [] emplacement = new int[]{ 1,2,3};
-        int posX = Integer.parseInt(Integer.toString(emplacementBrut).substring(0,3));
-        int posY = Integer.parseInt(Integer.toString(emplacementBrut).substring(3,3));
+        int[] emplacement = new int[]{1, 2, 3};
+        int posX = Integer.parseInt(Integer.toString(emplacementBrut).substring(0, 3));
+        int posY = Integer.parseInt(Integer.toString(emplacementBrut).substring(3, 3));
         int posZ = Integer.parseInt(Integer.toString(emplacementBrut).substring(6));
 
         emplacement[0] = posX;
@@ -278,14 +269,11 @@ public class VerificationService implements VerificationServiceInterface {
     }
 
     @Override
-    public boolean verifier(int... args)
-    {
+    public boolean verifier(int... args) {
         boolean valide = true;
         for (int arg : args) {
             valide = this.verifier(arg);
-            if (!valide)
-            {
-                valide = false;
+            if (!valide) {
                 break;
             }
         }
@@ -293,22 +281,14 @@ public class VerificationService implements VerificationServiceInterface {
     }
 
     @Override
-    public boolean verifier(String... args)
-    {
+    public boolean verifier(String... args) {
         boolean valide = true;
         for (String arg : args) {
             valide = this.verifier(arg);
-            if (!valide)
-            {
-                valide = false;
+            if (!valide) {
                 break;
             }
         }
         return valide;
-    }
-
-    public static VerificationService GetInstance()
-    {
-        return instance;
     }
 }

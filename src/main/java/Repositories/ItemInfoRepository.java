@@ -2,23 +2,42 @@ package Repositories;
 
 import Factory.ItemInfoFactory;
 import Models.ConnectionBD;
-import Repositories.Interfaces.ItemInfoRepositoryInterface;
 import Models.ItemInfo;
+import Repositories.Interfaces.ItemInfoRepositoryInterface;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type Item info repository.
+ */
 public class ItemInfoRepository implements ItemInfoRepositoryInterface {
     private static final ItemInfoRepository instance = new ItemInfoRepository();
     private Connection con;
     private ItemInfoFactory itemInfoFactory;
 
-    public ItemInfoRepository() {
+    /**
+     * Instantiates a new Item info repository.
+     */
+    private ItemInfoRepository() {
         ConnectionBD BD = ConnectionBD.GetInstance();
         this.con = BD.GetConnection();
         this.itemInfoFactory = ItemInfoFactory.GetInstance();
     }
+
+    /**
+     * Get instance item info repository.
+     *
+     * @return the item info repository
+     */
+    public static ItemInfoRepository GetInstance() {
+        return instance;
+    }
+
     @Override
     public ItemInfo FindById(int id) throws Exception {
         Statement stmt = con.createStatement();
@@ -33,8 +52,7 @@ public class ItemInfoRepository implements ItemInfoRepositoryInterface {
         PreparedStatement stmt = con.prepareStatement("select * from itemInfo where name = ?");
         stmt.setString(1, name);
         ResultSet rs = stmt.executeQuery();
-        while(rs.next())
-        {
+        while (rs.next()) {
             itemInfo.add(itemInfoFactory.Create(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5)));
         }
         return itemInfo;
@@ -45,8 +63,7 @@ public class ItemInfoRepository implements ItemInfoRepositoryInterface {
         List<ItemInfo> itemInfo = new ArrayList<>();
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery("select * from itemInfo");
-        while(rs.next())
-        {
+        while (rs.next()) {
             itemInfo.add(itemInfoFactory.Create(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5)));
         }
         return itemInfo;
@@ -56,8 +73,7 @@ public class ItemInfoRepository implements ItemInfoRepositoryInterface {
         List<ItemInfo> itemInfo = new ArrayList<>();
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery("select * from itemInfo order by nom");
-        while(rs.next())
-        {
+        while (rs.next()) {
             itemInfo.add(itemInfoFactory.Create(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5)));
         }
         return itemInfo;
@@ -88,8 +104,5 @@ public class ItemInfoRepository implements ItemInfoRepositoryInterface {
         stmt.setString(3, itemInfoToAdd.getNom());
         stmt.setInt(4, itemInfoToAdd.getPoids());
         stmt.setInt(5, itemInfoToAdd.getVolume());
-    }
-    public static ItemInfoRepository GetInstance() {
-        return instance;
     }
 }

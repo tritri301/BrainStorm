@@ -12,7 +12,7 @@ import java.util.List;
 //Les controller sert à appeler mes services
 
 /**
- * The type Report controller.
+ * @Note
  */
 public class ReportController implements ReportControllerInterface{
 

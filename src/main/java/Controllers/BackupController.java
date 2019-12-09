@@ -5,13 +5,24 @@ import Controllers.Interface.BackupControllerInterface;
 import java.io.IOException;
 import java.io.InputStream;
 
+/**
+ *  @Note Aucune remarque
+ */
 public class BackupController implements BackupControllerInterface
 {
     private static final BackupController instance = new BackupController();
 
 
-    public void ShowBackupMenu()
-    {
+    /**
+     * Get instance backup controller.
+     *
+     * @return the backup controller
+     */
+    public static BackupController GetInstance() {
+        return instance;
+    }
+
+    public void ShowBackupMenu() {
         Runtime runtime = Runtime.getRuntime();
         try {
             Process p1 = runtime.exec("cmd /c start C:\\backup\\menubackup.bat");
@@ -23,11 +34,5 @@ public class BackupController implements BackupControllerInterface
         } catch(IOException ioException) {
             System.out.println(ioException.getMessage() );
         }
-    }
-
-
-    public static BackupController GetInstance()
-    {
-        return instance;
     }
 }

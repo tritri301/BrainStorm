@@ -20,7 +20,7 @@ public class CommandeRepository implements CommandeRepositoryInterface {
     /**
      * Instantiates a new Commande repository.
      */
-    public CommandeRepository() {
+    private CommandeRepository() {
         ConnectionBD BD = ConnectionBD.GetInstance();
         this.con = BD.GetConnection();
         this.commandeFactory = CommandeFactory.GetInstance();
@@ -39,19 +39,19 @@ public class CommandeRepository implements CommandeRepositoryInterface {
     public Commande FindById(int id) throws Exception {
 
         PreparedStatement stmt = con.prepareStatement("select * from commande where idCommande = ?");
-        stmt.setInt(1 ,id);
+        stmt.setInt(1, id);
         ResultSet rs = stmt.executeQuery();
         rs.next();
-        return commandeFactory.Create(rs.getInt(1),rs.getDate(2),rs.getDate(3),rs.getInt(4),rs.getDate(5),rs.getString(6),rs.getString(7));
+        return commandeFactory.Create(rs.getInt(1), rs.getDate(2), rs.getDate(3), rs.getInt(4), rs.getDate(5), rs.getString(6), rs.getString(7));
     }
 
     @Override
     public Commande FindByIdItem(int id) throws Exception {
         PreparedStatement stmt = con.prepareStatement("select * from commande where idItem = ?");
-        stmt.setInt(1 ,id);
+        stmt.setInt(1, id);
         ResultSet rs = stmt.executeQuery();
         rs.next();
-        return commandeFactory.Create(rs.getInt(1),rs.getDate(2),rs.getDate(3),rs.getInt(4),rs.getDate(5),rs.getString(6),rs.getString(7));
+        return commandeFactory.Create(rs.getInt(1), rs.getDate(2), rs.getDate(3), rs.getInt(4), rs.getDate(5), rs.getString(6), rs.getString(7));
     }
 
     @Override
@@ -60,9 +60,8 @@ public class CommandeRepository implements CommandeRepositoryInterface {
         List<Commande> commande = new ArrayList<>();
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery("select * from commande");
-        while(rs.next())
-        {
-            commande.add(commandeFactory.Create(rs.getInt(1),rs.getDate(2),rs.getDate(3),rs.getInt(4),rs.getDate(5),rs.getString(6),rs.getString(7)));
+        while (rs.next()) {
+            commande.add(commandeFactory.Create(rs.getInt(1), rs.getDate(2), rs.getDate(3), rs.getInt(4), rs.getDate(5), rs.getString(6), rs.getString(7)));
         }
         return commande;
     }
@@ -86,7 +85,7 @@ public class CommandeRepository implements CommandeRepositoryInterface {
         int nbRow;
         int idCreated = 0;
 
-        PreparedStatement stmt = con.prepareStatement("insert into commande values(default, ?, ?, default,?,?,?)",Statement.RETURN_GENERATED_KEYS);
+        PreparedStatement stmt = con.prepareStatement("insert into commande values(default, ?, ?, default,?,?,?)", Statement.RETURN_GENERATED_KEYS);
         stmt.setDate(1, commandeToAdd.getDateCommande());
         stmt.setDate(2, commandeToAdd.getDateLivraison());
         stmt.setDate(3, commandeToAdd.getDateLivraisonPrevu());
@@ -94,17 +93,13 @@ public class CommandeRepository implements CommandeRepositoryInterface {
         stmt.setString(5, commandeToAdd.getNomPRecu());
         nbRow = stmt.executeUpdate();
 
-        if (nbRow == 0)
-        {
+        if (nbRow == 0) {
             throw new SQLException("no rows affected.");
-        }
-        else
-        {
+        } else {
             try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
-                    idCreated = (int)generatedKeys.getLong(1);
-                }
-                else {
+                    idCreated = (int) generatedKeys.getLong(1);
+                } else {
                     throw new SQLException("Creating user failed, no ID obtained.");
                 }
             }

@@ -1,15 +1,16 @@
 package Services;
 
+import Exception.ExceptionCustom;
 import Factory.ItemFactory;
 import Models.ConnectionBD;
+import Models.Item;
 import Repositories.ItemRepository;
 import Services.Interfaces.ItemServiceInterface;
-import Models.Item;
-import Exception.*;
 
 import java.util.ArrayList;
 import java.util.List;
 //
+
 /**
  * The type Item service.
  */
@@ -22,6 +23,15 @@ public class ItemService implements ItemServiceInterface {
     private Object connection = this.connectionBD.GetConnectionStatus();
     private VerificationService verificationService = VerificationService.GetInstance();
 
+    /**
+     * Get instance item service.
+     *
+     * @return the item service
+     */
+    public static ItemService GetInstance() {
+        return instance;
+    }
+
     @Override
     public Item FindById(int id) throws ExceptionCustom {
         Item item = null;
@@ -30,16 +40,13 @@ public class ItemService implements ItemServiceInterface {
                 try {
                     item = this.itemRepository.FindById(id);
                 } catch (Exception e) {
-                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("l'objet que vous recherché est introuvable");
-                    throw exceptionErreurBD;
+                    throw new ExceptionCustom("l'objet que vous recherché est introuvable");
                 }
             } else {
-                ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de connection a la base de données");
-                throw exceptionErreurBD;
+                throw new ExceptionCustom("Erreur de connection a la base de données");
             }
         } else {
-            ExceptionCustom exceptionErreurBD = new ExceptionCustom("Données de saisies invalide");
-            throw exceptionErreurBD;
+            throw new ExceptionCustom("Données de saisies invalide");
         }
 
         return item;
@@ -53,20 +60,16 @@ public class ItemService implements ItemServiceInterface {
                 try {
                     count = this.itemRepository.FindAmountById(id);
                     if (count == 0) {
-                        ExceptionCustom exceptionErreurBD = new ExceptionCustom("Aucun Résultats");
-                        throw exceptionErreurBD;
+                        throw new ExceptionCustom("Aucun Résultats");
                     }
                 } catch (Exception e) {
-                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("l'objet que vous recherché est introuvable par quantite");
-                    throw exceptionErreurBD;
+                    throw new ExceptionCustom("l'objet que vous recherché est introuvable par quantite");
                 }
             } else {
-                ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de connection a la base de données");
-                throw exceptionErreurBD;
+                throw new ExceptionCustom("Erreur de connection a la base de données");
             }
         } else {
-            ExceptionCustom exceptionErreurBD = new ExceptionCustom("Données de saisies invalide");
-            throw exceptionErreurBD;
+            throw new ExceptionCustom("Données de saisies invalide");
         }
 //yolo
         return count;
@@ -79,16 +82,13 @@ public class ItemService implements ItemServiceInterface {
             try {
                 item = this.itemRepository.FindAll();
                 if (item == null) {
-                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("Aucun Résultats");
-                    throw exceptionErreurBD;
+                    throw new ExceptionCustom("Aucun Résultats");
                 }
             } catch (Exception e) {
-                ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd : " + e.toString());
-                throw exceptionErreurBD;
+                throw new ExceptionCustom("Erreur de bd : " + e.toString());
             }
         } else {
-            ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de connection a la base de données");
-            throw exceptionErreurBD;
+            throw new ExceptionCustom("Erreur de connection a la base de données");
         }
 
         return item;
@@ -101,16 +101,13 @@ public class ItemService implements ItemServiceInterface {
             try {
                 item = this.itemRepository.SortByName();
                 if (item == null) {
-                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("Aucun Résultats");
-                    throw exceptionErreurBD;
+                    throw new ExceptionCustom("Aucun Résultats");
                 }
             } catch (Exception e) {
-                ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd : " + e.toString());
-                throw exceptionErreurBD;
+                throw new ExceptionCustom("Erreur de bd : " + e.toString());
             }
         } else {
-            ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de connection a la base de données");
-            throw exceptionErreurBD;
+            throw new ExceptionCustom("Erreur de connection a la base de données");
         }
 
         return item;
@@ -125,20 +122,16 @@ public class ItemService implements ItemServiceInterface {
                     name = verificationService.normalisation(name);
                     item = this.itemRepository.FindByName(name);
                     if (item == null) {
-                        ExceptionCustom exceptionErreurBD = new ExceptionCustom("Aucun Résultats");
-                        throw exceptionErreurBD;
+                        throw new ExceptionCustom("Aucun Résultats");
                     }
                 } catch (Exception e) {
-                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("l'objet que vous recherché est introuvable");
-                    throw exceptionErreurBD;
+                    throw new ExceptionCustom("l'objet que vous recherché est introuvable");
                 }
             } else {
-                ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de connection a la base de données");
-                throw exceptionErreurBD;
+                throw new ExceptionCustom("Erreur de connection a la base de données");
             }
         } else {
-            ExceptionCustom exceptionErreurBD = new ExceptionCustom("Données de saisies invalide");
-            throw exceptionErreurBD;
+            throw new ExceptionCustom("Données de saisies invalide");
         }
 
         return item;
@@ -166,38 +159,28 @@ public class ItemService implements ItemServiceInterface {
                                 this.itemRepository.Update(nouveauItem);
                                 valide = true;
                             } catch (Exception e) {
-                                ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd : " + e.toString());
-                                throw exceptionErreurBD;
+                                throw new ExceptionCustom("Erreur de bd : " + e.toString());
                             }
                         } else {
-                            ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de connection a la base de données");
-                            throw exceptionErreurBD;
+                            throw new ExceptionCustom("Erreur de connection a la base de données");
                         }
+                    } else {
+                        throw new ExceptionCustom("la description na pas le bon format");
                     }
-                    else {
-                        ExceptionCustom exceptionErreurBD = new ExceptionCustom("la description na pas le bon format");
-                        throw exceptionErreurBD;
-                    }
+                } else {
+                    throw new ExceptionCustom("l'emplacement est invalide");
                 }
-                else {
-                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("l'emplacement est invalide");
-                    throw exceptionErreurBD;
-                }
+            } else {
+                throw new ExceptionCustom("le code upc est invalide");
             }
-            else {
-                ExceptionCustom exceptionErreurBD = new ExceptionCustom("le code upc est invalide");
-                throw exceptionErreurBD;
-            }
-        }
-        else {
-            ExceptionCustom exceptionErreurBD = new ExceptionCustom("la quantité est invalide");
-            throw exceptionErreurBD;
+        } else {
+            throw new ExceptionCustom("la quantité est invalide");
         }
         return valide;
     }
 
     @Override
-    public boolean Create(int idItemInfo, String emplacement, String description,int quantite) throws ExceptionCustom {
+    public boolean Create(int idItemInfo, String emplacement, String description, int quantite) throws ExceptionCustom {
 
         boolean valide = false;
 
@@ -206,6 +189,8 @@ public class ItemService implements ItemServiceInterface {
                 if (verificationService.emplacementExist(emplacement)) {
                     if (verificationService.verifierDescription(description)) {
                         emplacement = verificationService.normalisation(emplacement);
+                        //TODO fair un update de container ici
+                        //TODO verifier volume et poids ici
                         //TODO verifiermieux apres =, et tout enlever sauf , t =
                         if (connection == null) {
                             try {
@@ -213,44 +198,31 @@ public class ItemService implements ItemServiceInterface {
                                 Item item = null;
                                 item = this.trouverSimilaire(idItemInfo, emplacement, description);
 
-                                if(item != null)
-                                {
+                                if (item != null) {
                                     quantite = quantite + item.getQuantite();
-                                    this.Update(item.getIdItem(),idItemInfo,emplacement,description,quantite);
-                                }
-                                else
-                                {
+                                    this.Update(item.getIdItem(), idItemInfo, emplacement, description, quantite);
+                                } else {
                                     itemRepository.Create(this.itemFactory.Create(0, idItemInfo, emplacement, description, quantite));
                                 }
                                 valide = true;
                             } catch (Exception e) {
-                                ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd : " + e.toString());
-                                throw exceptionErreurBD;
+                                throw new ExceptionCustom("Erreur de bd : " + e.toString());
                             }
 
                         } else {
-                            ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de connection a la base de données");
-                            throw exceptionErreurBD;
+                            throw new ExceptionCustom("Erreur de connection a la base de données");
                         }
+                    } else {
+                        throw new ExceptionCustom("la description na pas le bon format");
                     }
-                    else {
-                        ExceptionCustom exceptionErreurBD = new ExceptionCustom("la description na pas le bon format");
-                        throw exceptionErreurBD;
-                    }
+                } else {
+                    throw new ExceptionCustom("l'emplacement est invalide");
                 }
-                else {
-                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("l'emplacement est invalide");
-                    throw exceptionErreurBD;
-                }
+            } else {
+                throw new ExceptionCustom("le code upc est invalide");
             }
-            else {
-                ExceptionCustom exceptionErreurBD = new ExceptionCustom("le code upc est invalide");
-                throw exceptionErreurBD;
-            }
-        }
-        else {
-            ExceptionCustom exceptionErreurBD = new ExceptionCustom("la quantité est invalide");
-            throw exceptionErreurBD;
+        } else {
+            throw new ExceptionCustom("la quantité est invalide");
         }
         return valide;
     }
@@ -260,79 +232,61 @@ public class ItemService implements ItemServiceInterface {
         boolean valide = true;
         boolean valideId = this.verificationService.verifier(id);
         boolean valideQt = this.verificationService.verifier(quantite);
-        if(valideQt) {
+        if (valideQt) {
             if (valideId) {
                 if (connection == null) {
                     try {
                         //verifier Quantite
-                            this.itemRepository.Delete(id, quantite);
-                    }catch(ExceptionCustom e) {
+                        this.itemRepository.Delete(id, quantite);
+                    } catch (ExceptionCustom e) {
                         throw e;
                     } catch (Exception e) {
                         valide = false;
-                        ExceptionCustom exceptionErreurBD = new ExceptionCustom("l'objet que vous recherché est introuvable");
-                        throw exceptionErreurBD;
+                        throw new ExceptionCustom("l'objet que vous recherché est introuvable");
                     }
                 } else {
                     valide = false;
-                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de connection a la base de données");
+                    ExceptionCustom exceptionErreurBD;
+                    exceptionErreurBD = new ExceptionCustom("Erreur de connection a la base de données");
                     throw exceptionErreurBD;
                 }
             } else {
                 valide = false;
-                ExceptionCustom exceptionErreurBD = new ExceptionCustom("Données de saisies invalide");
-                throw exceptionErreurBD;
+                throw new ExceptionCustom("Données de saisies invalide");
             }
         } else {
             valide = false;
-            ExceptionCustom exceptionErreurBD = new ExceptionCustom("Données de saisies invalide");
-            throw exceptionErreurBD;
+            throw new ExceptionCustom("Données de saisies invalide");
         }
         return valide;
     }
-    public boolean MoveItem(int id,int quantite,String emplacementNouveau) throws ExceptionCustom
-    {
+
+    public boolean MoveItem(int id, int quantite, String emplacementNouveau) throws ExceptionCustom {
         boolean valide = true;
 
-        if (verificationService.itemExist(id))
-        {
-            if (verificationService.verifier(quantite))
-            {
-                if (verificationService.verifierQuantiteRestante(id,quantite))
-                {
-                    if (verificationService.emplacementExist(emplacementNouveau))
-                    {
+        if (verificationService.itemExist(id)) {
+            if (verificationService.verifier(quantite)) {
+                if (verificationService.verifierQuantiteRestante(id, quantite)) {
+                    if (verificationService.emplacementExist(emplacementNouveau)) {
                         Item item = FindById(id);
-                        Update(id,item.getIdItemInfo(),item.getEmplacement(),item.getDescription(),item.getQuantite() - quantite);
-                        Delete(id,0);
-                        Create(item.getIdItemInfo(),emplacementNouveau,item.getDescription(),quantite);
-                    }
-                    else
-                    {
+                        Update(id, item.getIdItemInfo(), item.getEmplacement(), item.getDescription(), item.getQuantite() - quantite);
+                        Delete(id, 0);
+                        Create(item.getIdItemInfo(), emplacementNouveau, item.getDescription(), quantite);
+                    } else {
                         valide = false;
-                        ExceptionCustom exceptionErreurBD = new ExceptionCustom("le nouvelle emplacement n'est pas valide");
-                        throw exceptionErreurBD;
+                        throw new ExceptionCustom("le nouvelle emplacement n'est pas valide");
                     }
-                }
-                else
-                {
+                } else {
                     valide = false;
-                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("vous déplacer plus d'object que la quantité en stock");
-                    throw exceptionErreurBD;
+                    throw new ExceptionCustom("vous déplacer plus d'object que la quantité en stock");
                 }
-            }
-            else
-            {
+            } else {
                 valide = false;
-                ExceptionCustom exceptionErreurBD = new ExceptionCustom("format de Quantite invalide");
-                throw exceptionErreurBD;
+                throw new ExceptionCustom("format de Quantite invalide");
             }
-        }
-        else
-        {
+        } else {
             valide = false;
-            ExceptionCustom exceptionErreurBD = new ExceptionCustom("Aucun object avec id : " + id);
-            throw exceptionErreurBD;
+            throw new ExceptionCustom("Aucun object avec id : " + id);
         }
 
 
@@ -343,31 +297,21 @@ public class ItemService implements ItemServiceInterface {
     public boolean ModifyItem(int id, String description) throws ExceptionCustom {
         boolean valide = true;
 
-        if (verificationService.itemExist(id))
-        {
-            if (verificationService.verifierDescription(description))
-            {
+        if (verificationService.itemExist(id)) {
+            if (verificationService.verifierDescription(description)) {
                 Item item = FindById(id);
-                Update(id,item.getIdItemInfo(),item.getEmplacement(),description,item.getQuantite());
-            }
-            else
-            {
+                Update(id, item.getIdItemInfo(), item.getEmplacement(), description, item.getQuantite());
+            } else {
                 valide = false;
-                ExceptionCustom exceptionErreurBD = new ExceptionCustom("la description ne possede pas de bon format");
-                throw exceptionErreurBD;
+                throw new ExceptionCustom("la description ne possede pas de bon format");
             }
 
-        }else
-        {
+        } else {
             valide = false;
-            ExceptionCustom exceptionErreurBD = new ExceptionCustom("Aucun object avec id : " + id);
-            throw exceptionErreurBD;
+            throw new ExceptionCustom("Aucun object avec id : " + id);
         }
 
         return valide;
-
-
-
 
 
     }
@@ -376,7 +320,7 @@ public class ItemService implements ItemServiceInterface {
     public Item trouverSimilaire(int idItemInfo, String emplacement, String description) {
         Item item = null;
         try {
-            item = itemRepository.findSimilar(idItemInfo,emplacement,description);
+            item = itemRepository.findSimilar(idItemInfo, emplacement, description);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -387,18 +331,13 @@ public class ItemService implements ItemServiceInterface {
     @Override
     public Item trouverSimilaire(int idItemInfo, String description) {
 
-            Item item = null;
-            try {
-                item = itemRepository.findSimilar(idItemInfo,description);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        Item item = null;
+        try {
+            item = itemRepository.findSimilar(idItemInfo, description);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-            return item;
-    }
-
-    public static ItemService GetInstance()
-    {
-        return instance;
+        return item;
     }
 }

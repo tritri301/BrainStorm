@@ -2,8 +2,8 @@ package Repositories;
 
 import Factory.UserFactory;
 import Models.ConnectionBD;
-import Repositories.Interfaces.UserRepositoryInterface;
 import Models.User;
+import Repositories.Interfaces.UserRepositoryInterface;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,16 +12,31 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type User repository.
+ */
 public class UserRepository implements UserRepositoryInterface {
     private static final UserRepository instance = new UserRepository();
 
     private Connection con;
     private UserFactory userFactory;
 
-    public UserRepository() {
+    /**
+     * Instantiates a new User repository.
+     */
+    private UserRepository() {
         ConnectionBD BD = ConnectionBD.GetInstance();
         this.con = BD.GetConnection();
         this.userFactory = UserFactory.GetInstance();
+    }
+
+    /**
+     * Get instance user repository.
+     *
+     * @return the user repository
+     */
+    public static UserRepository GetInstance() {
+        return instance;
     }
 
     @Override
@@ -45,8 +60,7 @@ public class UserRepository implements UserRepositoryInterface {
         PreparedStatement stmt = con.prepareStatement("select * from user where email = ?");
         stmt.setString(1, email);
         ResultSet rs = stmt.executeQuery();
-        while(rs.next())
-        {
+        while (rs.next()) {
             item.add(userFactory.Create(rs.getInt(1),
                     rs.getString(2),
                     rs.getString(3),
@@ -65,8 +79,7 @@ public class UserRepository implements UserRepositoryInterface {
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery("select * from user");
         rs.next();
-        while(rs.next())
-        {
+        while (rs.next()) {
             item.add(userFactory.Create(rs.getInt(1),
                     rs.getString(2),
                     rs.getString(3),
@@ -121,9 +134,5 @@ public class UserRepository implements UserRepositoryInterface {
         stmt.setInt(8, userToAdd.getIdRole());
 
         stmt.execute();
-    }
-
-    public static UserRepository GetInstance() {
-        return instance;
     }
 }

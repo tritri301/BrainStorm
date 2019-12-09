@@ -1,11 +1,11 @@
 package Services;
 
+import Exception.ExceptionCustom;
 import Factory.UserFactory;
 import Models.ConnectionBD;
+import Models.User;
 import Repositories.UserRepository;
 import Services.Interfaces.UserServiceInterface;
-import Models.User;
-import Exception.*;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -26,6 +26,15 @@ public class UserService implements UserServiceInterface {
     private HashService hashService = HashService.getInstance();
     private VerificationService verificationService = VerificationService.GetInstance();
 
+    /**
+     * Get instance user service.
+     *
+     * @return the user service
+     */
+    public static UserService GetInstance() {
+        return instance;
+    }
+
     @Override
     public User FindById(int id) throws ExceptionCustom {
         User user = null;
@@ -35,16 +44,13 @@ public class UserService implements UserServiceInterface {
                     user = this.userRepository.FindById(id);
                 } catch (Exception e) {
                     e.printStackTrace();
-                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("L'usager recherché est introuvable");
-                    throw exceptionErreurBD;
+                    throw new ExceptionCustom("L'usager recherché est introuvable");
                 }
             } else {
-                ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de connection a la base de données");
-                throw exceptionErreurBD;
+                throw new ExceptionCustom("Erreur de connection a la base de données");
             }
-        }else{
-            ExceptionCustom exceptionErreurBD = new ExceptionCustom("Données de saisies invalide");
-            throw exceptionErreurBD;
+        } else {
+            throw new ExceptionCustom("Données de saisies invalide");
         }
 
         return user;
@@ -53,24 +59,17 @@ public class UserService implements UserServiceInterface {
     @Override
     public List<User> FindAll() throws ExceptionCustom {
         List<User> user = new ArrayList<User>();
-        if (connection == null)
-        {
+        if (connection == null) {
             try {
                 user = this.userRepository.FindAll();
-                if (user == null)
-                {
-                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("Aucun Résultats");
-                    throw exceptionErreurBD;
+                if (user == null) {
+                    throw new ExceptionCustom("Aucun Résultats");
                 }
             } catch (Exception e) {
-                ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd" + e.toString());
-                throw exceptionErreurBD;
+                throw new ExceptionCustom("Erreur de bd" + e.toString());
             }
-        }
-        else
-        {
-            ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de connection a la base de données");
-            throw exceptionErreurBD;
+        } else {
+            throw new ExceptionCustom("Erreur de connection a la base de données");
         }
 
         return new ArrayList<>();
@@ -85,16 +84,13 @@ public class UserService implements UserServiceInterface {
                     email = email.toLowerCase();
                     user = this.userRepository.FindByEmail(email);
                 } catch (Exception e) {
-                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("L'usager recherché est introuvable");
-                    throw exceptionErreurBD;
+                    throw new ExceptionCustom("L'usager recherché est introuvable");
                 }
             } else {
-                ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de connection a la base de données");
-                throw exceptionErreurBD;
+                throw new ExceptionCustom("Erreur de connection a la base de données");
             }
-        }else{
-            ExceptionCustom exceptionErreurBD = new ExceptionCustom("Données de saisies invalide");
-            throw exceptionErreurBD;
+        } else {
+            throw new ExceptionCustom("Données de saisies invalide");
         }
 
         return user;
@@ -104,8 +100,7 @@ public class UserService implements UserServiceInterface {
     public boolean Update(User userToUpdate) throws ExceptionCustom {
 
         boolean valide = this.verificationService.verifier(userToUpdate.getIdUser());
-        if (valide)
-        {
+        if (valide) {
             valide = this.verificationService.verifierEmail(userToUpdate.getEmail());
         }
 
@@ -113,23 +108,20 @@ public class UserService implements UserServiceInterface {
             userToUpdate.setEmail(userToUpdate.getEmail().toLowerCase());
             if (connection == null) {
                 try {
-                    if(!userToUpdate.getPassword().equals(userRepository.FindById(userToUpdate.getIdUser()).getPassword()))
-                    {
+                    if (!userToUpdate.getPassword().equals(userRepository.FindById(userToUpdate.getIdUser()).getPassword())) {
                         //if the password was changed hash the new password
                         userToUpdate.setPassword(hashService.HashString(userToUpdate.getPassword()));
                     }
                     this.userRepository.Update(userToUpdate);
                 } catch (Exception e) {
                     valide = false;
-                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd" + e.toString());
-                    throw exceptionErreurBD;
+                    throw new ExceptionCustom("Erreur de bd" + e.toString());
                 }
             } else {
                 valide = false;
-                ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de connection a la base de données");
-                throw exceptionErreurBD;
+                throw new ExceptionCustom("Erreur de connection a la base de données");
             }
-        }else{
+        } else {
             valide = false;
             ExceptionCustom exceptionErreurBD = new ExceptionCustom("Données de saisies invalide");
             throw exceptionErreurBD;
@@ -142,12 +134,11 @@ public class UserService implements UserServiceInterface {
     public boolean Create(int idUser, String email, String password, String poste, String lastName, String firstName, String adresse, int idRole) throws ExceptionCustom {
 
         boolean valide = this.verificationService.verifier(idUser);
-        if (valide)
-        {
+        if (valide) {
             valide = this.verificationService.verifierEmail(email);
         }
 
-        if(valide) {
+        if (valide) {
             email = email.toLowerCase();
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             String dateCreation = format.format(new Date());
@@ -165,8 +156,7 @@ public class UserService implements UserServiceInterface {
                 ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de connection a la base de données");
                 throw exceptionErreurBD;
             }
-        }
-        else{
+        } else {
             valide = false;
             ExceptionCustom exceptionErreurBD = new ExceptionCustom("Données de saisies invalide");
             throw exceptionErreurBD;
@@ -194,17 +184,12 @@ public class UserService implements UserServiceInterface {
                 ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de connection a la base de données");
                 throw exceptionErreurBD;
             }
-        }else{
+        } else {
             valide = false;
             ExceptionCustom exceptionErreurBD = new ExceptionCustom("Données de saisies invalide");
             throw exceptionErreurBD;
         }
 
         return valide;
-    }
-
-    public static UserService GetInstance()
-    {
-        return instance;
     }
 }

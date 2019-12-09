@@ -1,12 +1,12 @@
 package Controllers;
 
 import Controllers.Interface.RoleControllerInterface;
+import Exception.ExceptionCustom;
 import Models.Role;
 import Services.RoleService;
-import Exception.*;
 
 /**
- * The type Role controller.
+ * @Note
  */
 public class RoleController implements RoleControllerInterface {
     private static final RoleController instance = new RoleController();
