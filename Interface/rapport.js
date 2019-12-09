@@ -7,7 +7,7 @@ function CreateCSVFile()
 function CreateExcelFile()
 {
     window.JavaApp.CreateExcelFile();
-    window.alert("Aucun fichier généré, veuillez contacter la personne en charge du logiciel");
+    window.alert("Fichier Excel générer avec succès");
 }
 
 function showListFolder()
@@ -21,10 +21,8 @@ function createTable()
     var column;
     for(var i = 0; i < arguments.length; i++)
     {
-         column = document.createElement("td","a");
-         column.innerHTML = arguments[i];
-         column.href = "arguments[0]";
-         column.setAttribute("onclick","window.open(" + "'" +arguments[0]+ "'" + ");");
+         column = document.createElement("td");
+         column.innerHTML = "<a href='"+arguments[i]+"'>" +arguments[i] + "</a>";
          row.appendChild(column);
     }
     document.getElementById("table2").appendChild(row);
@@ -39,7 +37,8 @@ function getval(sel)
          myNode.removeChild(myNode.firstChild);
      }
 
-    if (sel.value == "ascendant") window.JavaApp.ShowRapportInterface("true");
+    if (sel.value == "ascendant") window.JavaApp.ShowRapportInterface("ascendant");
 
-    else if (sel.value == "descendant")window.JavaApp.ShowRapportInterface("false");
+    else if (sel.value == "descendant")window.JavaApp.ShowRapportInterface("descendant");
+
 }

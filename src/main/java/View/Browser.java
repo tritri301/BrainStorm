@@ -15,13 +15,16 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import netscape.javascript.JSObject;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.*;
-
 
 public class Browser extends BorderPane {
     private static final View.Browser instance = new View.Browser();
@@ -47,7 +50,6 @@ public class Browser extends BorderPane {
                         JSObject window = (JSObject) webEngine.executeScript("window");
                         window.setMember("JavaApp", javaApp);
                         window.call("CheckPermission");
-                        window.call("showListFolder");
 
                         if(webEngine.getLocation().equals("file:///" + System.getProperty("user.dir") + "/Interface/rapport.html"))
                         {
@@ -367,12 +369,60 @@ public class Browser extends BorderPane {
                 Alert("Une erreur c'est produite");
             }
         }
+
+        public void CreateExcelFile() {
+            ItemController itemController = ItemController.GetInstance();
+            ItemInfoController itemInfoController = ItemInfoController.GetInstance();
+            List<Item> itemList = itemController.FindAll();
+            List<ItemInfo> itemInfoList = itemInfoController.FindAll();
+            SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd_HH.mm");
+
+            String dateString = date.format(new Date());
+            try {
+                String filename = "Rapport\\" + dateString + ".xls" ;
+                File file = new File(filename);
+                file.getParentFile().mkdirs();
+                HSSFWorkbook workbook = new HSSFWorkbook();
+                HSSFSheet sheet = workbook.createSheet("Rapport");
+
+                HSSFRow rowhead = sheet.createRow((short)0);
+                rowhead.createCell(0).setCellValue("Id");
+                rowhead.createCell(1).setCellValue("Nom");
+                rowhead.createCell(2).setCellValue("Emplacement");
+                rowhead.createCell(3).setCellValue("Poids");
+                rowhead.createCell(4).setCellValue("Volume");
+                rowhead.createCell(5).setCellValue("Quantité");
+
+                int cpt = 1;
+                for (int i = 0; i < itemList.size(); i++) {
+                    HSSFRow row = sheet.createRow((short)cpt);
+                    ItemInfo tmp = itemInfoController.FindById(itemList.get(i).getIdItemInfo());
+                    row.createCell(0).setCellValue(tmp.getIdItemInfo());
+                    row.createCell(1).setCellValue(tmp.getNom());
+                    row.createCell(2).setCellValue(itemList.get(i).getEmplacement());
+                    row.createCell(3).setCellValue(tmp.getPoids());
+                    row.createCell(4).setCellValue(tmp.getVolume());
+                    row.createCell(5).setCellValue(itemList.get(i).getQuantite());
+                    cpt++;
+                }
+
+                FileOutputStream fileOut = new FileOutputStream(filename);
+                workbook.write(fileOut);
+                fileOut.close();
+                workbook.close();
+                System.out.println("Fichier excel générer avec succès!");
+
+            } catch ( Exception ex ) {
+                System.out.println(ex);
+            }
+        }
+
         public void ShowRapportInterface(String tri) {
             File f = new File("Rapport\\"); // current directory
 
             File[] files = f.listFiles();
-            if (tri.equals("true")) Arrays.sort(files);
-            else if (tri.equals("false"))Arrays.sort(files, Collections.reverseOrder());
+            if (tri.equals("ascendant")) Arrays.sort(files);
+            else if (tri.equals("descendant"))Arrays.sort(files, Collections.reverseOrder());
 
             for (File file : files) {
                 if (file.isDirectory()) {
