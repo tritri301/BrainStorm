@@ -8,31 +8,9 @@ import Models.User;
  */
 public class UserFactory {
 
-    private static final UserFactory instance = new UserFactory();
+    private static final UserFactory instance =new UserFactory();
 
-    /**
-     * Get instance user factory.
-     *
-     * @return the user factory
-     */
-    public static UserFactory GetInstance() {
-        return instance;
-    }
-
-    /**
-     * Create user.
-     *
-     * @param idUser    the id user
-     * @param email     the email
-     * @param password  the password
-     * @param poste     the poste
-     * @param lastName  the last name
-     * @param firstName the first name
-     * @param adresse   the adresse
-     * @param idRole    the id role
-     * @return the user
-     */
-    public User Create(int idUser, String email, String password, String poste, String lastName, String firstName, String adresse, int idRole) {
+    public User Create(int idUser, String email, String password, String poste, String lastName, String firstName, String adresse, String lastConnected, String lastPassChange, int unsuccessfullConnection, int idRole){
         User ret = new User();
 
         ret.setIdUser(idUser);
@@ -42,18 +20,15 @@ public class UserFactory {
         ret.setLastName(lastName);
         ret.setFirstName(firstName);
         ret.setAdresse(adresse);
+        ret.setLastConnected(lastConnected);
+        ret.setLastPassChange(lastPassChange);
+        ret.setUnsuccessfullConnection(unsuccessfullConnection);
         ret.setIdRole(idRole);
 
         return ret;
     }
-
-    /**
-     * Create connected connected user.
-     *
-     * @param user the user
-     * @return the connected user
-     */
-    public ConnectedUser CreateConnected(User user) {
+    public ConnectedUser CreateConnected(User user)
+    {
         ConnectedUser ret = ConnectedUser.GetInstance();
 
         ret.setIdUser(user.getIdUser());
@@ -63,8 +38,13 @@ public class UserFactory {
         ret.setLastName(user.getLastName());
         ret.setFirstName(user.getFirstName());
         ret.setAdresse(user.getAdresse());
+        ret.setLastConnected(user.getLastConnected());
+        ret.setLastPassChange(user.getLastPassChange());
+        ret.setUnsuccessfullConnection(user.getUnsuccessfullConnection());
         ret.setIdRole(user.getIdRole());
 
         return ret;
     }
+
+    public static UserFactory GetInstance(){return instance;}
 }

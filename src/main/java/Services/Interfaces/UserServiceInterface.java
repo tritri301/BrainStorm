@@ -58,7 +58,7 @@ public interface UserServiceInterface {
      * @return the user
      * @throws ExceptionCustom the exception custom
      */
-    boolean Create(int idUser, String email, String password, String poste, String lastName, String firstName, String adresse, int idRole) throws ExceptionCustom;
+    boolean Create(int idUser, String email, String password, String poste, String lastName, String firstName, String adresse, String lastConnected, String lastPassChange, int unsuccessfullConnection, int idRole) throws ExceptionCustom;
 
     /**
      * Delete user.

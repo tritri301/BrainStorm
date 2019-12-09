@@ -105,11 +105,11 @@ public class Browser extends BorderPane {
                         user.getIdRole());
             }
         }
-        public void ModifyUser(int numEmpl, String email, String password, String Poste, String lastName, String firstName, String adresse, int idRole)
+        public void ModifyUser(int idUser, String email, String password, String poste, String lastName, String firstName, String adresse, String lastConnected, String lastPassChange, int unsuccessfullConnection, int idRole)
         {
             UserFactory userFactory = UserFactory.GetInstance();
             UserController userController = UserController.GetInstance();
-            User userToUpdate = userFactory.Create(numEmpl, email, password, Poste, lastName, firstName, adresse, idRole);
+            User userToUpdate = userFactory.Create(idUser, email, password, poste, lastName, firstName, adresse, lastConnected, lastPassChange, unsuccessfullConnection, idRole);
             if(userController.Update(userToUpdate))
             {
                 Alert("User modified successfully!");
@@ -119,10 +119,10 @@ public class Browser extends BorderPane {
                 Alert("There was a problem modifying this user!");
             }
         }
-        public void CreateUser(int numEmpl, String email, String password, String Poste, String lastName, String firstName, String adresse, int idRole)
+        public void CreateUser(int idUser, String email, String password, String poste, String lastName, String firstName, String adresse, String lastConnected, String lastPassChange, int unsuccessfullConnection, int idRole)
         {
             UserController userController = UserController.GetInstance();
-            if(userController.Create(numEmpl, email, password, Poste, lastName, firstName, adresse, idRole))
+            if(userController.Create(idUser, email, password, poste, lastName, firstName, adresse, lastConnected, lastPassChange, unsuccessfullConnection, idRole))
             {
                 Alert("User created successfully!");
             }
@@ -134,23 +134,11 @@ public class Browser extends BorderPane {
 
         public boolean CheckConnexion(String user, String password)
         {
-            ConnectedUser connectedUser = ConnectedUser.GetInstance();
             UserFactory userFactory = UserFactory.GetInstance();
             HashService hashService = HashService.getInstance();
             UserController userController = UserController.GetInstance();
 
-            List<User> userToConnect = userController.FindByEmail(user);
-            if(userToConnect == null)
-            {
-                return false;
-            }
-            if(userToConnect.get(0).getPassword().equals(hashService.HashString(password)))
-            {
-                connectedUser = userFactory.CreateConnected(userToConnect.get(0));
-                return true;
-            }
-            connectedUser = null;
-            return false;
+            return userController.ConnectUser(user, password);
         }
 
         public String CheckPermission()
