@@ -352,9 +352,10 @@ public class Browser extends BorderPane {
                     writer.write(csvData.toString());
                 }
                 writer.close();
+                Alert("Fichier CSV générer avec succès");
             } catch (IOException e) {
                 e.printStackTrace();
-                Alert("Une erreur c'est produite");
+                Alert("Une erreur c'est produite lors de la création du fichier CSV, contacter votre administrateur réseau");
             }
         }
 
@@ -398,10 +399,11 @@ public class Browser extends BorderPane {
                 workbook.write(fileOut);
                 fileOut.close();
                 workbook.close();
-                System.out.println("Fichier excel générer avec succès!");
+                Alert("Fichier Excel générer avec succès");
 
             } catch ( Exception ex ) {
-                System.out.println(ex);
+                Alert("Une erreur c'est produite lors de la création du fichier Excel, contacter votre administrateur réseau");
+                //System.out.println(ex);
             }
         }
 
