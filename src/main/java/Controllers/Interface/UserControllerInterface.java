@@ -53,7 +53,7 @@ public interface UserControllerInterface {
      * @param idRole    the id role
      * @return the user
      */
-    boolean Create(int idUser, String email, String password, String poste, String lastName, String firstName, String adresse, int idRole);
+    boolean Create(int idUser, String email, String password, String poste, String lastName, String firstName, String adresse, String lastConnected, String lastPassChange, int unsuccessfullConnection, int idRole);
 
     /**
      * Delete user.

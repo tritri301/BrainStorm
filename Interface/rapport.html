@@ -71,11 +71,16 @@ But du fichier :    Afficher la page du site qui permet de creer un rapport d'it
 	<div class="row">
 		<div class="col" id="titre">
 			<button align="center" id="btnRapportCSV" class="btn btn-default" onclick="CreateCSVFile();" >Générer fichier CSV</button>
-            <button align="center" id="btnRapportEx" class="btn btn-default" disabled onclick="CreateExcelFile();" >Générer fichier Excel</button>
+            <button align="center" id="btnRapportEx" class="btn btn-default" onclick="CreateExcelFile();" >Générer fichier Excel</button>
 		</div>
 	</div><br><br>
 	<div class="row" id="sectionBlanc">
-		<table align="center">
+		<table align="center" border ="1">
+			<thead align="left">
+			<tr>
+				<th><b>Vue du dossier rapport :</b></th>
+			</tr>
+			</thead>
 		<tbody id="table2">
 		</tbody>
 		</table>
