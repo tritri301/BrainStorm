@@ -15,14 +15,16 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import netscape.javascript.JSObject;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 public class Browser extends BorderPane {
     private static final View.Browser instance = new View.Browser();
@@ -48,6 +50,11 @@ public class Browser extends BorderPane {
                         JSObject window = (JSObject) webEngine.executeScript("window");
                         window.setMember("JavaApp", javaApp);
                         window.call("CheckPermission");
+
+                        if(webEngine.getLocation().equals("file:///" + System.getProperty("user.dir") + "/Interface/rapport.html"))
+                        {
+                            window.call("showListFolder");
+                        }
                     }
                 });
 
@@ -98,11 +105,11 @@ public class Browser extends BorderPane {
                         user.getIdRole());
             }
         }
-        public void ModifyUser(int numEmpl, String email, String password, String Poste, String lastName, String firstName, String adresse, int idRole)
+        public void ModifyUser(int idUser, String email, String password, String poste, String lastName, String firstName, String adresse, String lastConnected, String lastPassChange, int unsuccessfullConnection, int idRole)
         {
             UserFactory userFactory = UserFactory.GetInstance();
             UserController userController = UserController.GetInstance();
-            User userToUpdate = userFactory.Create(numEmpl, email, password, Poste, lastName, firstName, adresse, idRole);
+            User userToUpdate = userFactory.Create(idUser, email, password, poste, lastName, firstName, adresse, lastConnected, lastPassChange, unsuccessfullConnection, idRole);
             if(userController.Update(userToUpdate))
             {
                 Alert("User modified successfully!");
@@ -112,10 +119,10 @@ public class Browser extends BorderPane {
                 Alert("There was a problem modifying this user!");
             }
         }
-        public void CreateUser(int numEmpl, String email, String password, String Poste, String lastName, String firstName, String adresse, int idRole)
+        public void CreateUser(int idUser, String email, String password, String poste, String lastName, String firstName, String adresse, String lastConnected, String lastPassChange, int unsuccessfullConnection, int idRole)
         {
             UserController userController = UserController.GetInstance();
-            if(userController.Create(numEmpl, email, password, Poste, lastName, firstName, adresse, idRole))
+            if(userController.Create(idUser, email, password, poste, lastName, firstName, adresse, lastConnected, lastPassChange, unsuccessfullConnection, idRole))
             {
                 Alert("User created successfully!");
             }
@@ -127,23 +134,11 @@ public class Browser extends BorderPane {
 
         public boolean CheckConnexion(String user, String password)
         {
-            ConnectedUser connectedUser = ConnectedUser.GetInstance();
             UserFactory userFactory = UserFactory.GetInstance();
             HashService hashService = HashService.getInstance();
             UserController userController = UserController.GetInstance();
 
-            List<User> userToConnect = userController.FindByEmail(user);
-            if(userToConnect == null)
-            {
-                return false;
-            }
-            if(userToConnect.get(0).getPassword().equals(hashService.HashString(password)))
-            {
-                connectedUser = userFactory.CreateConnected(userToConnect.get(0));
-                return true;
-            }
-            connectedUser = null;
-            return false;
+            return userController.ConnectUser(user, password);
         }
 
         public String CheckPermission()
@@ -171,6 +166,7 @@ public class Browser extends BorderPane {
                 ItemInfo tmp = itemInfoController.FindById(itemList.get(i).getIdItemInfo());
                 window.call("ShowItem", tmp.getIdItemInfo(),
                         tmp.getNom(),
+                        tmp.getDescription(),
                         itemList.get(i).getEmplacement(),
                         tmp.getPoids(),
                         tmp.getVolume(),
@@ -356,23 +352,78 @@ public class Browser extends BorderPane {
                     writer.write(csvData.toString());
                 }
                 writer.close();
+                Alert("Fichier CSV générer avec succès");
             } catch (IOException e) {
                 e.printStackTrace();
-                Alert("Une erreur c'est produite");
+                Alert("Une erreur c'est produite lors de la création du fichier CSV, contacter votre administrateur réseau");
             }
         }
-        public void afficherRapportInterface() {
-            File f = new File("."); // current directory
+
+        public void CreateExcelFile() {
+            ItemController itemController = ItemController.GetInstance();
+            ItemInfoController itemInfoController = ItemInfoController.GetInstance();
+            List<Item> itemList = itemController.FindAll();
+            List<ItemInfo> itemInfoList = itemInfoController.FindAll();
+            SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd_HH.mm");
+
+            String dateString = date.format(new Date());
+            try {
+                String filename = "Rapport\\" + dateString + ".xls" ;
+                File file = new File(filename);
+                file.getParentFile().mkdirs();
+                HSSFWorkbook workbook = new HSSFWorkbook();
+                HSSFSheet sheet = workbook.createSheet("Rapport");
+
+                HSSFRow rowhead = sheet.createRow((short)0);
+                rowhead.createCell(0).setCellValue("Id");
+                rowhead.createCell(1).setCellValue("Nom");
+                rowhead.createCell(2).setCellValue("Emplacement");
+                rowhead.createCell(3).setCellValue("Poids");
+                rowhead.createCell(4).setCellValue("Volume");
+                rowhead.createCell(5).setCellValue("Quantité");
+
+                int cpt = 1;
+                for (int i = 0; i < itemList.size(); i++) {
+                    HSSFRow row = sheet.createRow((short)cpt);
+                    ItemInfo tmp = itemInfoController.FindById(itemList.get(i).getIdItemInfo());
+                    row.createCell(0).setCellValue(tmp.getIdItemInfo());
+                    row.createCell(1).setCellValue(tmp.getNom());
+                    row.createCell(2).setCellValue(itemList.get(i).getEmplacement());
+                    row.createCell(3).setCellValue(tmp.getPoids());
+                    row.createCell(4).setCellValue(tmp.getVolume());
+                    row.createCell(5).setCellValue(itemList.get(i).getQuantite());
+                    cpt++;
+                }
+
+                FileOutputStream fileOut = new FileOutputStream(filename);
+                workbook.write(fileOut);
+                fileOut.close();
+                workbook.close();
+                Alert("Fichier Excel générer avec succès");
+
+            } catch ( Exception ex ) {
+                Alert("Une erreur c'est produite lors de la création du fichier Excel, contacter votre administrateur réseau");
+                //System.out.println(ex);
+            }
+        }
+
+        public void ShowRapportInterface(String tri) {
+            File f = new File("Rapport\\"); // current directory
 
             File[] files = f.listFiles();
+            if (tri.equals("ascendant")) Arrays.sort(files);
+            else if (tri.equals("descendant"))Arrays.sort(files, Collections.reverseOrder());
+
             for (File file : files) {
                 if (file.isDirectory()) {
-                    System.out.print("directory:");
+                    //System.out.print("directory:");
                 } else {
-                    System.out.print("     file:");
+                    //System.out.print("     file:");
                 }
                 try {
-                    System.out.println(file.getCanonicalPath());
+                    window.call("createTable",file.getCanonicalPath());
+                    String nameFile=file.getCanonicalPath();
+
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -385,10 +436,13 @@ public class Browser extends BorderPane {
         //CommandeItem est une table d'item commandé pour commande
         public boolean CreateCommande(int upc,int quantite,String description)
         {
+            ConnectedUser connectedUser = ConnectedUser.GetInstance();
+
             boolean valide = false;
             int id;
-            //Aller chercher dans UserController le nom User en cours
-            String nomPEnvoi = "AnnonymeQuiEnvoi";
+
+            //Aller chercher dans connectedUser le nom d'utilisateur en cours
+            String nomPEnvoi = connectedUser.getFirstName()+" "+connectedUser.getLastName();
 
             CommandeController commandeController = CommandeController.GetInstance();
             ItemCommandeController itemCommandeController = ItemCommandeController.GetInstance();
@@ -409,8 +463,9 @@ public class Browser extends BorderPane {
         //Cette fonction update une commande et crée un item avec les paramètres reçus en javascrpt
         public boolean RecevoirCommande(int idItemCommande,String emplacement)
         {
-            //Aller chercher dans UserController le nom User en cours
-            String nomPRecu = "AnnonymeQuiRecoit";
+            ConnectedUser connectedUser = ConnectedUser.GetInstance();
+            //Aller chercher dans connectedUser le nom d'utilisateur en cours
+            String nomPRecu = connectedUser.getFirstName()+" "+connectedUser.getLastName();
             CommandeController commandeController = CommandeController.GetInstance();
             ItemController itemController = ItemController.GetInstance();
             ItemCommandeController itemCommandeController = ItemCommandeController.GetInstance();
@@ -454,7 +509,9 @@ public class Browser extends BorderPane {
                                         itemCommandeTmp.getDescription(),
                                         itemCommandeTmp.getQuantite(),
                                         commande.getDateLivraisonPrevu(),
-                                        commande.getEtat());
+                                        commande.getEtat(),
+                                        commande.getNomPEnvoi(),
+                                        commande.getNomPRecu());
                             }
                         }
                     }
@@ -468,10 +525,6 @@ public class Browser extends BorderPane {
             backupController.ShowBackupMenu();
 
                 Alert("Objet modifié avec succes");
-
-
-
-
         }
 
     }

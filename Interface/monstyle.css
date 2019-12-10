@@ -132,3 +132,7 @@ a.lienSousMenu {
 #tablePreview tr:active td{
 	background-color:#C0C0C0;
 }
+
+#table2 {
+  border: 0;
+}

@@ -1,11 +1,24 @@
 package Services.Interfaces;
 
-import Exception.*;
+import Exception.ExceptionCustom;
 import Models.ItemInfo;
 
 import java.util.List;
 
+/**
+ * The interface Report service interface.
+ */
 public interface ReportServiceInterface {
-    public void CreateFile();
-    public List<ItemInfo> FindAll() throws ExceptionCustom;
+    /**
+     * Create file.
+     */
+    void CreateFile();
+
+    /**
+     * Find all list.
+     *
+     * @return the list
+     * @throws ExceptionCustom the exception custom
+     */
+    List<ItemInfo> FindAll() throws ExceptionCustom;
 }

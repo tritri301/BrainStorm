@@ -4,10 +4,34 @@ import Models.Commande;
 
 import java.sql.Date;
 
+/**
+ * The type Commande factory.
+ */
 public class CommandeFactory {
     private static final CommandeFactory instance = new CommandeFactory();
 
-    public Commande Create(int idCommande, Date dateCommande, Date dateLivraison, int etat,Date dateLivraisonPrevu,String nomPEnvoi,String nomPRecu) {
+    /**
+     * Get instance commande factory.
+     *
+     * @return the commande factory
+     */
+    public static CommandeFactory GetInstance() {
+        return instance;
+    }
+
+    /**
+     * Create commande.
+     *
+     * @param idCommande         the id commande
+     * @param dateCommande       the date commande
+     * @param dateLivraison      the date livraison
+     * @param etat               the etat
+     * @param dateLivraisonPrevu the date livraison prevu
+     * @param nomPEnvoi          the nom p envoi
+     * @param nomPRecu           the nom p recu
+     * @return the commande
+     */
+    public Commande Create(int idCommande, Date dateCommande, Date dateLivraison, int etat, Date dateLivraisonPrevu, String nomPEnvoi, String nomPRecu) {
         Commande ret = new Commande();
 
         ret.setIdCommande(idCommande);
@@ -20,5 +44,4 @@ public class CommandeFactory {
 
         return ret;
     }
-    public static CommandeFactory GetInstance(){return instance;}
 }

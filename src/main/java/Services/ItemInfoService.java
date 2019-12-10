@@ -1,11 +1,11 @@
 package Services;
 
+import Exception.ExceptionCustom;
 import Factory.ItemInfoFactory;
 import Models.ConnectionBD;
+import Models.ItemInfo;
 import Repositories.ItemInfoRepository;
 import Services.Interfaces.ItemInfoServiceInterface;
-import Models.ItemInfo;
-import Exception.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +22,15 @@ public class ItemInfoService implements ItemInfoServiceInterface {
     private Object connection = this.connectionBD.GetConnectionStatus();
     private VerificationService verificationService = VerificationService.GetInstance();
 
+    /**
+     * Get instance item info service.
+     *
+     * @return the item info service
+     */
+    public static ItemInfoService GetInstance() {
+        return instance;
+    }
+
     @Override
     public ItemInfo FindById(int id) throws ExceptionCustom {
         ItemInfo itemInfo = null;
@@ -29,23 +38,18 @@ public class ItemInfoService implements ItemInfoServiceInterface {
             if (connection == null) {
                 try {
                     itemInfo = this.itemInfoRepository.FindById(id);
-                    if (itemInfo == null)
-                    {
-                        ExceptionCustom exceptionErreurBD = new ExceptionCustom("Aucun Résultats");
-                        throw exceptionErreurBD;
+                    if (itemInfo == null) {
+                        throw new ExceptionCustom("Aucun Résultats");
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
-                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("ce code UPC est introuvable dans le catalogue");
-                    throw exceptionErreurBD;
+                    throw new ExceptionCustom("ce code UPC est introuvable dans le catalogue");
                 }
             } else {
-                ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de connection a la base de données");
-                throw exceptionErreurBD;
+                throw new ExceptionCustom("Erreur de connection a la base de données");
             }
-        }else{
-            ExceptionCustom exceptionErreurBD = new ExceptionCustom("Données de saisies invalide");
-            throw exceptionErreurBD;
+        } else {
+            throw new ExceptionCustom("Données de saisies invalide");
         }
 
         return itemInfo;
@@ -54,24 +58,17 @@ public class ItemInfoService implements ItemInfoServiceInterface {
     @Override
     public List<ItemInfo> FindAll() throws ExceptionCustom {
         List<ItemInfo> itemInfo = new ArrayList<ItemInfo>();
-        if (connection == null)
-        {
+        if (connection == null) {
             try {
-               itemInfo = this.itemInfoRepository.FindAll();
-                if (itemInfo == null)
-                {
-                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("Aucun Résultats");
-                    throw exceptionErreurBD;
+                itemInfo = this.itemInfoRepository.FindAll();
+                if (itemInfo == null) {
+                    throw new ExceptionCustom("Aucun Résultats");
                 }
             } catch (Exception e) {
-                ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd : " + e.toString());
-                throw exceptionErreurBD;
+                throw new ExceptionCustom("Erreur de bd : " + e.toString());
             }
-        }
-        else
-        {
-            ExceptionCustom exceptionErreurBD = new ExceptionCustom("Données de saisies invalide");
-            throw exceptionErreurBD;
+        } else {
+            throw new ExceptionCustom("Données de saisies invalide");
         }
 
         return new ArrayList<>();
@@ -79,24 +76,17 @@ public class ItemInfoService implements ItemInfoServiceInterface {
 
     public List<ItemInfo> SortByName() throws ExceptionCustom {
         List<ItemInfo> itemInfo = new ArrayList<ItemInfo>();
-        if (connection == null)
-        {
+        if (connection == null) {
             try {
                 itemInfo = this.itemInfoRepository.SortByName();
-                if (itemInfo == null)
-                {
-                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("Aucun Résultats");
-                    throw exceptionErreurBD;
+                if (itemInfo == null) {
+                    throw new ExceptionCustom("Aucun Résultats");
                 }
             } catch (Exception e) {
-                ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd : " + e.toString());
-                throw exceptionErreurBD;
+                throw new ExceptionCustom("Erreur de bd : " + e.toString());
             }
-        }
-        else
-        {
-            ExceptionCustom exceptionErreurBD = new ExceptionCustom("Données de saisies invalide");
-            throw exceptionErreurBD;
+        } else {
+            throw new ExceptionCustom("Données de saisies invalide");
         }
 
         return new ArrayList<>();
@@ -110,22 +100,17 @@ public class ItemInfoService implements ItemInfoServiceInterface {
                 try {
                     name = verificationService.normalisation(name);
                     itemInfo = this.itemInfoRepository.FindByName(name);
-                    if (itemInfo == null)
-                    {
-                        ExceptionCustom exceptionErreurBD = new ExceptionCustom("Aucun Résultats");
-                        throw exceptionErreurBD;
+                    if (itemInfo == null) {
+                        throw new ExceptionCustom("Aucun Résultats");
                     }
                 } catch (Exception e) {
-                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("ce code UPC est introuvable dans le catalogue");
-                    throw exceptionErreurBD;
+                    throw new ExceptionCustom("ce code UPC est introuvable dans le catalogue");
                 }
             } else {
-                ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de connection a la base de données");
-                throw exceptionErreurBD;
+                throw new ExceptionCustom("Erreur de connection a la base de données");
             }
-        }else{
-            ExceptionCustom exceptionErreurBD = new ExceptionCustom("Données de saisies invalide");
-            throw exceptionErreurBD;
+        } else {
+            throw new ExceptionCustom("Données de saisies invalide");
         }
 
         return itemInfo;
@@ -134,11 +119,10 @@ public class ItemInfoService implements ItemInfoServiceInterface {
     @Override
     public boolean Update(int idItem, String description, String nom, int poids, int volume) throws ExceptionCustom {
 
-        boolean valide = this.verificationService.verifier(idItem,poids,volume);
+        boolean valide = this.verificationService.verifier(idItem, poids, volume);
 
-        if (valide)
-        {
-            valide = this.verificationService.verifier(description,nom);
+        if (valide) {
+            valide = this.verificationService.verifier(description, nom);
         }
 
         if (valide) {
@@ -155,19 +139,15 @@ public class ItemInfoService implements ItemInfoServiceInterface {
                     this.itemInfoRepository.Update(nouveauItemInfo);
                 } catch (Exception e) {
                     valide = false;
-                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd : " + e.toString());
-                    throw exceptionErreurBD;
+                    throw new ExceptionCustom("Erreur de bd : " + e.toString());
                 }
             } else {
                 valide = false;
-                ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de connection a la base de données");
-                throw exceptionErreurBD;
+                throw new ExceptionCustom("Erreur de connection a la base de données");
             }
-        }
-        else{
+        } else {
             valide = false;
-            ExceptionCustom exceptionErreurBD = new ExceptionCustom("Données de saisies invalide");
-            throw exceptionErreurBD;
+            throw new ExceptionCustom("Données de saisies invalide");
         }
 
         return valide;
@@ -176,10 +156,9 @@ public class ItemInfoService implements ItemInfoServiceInterface {
     @Override
     public boolean Create(int idItem, String description, String nom, int poids, int volume) throws ExceptionCustom {
 
-        boolean valide = this.verificationService.verifier(idItem,poids,volume);
-        if (valide)
-        {
-            valide = this.verificationService.verifier(description,nom);
+        boolean valide = this.verificationService.verifier(idItem, poids, volume);
+        if (valide) {
+            valide = this.verificationService.verifier(description, nom);
         }
 
         if (valide) {
@@ -190,19 +169,15 @@ public class ItemInfoService implements ItemInfoServiceInterface {
                     itemInfoRepository.Create(this.itemInfoFactory.Create(idItem, description, nom, poids, volume));
                 } catch (Exception e) {
                     valide = false;
-                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd : " + e.toString());
-                    throw exceptionErreurBD;
+                    throw new ExceptionCustom("Erreur de bd : " + e.toString());
                 }
             } else {
                 valide = false;
-                ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de connection a la base de données");
-                throw exceptionErreurBD;
+                throw new ExceptionCustom("Erreur de connection a la base de données");
             }
-        }
-        else{
+        } else {
             valide = false;
-            ExceptionCustom exceptionErreurBD = new ExceptionCustom("Données de saisies ou code UPC invalide");
-            throw exceptionErreurBD;
+            throw new ExceptionCustom("Données de saisies ou code UPC invalide");
         }
 
         return valide;
@@ -212,31 +187,23 @@ public class ItemInfoService implements ItemInfoServiceInterface {
     public boolean Delete(int id) throws ExceptionCustom {
         boolean valide = this.verificationService.verifier(id);
 
-        if(valide) {
+        if (valide) {
             if (connection == null) {
                 try {
                     this.itemInfoRepository.Delete(id);
                 } catch (Exception e) {
                     valide = false;
-                    ExceptionCustom exceptionErreurBD = new ExceptionCustom("ce code UPC est introuvable dans le catalogue");
-                    throw exceptionErreurBD;
+                    throw new ExceptionCustom("ce code UPC est introuvable dans le catalogue");
                 }
             } else {
                 valide = false;
-                ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de connection a la base de données");
-                throw exceptionErreurBD;
+                throw new ExceptionCustom("Erreur de connection a la base de données");
             }
-        }else{
+        } else {
             valide = false;
-            ExceptionCustom exceptionErreurBD = new ExceptionCustom("Données de saisies invalide");
-            throw exceptionErreurBD;
+            throw new ExceptionCustom("Données de saisies invalide");
         }
 
         return valide;
-    }
-
-    public static ItemInfoService GetInstance()
-    {
-        return instance;
     }
 }

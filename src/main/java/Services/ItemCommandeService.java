@@ -1,17 +1,18 @@
 package Services;
 
+import Exception.ExceptionCustom;
 import Factory.ItemCommandeFactory;
-import Factory.ItemFactory;
 import Models.ConnectionBD;
 import Models.ItemCommande;
-import Repositories.Interfaces.ItemCommandeRepositoryInterface;
 import Repositories.ItemCommandeRepository;
 import Services.Interfaces.ItemCommandeServiceInterface;
-import Exception.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type Item commande service.
+ */
 public class ItemCommandeService implements ItemCommandeServiceInterface {
 
     private static final ItemCommandeService instance = new ItemCommandeService();
@@ -23,8 +24,12 @@ public class ItemCommandeService implements ItemCommandeServiceInterface {
     private Object connection = this.connectionBD.GetConnectionStatus();
 
 
-    public static ItemCommandeService GetInstance()
-    {
+    /**
+     * Get instance item commande service.
+     *
+     * @return the item commande service
+     */
+    public static ItemCommandeService GetInstance() {
         return instance;
     }
 
@@ -88,37 +93,34 @@ public class ItemCommandeService implements ItemCommandeServiceInterface {
     }
 
     @Override
-    public boolean Update(int idItemCommande, int idCommande, int idItemInfo,String description,int quantite) throws Exception {
+    public boolean Update(int idItemCommande, int idCommande, int idItemInfo, String description, int quantite) throws Exception {
         return true;
     }
 
     @Override
-    public boolean Create(int idItemCommande, int idCommande, int idItemInfo,String description,int quantite) throws Exception {
+    public boolean Create(int idItemCommande, int idCommande, int idItemInfo, String description, int quantite) throws Exception {
         boolean valide = false;
         if (quantite > 0) {
             if (verificationService.itemInfoExist(idItemInfo)) {
-                    if (verificationService.verifierDescription(description)) {
-                        if (connection == null) {
-                            try {
-                                itemCommandeRepository.Create(itemCommandeFactory.Create(idItemCommande, idCommande, idItemInfo,description,quantite));
-                                valide = true;
-                            } catch (Exception e) {
-                                throw new ExceptionCustom("Erreur de bd : " + e.toString());
-                            }
-
-                        } else {
-                            throw new ExceptionCustom("Erreur de connection a la base de données");
+                if (verificationService.verifierDescription(description)) {
+                    if (connection == null) {
+                        try {
+                            itemCommandeRepository.Create(itemCommandeFactory.Create(idItemCommande, idCommande, idItemInfo, description, quantite));
+                            valide = true;
+                        } catch (Exception e) {
+                            throw new ExceptionCustom("Erreur de bd : " + e.toString());
                         }
+
+                    } else {
+                        throw new ExceptionCustom("Erreur de connection a la base de données");
                     }
-                    else {
-                        throw new ExceptionCustom("la description na pas le bon format");
-                    }
-            }
-            else {
+                } else {
+                    throw new ExceptionCustom("la description na pas le bon format");
+                }
+            } else {
                 throw new ExceptionCustom("le code upc est invalide");
             }
-        }
-        else {
+        } else {
             throw new ExceptionCustom("la quantité est invalide");
         }
         return valide;

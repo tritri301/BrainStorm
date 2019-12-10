@@ -4,6 +4,9 @@ import Models.User;
 
 import java.util.List;
 
+/**
+ * The interface User controller interface.
+ */
 public interface UserControllerInterface {
 
     /**
@@ -24,7 +27,7 @@ public interface UserControllerInterface {
     /**
      * Find by name user.
      *
-     * @param name the name
+     * @param email the email
      * @return the user
      */
     List<User> FindByEmail(String email);
@@ -32,10 +35,7 @@ public interface UserControllerInterface {
     /**
      * Update user.
      *
-     * @param id           the id
-     * @param nom          the nom
-     * @param password     the password
-     * @param acces        the acces
+     * @param userToUpdate the user to update
      * @return the user
      */
     boolean Update(User userToUpdate);
@@ -43,13 +43,17 @@ public interface UserControllerInterface {
     /**
      * Create user.
      *
-     * @param id       the id
-     * @param nom      the nom
-     * @param password the password
-     * @param acces    the acces
+     * @param idUser    the id user
+     * @param email     the email
+     * @param password  the password
+     * @param poste     the poste
+     * @param lastName  the last name
+     * @param firstName the first name
+     * @param adresse   the adresse
+     * @param idRole    the id role
      * @return the user
      */
-    boolean Create(int idUser, String email, String password, String poste, String lastName, String firstName, String adresse, int idRole);
+    boolean Create(int idUser, String email, String password, String poste, String lastName, String firstName, String adresse, String lastConnected, String lastPassChange, int unsuccessfullConnection, int idRole);
 
     /**
      * Delete user.

@@ -1,16 +1,15 @@
 package Controllers;
 
 import Controllers.Interface.ItemCommandControllerInterface;
+import Exception.ExceptionCustom;
 import Models.ItemCommande;
-import Exception.*;
-import Services.CommandeService;
 import Services.ItemCommandeService;
 import View.Browser;
 
 import java.util.List;
 
 /**
- * The type Item commande controller.
+ * @Note Aucune remarque
  */
 public class ItemCommandeController implements ItemCommandControllerInterface {
 
@@ -76,7 +75,7 @@ public class ItemCommandeController implements ItemCommandControllerInterface {
         return itemCommandeList;
     }
 
-    @Override
+    @Deprecated
     public boolean Update(int idItemCommande, int idCommande, int idItemInfo, String description, int quantite){
         return false;
     }

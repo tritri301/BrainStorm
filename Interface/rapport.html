@@ -18,7 +18,7 @@ But du fichier :    Afficher la page du site qui permet de creer un rapport d'it
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
-<body onload="CheckPermission()">
+<body>
 <div class="container-fluid" id="conteneur">
 	<div class="row" id="sectionBlancMiniTest" width="100%">
 		<div class="col-sm" id="logo"><a href="index.html" class="lienCoolPlay"><img src="logo.png"/></a></div>
@@ -57,11 +57,12 @@ But du fichier :    Afficher la page du site qui permet de creer un rapport d'it
 	<table id="tableauFormulaire" border="0">
 		<tbody id="formulaire">
 		<tr>
-			<td align="right"><label for="optionTri">Option de tri :</label></td>
+			<td align="right"><label for="optionTri" >Option de tri :</label></td>
 			<td align="left">
-				<select name="tri" id="optionTri">
-					<option value="aucun">Ascendant</option>
-					<option value="id">Descendant</option>
+				<select name="tri" id="optionTri" onchange="getval(this);">
+					<option value="0">Choix du tri</option>
+					<option value="ascendant">Ascendant</option>
+					<option value="descendant">Descendant</option>
 				</select>
 			</td>
 		</tr>
@@ -70,11 +71,19 @@ But du fichier :    Afficher la page du site qui permet de creer un rapport d'it
 	<div class="row">
 		<div class="col" id="titre">
 			<button align="center" id="btnRapportCSV" class="btn btn-default" onclick="CreateCSVFile();" >Générer fichier CSV</button>
-            <button align="center" id="btnRapportEx" class="btn btn-default" disabled onclick="CreateExcelFile();" >Générer fichier Excel</button>
+            <button align="center" id="btnRapportEx" class="btn btn-default" onclick="CreateExcelFile();" >Générer fichier Excel</button>
 		</div>
-	</div>
+	</div><br><br>
 	<div class="row" id="sectionBlanc">
-		<!--Table-->
+		<table align="center" border ="1">
+			<thead align="left">
+			<tr>
+				<th><b>Vue du dossier rapport :</b></th>
+			</tr>
+			</thead>
+		<tbody id="table2">
+		</tbody>
+		</table>
 	</div>
 </div>
 </body>

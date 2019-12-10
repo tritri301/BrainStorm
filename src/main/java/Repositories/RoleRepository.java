@@ -10,15 +10,30 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
+/**
+ * The type Role repository.
+ */
 public class RoleRepository implements RoleRepositoryInterface {
     private static final RoleRepository instance = new RoleRepository();
     private Connection con;
     private RoleFactory roleFactory;
 
-    public RoleRepository() {
+    /**
+     * Instantiates a new Role repository.
+     */
+    private RoleRepository() {
         ConnectionBD BD = ConnectionBD.GetInstance();
         this.con = BD.GetConnection();
         this.roleFactory = RoleFactory.GetInstance();
+    }
+
+    /**
+     * Get instance role repository.
+     *
+     * @return the role repository
+     */
+    public static RoleRepository GetInstance() {
+        return instance;
     }
 
     @Override
@@ -62,9 +77,5 @@ public class RoleRepository implements RoleRepositoryInterface {
         int id = rs.getInt(1);
 
         return this.FindById(id);
-    }
-
-    public static RoleRepository GetInstance() {
-        return instance;
     }
 }

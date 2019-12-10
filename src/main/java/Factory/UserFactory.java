@@ -10,7 +10,7 @@ public class UserFactory {
 
     private static final UserFactory instance =new UserFactory();
 
-    public User Create(int idUser, String email, String password, String poste, String lastName, String firstName, String adresse, int idRole){
+    public User Create(int idUser, String email, String password, String poste, String lastName, String firstName, String adresse, String lastConnected, String lastPassChange, int unsuccessfullConnection, int idRole){
         User ret = new User();
 
         ret.setIdUser(idUser);
@@ -20,6 +20,9 @@ public class UserFactory {
         ret.setLastName(lastName);
         ret.setFirstName(firstName);
         ret.setAdresse(adresse);
+        ret.setLastConnected(lastConnected);
+        ret.setLastPassChange(lastPassChange);
+        ret.setUnsuccessfullConnection(unsuccessfullConnection);
         ret.setIdRole(idRole);
 
         return ret;
@@ -35,6 +38,9 @@ public class UserFactory {
         ret.setLastName(user.getLastName());
         ret.setFirstName(user.getFirstName());
         ret.setAdresse(user.getAdresse());
+        ret.setLastConnected(user.getLastConnected());
+        ret.setLastPassChange(user.getLastPassChange());
+        ret.setUnsuccessfullConnection(user.getUnsuccessfullConnection());
         ret.setIdRole(user.getIdRole());
 
         return ret;

@@ -5,11 +5,14 @@ import Models.User;
 import Services.UserService;
 import java.util.List;
 import Exception.*;
+import View.Browser;
+
 //test
 public class UserController implements UserControllerInterface {
 
       private static final UserController instance = new UserController();
       private UserService userService = UserService.GetInstance();
+    private Browser browser = Browser.GetInstance();
 
         //testid
     @Override
@@ -19,10 +22,10 @@ public class UserController implements UserControllerInterface {
         try {
             user = userService.FindById(id);
         } catch (ExceptionCustom e) {
-
+            browser.Alert(e.getMessage());
         }
         catch(Exception e) {
-
+            browser.Alert(e.toString());
         }
         return user;
     }
@@ -35,10 +38,10 @@ public class UserController implements UserControllerInterface {
         try {
             itemUser = userService.FindAll();
         } catch (ExceptionCustom e) {
-
+            browser.Alert(e.getMessage());
         }
         catch(Exception e) {
-
+            browser.Alert(e.toString());
         }
         return itemUser;
     }
@@ -50,10 +53,10 @@ public class UserController implements UserControllerInterface {
         try {
             userList = userService.FindByEmail(email);
         } catch (ExceptionCustom e) {
-
+            browser.Alert(e.getMessage());
         }
         catch(Exception e) {
-
+            browser.Alert(e.toString());
         }
         return userList;
     }
@@ -66,27 +69,27 @@ public class UserController implements UserControllerInterface {
         try {
             update = userService.Update(userToUpdate);
         } catch (ExceptionCustom e) {
-
+            browser.Alert(e.getMessage());
         }
         catch(Exception e) {
-
+            browser.Alert(e.toString());
         }
         return update;
 
     }
 
     @Override
-    public boolean Create(int idUser, String email, String password, String poste, String lastName, String firstName, String adresse, int idRole) {
+    public boolean Create(int idUser, String email, String password, String poste, String lastName, String firstName, String adresse, String lastConnected, String lastPassChange, int unsuccessfullConnection, int idRole) {
 
         boolean create = true;
 
         try {
-            create = userService.Create(idUser, email, password, poste, lastName, firstName, adresse, idRole);
+            create = userService.Create(idUser, email, password, poste, lastName, firstName, adresse, lastConnected, lastPassChange, unsuccessfullConnection, idRole);
         } catch (ExceptionCustom e) {
-
+            browser.Alert(e.getMessage());
         }
         catch(Exception e) {
-
+            browser.Alert(e.toString());
         }
 
         return create;
@@ -100,13 +103,26 @@ public class UserController implements UserControllerInterface {
         try {
             delete = userService.Delete(id);
         } catch (ExceptionCustom e) {
-
+            browser.Alert(e.getMessage());
         }
         catch(Exception e) {
-
+            browser.Alert(e.toString());
         }
 
         return delete;
+    }
+    public boolean ConnectUser(String email, String password)
+    {
+        boolean connected = true;
+        try{
+            connected = this.userService.ConnectUser(email, password);
+        } catch (ExceptionCustom e) {
+            browser.Alert(e.getMessage());
+        }
+        catch(Exception e) {
+            browser.Alert(e.toString());
+        }
+        return connected;
     }
 
     public static UserController GetInstance()

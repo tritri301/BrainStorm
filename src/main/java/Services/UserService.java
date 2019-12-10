@@ -1,6 +1,7 @@
 package Services;
 
 import Factory.UserFactory;
+import Models.ConnectedUser;
 import Models.ConnectionBD;
 import Repositories.UserRepository;
 import Services.Interfaces.UserServiceInterface;
@@ -139,7 +140,7 @@ public class UserService implements UserServiceInterface {
     }
 
     @Override
-    public boolean Create(int idUser, String email, String password, String poste, String lastName, String firstName, String adresse, int idRole) throws ExceptionCustom {
+    public boolean Create(int idUser, String email, String password, String poste, String lastName, String firstName, String adresse, String lastConnected, String lastPassChange, int unsuccessfullConnection, int idRole) throws ExceptionCustom {
 
         boolean valide = this.verificationService.verifier(idUser);
         if (valide)
@@ -154,7 +155,7 @@ public class UserService implements UserServiceInterface {
             password = hashService.HashString(password);
             if (connection == null) {
                 try {
-                    userRepository.Create(this.userFactory.Create(idUser, email, password, poste, lastName, firstName, adresse, idRole));
+                    userRepository.Create(this.userFactory.Create(idUser, email, password, poste, lastName, firstName, adresse, lastConnected, lastPassChange, unsuccessfullConnection, idRole));
                 } catch (Exception e) {
                     valide = false;
                     ExceptionCustom exceptionErreurBD = new ExceptionCustom("Erreur de bd" + e.toString());
@@ -201,6 +202,27 @@ public class UserService implements UserServiceInterface {
         }
 
         return valide;
+    }
+    public boolean ConnectUser(String email, String password) throws ExceptionCustom
+    {
+        User userToConnect = this.FindByEmail(email).get(0);
+        int tries = userToConnect.getUnsuccessfullConnection();
+        if(!(userToConnect.getPassword().equals(hashService.HashString(password)) && tries <= 3))
+        {
+            //Sets the ammount of tries the user has
+            userToConnect.setUnsuccessfullConnection(tries + 1);
+            this.Update(userToConnect);
+            return false;
+        }
+        //Sets the ammount of try back to zero
+        userToConnect.setUnsuccessfullConnection(0);
+        this.Update(userToConnect);
+
+        //Creates a connected user
+        ConnectedUser connectedUser = this.userFactory.CreateConnected(userToConnect);
+
+        //returns if the user has been connected succesfully
+        return true;
     }
 
     public static UserService GetInstance()
