@@ -3,7 +3,9 @@ package Services;
 import Exception.ExceptionCustom;
 import Factory.ItemFactory;
 import Models.ConnectionBD;
+import Models.Container;
 import Models.Item;
+import Models.ItemInfo;
 import Repositories.ItemRepository;
 import Services.Interfaces.ItemServiceInterface;
 
@@ -17,6 +19,8 @@ import java.util.List;
 public class ItemService implements ItemServiceInterface {
 
     private static final ItemService instance = new ItemService();
+    private ContainerService containerService = ContainerService.GetInstance();
+    private ItemInfoService itemInfoService = ItemInfoService.GetInstance();
     private ItemRepository itemRepository = ItemRepository.GetInstance();
     private ItemFactory itemFactory = ItemFactory.GetInstance();
     private ConnectionBD connectionBD = ConnectionBD.GetInstance();
@@ -145,9 +149,7 @@ public class ItemService implements ItemServiceInterface {
             if (verificationService.itemInfoExist(idItemInfo)) {
                 if (verificationService.emplacementExist(emplacement)) {
                     if (verificationService.verifierDescription(description)) {
-
                         emplacement = verificationService.normalisation(emplacement);
-                        //TODO verifiermieux apres =, et tout enlever sauf , t =
                         Item nouveauItem = FindById(idItem);
                         nouveauItem.setIdItemInfo(idItemInfo);
                         nouveauItem.setEmplacement(emplacement);
@@ -189,14 +191,29 @@ public class ItemService implements ItemServiceInterface {
                 if (verificationService.emplacementExist(emplacement)) {
                     if (verificationService.verifierDescription(description)) {
                         emplacement = verificationService.normalisation(emplacement);
-                        //TODO fair un update de container ici
-                        //TODO verifier volume et poids ici
-                        //TODO verifiermieux apres =, et tout enlever sauf , t =
+
                         if (connection == null) {
                             try {
 
                                 Item item = null;
                                 item = this.trouverSimilaire(idItemInfo, emplacement, description);
+
+                                Container container = null;
+                                container = this.containerService.FindById(emplacement);
+                                ItemInfo itemInfo = null;
+                                itemInfo = this.itemInfoService.FindById(idItemInfo);
+                                container.setVolume(container.getVolume()+(itemInfo.getVolume()*item.getQuantite()));
+                                container.setPoids(container.getPoids()+(itemInfo.getPoids()*item.getQuantite()));
+
+                                if (container.getVolumeMax() < container.getVolume())
+                                {
+                                    throw new ExceptionCustom("erreur ,l'objet est trop volumineux");
+                                }
+
+                                if (container.getPoidsMax() < container.getPoids())
+                                {
+                                    throw new ExceptionCustom("erreur ,l'objet est trop lourd");
+                                }
 
                                 if (item != null) {
                                     quantite = quantite + item.getQuantite();
@@ -204,6 +221,9 @@ public class ItemService implements ItemServiceInterface {
                                 } else {
                                     itemRepository.Create(this.itemFactory.Create(0, idItemInfo, emplacement, description, quantite));
                                 }
+
+                                containerService.Update(container.getEmplacement(),container.getVolume(),container.getVolumeMax(),container.getPoids(),container.getPoidsMax(),container.getEmplacementParent());
+
                                 valide = true;
                             } catch (Exception e) {
                                 throw new ExceptionCustom("Erreur de bd : " + e.toString());
@@ -238,6 +258,18 @@ public class ItemService implements ItemServiceInterface {
                     try {
                         //verifier Quantite
                         this.itemRepository.Delete(id, quantite);
+
+                        Item item = null;
+                        item = this.FindById(id);
+
+                        Container container = null;
+                        container = this.containerService.FindById(item.getEmplacement());
+                        ItemInfo itemInfo = null;
+                        itemInfo = this.itemInfoService.FindById(item.getIdItemInfo());
+                        container.setVolume(container.getVolume()+(itemInfo.getVolume()*item.getQuantite()));
+                        container.setPoids(container.getPoids()+(itemInfo.getPoids()*item.getQuantite()));
+
+                        containerService.Update(container.getEmplacement(),container.getVolume(),container.getVolumeMax(),container.getPoids(),container.getPoidsMax(),container.getEmplacementParent());
                     } catch (ExceptionCustom e) {
                         throw e;
                     } catch (Exception e) {
@@ -312,8 +344,6 @@ public class ItemService implements ItemServiceInterface {
         }
 
         return valide;
-
-
     }
 
     @Override

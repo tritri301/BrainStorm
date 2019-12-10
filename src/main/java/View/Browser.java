@@ -396,10 +396,13 @@ public class Browser extends BorderPane {
         //CommandeItem est une table d'item commandé pour commande
         public boolean CreateCommande(int upc,int quantite,String description)
         {
+            ConnectedUser connectedUser = ConnectedUser.GetInstance();
+
             boolean valide = false;
             int id;
-            //Aller chercher dans UserController le nom User en cours
-            String nomPEnvoi = "AnnonymeQuiEnvoi";
+
+            //Aller chercher dans connectedUser le nom d'utilisateur en cours
+            String nomPEnvoi = connectedUser.getFirstName()+" "+connectedUser.getLastName();
 
             CommandeController commandeController = CommandeController.GetInstance();
             ItemCommandeController itemCommandeController = ItemCommandeController.GetInstance();
@@ -420,8 +423,9 @@ public class Browser extends BorderPane {
         //Cette fonction update une commande et crée un item avec les paramètres reçus en javascrpt
         public boolean RecevoirCommande(int idItemCommande,String emplacement)
         {
-            //Aller chercher dans UserController le nom User en cours
-            String nomPRecu = "AnnonymeQuiRecoit";
+            ConnectedUser connectedUser = ConnectedUser.GetInstance();
+            //Aller chercher dans connectedUser le nom d'utilisateur en cours
+            String nomPRecu = connectedUser.getFirstName()+" "+connectedUser.getLastName();
             CommandeController commandeController = CommandeController.GetInstance();
             ItemController itemController = ItemController.GetInstance();
             ItemCommandeController itemCommandeController = ItemCommandeController.GetInstance();
@@ -481,10 +485,6 @@ public class Browser extends BorderPane {
             backupController.ShowBackupMenu();
 
                 Alert("Objet modifié avec succes");
-
-
-
-
         }
 
     }

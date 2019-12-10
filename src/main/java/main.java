@@ -3,14 +3,13 @@ import Controllers.ItemController;
 import Factory.CommandeFactory;
 import Factory.ItemFactory;
 import Models.Commande;
+import Models.Container;
 import Models.Item;
 import Models.ItemCommande;
 import Repositories.CommandeRepository;
 import Repositories.ItemRepository;
-import Services.CommandeService;
-import Services.ItemCommandeService;
-import Services.ItemService;
-import Services.VerificationService;
+import Services.*;
+import Exception.*;
 
 import java.io.Console;
 import java.sql.*;
@@ -24,10 +23,11 @@ import com.jcraft.jsch.Session;
 
 public class main
 {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ExceptionCustom {
 
 		ItemRepository itemRepository = ItemRepository.GetInstance();
 		ItemService itemService = ItemService.GetInstance();
+		ContainerService containerService = ContainerService.GetInstance();
 		ItemFactory itemFactory = ItemFactory.GetInstance();
 		VerificationService verif = VerificationService.GetInstance();
 
@@ -35,10 +35,6 @@ public class main
 		CommandeFactory commandeFactory = CommandeFactory.GetInstance();
 		CommandeService commandeService = CommandeService.GetInstance();
 		ItemCommandeService itemCommandeService = ItemCommandeService.GetInstance();
-
-
-
-
 
 				String host="10.20.40.40";
 				String user="pi";
@@ -82,6 +78,11 @@ public class main
 					e.printStackTrace();
 				}
 
-			}
+
+			System.out.println("---------------TEST SIMON --------------------------");
+
+			itemService.Create(1,"R0-E0-T1","testPoids",5);
+
+	}
 
 		}

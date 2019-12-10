@@ -102,8 +102,6 @@ public class CommandeService implements CommandeServiceInterface {
     public boolean Update(int idCommande, int etat, String nomPRecu) throws Exception {
         boolean valide = false;
 
-        //TODO Verification ?
-
         Date dateLivraison = new Date(System.currentTimeMillis());
         Commande commande = FindById(idCommande);
         commande.setDateLivraison(dateLivraison);
@@ -128,8 +126,6 @@ public class CommandeService implements CommandeServiceInterface {
     public int Create(String nomPEnvoi) throws Exception {
         boolean valide = false;
         int id;
-
-        //TODO valider nom PE recoi
 
         if (connection == null) {
             try {
