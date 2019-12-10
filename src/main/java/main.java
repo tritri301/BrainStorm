@@ -81,7 +81,7 @@ public class main
 
 			System.out.println("---------------TEST SIMON --------------------------");
 
-			itemService.Create(1,"R0-E0-T1","testPoids",5);
+			//itemService.Create(1,"R0-E0-T1","testPoids",5);
 
 	}
 
