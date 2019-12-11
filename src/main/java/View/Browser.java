@@ -251,6 +251,63 @@ public class Browser extends BorderPane {
                 }
             }
         }
+
+        public void ListUpdateItemByUPC(int upc) {
+            ItemController itemController = ItemController.GetInstance();
+            ItemInfoController itemInfoController = ItemInfoController.GetInstance();
+            List<Item> itemList = itemController.FindAll();
+            for (int i = 0; i < itemList.size(); i++) {
+                //If the upc is correct
+                if(itemList.get(i).getIdItemInfo() == upc) {
+                    ItemInfo tmp = itemInfoController.FindById(itemList.get(i).getIdItemInfo());
+                    window.call("ShowUpdateItem",
+                            tmp.getIdItemInfo(),
+                            tmp.getNom(),
+                            tmp.getDescription(),
+                            itemList.get(i).getEmplacement(),
+                            itemList.get(i).getQuantite(),
+                            itemList.get(i).getIdItem());
+                }
+            }
+        }
+
+        public void ListUpdateItemByDesc(String desc) {
+            ItemController itemController = ItemController.GetInstance();
+            ItemInfoController itemInfoController = ItemInfoController.GetInstance();
+            List<Item> itemList = itemController.FindAll();
+            for (int i = 0; i < itemList.size(); i++) {
+                //If the description is correct
+
+                if(itemList.get(i).getDescription().equals(desc)) {
+                    ItemInfo tmp = itemInfoController.FindById(itemList.get(i).getIdItemInfo());
+                    window.call("ShowUpdateItem",
+                            tmp.getIdItemInfo(),
+                            tmp.getNom(),
+                            tmp.getDescription(),
+                            itemList.get(i).getEmplacement(),
+                            itemList.get(i).getQuantite(),
+                            itemList.get(i).getIdItem());
+                }
+            }
+        }
+
+
+        public void ListAllUpdateItem()
+        {
+            ItemController itemController = ItemController.GetInstance();
+            ItemInfoController itemInfoController = ItemInfoController.GetInstance();
+            List<Item> itemList = itemController.FindAll();
+            for (int i = 0; i < itemList.size(); i++) {
+                ItemInfo tmp = itemInfoController.FindById(itemList.get(i).getIdItemInfo());
+                window.call("ShowUpdateItem",
+                        tmp.getIdItemInfo(),
+                        tmp.getNom(),
+                        tmp.getDescription(),
+                        itemList.get(i).getEmplacement(),
+                        itemList.get(i).getQuantite(),
+                        itemList.get(i).getIdItem());
+            }
+        }
         public void ListDeleteItemByContainer(String emplacement)
         {
             ItemController itemController = ItemController.GetInstance();
