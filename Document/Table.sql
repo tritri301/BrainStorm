@@ -68,7 +68,7 @@ create table user(
     adresse varchar(45),
     lastConnected datetime,
     lastPassChange datetime,
-    UnsuccessfullConnection int,
+    UnsuccessfullConnection int default 0,
     idRole int,
     foreign key (idRole) references role(idRole) on delete cascade
 );
@@ -278,6 +278,6 @@ insert into itemInfo values('4', 'bleu', 'vis', '1', '1');
 insert into role values(default, '0000000000000000000000000000', 'NoPerm');
 insert into role values(default, '1111111111111111111111111111', 'Admin');
 
-insert into user values('342', 'test@test.com', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', null, 'coude', 'tristan', null, null, null, null, '1');
-insert into user values('345', 'admin@test.com', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', null, 'admin', 'admin', null, null, null, null, '2');
+insert into user values('342', 'test@test.com', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', null, 'coude', 'tristan', null, null, 0, null, '1');
+insert into user values('345', 'admin@test.com', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', null, 'admin', 'admin', null, null, 0, null, '2');
 
