@@ -60,7 +60,7 @@ public class ContainerRepository implements ContainerRepositoryInterface {
 
     @Override
     public void Update(Container containerToAdd) throws Exception {
-        PreparedStatement stmt = con.prepareStatement("update container set volume = ?, volumeMax = ?, poids = ?, poidsmax = ?, emplacementParent = ? where Emplacement ='R0-E0-T0'");
+        PreparedStatement stmt = con.prepareStatement("update container set volume = ?, volumeMax = ?, poids = ?, poidsmax = ?, emplacementParent = ? where Emplacement ='"+containerToAdd.getEmplacement()+"'");
         stmt.setInt(1, containerToAdd.getVolume());
         stmt.setInt(2, containerToAdd.getVolumeMax());
         stmt.setInt(3, containerToAdd.getPoids());
