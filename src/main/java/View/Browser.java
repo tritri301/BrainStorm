@@ -121,11 +121,11 @@ public class Browser extends BorderPane {
                         user.getIdRole());
             }
         }
-        public void ModifyUser(int idUser, String email, String password, String poste, String lastName, String firstName, String adresse, String lastConnected, String lastPassChange, int unsuccessfullConnection, int idRole)
+        public void ModifyUser(int idUser, String email, String password, String poste, String lastName, String firstName, String adresse, int idRole)
         {
             UserFactory userFactory = UserFactory.GetInstance();
             UserController userController = UserController.GetInstance();
-            User userToUpdate = userFactory.Create(idUser, email, password, poste, lastName, firstName, adresse, lastConnected, lastPassChange, unsuccessfullConnection, idRole);
+            User userToUpdate = userFactory.Create(idUser, email, password, poste, lastName, firstName, adresse, null, null, 0, idRole);
             if(userController.Update(userToUpdate))
             {
                 Alert("User modified successfully!");
@@ -135,10 +135,10 @@ public class Browser extends BorderPane {
                 Alert("There was a problem modifying this user!");
             }
         }
-        public void CreateUser(int idUser, String email, String password, String poste, String lastName, String firstName, String adresse, String lastConnected, String lastPassChange, int unsuccessfullConnection, int idRole)
+        public void CreateUser(int idUser, String email, String password, String poste, String lastName, String firstName, String adresse, int idRole)
         {
             UserController userController = UserController.GetInstance();
-            if(userController.Create(idUser, email, password, poste, lastName, firstName, adresse, lastConnected, lastPassChange, unsuccessfullConnection, idRole))
+            if(userController.Create(idUser, email, password, poste, lastName, firstName, adresse, null, null, 0, idRole))
             {
                 Alert("User created successfully!");
             }
