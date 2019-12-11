@@ -216,6 +216,8 @@ public class UserService implements UserServiceInterface {
         }
         //Sets the ammount of try back to zero
         userToConnect.setUnsuccessfullConnection(0);
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        userToConnect.setLastConnected(format.format(new Date()));
         this.Update(userToConnect);
 
         //Creates a connected user

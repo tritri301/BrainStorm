@@ -24,6 +24,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class Browser extends BorderPane {
@@ -88,6 +90,20 @@ public class Browser extends BorderPane {
     }
 
     public class JavaApp {
+        public boolean isUserConnected()
+        {
+            ConnectedUser user = ConnectedUser.GetInstance();
+
+            if(user.getLastConnected() != null)
+            {
+                LocalDateTime now = LocalDateTime.now();
+                DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                LocalDateTime lastConnected = LocalDateTime.parse(user.getLastConnected(), format);
+                now.format(format);
+                return lastConnected.plusHours(3).isAfter(now);
+            }
+            return false;
+        }
         public void FindUserById(int id)
         {
             UserController userController = UserController.GetInstance();
