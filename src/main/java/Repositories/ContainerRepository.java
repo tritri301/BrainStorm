@@ -58,21 +58,17 @@ public class ContainerRepository implements ContainerRepositoryInterface {
         return itemInfo;
     }
 
-    /**
-     *  Pas utilisé
-     */
     @Override
     public void Update(Container containerToAdd) throws Exception {
-        PreparedStatement stmt = con.prepareStatement("update container set volume = ?, volumeMax = ?, poids = ?, poidsmax = ?, emplacementParent = ? where emplacement = " + containerToAdd.getEmplacement());
-        stmt.setString(1, containerToAdd.getEmplacement());
-        stmt.setInt(2, containerToAdd.getVolume());
-        stmt.setInt(3, containerToAdd.getVolumeMax());
-        stmt.setInt(4, containerToAdd.getPoids());
-        stmt.setInt(5, containerToAdd.getPoidsMax());
-        stmt.setString(6, containerToAdd.getEmplacementParent());
-
+        PreparedStatement stmt = con.prepareStatement("update container set volume = ?, volumeMax = ?, poids = ?, poidsmax = ?, emplacementParent = ? where Emplacement ='R0-E0-T0'");
+        stmt.setInt(1, containerToAdd.getVolume());
+        stmt.setInt(2, containerToAdd.getVolumeMax());
+        stmt.setInt(3, containerToAdd.getPoids());
+        stmt.setInt(4, containerToAdd.getPoidsMax());
+        stmt.setString(5, containerToAdd.getEmplacementParent());
         stmt.execute();
     }
+
 
     /**
      *  Pas utilisé

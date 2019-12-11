@@ -33,8 +33,8 @@ public class ContainerFactory {
         Container ret = new Container();
 
         ret.setEmplacement(emplacement);
-        ret.setVolumeMax(volumeMax);
         ret.setVolume(volume);
+        ret.setVolumeMax(volumeMax);
         ret.setPoids(poids);
         ret.setPoidsMax(poidsMax);
         ret.setEmplacementParent(emplacementParent);

@@ -38,7 +38,7 @@ public class ContainerService implements ContainerServiceInterface {
 
         if (connection == null) {
             try {
-                container = this.containerRepository.FindById("test");
+                container = this.containerRepository.FindById(emplacement);
             } catch (Exception e) {
                 e.printStackTrace();
                 throw new ExceptionCustom("cette position est introuvable");
@@ -69,11 +69,11 @@ public class ContainerService implements ContainerServiceInterface {
     public boolean Update(String emplacement, int volume, int volumeMax, int poids, int poidsMax, String emplacementParent) throws ExceptionCustom {
 
         boolean valide = false;
-        emplacement = this.verificationService.normalisation(emplacement);
-        emplacementParent = this.verificationService.normalisation(emplacementParent);
+       // emplacement = this.verificationService.normalisation(emplacement);
+       // emplacementParent = this.verificationService.normalisation(emplacementParent);
 
-        //TODO verifier limite du container
-        if (this.verificationService.verifier(emplacement) && this.verificationService.verifier(volume, volumeMax, poids, poidsMax)) {
+        if (this.verificationService.verifier(volume, volumeMax, poids, poidsMax)) {
+
             Container nouveauContainer = FindById(emplacement);
             nouveauContainer.setEmplacement(emplacement);
             nouveauContainer.setVolume(volume);
@@ -81,9 +81,13 @@ public class ContainerService implements ContainerServiceInterface {
             nouveauContainer.setPoids(poids);
             nouveauContainer.setPoidsMax(poidsMax);
             nouveauContainer.setEmplacementParent(emplacementParent);
+
+            System.out.println("hi"+nouveauContainer.getVolumeMax());
+
             valide = true;
             if (connection == null) {
                 try {
+
                     this.containerRepository.Update(nouveauContainer);
                 } catch (Exception e) {
                     valide = false;

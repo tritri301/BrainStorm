@@ -1,13 +1,11 @@
 function CreateCSVFile()
 {
     window.JavaApp.CreateCSVFile();
-    window.alert("Fichier CSV générer avec succès");
 }
 
 function CreateExcelFile()
 {
     window.JavaApp.CreateExcelFile();
-    window.alert("Fichier Excel générer avec succès");
 }
 
 function showListFolder()
