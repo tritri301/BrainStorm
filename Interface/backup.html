@@ -37,7 +37,7 @@ But du fichier :    Afficher le menu du site
         <a href="modifier.html" class="lienSousMenu"><img src="bouton_modifier.png" onmouseover="this.src='bouton_modifier2.png'" onmouseout="this.src='bouton_modifier.png'"/></a>
         <a href="lister.html" class="lienSousMenu"><img src="bouton_lister.png"  onmouseover="this.src='bouton_lister2.png'" onmouseout="this.src='bouton_lister.png'"/></a>
         <a href="rapport.html" class="lienSousMenu"><img src="bouton_rapport.png" onmouseover="this.src='bouton_rapport2.png'" onmouseout="this.src='bouton_rapport.png'"/></a>
-        <a href="backup.html" class="lienSousMenu"> <button type="button"> Backup  </button></a>
+        <a href="backup.html" class="lienSousMenu"><img src="bouton_backup.png" onmouseover="this.src='bouton_backup2.png'" onmouseout="this.src='bouton_backup.png'"/></a>
     </div>
     <div class="row" id="sectionVerte">
         <br>
@@ -66,14 +66,22 @@ But du fichier :    Afficher le menu du site
                 <tbody id="formulaire">
                 <tr>
                     <td align="center" colspan="2">
-                        <label for="titre"><i>Appuyez sur le bouton pour faire afficher le menu de backup/restore</i></label>
+                        <label for="titre"><i>Appuyez sur le bouton pour faire un backup</i></label>
                     </td>
                 </tr>
                 <tr>
-                    <td align="center"><button id="backupComplet" onclick="ShowBackupMenu();" >Menu Backup</button>
+                    <td align="center"><button id="backup" onclick="ShowBackupMenu();" >Backup</button>
                 </td>
                 </tr>
-
+                <tr>
+                    <td align="center" colspan="2">
+                        <label for="titre"><i>Appuyez sur le bouton pour restore</i></label>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center"><button id="restore" onclick="ShowBackupMenu();" >Restore</button>
+                    </td>
+                </tr>
                 </tbody>
                 <!--Table body-->
             </table>

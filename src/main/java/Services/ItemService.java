@@ -190,7 +190,7 @@ public class ItemService implements ItemServiceInterface {
             if (verificationService.itemInfoExist(idItemInfo)) {
                 if (verificationService.emplacementExist(emplacement)) {
                     if (verificationService.verifierDescription(description)) {
-                        emplacement = verificationService.normalisation(emplacement);
+                       // emplacement = verificationService.normalisation(emplacement);
 
                         if (connection == null) {
                             try {
@@ -202,17 +202,19 @@ public class ItemService implements ItemServiceInterface {
                                 container = this.containerService.FindById(emplacement);
                                 ItemInfo itemInfo = null;
                                 itemInfo = this.itemInfoService.FindById(idItemInfo);
-                                container.setVolume(container.getVolume()+(itemInfo.getVolume()*item.getQuantite()));
-                                container.setPoids(container.getPoids()+(itemInfo.getPoids()*item.getQuantite()));
+                                int volume = container.getVolume()+(itemInfo.getVolume()*quantite);
+                                container.setVolume(volume);
+                                int poids = container.getPoids()+(itemInfo.getPoids()*quantite);
+                                container.setPoids(poids);
 
                                 if (container.getVolumeMax() < container.getVolume())
                                 {
-                                    throw new ExceptionCustom("erreur ,l'objet est trop volumineux");
+                                    throw new ExceptionCustom("l'objet est trop volumineux");
                                 }
 
                                 if (container.getPoidsMax() < container.getPoids())
                                 {
-                                    throw new ExceptionCustom("erreur ,l'objet est trop lourd");
+                                    throw new ExceptionCustom("l'objet est trop lourd");
                                 }
 
                                 if (item != null) {

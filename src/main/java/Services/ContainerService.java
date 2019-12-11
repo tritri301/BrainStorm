@@ -74,15 +74,9 @@ public class ContainerService implements ContainerServiceInterface {
 
         if (this.verificationService.verifier(volume, volumeMax, poids, poidsMax)) {
 
-            Container nouveauContainer = FindById(emplacement);
-            nouveauContainer.setEmplacement(emplacement);
-            nouveauContainer.setVolume(volume);
-            nouveauContainer.setVolumeMax(volumeMax);
-            nouveauContainer.setPoids(poids);
-            nouveauContainer.setPoidsMax(poidsMax);
-            nouveauContainer.setEmplacementParent(emplacementParent);
+            Container nouveauContainer = containerFactory.Create(emplacement,volume,volumeMax,poids,poidsMax,emplacementParent);
 
-            System.out.println("hi"+nouveauContainer.getVolumeMax());
+            System.out.println("hi"+nouveauContainer.getEmplacement());
 
             valide = true;
             if (connection == null) {
