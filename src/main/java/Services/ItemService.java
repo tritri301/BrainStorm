@@ -258,20 +258,28 @@ public class ItemService implements ItemServiceInterface {
             if (valideId) {
                 if (connection == null) {
                     try {
-                        //verifier Quantite
-                        this.itemRepository.Delete(id, quantite);
 
                         Item item = null;
                         item = this.FindById(id);
-
                         Container container = null;
                         container = this.containerService.FindById(item.getEmplacement());
                         ItemInfo itemInfo = null;
                         itemInfo = this.itemInfoService.FindById(item.getIdItemInfo());
-                        container.setVolume(container.getVolume()+(itemInfo.getVolume()*item.getQuantite()));
-                        container.setPoids(container.getPoids()+(itemInfo.getPoids()*item.getQuantite()));
+
+                        if (quantite > item.getQuantite())
+                        {
+                            throw new ExceptionCustom("la quantite a retirer est trop grande");
+                        }
+
+                        this.itemRepository.Delete(id, quantite);
+
+                        int volume = container.getVolume()-(itemInfo.getVolume()*quantite);
+                        container.setVolume(volume);
+                        int poids = container.getPoids()-(itemInfo.getPoids()*quantite);
+                        container.setPoids(poids);
 
                         containerService.Update(container.getEmplacement(),container.getVolume(),container.getVolumeMax(),container.getPoids(),container.getPoidsMax(),container.getEmplacementParent());
+
                     } catch (ExceptionCustom e) {
                         throw e;
                     } catch (Exception e) {
