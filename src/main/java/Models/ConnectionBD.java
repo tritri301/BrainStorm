@@ -20,7 +20,7 @@ public class ConnectionBD
             Class.forName("com.mysql.cj.jdbc.Driver");
             DriverManager.setLoginTimeout(10);
             con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/bd_louis?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", "root", "info420");
+                    "jdbc:mysql://10.20.40.40/EquipeTristan_BD", "BrainStorm", "info420");
 
         } catch(Exception e){
             this.ConnectionFailed = e;
