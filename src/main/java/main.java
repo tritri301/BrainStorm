@@ -81,8 +81,13 @@ public class main
 
 			System.out.println("---------------TEST SIMON --------------------------");
 
-			itemService.Create(1,"R0-E0-T4","testPoids2",47);
-
+			//itemService.Create(1,"R0-E0-T0","testPoids2",500);
+			//itemService.Create(1,"R0-E0-T1","testPoids2",500);
+			//itemService.Delete(27,70);
+			//itemService.ModifyItem(27,"la modification fonctionne");
+			//itemService.MoveItem(27,20,"R0-E0-T2");
+			//itemService.MoveItem(29,10,"R0-E0-T3");
+			//itemService.MoveItem(29,20,"R0-E0-T4");
 	}
 
 		}

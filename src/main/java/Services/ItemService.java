@@ -149,7 +149,6 @@ public class ItemService implements ItemServiceInterface {
             if (verificationService.itemInfoExist(idItemInfo)) {
                 if (verificationService.emplacementExist(emplacement)) {
                     if (verificationService.verifierDescription(description)) {
-                        emplacement = verificationService.normalisation(emplacement);
                         Item nouveauItem = FindById(idItem);
                         nouveauItem.setIdItemInfo(idItemInfo);
                         nouveauItem.setEmplacement(emplacement);
@@ -310,9 +309,9 @@ public class ItemService implements ItemServiceInterface {
                 if (verificationService.verifierQuantiteRestante(id, quantite)) {
                     if (verificationService.emplacementExist(emplacementNouveau)) {
                         Item item = FindById(id);
-                        Update(id, item.getIdItemInfo(), item.getEmplacement(), item.getDescription(), item.getQuantite() - quantite);
-                        Delete(id, 0);
+                       // Update(id, item.getIdItemInfo(), item.getEmplacement(), item.getDescription(), item.getQuantite() - quantite);
                         Create(item.getIdItemInfo(), emplacementNouveau, item.getDescription(), quantite);
+                        Delete(id, quantite);
                     } else {
                         valide = false;
                         throw new ExceptionCustom("le nouvelle emplacement n'est pas valide");

@@ -69,10 +69,6 @@ public class ContainerService implements ContainerServiceInterface {
     public boolean Update(String emplacement, int volume, int volumeMax, int poids, int poidsMax, String emplacementParent) throws ExceptionCustom {
 
         boolean valide = false;
-       // emplacement = this.verificationService.normalisation(emplacement);
-       // emplacementParent = this.verificationService.normalisation(emplacementParent);
-
-        if (this.verificationService.verifier(volume, volumeMax, poids, poidsMax)) {
 
             Container nouveauContainer = containerFactory.Create(emplacement,volume,volumeMax,poids,poidsMax,emplacementParent);
 
@@ -91,10 +87,6 @@ public class ContainerService implements ContainerServiceInterface {
                 valide = false;
                 throw new ExceptionCustom("Erreur de connection a la base de données");
             }
-        } else {
-            valide = false;
-            throw new ExceptionCustom("Données de saisies invalide");
-        }
         return valide;
     }
 

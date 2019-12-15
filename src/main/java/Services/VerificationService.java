@@ -192,12 +192,8 @@ public class VerificationService implements VerificationServiceInterface {
 
     @Override
     public String normalisation(String string) {
-
         string = Normalizer.normalize(string, Normalizer.Form.NFD);
         string = string.replaceAll("[^\\p{ASCII}]", "");
-        string = string.toLowerCase();
-        string = string.replaceAll("[^a-zA-Z0-9-]", "");
-
         return string;
     }
 
