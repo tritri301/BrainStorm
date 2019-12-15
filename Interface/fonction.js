@@ -249,17 +249,17 @@ function CreateCommande()
 //Cette fonction vide les champs d'envoi de commande
 function ResetCreateCommande()
 {
-   document.getElementById("upcCommande").value = " ";
-   document.getElementById("qtCommande").value = " ";
-   document.getElementById("descriptionCommande").value = " ";
+   document.getElementById("upcCommande").value = "";
+   document.getElementById("qtCommande").value = "";
+   document.getElementById("descriptionCommande").value = "";
 }
 
 //Cette fonction vide les champs de recherche
 function ResetRechercheCommande()
 {
-   document.getElementById("name").value = " ";
-   document.getElementById("upc").value = " ";
-   document.getElementById("etatCommande").value = " ";
+   document.getElementById("name").value = "";
+   document.getElementById("upc").value = "";
+   document.getElementById("etatCommande").value = "";
 }
 
 //Cette fonction trouve les commandes a afficher

@@ -36,7 +36,7 @@ public class VerificationService implements VerificationServiceInterface {
     public boolean verifier(int integer) {
         boolean valide = false;
 
-        if (integer >= 0) {
+        if (integer > 0) {
             valide = true;
         }
 

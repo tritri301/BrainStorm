@@ -190,7 +190,6 @@ public class ItemService implements ItemServiceInterface {
             if (verificationService.itemInfoExist(idItemInfo)) {
                 if (verificationService.emplacementExist(emplacement)) {
                     if (verificationService.verifierDescription(description)) {
-                       // emplacement = verificationService.normalisation(emplacement);
 
                         if (connection == null) {
                             try {
@@ -268,8 +267,8 @@ public class ItemService implements ItemServiceInterface {
                         container = this.containerService.FindById(item.getEmplacement());
                         ItemInfo itemInfo = null;
                         itemInfo = this.itemInfoService.FindById(item.getIdItemInfo());
-                        container.setVolume(container.getVolume()+(itemInfo.getVolume()*item.getQuantite()));
-                        container.setPoids(container.getPoids()+(itemInfo.getPoids()*item.getQuantite()));
+                        container.setVolume(container.getVolume()-(itemInfo.getVolume()*item.getQuantite()));
+                        container.setPoids(container.getPoids()-(itemInfo.getPoids()*item.getQuantite()));
 
                         containerService.Update(container.getEmplacement(),container.getVolume(),container.getVolumeMax(),container.getPoids(),container.getPoidsMax(),container.getEmplacementParent());
                     } catch (ExceptionCustom e) {
