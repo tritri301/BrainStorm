@@ -16,6 +16,12 @@ function CheckConnexion()
 
 function CheckPermission()
 {
+    path = document.location.pathname;
+    directory = path.substring(path.indexOf('/'), path.lastIndexOf('/'));
+    if(!window.JavaApp.isUserConnected() && window.location.pathname != directory + "/connexion.html")
+    {
+        window.location.href = "connexion.html";
+    }
     //The permission counter for all the perms
     var permissionCntr = 0;
 

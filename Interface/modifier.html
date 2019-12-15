@@ -65,8 +65,8 @@ But du fichier :    Afficher la page du site qui permet la modification d'items
                 <!--Table body-->
                 <tbody id="formulaire">
                 <tr>
-                    <td align="right"><label for="id">ID :</label></td>
-                    <td align="left"><input type="text" class="form-control" id="id" placeholder="ID"></td>
+                    <td align="right"><label for="upc">UPC :</label></td>
+                    <td align="left"><input type="text" class="form-control" id="upc" placeholder="UPC"></td>
                 </tr>
                 <tr>
                     <td align="right"><label for="Description"> Nouvelle Description :</label></td>
@@ -74,13 +74,34 @@ But du fichier :    Afficher la page du site qui permet la modification d'items
                 </tr>
                 <tr>
                     <td align="center" colspan="2" id="boutonModifier">
-                        <button class="btn btn-default" onclick="ModifyItem();">Modifier</button>
+                        <button class="btn btn-default" onclick="SubmitUpdate();">Rechercher</button>
                         <button type="reset" class="btn btn-default" onclick="ResetModify();">Annuler</button>
                     </td>
                 </tr>
                 </tbody>
                 <!--Table body-->
             </table>
+            <!--Table-->
+            <table id="tableModifier" class="table table-bordered">
+                <!--Table head-->
+                <thead align="center">
+                <tr>
+                    <th>UPC</th>
+                    <th>Nom</th>
+                    <th>Description</th>
+                    <th>Emplacement</th>
+                    <th>Quantité</th>
+                    <th>Quantité à modifier</th>
+                    <th>Bouton</th>
+                </tr>
+                </thead>
+                <!--Table head-->
+                <!--Table body-->
+                <tbody id="table1">
+                </tbody>
+                <!--Table body-->
+            </table>
+            <!--Table-->
         </div>
     </div>
     <div class="row" id="sectionVerte">

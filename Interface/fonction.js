@@ -138,6 +138,51 @@ function ShowDeleteItem()
 
     document.getElementById("table1").appendChild(row);
 }
+
+function SubmitUpdate()
+{
+    upc = document.getElementById("upc").value;
+    myNode = document.getElementById("table1");
+    description = document.getElementById("description").value;
+
+    //Deletes all existing entries
+    while (myNode.firstChild) {
+        myNode.removeChild(myNode.firstChild);
+    }
+    if(upc != "")
+    {
+        window.JavaApp.ListUpdateItemByUPC(upc);
+    }
+    else if (description != "")
+    {
+         window.JavaApp.ListUpdateItemByDesc(description);
+    }
+    else
+    {
+        window.JavaApp.ListAllUpdateItem();
+    }
+}
+
+function ShowUpdateItem()
+{
+    var row = document.createElement("tr");
+    var column;
+    for(var i = 0; i < 5; i++)
+    {
+         column = document.createElement("td");
+         column.innerHTML = arguments[i];
+         row.appendChild(column);
+    }
+    column2 = document.createElement("td");
+    column3 = document.createElement("td");
+    column2.innerHTML = "<div class='col-xs-4'><input type='text' class='form-control' id=" + "'" + arguments[5] + "'" + "placeholder='Quantité à modifier'></div>";
+    column3.innerHTML = "<button class='btn btn-default' onclick='DeleteItem(" + arguments[5] + ");' >Modifier</button>";
+    row.appendChild(column);
+    row.appendChild(column2);
+    row.appendChild(column3);
+
+    document.getElementById("table1").appendChild(row);
+}
 function Alert(msg)
 {
     window.alert(msg);

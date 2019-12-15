@@ -24,6 +24,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class Browser extends BorderPane {
@@ -88,6 +90,20 @@ public class Browser extends BorderPane {
     }
 
     public class JavaApp {
+        public boolean isUserConnected()
+        {
+            ConnectedUser user = ConnectedUser.GetInstance();
+
+            if(user.getLastConnected() != null)
+            {
+                LocalDateTime now = LocalDateTime.now();
+                DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                LocalDateTime lastConnected = LocalDateTime.parse(user.getLastConnected(), format);
+                now.format(format);
+                return lastConnected.plusHours(3).isAfter(now);
+            }
+            return false;
+        }
         public void FindUserById(int id)
         {
             UserController userController = UserController.GetInstance();
@@ -105,11 +121,11 @@ public class Browser extends BorderPane {
                         user.getIdRole());
             }
         }
-        public void ModifyUser(int idUser, String email, String password, String poste, String lastName, String firstName, String adresse, String lastConnected, String lastPassChange, int unsuccessfullConnection, int idRole)
+        public void ModifyUser(int idUser, String email, String password, String poste, String lastName, String firstName, String adresse, int idRole)
         {
             UserFactory userFactory = UserFactory.GetInstance();
             UserController userController = UserController.GetInstance();
-            User userToUpdate = userFactory.Create(idUser, email, password, poste, lastName, firstName, adresse, lastConnected, lastPassChange, unsuccessfullConnection, idRole);
+            User userToUpdate = userFactory.Create(idUser, email, password, poste, lastName, firstName, adresse, null, null, 0, idRole);
             if(userController.Update(userToUpdate))
             {
                 Alert("User modified successfully!");
@@ -119,10 +135,10 @@ public class Browser extends BorderPane {
                 Alert("There was a problem modifying this user!");
             }
         }
-        public void CreateUser(int idUser, String email, String password, String poste, String lastName, String firstName, String adresse, String lastConnected, String lastPassChange, int unsuccessfullConnection, int idRole)
+        public void CreateUser(int idUser, String email, String password, String poste, String lastName, String firstName, String adresse, int idRole)
         {
             UserController userController = UserController.GetInstance();
-            if(userController.Create(idUser, email, password, poste, lastName, firstName, adresse, lastConnected, lastPassChange, unsuccessfullConnection, idRole))
+            if(userController.Create(idUser, email, password, poste, lastName, firstName, adresse, null, null, 0, idRole))
             {
                 Alert("User created successfully!");
             }
@@ -233,6 +249,63 @@ public class Browser extends BorderPane {
                             itemList.get(i).getQuantite(),
                             itemList.get(i).getIdItem());
                 }
+            }
+        }
+
+        public void ListUpdateItemByUPC(int upc) {
+            ItemController itemController = ItemController.GetInstance();
+            ItemInfoController itemInfoController = ItemInfoController.GetInstance();
+            List<Item> itemList = itemController.FindAll();
+            for (int i = 0; i < itemList.size(); i++) {
+                //If the upc is correct
+                if(itemList.get(i).getIdItemInfo() == upc) {
+                    ItemInfo tmp = itemInfoController.FindById(itemList.get(i).getIdItemInfo());
+                    window.call("ShowUpdateItem",
+                            tmp.getIdItemInfo(),
+                            tmp.getNom(),
+                            tmp.getDescription(),
+                            itemList.get(i).getEmplacement(),
+                            itemList.get(i).getQuantite(),
+                            itemList.get(i).getIdItem());
+                }
+            }
+        }
+
+        public void ListUpdateItemByDesc(String desc) {
+            ItemController itemController = ItemController.GetInstance();
+            ItemInfoController itemInfoController = ItemInfoController.GetInstance();
+            List<Item> itemList = itemController.FindAll();
+            for (int i = 0; i < itemList.size(); i++) {
+                //If the description is correct
+
+                if(itemList.get(i).getDescription().equals(desc)) {
+                    ItemInfo tmp = itemInfoController.FindById(itemList.get(i).getIdItemInfo());
+                    window.call("ShowUpdateItem",
+                            tmp.getIdItemInfo(),
+                            tmp.getNom(),
+                            tmp.getDescription(),
+                            itemList.get(i).getEmplacement(),
+                            itemList.get(i).getQuantite(),
+                            itemList.get(i).getIdItem());
+                }
+            }
+        }
+
+
+        public void ListAllUpdateItem()
+        {
+            ItemController itemController = ItemController.GetInstance();
+            ItemInfoController itemInfoController = ItemInfoController.GetInstance();
+            List<Item> itemList = itemController.FindAll();
+            for (int i = 0; i < itemList.size(); i++) {
+                ItemInfo tmp = itemInfoController.FindById(itemList.get(i).getIdItemInfo());
+                window.call("ShowUpdateItem",
+                        tmp.getIdItemInfo(),
+                        tmp.getNom(),
+                        tmp.getDescription(),
+                        itemList.get(i).getEmplacement(),
+                        itemList.get(i).getQuantite(),
+                        itemList.get(i).getIdItem());
             }
         }
         public void ListDeleteItemByContainer(String emplacement)
