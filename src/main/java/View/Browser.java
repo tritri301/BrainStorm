@@ -46,9 +46,9 @@ public class Browser extends BorderPane {
                 new ChangeListener() {
                     @Override
                     public void changed(ObservableValue observable, Object oldValue, Object newValue) {
-                        if (newValue != Worker.State.SUCCEEDED) {
-                            return;
-                        }
+                        //if (newValue != Worker.State.SUCCEEDED) {
+                        //    return;
+                       // }
                         JSObject window = (JSObject) webEngine.executeScript("window");
                         window.setMember("JavaApp", javaApp);
                         window.call("CheckPermission");
