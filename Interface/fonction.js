@@ -53,14 +53,24 @@ function SubmitDelete()
 }
 
 function DeleteItem()
- {
-     if(confirm("Voulez-vous vraiment retirer cet item?"))
-     {
-        quantite = document.getElementById(arguments[0]).value;
-        window.JavaApp.DeleteItem(arguments[0], quantite);
-     }
-     SubmitDelete();
- }
+   {
+       if(confirm("Voulez-vous vraiment retirer cet item?"))
+       {
+          quantite = document.getElementById(arguments[0]).value;
+          window.JavaApp.DeleteItem(arguments[0], quantite);
+       }
+       SubmitDelete();
+   }
+
+function UpdateItem()
+    {
+        if(confirm("Voulez-vous vraiment modifier cet item?"))
+        {
+           quantite = document.getElementById(arguments[0]).value;
+           window.JavaApp.UpdateItem(arguments[0], quantite);
+        }
+        SubmitDelete();
+    }
 
  function ResetSupprimer()
  {
@@ -176,10 +186,12 @@ function ShowUpdateItem()
     column2 = document.createElement("td");
     column3 = document.createElement("td");
     column2.innerHTML = "<div class='col-xs-4'><input type='text' class='form-control' id=" + "'" + arguments[5] + "'" + "placeholder='Quantité à modifier'></div>";
-    column3.innerHTML = "<button class='btn btn-default' onclick='DeleteItem(" + arguments[5] + ");' >Modifier</button>";
+    column3.innerHTML = "<div class='col-xs-4'><input type='text' class='form-control' id=" + "'" + arguments[6] + "'" + "placeholder='Description à modifier'></div>";
+    column4.innerHTML = "<button class='btn btn-default' onclick='ModifyItem();' >Modifier</button>";
     row.appendChild(column);
     row.appendChild(column2);
     row.appendChild(column3);
+    row.appendChild(column4);
 
     document.getElementById("table1").appendChild(row);
 }
@@ -257,7 +269,7 @@ function ModifyItem()
 
 function ResetModify()
 {
-   document.getElementById("id").value = "";
+   document.getElementById("upc").value = "";
    document.getElementById("description").value = "";
 }
 

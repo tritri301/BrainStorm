@@ -7,7 +7,6 @@ import Services.HashService;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.concurrent.Worker;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
@@ -283,7 +282,7 @@ public class Browser extends BorderPane {
                     window.call("ShowUpdateItem",
                             tmp.getIdItemInfo(),
                             tmp.getNom(),
-                            tmp.getDescription(),
+                            itemList.get(i).getDescription(),
                             itemList.get(i).getEmplacement(),
                             itemList.get(i).getQuantite(),
                             itemList.get(i).getIdItem());
@@ -353,6 +352,7 @@ public class Browser extends BorderPane {
             }
             return false;
         }
+
         public boolean CreateItem(int upc,String emplacement, String description, int quantite)
         {
             ItemController itemController = ItemController.GetInstance();
