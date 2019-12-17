@@ -62,7 +62,7 @@ function DeleteItem()
        SubmitDelete();
    }
 
-function UpdateItem()
+/*function UpdateItem()
     {
         if(confirm("Voulez-vous vraiment modifier cet item?"))
         {
@@ -70,7 +70,7 @@ function UpdateItem()
            window.JavaApp.UpdateItem(arguments[0], quantite);
         }
         SubmitDelete();
-    }
+    }*/
 
  function ResetSupprimer()
  {
@@ -177,7 +177,7 @@ function ShowUpdateItem()
 {
     var row = document.createElement("tr");
     var column;
-    for(var i = 0; i < 5; i++)
+    for(var i = 0; i < 6; i++)
     {
          column = document.createElement("td");
          column.innerHTML = arguments[i];
@@ -185,9 +185,12 @@ function ShowUpdateItem()
     }
     column2 = document.createElement("td");
     column3 = document.createElement("td");
+     column4 = document.createElement("td");
     column2.innerHTML = "<div class='col-xs-4'><input type='text' class='form-control' id=" + "'" + arguments[5] + "'" + "placeholder='Quantité à modifier'></div>";
-    column3.innerHTML = "<div class='col-xs-4'><input type='text' class='form-control' id=" + "'" + arguments[6] + "'" + "placeholder='Description à modifier'></div>";
-    column4.innerHTML = "<button class='btn btn-default' onclick='ModifyItem();' >Modifier</button>";
+    column3.innerHTML = "<div class='col-xs-4'><input type='text' class='form-control' id=" + "'" + arguments[7] + "'" + "placeholder='Description à modifier'></div>";
+    //column4.innerHTML = "<button class='btn btn-default' onclick='ModifyItem(" + "'" + arguments[5] + "'" + ");' >Modifier</button>";
+    column4.innerHTML = "<button class='btn btn-default' onclick='ModifyItem(" + arguments[5] +","+ arguments[7] +");' >Retirer</button>";
+   // column4.innerHTML = "<button class='btn btn-default' onclick='ModifyItem(16);' >Modifier</button>";
     row.appendChild(column);
     row.appendChild(column2);
     row.appendChild(column3);
@@ -256,15 +259,15 @@ function ResetDeplacer()
 }
 
 
-function ModifyItem()
+function ModifyItem(id,description)
 {
-   var itemID = document.getElementById("id").value;
-   var description = document.getElementById("description").value;
-   alert(itemID);
-   if(window.JavaApp.ModifyItem(itemID,description))
-   {
-      ResetModify();
-   }
+
+   alert(id);
+   alert(description);
+   //if(window.JavaApp.ModifyItem(id,description))
+  // {
+     // ResetModify();
+  // }
 }
 
 function ResetModify()
