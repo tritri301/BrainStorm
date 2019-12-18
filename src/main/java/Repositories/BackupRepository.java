@@ -13,6 +13,7 @@ import java.util.List;
 public class BackupRepository {
     public void create()
     {
+        ExecuteCommand("mkdir Backup");
         String command = "mysqldump --routines -u BrainStorm -pinfo420 EquipeTristan_BD > Backup/mysqlBackup_$(date +%F_%H:%M:%S).sql";
         ExecuteCommand(command);
     }
@@ -29,6 +30,7 @@ public class BackupRepository {
     private List<String> ExecuteCommand(String command)
     {
         List<String> ret = new ArrayList<>();
+        //Ici pour le guide d'installation!
         String host="10.20.40.40";
         String user="pi";
         String password="raspberry";
@@ -55,7 +57,6 @@ public class BackupRepository {
                     if(i<0)break;
                     String str = new String(tmp, 0, i);
                     ret = Arrays.asList(str.split("\\s*\n\\s*"));
-                    System.out.println(ret.size());
                 }
                 if(channel.isClosed()){
                     break;
