@@ -32,13 +32,12 @@ public class Browser extends BorderPane {
     private WebView browser = new WebView();
     private WebEngine webEngine = browser.getEngine();
     private JSObject window = (JSObject) webEngine.executeScript("window");
-    private JavaApp javaApp;
+    private JavaApp javaApp = new JavaApp();
 
     //Browser constructor
     public Browser() {
         //add components
         setCenter(browser);
-       javaApp = new JavaApp();
 
         //add listenners
         webEngine.getLoadWorker().stateProperty().addListener(
@@ -58,7 +57,6 @@ public class Browser extends BorderPane {
                         }
                     }
                 });
-
 
         webEngine.setOnAlert(event -> {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -105,6 +103,7 @@ public class Browser extends BorderPane {
         }
         public void FindUserById(int id)
         {
+            browser.getEngine().load("javascript:window.location.reload( true )");
             UserController userController = UserController.GetInstance();
 
             User user = userController.FindById(id);
@@ -122,6 +121,7 @@ public class Browser extends BorderPane {
         }
         public void ModifyUser(int idUser, String email, String password, String poste, String lastName, String firstName, String adresse, int idRole)
         {
+            browser.getEngine().load("javascript:window.location.reload( true )");
             UserFactory userFactory = UserFactory.GetInstance();
             UserController userController = UserController.GetInstance();
             User userToUpdate = userFactory.Create(idUser, email, password, poste, lastName, firstName, adresse, null, null, 0, idRole);
@@ -136,6 +136,7 @@ public class Browser extends BorderPane {
         }
         public void CreateUser(int idUser, String email, String password, String poste, String lastName, String firstName, String adresse, int idRole)
         {
+            browser.getEngine().load("javascript:window.location.reload( true )");
             UserController userController = UserController.GetInstance();
             if(userController.Create(idUser, email, password, poste, lastName, firstName, adresse, null, null, 0, idRole))
             {
@@ -158,6 +159,7 @@ public class Browser extends BorderPane {
 
         public String CheckPermission()
         {
+
             RoleController roleController = RoleController.getInstance();
             ConnectedUser connectedUser = ConnectedUser.GetInstance();
 
@@ -174,6 +176,8 @@ public class Browser extends BorderPane {
         }
 
         public void ListAllItem() {
+            browser.getEngine().load("javascript:window.location.reload( true )");
+
             ItemController itemController = ItemController.GetInstance();
             ItemInfoController itemInfoController = ItemInfoController.GetInstance();
             List<Item> itemList = itemController.FindAll();
@@ -190,6 +194,7 @@ public class Browser extends BorderPane {
         }
 
         public void ListAllItemRapport() {
+            browser.getEngine().load("javascript:window.location.reload( true )");
             ItemController itemController = ItemController.GetInstance();
             ItemInfoController itemInfoController = ItemInfoController.GetInstance();
             List<Item> itemList = itemController.FindAll();
@@ -205,6 +210,7 @@ public class Browser extends BorderPane {
         }
 
         public void ListItemById(int id) {
+            browser.getEngine().load("javascript:window.location.reload( true )");
             ItemController itemController = ItemController.GetInstance();
             ItemInfoController itemInfoController = ItemInfoController.GetInstance();
             Item item = itemController.FindById(id);
@@ -218,6 +224,7 @@ public class Browser extends BorderPane {
         }
 
         public void ListItemByName(String name) {
+            browser.getEngine().load("javascript:window.location.reload( true )");
             ItemController itemController = ItemController.GetInstance();
             ItemInfoController itemInfoController = ItemInfoController.GetInstance();
             List<Item> itemList = itemController.FindByName(name);
@@ -233,6 +240,7 @@ public class Browser extends BorderPane {
         }
 
         public void ListDeleteItemByUPC(int upc) {
+            browser.getEngine().load("javascript:window.location.reload( true )");
             ItemController itemController = ItemController.GetInstance();
             ItemInfoController itemInfoController = ItemInfoController.GetInstance();
             List<Item> itemList = itemController.FindAll();
@@ -252,6 +260,7 @@ public class Browser extends BorderPane {
         }
 
         public void ListUpdateItemByUPC(int upc) {
+            browser.getEngine().load("javascript:window.location.reload( true )");
             ItemController itemController = ItemController.GetInstance();
             ItemInfoController itemInfoController = ItemInfoController.GetInstance();
             List<Item> itemList = itemController.FindAll();
@@ -271,6 +280,7 @@ public class Browser extends BorderPane {
         }
 
         public void ListUpdateItemByDesc(String desc) {
+            browser.getEngine().load("javascript:window.location.reload( true )");
             ItemController itemController = ItemController.GetInstance();
             ItemInfoController itemInfoController = ItemInfoController.GetInstance();
             List<Item> itemList = itemController.FindAll();
@@ -293,6 +303,7 @@ public class Browser extends BorderPane {
 
         public void ListAllUpdateItem()
         {
+            browser.getEngine().load("javascript:window.location.reload( true )");
             ItemController itemController = ItemController.GetInstance();
             ItemInfoController itemInfoController = ItemInfoController.GetInstance();
             List<Item> itemList = itemController.FindAll();
@@ -309,6 +320,7 @@ public class Browser extends BorderPane {
         }
         public void ListDeleteItemByContainer(String emplacement)
         {
+            browser.getEngine().load("javascript:window.location.reload( true )");
             ItemController itemController = ItemController.GetInstance();
             ItemInfoController itemInfoController = ItemInfoController.GetInstance();
             List<Item> itemList = itemController.FindAll();
@@ -328,6 +340,7 @@ public class Browser extends BorderPane {
         }
         public void ListAllDeleteItem()
         {
+            browser.getEngine().load("javascript:window.location.reload( true )");
             ItemController itemController = ItemController.GetInstance();
             ItemInfoController itemInfoController = ItemInfoController.GetInstance();
             List<Item> itemList = itemController.FindAll();
@@ -344,6 +357,7 @@ public class Browser extends BorderPane {
         }
         public boolean DeleteItem(int id, int quantite)
         {
+            browser.getEngine().load("javascript:window.location.reload( true )");
             ItemController itemController = ItemController.GetInstance();
             if(itemController.Delete(id, quantite))
             {
@@ -355,6 +369,7 @@ public class Browser extends BorderPane {
 
         public boolean CreateItem(int upc,String emplacement, String description, int quantite)
         {
+            browser.getEngine().load("javascript:window.location.reload( true )");
             ItemController itemController = ItemController.GetInstance();
             if(itemController.Create(upc,emplacement, description, quantite))
             {
@@ -367,6 +382,7 @@ public class Browser extends BorderPane {
 
         public boolean MoveItem(int id,int quantite,String emplacementNouveau)
         {
+            browser.getEngine().load("javascript:window.location.reload( true )");
             ItemController itemController = ItemController.GetInstance();
 
             if(itemController.MoveItem(id,quantite,emplacementNouveau))
@@ -379,6 +395,7 @@ public class Browser extends BorderPane {
 
         public boolean ModifyItem(int id, String description)
         {
+            browser.getEngine().load("javascript:window.location.reload( true )");
             ItemController itemController = ItemController.GetInstance();
 
             if(itemController.ModifyItem(id,description))
@@ -389,6 +406,7 @@ public class Browser extends BorderPane {
             return false;
         }
         public void CreateCSVFile() {
+            browser.getEngine().load("javascript:window.location.reload( true )");
             ItemController itemController = ItemController.GetInstance();
             ItemInfoController itemInfoController = ItemInfoController.GetInstance();
             List<Item> itemList = itemController.FindAll();
@@ -433,6 +451,7 @@ public class Browser extends BorderPane {
         }
 
         public void CreateExcelFile() {
+            browser.getEngine().load("javascript:window.location.reload( true )");
             ItemController itemController = ItemController.GetInstance();
             ItemInfoController itemInfoController = ItemInfoController.GetInstance();
             List<Item> itemList = itemController.FindAll();
@@ -481,6 +500,7 @@ public class Browser extends BorderPane {
         }
 
         public void ShowRapportInterface(String tri) {
+            browser.getEngine().load("javascript:window.location.reload( true )");
             File f = new File("Rapport\\"); // current directory
 
             File[] files = f.listFiles();
@@ -509,6 +529,7 @@ public class Browser extends BorderPane {
         //CommandeItem est une table d'item commandé pour commande
         public boolean CreateCommande(int upc,int quantite,String description)
         {
+            browser.getEngine().load("javascript:window.location.reload( true )");
             ConnectedUser connectedUser = ConnectedUser.GetInstance();
 
             boolean valide = false;
@@ -536,6 +557,7 @@ public class Browser extends BorderPane {
         //Cette fonction update une commande et crée un item avec les paramètres reçus en javascrpt
         public boolean RecevoirCommande(int idItemCommande,String emplacement)
         {
+            browser.getEngine().load("javascript:window.location.reload( true )");
             ConnectedUser connectedUser = ConnectedUser.GetInstance();
             //Aller chercher dans connectedUser le nom d'utilisateur en cours
             String nomPRecu = connectedUser.getFirstName()+" "+connectedUser.getLastName();
@@ -561,6 +583,7 @@ public class Browser extends BorderPane {
         //Cette fonction retourne les données recherchées à la fonction JavaSripts ShowItem
         public void ListAllCommande(int upc,String name,int etat,boolean retard)
         {
+            browser.getEngine().load("javascript:window.location.reload( true )");
             java.sql.Date dateNow = new java.sql.Date(Calendar.getInstance().getTime().getTime());
 
             CommandeController commandeController = CommandeController.GetInstance();
@@ -593,6 +616,7 @@ public class Browser extends BorderPane {
         }
         public void ShowBackupMenu()
         {
+            browser.getEngine().load("javascript:window.location.reload( true )");
             BackupController backupController = BackupController.GetInstance();
 
             backupController.ShowBackupMenu();
