@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_maven" default="compile.module.maven">
+  <dirname property="module.maven.basedir" file="${ant.file.module_maven}"/>
+  
+  <property name="module.jdk.home.maven" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.maven" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.maven" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.maven" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
+  
+  <property name="maven.output.dir" value="${module.maven.basedir}/target/classes"/>
+  <property name="maven.testoutput.dir" value="${module.maven.basedir}/target/test-classes"/>
+  
+  <path id="maven.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="maven.module.production.classpath">
+    <path refid="${module.jdk.classpath.maven}"/>
+    <path refid="library.maven:_org.jooq:jooq:3.12.1.classpath"/>
+    <path refid="library.maven:_org.reactivestreams:reactive-streams:1.0.2.classpath"/>
+    <path refid="library.maven:_javax.xml.bind:jaxb-api:2.3.0.classpath"/>
+    <path refid="library.maven:_mysql:mysql-connector-java:8.0.17.classpath"/>
+    <path refid="library.maven:_com.google.protobuf:protobuf-java:3.6.1.classpath"/>
+    <path refid="library.maven:_com.itextpdf:itextpdf:5.5.10.classpath"/>
+    <path refid="library.maven:_org.bouncycastle:bcprov-jdk15on:1.56.classpath"/>
+    <path refid="library.maven:_org.apache.poi:poi:4.1.1.classpath"/>
+    <path refid="library.maven:_commons-codec:commons-codec:1.13.classpath"/>
+    <path refid="library.maven:_org.apache.commons:commons-collections4:4.4.classpath"/>
+    <path refid="library.maven:_org.apache.commons:commons-math3:3.6.1.classpath"/>
+    <path refid="library.maven:_com.jcraft:jsch:0.1.53.classpath"/>
+  </path>
+  
+  <path id="maven.runtime.production.module.classpath">
+    <pathelement location="${maven.output.dir}"/>
+    <path refid="library.maven:_org.jooq:jooq:3.12.1.classpath"/>
+    <path refid="library.maven:_org.reactivestreams:reactive-streams:1.0.2.classpath"/>
+    <path refid="library.maven:_javax.xml.bind:jaxb-api:2.3.0.classpath"/>
+    <path refid="library.maven:_mysql:mysql-connector-java:8.0.17.classpath"/>
+    <path refid="library.maven:_com.google.protobuf:protobuf-java:3.6.1.classpath"/>
+    <path refid="library.maven:_com.itextpdf:itextpdf:5.5.10.classpath"/>
+    <path refid="library.maven:_org.bouncycastle:bcprov-jdk15on:1.56.classpath"/>
+    <path refid="library.maven:_org.apache.poi:poi:4.1.1.classpath"/>
+    <path refid="library.maven:_commons-codec:commons-codec:1.13.classpath"/>
+    <path refid="library.maven:_org.apache.commons:commons-collections4:4.4.classpath"/>
+    <path refid="library.maven:_org.apache.commons:commons-math3:3.6.1.classpath"/>
+    <path refid="library.maven:_com.jcraft:jsch:0.1.53.classpath"/>
+  </path>
+  
+  <path id="maven.module.classpath">
+    <path refid="${module.jdk.classpath.maven}"/>
+    <pathelement location="${maven.output.dir}"/>
+    <path refid="library.maven:_org.jooq:jooq:3.12.1.classpath"/>
+    <path refid="library.maven:_org.reactivestreams:reactive-streams:1.0.2.classpath"/>
+    <path refid="library.maven:_javax.xml.bind:jaxb-api:2.3.0.classpath"/>
+    <path refid="library.maven:_mysql:mysql-connector-java:8.0.17.classpath"/>
+    <path refid="library.maven:_com.google.protobuf:protobuf-java:3.6.1.classpath"/>
+    <path refid="library.maven:_com.itextpdf:itextpdf:5.5.10.classpath"/>
+    <path refid="library.maven:_org.bouncycastle:bcprov-jdk15on:1.56.classpath"/>
+    <path refid="library.maven:_org.apache.poi:poi:4.1.1.classpath"/>
+    <path refid="library.maven:_commons-codec:commons-codec:1.13.classpath"/>
+    <path refid="library.maven:_org.apache.commons:commons-collections4:4.4.classpath"/>
+    <path refid="library.maven:_org.apache.commons:commons-math3:3.6.1.classpath"/>
+    <path refid="library.maven:_com.jcraft:jsch:0.1.53.classpath"/>
+  </path>
+  
+  <path id="maven.runtime.module.classpath">
+    <pathelement location="${maven.testoutput.dir}"/>
+    <pathelement location="${maven.output.dir}"/>
+    <path refid="library.maven:_org.jooq:jooq:3.12.1.classpath"/>
+    <path refid="library.maven:_org.reactivestreams:reactive-streams:1.0.2.classpath"/>
+    <path refid="library.maven:_javax.xml.bind:jaxb-api:2.3.0.classpath"/>
+    <path refid="library.maven:_mysql:mysql-connector-java:8.0.17.classpath"/>
+    <path refid="library.maven:_com.google.protobuf:protobuf-java:3.6.1.classpath"/>
+    <path refid="library.maven:_com.itextpdf:itextpdf:5.5.10.classpath"/>
+    <path refid="library.maven:_org.bouncycastle:bcprov-jdk15on:1.56.classpath"/>
+    <path refid="library.maven:_org.apache.poi:poi:4.1.1.classpath"/>
+    <path refid="library.maven:_commons-codec:commons-codec:1.13.classpath"/>
+    <path refid="library.maven:_org.apache.commons:commons-collections4:4.4.classpath"/>
+    <path refid="library.maven:_org.apache.commons:commons-math3:3.6.1.classpath"/>
+    <path refid="library.maven:_com.jcraft:jsch:0.1.53.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.maven">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.maven">
+    <patternset refid="excluded.from.module.maven"/>
+  </patternset>
+  
+  <path id="maven.module.sourcepath">
+    <dirset dir="${module.maven.basedir}">
+      <include name="src/main/java"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.maven" depends="compile.module.maven.production,compile.module.maven.tests" description="Compile module maven"/>
+  
+  <target name="compile.module.maven.production" depends="register.custom.compilers" description="Compile module maven; production classes">
+    <mkdir dir="${maven.output.dir}"/>
+    <javac2 destdir="${maven.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.maven}/javac">
+      <compilerarg line="${compiler.args.maven}"/>
+      <bootclasspath refid="maven.module.bootclasspath"/>
+      <classpath refid="maven.module.production.classpath"/>
+      <src refid="maven.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.maven"/>
+    </javac2>
+    
+    <copy todir="${maven.output.dir}">
+      <fileset dir="${module.maven.basedir}/src/main/java">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.maven.tests" depends="register.custom.compilers,compile.module.maven.production" description="compile module maven; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.maven" description="cleanup module">
+    <delete dir="${maven.output.dir}"/>
+    <delete dir="${maven.testoutput.dir}"/>
+  </target>
+</project>
