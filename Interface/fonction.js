@@ -188,9 +188,7 @@ function ShowUpdateItem()
      column4 = document.createElement("td");
     column2.innerHTML = "<div class='col-xs-4'><input type='text' class='form-control' id=" + "'" + arguments[5] + "'" + "placeholder='Quantité à modifier'></div>";
     column3.innerHTML = "<div class='col-xs-4'><input type='text' class='form-control' id=" + "'" + arguments[7] + "'" + "placeholder='Description à modifier'></div>";
-    //column4.innerHTML = "<button class='btn btn-default' onclick='ModifyItem(" + "'" + arguments[5] + "'" + ");' >Modifier</button>";
-    column4.innerHTML = "<button class='btn btn-default' onclick='ModifyItem(" + arguments[5] +","+ arguments[7] +");' >Retirer</button>";
-   // column4.innerHTML = "<button class='btn btn-default' onclick='ModifyItem(16);' >Modifier</button>";
+    column4.innerHTML = "<button class='btn btn-default' onclick='ModifyItem(" + arguments[5] +","+ arguments[6] + ");' >Retirer</button>";
     row.appendChild(column);
     row.appendChild(column2);
     row.appendChild(column3);
@@ -259,11 +257,12 @@ function ResetDeplacer()
 }
 
 
-function ModifyItem(id,description)
+function ModifyItem(id,description,quantite)
 {
 
    alert(id);
    alert(description);
+   alert(quantite);
    //if(window.JavaApp.ModifyItem(id,description))
   // {
      // ResetModify();
