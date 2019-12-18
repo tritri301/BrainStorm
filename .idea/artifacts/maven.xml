@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
-  <artifact type="javafx" name="test3">
-    <output-path>$PROJECT_DIR$/out/artifacts/test3</output-path>
+  <artifact type="javafx" name="maven">
+    <output-path>$PROJECT_DIR$/out/artifacts/maven</output-path>
     <properties id="javafx-properties">
       <options>
         <option name="appClass" value="View.BrowserView" />
