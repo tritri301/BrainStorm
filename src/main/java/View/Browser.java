@@ -99,7 +99,7 @@ public class Browser extends BorderPane {
                 DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
                 LocalDateTime lastConnected = LocalDateTime.parse(user.getLastConnected(), format);
                 now.format(format);
-                return lastConnected.plusHours(3).isAfter(now);
+                return lastConnected.plusHours(3).isBefore(now);
             }
             return false;
         }
