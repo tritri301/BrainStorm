@@ -38,7 +38,7 @@ public class main
 		ItemCommandeService itemCommandeService = ItemCommandeService.GetInstance();
 
 		BackupRepository backup = new BackupRepository();
-		backup.restore(backup.FindAll().get(0));
+		System.out.print(backup.FindAll().get(0));
 
 
 			System.out.println("---------------TEST SIMON --------------------------");

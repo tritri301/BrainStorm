@@ -3,10 +3,12 @@ package View;
 import Controllers.*;
 import Factory.UserFactory;
 import Models.*;
+import Repositories.BackupRepository;
 import Services.HashService;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.concurrent.Worker;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
@@ -44,13 +46,12 @@ public class Browser extends BorderPane {
                 new ChangeListener() {
                     @Override
                     public void changed(ObservableValue observable, Object oldValue, Object newValue) {
-                        //if (newValue != Worker.State.SUCCEEDED) {
-                        //    return;
-                       // }
+                        if (newValue != Worker.State.SUCCEEDED) {
+                            return;
+                        }
                         JSObject window = (JSObject) webEngine.executeScript("window");
                         window.setMember("JavaApp", javaApp);
                         window.call("CheckPermission");
-
                         if(webEngine.getLocation().equals("file:///" + System.getProperty("user.dir") + "/Interface/rapport.html"))
                         {
                             window.call("showListFolder");
@@ -86,7 +87,33 @@ public class Browser extends BorderPane {
         window.call("Alert", msg);
     }
 
+
     public class JavaApp {
+        public void createBackup()
+        {
+            BackupRepository backupRepository = new BackupRepository();
+            Alert("La création du backup peut prendre quelque minutes..");
+            backupRepository.create();
+            Alert("Backup créé avec succes!");
+        }
+        public void ShowBackups()
+        {
+            BackupRepository backupRepository = new BackupRepository();
+            Alert("Récupération de la liste de backup.. Ceci peut prendre un certain temps..");
+            List<String> backups = backupRepository.FindAll();
+            window.call("clearBackups");
+            for(int i = 0; i < backups.size(); i++)
+            {
+                window.call("ShowBackups", backups.get(i), i);
+            }
+        }
+        public void Restore(int index)
+        {
+            BackupRepository backupRepository = new BackupRepository();
+            String backupName = backupRepository.FindAll().get(index);
+            backupRepository.restore(backupName);
+            Alert("restauré avec succes!");
+        }
         public boolean isUserConnected()
         {
             ConnectedUser user = ConnectedUser.GetInstance();

@@ -11,6 +11,7 @@ But du fichier :    Afficher le menu du site
     <link rel="shortcut icon" href="icone.ico" type="image/x-icon" />
     <script type="text/javascript" src="fonction.js"></script>
     <script type="text/javascript" src="permission.js"></script>
+    <script type="text/javascript" src="backup.js"></script>
     <link rel="stylesheet" type="text/css" href="monstyle.css" media="all">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
@@ -72,22 +73,35 @@ But du fichier :    Afficher le menu du site
                     </td>
                 </tr>
                 <tr>
-                    <td align="center"><button id="backup" onclick="ShowBackupMenu();" >Backup</button>
+                    <td align="center"><button id="backup" onclick="window.JavaApp.createBackup()" >Backup</button>
                 </td>
                 </tr>
                 <tr>
                     <td align="center" colspan="2">
-                        <label for="titre"><i>Appuyez sur le bouton pour restore</i></label>
+                        <label for="titre"><i>Appuyez sur le bouton pour recuprer la liste des backups</i></label>
                     </td>
                 </tr>
                 <tr>
-                    <td align="center"><button id="restore" onclick="ShowBackupMenu();" >Restore</button>
+                    <td align="center"><button id="restore" onclick="window.JavaApp.ShowBackups();" >Récupérer</button>
                     </td>
                 </tr>
                 </tbody>
                 <!--Table body-->
             </table>
-
+            <table id="tablePreview" class="table table-bordered">
+                <!--Table head-->
+                <thead align="center">
+                <tr>
+                    <th>Nom du backup</th>
+                    <th>Restaurer le backup</th>
+                </tr>
+                </thead>
+                <!--Table head-->
+                <!--Table body-->
+                <tbody id="table1">
+                </tbody>
+                <!--Table body-->
+            </table>
         </div>
     </div>
 

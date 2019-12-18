@@ -7,6 +7,7 @@ import com.jcraft.jsch.Session;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class BackupRepository {
@@ -52,7 +53,9 @@ public class BackupRepository {
                 while(in.available()>0){
                     int i=in.read(tmp, 0, 1024);
                     if(i<0)break;
-                    ret.add(new String(tmp, 0, i));
+                    String str = new String(tmp, 0, i);
+                    ret = Arrays.asList(str.split("\\s*\n\\s*"));
+                    System.out.println(ret.size());
                 }
                 if(channel.isClosed()){
                     break;
