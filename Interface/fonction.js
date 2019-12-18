@@ -12,8 +12,8 @@ function SubmitList()
 {
     //Variable declaration
     var idItem = document.getElementById("upc").value;
-    var nameItem = document.getElementById("name").value;
-    var myNode = document.getElementById("table1");
+    var nameItem = document.getElementById("description").value;
+    var myNode = document.getElementById("name");
 
     //Deletes all existing entries
     while (myNode.firstChild) {
@@ -256,22 +256,20 @@ function ResetDeplacer()
     document.getElementById("TxtBoxTablette").value = "";
 }
 
-
-function ModifyItem(id,description,quantite)
+function ModifyItem()
 {
+   var itemID = document.getElementById("id").value;
+   var description = document.getElementById("description").value;
 
-   alert(id);
-   alert(description);
-   alert(quantite);
-   //if(window.JavaApp.ModifyItem(id,description))
-  // {
-     // ResetModify();
-  // }
+   if(window.JavaApp.ModifyItem(itemID,description))
+   {
+      ResetModify();
+   }
 }
 
 function ResetModify()
 {
-   document.getElementById("upc").value = "";
+   document.getElementById("id").value = "";
    document.getElementById("description").value = "";
 }
 
